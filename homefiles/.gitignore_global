@@ -1,0 +1,15 @@
+# === compiled === #
+*.o
+
+# === OS === #
+.DS_Store
+
+# === language === #
+node_modules/
+__pycache__/
+*.pyc
+
+# === editor === #
+**/*~
+**/*.bak
+**/*.sw[abcdefghijklmnop]

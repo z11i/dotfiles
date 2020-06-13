@@ -1,0 +1,6 @@
+[user]
+	email = z11imdk@gmail.com
+	name = Elliot Zhang
+
+[core]
+	excludesfile = ~/.gitignore_global
