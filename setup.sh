@@ -120,11 +120,20 @@ if [ ${FLAGS_fish} -eq $YES ] || [ ${FLAGS_all} -eq $YES ]; then
 			sudo apt-add-repository -y ppa:fish-shell/release-3
 			sudo apt-get update -y
 			sudo apt-get install -y fish
+			echo === changing default shell ===
+			sudo chsh -s /usr/local/bin/fish
 			;;
 		esac
 		;;
 	macos)
-		brew install fish
+		brew install fish && (
+			line='/usr/local/bin/fish'
+			file=/etc/shells
+			echo === adding fish as a standard shell ===
+			grep -qF "$line" "$file" || echo "$line" | sudo tee --append "$file"
+			echo === changing default shell ===
+			chsh -s "$line"
+		)
 		;;
 	esac
 fi
