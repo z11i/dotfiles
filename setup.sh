@@ -1,21 +1,8 @@
 #!/usr/bin/env sh
 
-# === read flags === #
-. shflags/shflags
-
-DEFINE_boolean 'all' ${FLAGS_FALSE} 'configure all tools'
-DEFINE_boolean 'git' ${FLAGS_FALSE} 'configure git'
-DEFINE_boolean 'fish' ${FLAGS_FALSE} 'configure fish'
-
-FLAGS "$@" || exit $?
-eval set -- "${FLAGS_ARGV}"
-YES=${FLAGS_TRUE}
-NO=${FLAGS_FALSE}
-# === read flags === #
-
+# === OS detection and OS specific preparations needed to proceed. === #
 OS_NAME=""
 LINUX_DISTRO=""
-
 detectOS() {
 	case $(uname | tr '[:upper:]' '[:lower:]') in
 	linux*)
@@ -48,6 +35,22 @@ detectOS() {
 	esac
 }
 
+detectOS
+
+## macos preparations
+if [ $OS_NAME = "macos" ]; then
+	command -v brew >/dev/null 2>&1 ||
+		(
+			echo === installing homeberw ===
+			curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh
+			 
+		)
+	[ -e /usr/local/opt/gnu-getopt/bin/getopt ] ||
+		brew install gnu-getopt # solve getopt on macos doesn't support long options
+	export FLAGS_GETOPT_CMD=/usr/local/opt/gnu-getopt/bin/getopt
+fi
+
+# === functions === #
 _bkup() {
 	if [ ! -e "$1" ]; then
 		return
@@ -81,7 +84,18 @@ transfer() {
 	fi
 }
 
-detectOS
+# === read flags === #
+. shflags/shflags
+
+DEFINE_boolean 'all' ${FLAGS_FALSE} 'configure all tools'
+DEFINE_boolean 'git' ${FLAGS_FALSE} 'configure git'
+DEFINE_boolean 'fish' ${FLAGS_FALSE} 'configure fish'
+
+FLAGS "$@" || exit $?
+eval set -- "${FLAGS_ARGV}"
+YES=${FLAGS_TRUE}
+NO=${FLAGS_FALSE}
+# === read flags === #
 
 if [ ${FLAGS_git} -eq $YES ] || [ ${FLAGS_all} -eq $YES ]; then
 	transfer homefiles/.gitignore_global ~
