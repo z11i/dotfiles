@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # === OS detection and OS specific preparations needed to proceed. === #
 OS_NAME=''
@@ -38,18 +38,16 @@ detectOS() {
 detectOS
 
 ## macos preparations
-if [ $OS_NAME = 'macos' ]; then
+if [[ $OS_NAME = 'macos' ]]; then
 	command -v brew >/dev/null 2>&1 ||
 		(
 			echo === installing homeberw ===
 			curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh
-			 
 		)
-	[ -e /usr/local/opt/gnu-getopt/bin/getopt ] ||
+	[[ -e /usr/local/opt/gnu-getopt/bin/getopt ]] ||
 		brew install gnu-getopt # solve getopt on macos doesn't support long options
 	export FLAGS_GETOPT_CMD=/usr/local/opt/gnu-getopt/bin/getopt
 fi
-
 
 # === functions === #
 _bkup() {
@@ -74,17 +72,16 @@ _bkup() {
 # example: transfer homefiles/.gitignore_global ~
 # example: transfer config/fish ~/.config
 transfer() {
-	echo === transfering $1 ===
-	dest="$2/$(basename $1)"
-	_bkup $dest
-	echo transfer to $dest
-	if [ -f $1 ]; then
-		cp $1 $dest
-	elif [ -d $1 ]; then
-		cp -r $1 $dest
+	echo === transfering "$1" ===
+	dest="$2/$(basename "$1")"
+	_bkup "$dest"
+	echo transfer to "$dest"
+	if [[ -f "$1" ]]; then
+		cp "$1" "$dest"
+	elif [[ -d "$1" ]]; then
+		cp -r "$1" "$dest"
 	fi
 }
-
 
 # === read flags === #
 . shflags/shflags
@@ -95,27 +92,25 @@ DEFINE_boolean 'fish' ${FLAGS_FALSE} 'configure fish'
 
 FLAGS "$@" || exit $?
 eval set -- "${FLAGS_ARGV}"
-YES=${FLAGS_TRUE}
-NO=${FLAGS_FALSE}
-
+YES="${FLAGS_TRUE}"
+NO="${FLAGS_FALSE}"
 
 # === setup git === #
-if [ ${FLAGS_git} -eq $YES ] || [ ${FLAGS_all} -eq $YES ]; then
+if [[ "${FLAGS_git}" -eq "$YES" ]] || [[ "${FLAGS_all}" -eq "$YES" ]]; then
 	transfer homefiles/.gitignore_global ~
 	transfer homefiles/.gitconfig ~
-	if [ $OS_NAME = 'macos' ]; then
+	if [[ "$OS_NAME" = 'macos' ]]; then
 		brew install git
 	fi
 fi
 
-
 # === setup fish === #
-if [ ${FLAGS_fish} -eq $YES ] || [ ${FLAGS_all} -eq $YES ]; then
+if [[ "${FLAGS_fish}" -eq "$YES" ]] || [ "${FLAGS_all}" -eq "$YES" ]; then
 	mkdir -p ~/.config
 	transfer config/fish ~/.config
-	case $OS_NAME in
+	case "$OS_NAME" in
 	linux)
-		case $LINUX_DISTRO in
+		case "$LINUX_DISTRO" in
 		ubuntu)
 			sudo apt-add-repository -y ppa:fish-shell/release-3
 			sudo apt-get update -y
