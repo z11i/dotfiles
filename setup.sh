@@ -1,8 +1,8 @@
 #!/usr/bin/env sh
 
 # === OS detection and OS specific preparations needed to proceed. === #
-OS_NAME=""
-LINUX_DISTRO=""
+OS_NAME=''
+LINUX_DISTRO=''
 detectOS() {
 	case $(uname | tr '[:upper:]' '[:lower:]') in
 	linux*)
@@ -17,7 +17,7 @@ detectOS() {
 			LINUX_DISTRO=ubuntu
 			;;
 		*)
-			echo "Distro not supported yet!"
+			echo 'Distro not supported yet!'
 			exit 127
 			;;
 		esac
@@ -29,7 +29,7 @@ detectOS() {
 	#	OS_NAME=windows
 	#	;;
 	*)
-		echo "OS not supported yet!"
+		echo 'OS not supported yet!'
 		exit 127
 		;;
 	esac
@@ -38,7 +38,7 @@ detectOS() {
 detectOS
 
 ## macos preparations
-if [ $OS_NAME = "macos" ]; then
+if [ $OS_NAME = 'macos' ]; then
 	command -v brew >/dev/null 2>&1 ||
 		(
 			echo === installing homeberw ===
@@ -49,6 +49,7 @@ if [ $OS_NAME = "macos" ]; then
 		brew install gnu-getopt # solve getopt on macos doesn't support long options
 	export FLAGS_GETOPT_CMD=/usr/local/opt/gnu-getopt/bin/getopt
 fi
+
 
 # === functions === #
 _bkup() {
@@ -84,6 +85,7 @@ transfer() {
 	fi
 }
 
+
 # === read flags === #
 . shflags/shflags
 
@@ -95,12 +97,19 @@ FLAGS "$@" || exit $?
 eval set -- "${FLAGS_ARGV}"
 YES=${FLAGS_TRUE}
 NO=${FLAGS_FALSE}
-# === read flags === #
 
+
+# === setup git === #
 if [ ${FLAGS_git} -eq $YES ] || [ ${FLAGS_all} -eq $YES ]; then
 	transfer homefiles/.gitignore_global ~
 	transfer homefiles/.gitconfig ~
+	if [ $OS_NAME = 'macos' ]; then
+		brew install git
+	fi
 fi
+
+
+# === setup fish === #
 if [ ${FLAGS_fish} -eq $YES ] || [ ${FLAGS_all} -eq $YES ]; then
 	mkdir -p ~/.config
 	transfer config/fish ~/.config
