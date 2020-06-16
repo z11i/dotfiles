@@ -12,16 +12,29 @@ end
 sourceadd ~/.config/fish/secret.fish
 
 # set editor
-set -Ux EDITOR nvim
+if type -q nvim
+    set -Ux EDITOR nvim
+else if type -q vim
+    set -Ux EDITOR vim
+else if type -q vi
+    set -Ux EDITOR vi
+end
+set -Ux VISUAL "$EDITOR"
 
 # disable fish welcome message
 set fish_greeting 
 
 # jenv
-status --is-interactive; and source (jenv init -|psub)
+if type -q jenv
+    status --is-interactive; and source (jenv init -|psub)
+end
 
 # thefuck
-thefuck --alias | source
+if type -q thefuck
+    thefuck --alias | source
+end
 
 # starship prompt
-starship init fish | source
+if type -q starship
+    starship init fish | source
+end

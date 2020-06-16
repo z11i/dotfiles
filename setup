@@ -102,33 +102,67 @@ if [[ "${FLAGS_git}" -eq "$YES" ]] || [[ "${FLAGS_all}" -eq "$YES" ]]; then
 	if [[ "$OS_NAME" = 'macos' ]]; then
 		brew install git
 	fi
+	echo === download gitalias.txt ===
+	curl https://raw.githubusercontent.com/GitAlias/gitalias/master/gitalias.txt -sLo ~/.gitalias.txt
 fi
 
 # === setup fish === #
 if [[ "${FLAGS_fish}" -eq "$YES" ]] || [ "${FLAGS_all}" -eq "$YES" ]; then
 	mkdir -p ~/.config
 	transfer config/fish ~/.config
-	case "$OS_NAME" in
-	linux)
-		case "$LINUX_DISTRO" in
-		ubuntu)
-			sudo apt-add-repository -y ppa:fish-shell/release-3
-			sudo apt-get update -y
-			sudo apt-get install -y fish
-			echo === changing default shell ===
-			sudo chsh -s /usr/local/bin/fish
+	command -v fish || (
+		case "$OS_NAME" in
+		linux)
+			case "$LINUX_DISTRO" in
+			ubuntu)
+				echo === installing fish ===
+				sudo apt-add-repository -y ppa:fish-shell/release-3
+				sudo apt-get update -y
+				sudo apt-get install -y fish
+				echo === changing default shell ===
+				chsh -s /usr/bin/fish
+				;;
+			esac
+			;;
+		macos)
+			echo === installing fish ===
+			brew install fish && (
+				line='/usr/local/bin/fish'
+				file=/etc/shells
+				echo === adding fish as a standard shell ===
+				grep -qF "$line" "$file" || echo "$line" | sudo tee --append "$file"
+				echo === changing default shell ===
+				chsh -s "$line"
+			)
 			;;
 		esac
-		;;
-	macos)
-		brew install fish && (
-			line='/usr/local/bin/fish'
-			file=/etc/shells
-			echo === adding fish as a standard shell ===
-			grep -qF "$line" "$file" || echo "$line" | sudo tee --append "$file"
-			echo === changing default shell ===
-			chsh -s "$line"
-		)
-		;;
-	esac
+	)
+	echo === running fish custom setup script
+	bash config/fish/custom_ext.sh
+
+	echo === installing shell tools ===
+	command -v thefuck || (
+		echo === installing thefuck ===
+		case "$OS_NAME" in
+		linux)
+			sudo apt install python3-dev python3-pip python3-setuptools
+			sudo pip3 install thefuck
+			;;
+		macos)
+			brew install thefuck
+			;;
+		esac
+	)
+	command -v starship || (
+		echo === installing starship ===
+		case "$OS_NAME" in
+		linux)
+			sudo apt install python3-dev python3-pip python3-setuptools
+			sudo pip3 install thefuck
+			;;
+		macos)
+			brew install starship
+			;;
+		esac
+	)
 fi
