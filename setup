@@ -89,6 +89,7 @@ transfer() {
 symlink() {
 	echo === symlink from "$2" to "$1" ===
 	_bkup "$2"
+	mkdir -p "$(dirname "$2")"
 	ln -s $(pwd)/"$1" "$2"
 }
 
@@ -98,6 +99,7 @@ symlink() {
 DEFINE_boolean 'all' ${FLAGS_FALSE} 'configure all tools'
 DEFINE_boolean 'git' ${FLAGS_FALSE} 'configure git'
 DEFINE_boolean 'fish' ${FLAGS_FALSE} 'configure fish'
+DEFINE_boolean 'nvim' ${FLAGS_FALSE} 'configure neovim'
 DEFINE_boolean 'gnu' ${FLAGS_FALSE} 'configure gnu tools for mac'
 
 FLAGS "$@" || exit $?
@@ -137,7 +139,6 @@ fi
 
 # === setup fish === #
 if [[ "${FLAGS_fish}" -eq "$YES" ]] || [ "${FLAGS_all}" -eq "$YES" ]; then
-	mkdir -p ~/.config
 	symlink config/fish ~/.config/fish
 	command -v fish || (
 		case "$OS_NAME" in
@@ -202,4 +203,20 @@ if [[ "${FLAGS_gnu}" -eq "$YES" ]] || [[ "${FLAGS_all}" -eq "$YES" ]]; then
 		echo === installing gnu utilities ===
 		brew install coreutils findutils gnu-tar gnu-sed gawk gnutls gnu-indent gnu-getopt grep
 	fi
+fi
+
+# === setup neovim === #
+if [[ "${FLAGS_nvim}" -eq "$YES" ]] || [[ "${FLAGS_all}" -eq "$YES" ]]; then
+	command -v nvim || (
+		echo === installing neovim ===
+		case "$OS_NAME" in
+		linux)
+			sudo apt install neovim
+			;;
+		macos)
+			brew install neovim
+			;;
+		esac
+	)
+	symlink config/nvim ~/.config/nvim
 fi
