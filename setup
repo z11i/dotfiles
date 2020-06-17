@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 # === OS detection and OS specific preparations needed to proceed. === #
 OS_NAME=''
 LINUX_DISTRO=''
@@ -83,6 +85,13 @@ transfer() {
 	fi
 }
 
+# usage: symlink to from
+symlink() {
+	echo === symlink from "$2" to "$1" ===
+	_bkup "$2"
+	ln -s $(pwd)/"$1" "$2" 
+}
+
 # === read flags === #
 . shflags/shflags
 
@@ -98,19 +107,18 @@ NO="${FLAGS_FALSE}"
 
 # === setup git === #
 if [[ "${FLAGS_git}" -eq "$YES" ]] || [[ "${FLAGS_all}" -eq "$YES" ]]; then
-	transfer homefiles/.gitignore_global ~
-	transfer homefiles/.gitconfig ~
+	symlink homefiles/.gitignore_global ~/.gitignore_global
+	symlink homefiles/.gitconfig ~/.gitconfig
 	if [[ "$OS_NAME" = 'macos' ]]; then
 		brew install git
 	fi
-	echo === download gitalias.txt ===
-	curl https://raw.githubusercontent.com/GitAlias/gitalias/master/gitalias.txt -sLo ~/.gitalias.txt
+	symlink homefiles/gitalias.git/gitalias.txt ~/.gitalias.txt
 fi
 
 # === setup fish === #
 if [[ "${FLAGS_fish}" -eq "$YES" ]] || [ "${FLAGS_all}" -eq "$YES" ]; then
 	mkdir -p ~/.config
-	transfer config/fish ~/.config
+	symlink config/fish ~/.config/fish
 	command -v fish || (
 		case "$OS_NAME" in
 		linux)

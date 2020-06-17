@@ -1,3 +1,6 @@
 [submodule "shflags"]
 	path = shflags
 	url = https://github.com/kward/shflags
+[submodule "homefiles/gitalias.git"]
+	path = homefiles/gitalias.git
+	url = https://github.com/GitAlias/gitalias.git

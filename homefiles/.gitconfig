@@ -6,4 +6,4 @@
 	excludesfile = ~/.gitignore_global
 
 [include]
-	path = gitalias.txt
+	path = ~/.gitalias.txt
