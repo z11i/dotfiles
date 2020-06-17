@@ -36,6 +36,7 @@ DEFINE_boolean 'git' "$NO" 'configure git'
 DEFINE_boolean 'fish' "$NO" 'configure fish'
 DEFINE_boolean 'nvim' "$NO" 'configure neovim'
 DEFINE_boolean 'gnu' "$NO" 'configure gnu tools for mac'
+DEFINE_boolean 'node' "$NO" 'configure node and yarn'
 
 FLAGS "$@" || exit $?
 eval set -- "${FLAGS_ARGV}"
@@ -151,4 +152,24 @@ if [[ "${FLAGS_nvim}" -eq "$YES" ]] || [[ "${FLAGS_all}" -eq "$YES" ]]; then
 		esac
 	)
 	symlink config/nvim ~/.config/nvim
+fi
+
+# === setup node === #
+if [[ "${FLAGS_node}" -eq "$YES" ]] || [[ "${FLAGS_all}" -eq "$YES" ]]; then
+	checkBin node || (
+		echo === installing node ===
+		case "$OS_NAME" in
+		linux)
+			sudo apt update
+			sudo apt install nodejs
+			;;
+		macos)
+			brew install node
+			;;
+		esac
+	)
+	checkBin yarn || (
+		echo === installing yarn ===
+		npm install -g yarn
+	)
 fi
