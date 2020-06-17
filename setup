@@ -2,46 +2,20 @@
 
 set -e
 
+# === include functions ===
+for f in libexec/*; do
+	. "$f"
+done
+
 # === OS detection and OS specific preparations needed to proceed. === #
 OS_NAME=''
 LINUX_DISTRO=''
-detectOS() {
-	case $(uname | tr '[:upper:]' '[:lower:]') in
-	linux*)
-		OS_NAME=linux
-		distro=$(
-			(lsb_release -ds || cat /etc/*release || uname -om) 2>/dev/null |
-				head -n1 |
-				tr '[:upper:]' '[:lower:]'
-		)
-		case $distro in
-		ubuntu*)
-			LINUX_DISTRO=ubuntu
-			;;
-		*)
-			echo 'Distro not supported yet!'
-			exit 127
-			;;
-		esac
-		;;
-	darwin*)
-		OS_NAME=macos
-		;;
-	#msys*)
-	#	OS_NAME=windows
-	#	;;
-	*)
-		echo 'OS not supported yet!'
-		exit 127
-		;;
-	esac
-}
 
 detectOS
 
 ## macos preparations
 if [[ $OS_NAME = 'macos' ]]; then
-	command -vq brew >/dev/null 2>&1 ||
+	checkBin brew ||
 		(
 			echo === installing homeberw ===
 			curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh
@@ -51,61 +25,20 @@ if [[ $OS_NAME = 'macos' ]]; then
 	export FLAGS_GETOPT_CMD=/usr/local/opt/gnu-getopt/bin/getopt
 fi
 
-# === functions === #
-_bkup() {
-	if [ ! -e "$1" ]; then
-		return
-	fi
-	echo "backup up <<< $1"
-	prefix="$1".bkup
-	counter=1
-	while true; do
-		target="$prefix"_"$counter"
-		if [ ! -e "$target" ]; then
-			echo "backup to >>> $target"
-			mv -- "$1" "$target"
-			break
-		fi
-		counter=$((counter + 1))
-	done
-}
-
-# usage: transfer <filename> <dir>
-# example: transfer homefiles/.gitignore_global ~
-# example: transfer config/fish ~/.config
-transfer() {
-	echo === transfering "$1" ===
-	dest="$2/$(basename "$1")"
-	_bkup "$dest"
-	echo transfer to "$dest"
-	if [[ -f "$1" ]]; then
-		cp "$1" "$dest"
-	elif [[ -d "$1" ]]; then
-		cp -r "$1" "$dest"
-	fi
-}
-
-# usage: symlink to from
-symlink() {
-	echo === symlink from "$2" to "$1" ===
-	_bkup "$2"
-	mkdir -p "$(dirname "$2")"
-	ln -s $(pwd)/"$1" "$2"
-}
-
 # === read flags === #
 . shflags/shflags
 
-DEFINE_boolean 'all' ${FLAGS_FALSE} 'configure all tools'
-DEFINE_boolean 'git' ${FLAGS_FALSE} 'configure git'
-DEFINE_boolean 'fish' ${FLAGS_FALSE} 'configure fish'
-DEFINE_boolean 'nvim' ${FLAGS_FALSE} 'configure neovim'
-DEFINE_boolean 'gnu' ${FLAGS_FALSE} 'configure gnu tools for mac'
+YES="${FLAGS_TRUE}"
+NO="${FLAGS_FALSE}"
+
+DEFINE_boolean 'all' "$NO" 'configure all tools'
+DEFINE_boolean 'git' "$NO" 'configure git'
+DEFINE_boolean 'fish' "$NO" 'configure fish'
+DEFINE_boolean 'nvim' "$NO" 'configure neovim'
+DEFINE_boolean 'gnu' "$NO" 'configure gnu tools for mac'
 
 FLAGS "$@" || exit $?
 eval set -- "${FLAGS_ARGV}"
-YES="${FLAGS_TRUE}"
-NO="${FLAGS_FALSE}"
 
 # === setup git === #
 if [[ "${FLAGS_git}" -eq "$YES" ]] || [[ "${FLAGS_all}" -eq "$YES" ]]; then
@@ -124,7 +57,7 @@ if [[ "${FLAGS_git}" -eq "$YES" ]] || [[ "${FLAGS_all}" -eq "$YES" ]]; then
 	name = $git_name
 EOF
 	fi
-	command -vq diff-so-fancy || (
+	checkBin diff-so-fancy || (
 		case "$OS_NAME" in
 		linux)
 			apt-get install diff-so-fancy
@@ -139,7 +72,7 @@ fi
 # === setup fish === #
 if [[ "${FLAGS_fish}" -eq "$YES" ]] || [ "${FLAGS_all}" -eq "$YES" ]; then
 	symlink config/fish ~/.config/fish
-	command -vq fish || (
+	checkBin fish || (
 		case "$OS_NAME" in
 		linux)
 			case "$LINUX_DISTRO" in
@@ -170,7 +103,7 @@ if [[ "${FLAGS_fish}" -eq "$YES" ]] || [ "${FLAGS_all}" -eq "$YES" ]; then
 	bash config/fish/custom_ext.sh
 
 	echo === installing shell tools ===
-	command -vq thefuck || (
+	checkBin thefuck || (
 		echo === installing thefuck ===
 		case "$OS_NAME" in
 		linux)
@@ -182,7 +115,7 @@ if [[ "${FLAGS_fish}" -eq "$YES" ]] || [ "${FLAGS_all}" -eq "$YES" ]; then
 			;;
 		esac
 	)
-	command -vq starship || (
+	checkBin starship || (
 		echo === installing starship ===
 		case "$OS_NAME" in
 		linux)
@@ -206,7 +139,7 @@ fi
 
 # === setup neovim === #
 if [[ "${FLAGS_nvim}" -eq "$YES" ]] || [[ "${FLAGS_all}" -eq "$YES" ]]; then
-	command -vq nvim || (
+	checkBin nvim || (
 		echo === installing neovim ===
 		case "$OS_NAME" in
 		linux)

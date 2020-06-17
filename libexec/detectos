@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+detectOS() {
+	case $(uname | tr '[:upper:]' '[:lower:]') in
+	linux*)
+		OS_NAME=linux
+		distro=$(
+			(lsb_release -ds || cat /etc/*release || uname -om) 2>/dev/null |
+				head -n1 |
+				tr '[:upper:]' '[:lower:]'
+		)
+		case $distro in
+		ubuntu*)
+			LINUX_DISTRO=ubuntu
+			;;
+		*)
+			echo 'Distro not supported yet!'
+			exit 127
+			;;
+		esac
+		;;
+	darwin*)
+		OS_NAME=macos
+		;;
+	#msys*)
+	#	OS_NAME=windows
+	#	;;
+	*)
+		echo 'OS not supported yet!'
+		exit 127
+		;;
+	esac
+}

@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+# usage: symlink to from
+symlink() {
+	echo === symlink from "$2" to "$1" ===
+	_bkup "$2"
+	mkdir -p "$(dirname "$2")"
+	ln -s $(pwd)/"$1" "$2"
+}

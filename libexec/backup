@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+_bkup() {
+	if [ ! -e "$1" ]; then
+		return
+	fi
+	echo "backup up <<< $1"
+	prefix="$1".bkup
+	counter=1
+	while true; do
+		target="$prefix"_"$counter"
+		if [ ! -e "$target" ]; then
+			echo "backup to >>> $target"
+			mv -- "$1" "$target"
+			break
+		fi
+		counter=$((counter + 1))
+	done
+}
