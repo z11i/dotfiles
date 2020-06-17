@@ -89,7 +89,7 @@ transfer() {
 symlink() {
 	echo === symlink from "$2" to "$1" ===
 	_bkup "$2"
-	ln -s $(pwd)/"$1" "$2" 
+	ln -s $(pwd)/"$1" "$2"
 }
 
 # === read flags === #
@@ -113,6 +113,26 @@ if [[ "${FLAGS_git}" -eq "$YES" ]] || [[ "${FLAGS_all}" -eq "$YES" ]]; then
 		brew install git
 	fi
 	symlink homefiles/gitalias.git/gitalias.txt ~/.gitalias.txt
+	if [[ ! -f ~/.gituser ]]; then
+		echo '=== ~/.gituser file missing, creating one ==='
+		read -p 'Email for git: ' git_email
+		read -p 'Name for git: ' git_name
+		cat <<EOF >~/.gituser
+[user]
+	email = $git_email
+	name = $git_name
+EOF
+	fi
+	command -v diff-so-fancy || (
+		case "$OS_NAME" in
+		linux)
+			apt-get install diff-so-fancy
+			;;
+		macos)
+			brew install diff-so-fancy
+			;;
+		esac
+	)
 fi
 
 # === setup fish === #
@@ -178,8 +198,8 @@ fi
 
 # === setup gnu === #
 if [[ "${FLAGS_gnu}" -eq "$YES" ]] || [[ "${FLAGS_all}" -eq "$YES" ]]; then
-    if [[ "$OS_NAME" = 'macos' ]]; then
-        echo === installing gnu utilities ===
-        brew install coreutils findutils gnu-tar gnu-sed gawk gnutls gnu-indent gnu-getopt grep
-    fi
+	if [[ "$OS_NAME" = 'macos' ]]; then
+		echo === installing gnu utilities ===
+		brew install coreutils findutils gnu-tar gnu-sed gawk gnutls gnu-indent gnu-getopt grep
+	fi
 fi
