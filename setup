@@ -89,6 +89,7 @@ transfer() {
 DEFINE_boolean 'all' ${FLAGS_FALSE} 'configure all tools'
 DEFINE_boolean 'git' ${FLAGS_FALSE} 'configure git'
 DEFINE_boolean 'fish' ${FLAGS_FALSE} 'configure fish'
+DEFINE_boolean 'gnu' ${FLAGS_FALSE} 'configure gnu tools for mac'
 
 FLAGS "$@" || exit $?
 eval set -- "${FLAGS_ARGV}"
@@ -165,4 +166,12 @@ if [[ "${FLAGS_fish}" -eq "$YES" ]] || [ "${FLAGS_all}" -eq "$YES" ]; then
 			;;
 		esac
 	)
+fi
+
+# === setup gnu === #
+if [[ "${FLAGS_gnu}" -eq "$YES" ]] || [[ "${FLAGS_all}" -eq "$YES" ]]; then
+    if [[ "$OS_NAME" = 'macos' ]]; then
+        echo === installing gnu utilities ===
+        brew install coreutils findutils gnu-tar gnu-sed gawk gnutls gnu-indent gnu-getopt grep
+    fi
 fi
