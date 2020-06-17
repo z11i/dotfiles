@@ -41,7 +41,7 @@ detectOS
 
 ## macos preparations
 if [[ $OS_NAME = 'macos' ]]; then
-	command -v brew >/dev/null 2>&1 ||
+	command -vq brew >/dev/null 2>&1 ||
 		(
 			echo === installing homeberw ===
 			curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh
@@ -109,12 +109,11 @@ NO="${FLAGS_FALSE}"
 
 # === setup git === #
 if [[ "${FLAGS_git}" -eq "$YES" ]] || [[ "${FLAGS_all}" -eq "$YES" ]]; then
-	symlink homefiles/.gitignore_global ~/.gitignore_global
+	symlink config/git ~/.config/git
 	symlink homefiles/.gitconfig ~/.gitconfig
 	if [[ "$OS_NAME" = 'macos' ]]; then
 		brew install git
 	fi
-	symlink homefiles/gitalias.git/gitalias.txt ~/.gitalias.txt
 	if [[ ! -f ~/.gituser ]]; then
 		echo '=== ~/.gituser file missing, creating one ==='
 		read -p 'Email for git: ' git_email
@@ -125,7 +124,7 @@ if [[ "${FLAGS_git}" -eq "$YES" ]] || [[ "${FLAGS_all}" -eq "$YES" ]]; then
 	name = $git_name
 EOF
 	fi
-	command -v diff-so-fancy || (
+	command -vq diff-so-fancy || (
 		case "$OS_NAME" in
 		linux)
 			apt-get install diff-so-fancy
@@ -140,7 +139,7 @@ fi
 # === setup fish === #
 if [[ "${FLAGS_fish}" -eq "$YES" ]] || [ "${FLAGS_all}" -eq "$YES" ]; then
 	symlink config/fish ~/.config/fish
-	command -v fish || (
+	command -vq fish || (
 		case "$OS_NAME" in
 		linux)
 			case "$LINUX_DISTRO" in
@@ -171,7 +170,7 @@ if [[ "${FLAGS_fish}" -eq "$YES" ]] || [ "${FLAGS_all}" -eq "$YES" ]; then
 	bash config/fish/custom_ext.sh
 
 	echo === installing shell tools ===
-	command -v thefuck || (
+	command -vq thefuck || (
 		echo === installing thefuck ===
 		case "$OS_NAME" in
 		linux)
@@ -183,7 +182,7 @@ if [[ "${FLAGS_fish}" -eq "$YES" ]] || [ "${FLAGS_all}" -eq "$YES" ]; then
 			;;
 		esac
 	)
-	command -v starship || (
+	command -vq starship || (
 		echo === installing starship ===
 		case "$OS_NAME" in
 		linux)
@@ -207,7 +206,7 @@ fi
 
 # === setup neovim === #
 if [[ "${FLAGS_nvim}" -eq "$YES" ]] || [[ "${FLAGS_all}" -eq "$YES" ]]; then
-	command -v nvim || (
+	command -vq nvim || (
 		echo === installing neovim ===
 		case "$OS_NAME" in
 		linux)

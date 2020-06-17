@@ -1,8 +1,8 @@
 [core]
-	excludesfile = ~/.gitignore_global
+	excludesfile = ~/.config/git/gitignore_global
 
 [include]
-	path = ~/.gitalias.txt
+	path = ~/.config/git/gitalias/gitalias.txt
 	path = ~/.gituser
 
 [alias]
