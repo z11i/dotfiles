@@ -37,6 +37,8 @@ DEFINE_boolean 'fish' "$NO" 'configure fish'
 DEFINE_boolean 'nvim' "$NO" 'configure neovim'
 DEFINE_boolean 'gnu' "$NO" 'configure gnu tools for mac'
 DEFINE_boolean 'node' "$NO" 'configure node and yarn'
+DEFINE_boolean 'alacritty' "$NO" 'configure alacritty'
+DEFINE_boolean 'tmux' "$NO" 'configure tmux'
 
 FLAGS "$@" || exit $?
 eval set -- "${FLAGS_ARGV}"
@@ -173,4 +175,38 @@ if [[ "${FLAGS_node}" -eq "$YES" ]] || [[ "${FLAGS_all}" -eq "$YES" ]]; then
 		echo === installing yarn ===
 		npm install -g yarn
 	)
+fi
+
+# === setup alacritty === #
+if [[ "${FLAGS_alacritty}" -eq "$YES" ]] || [[ "${FLAGS_all}" -eq "$YES" ]]; then
+	checkBin alacritty || (
+		echo === installing alacritty ===
+		case "$OS_NAME" in
+		linux)
+			sudo add-apt-repository ppa:mmstick76/alacritty
+			sudo apt install alacritty
+			;;
+		macos)
+			brew cask install alacritty
+			;;
+		esac
+	)
+	symlink config/alacritty ~/.config/alacritty
+fi
+
+# === setup tmux === #
+if [[ "${FLAGS_tmux}" -eq "$YES" ]] || [[ "${FLAGS_all}" -eq "$YES" ]]; then
+	checkBin tmux || (
+		echo === installing tmux ===
+		case "$OS_NAME" in
+		linux)
+			sudo apt update
+			sudo apt install tmux
+			;;
+		macos)
+			brew install tmux
+			;;
+		esac
+	)
+	symlink config/tmux/tmux.conf ~/.config/.tmux.conf
 fi
