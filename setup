@@ -208,5 +208,5 @@ if [[ "${FLAGS_tmux}" -eq "$YES" ]] || [[ "${FLAGS_all}" -eq "$YES" ]]; then
 			;;
 		esac
 	)
-	symlink config/tmux/tmux.conf ~/.config/.tmux.conf
+	symlink config/tmux/tmux.conf ~/.tmux.conf
 fi
