@@ -9,9 +9,15 @@ detectOS() {
 				head -n1 |
 				tr '[:upper:]' '[:lower:]'
 		)
+		if uname -r | grep microsoft > /dev/null; then
+			distro=wsl
+		fi
 		case $distro in
 		ubuntu*)
 			LINUX_DISTRO=ubuntu
+			;;
+		wsl)
+			LINUX_DISTRO=wsl
 			;;
 		*)
 			echo 'Distro not supported yet!'

@@ -63,7 +63,8 @@ EOF
 	checkBin diff-so-fancy || (
 		case "$OS_NAME" in
 		linux)
-			apt-get install diff-so-fancy
+			curl "https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy" | sudo tee /usr/local/bin/diff-so-fancy >/dev/null
+			sudo chmod +x /usr/local/bin/diff-so-fancy
 			;;
 		macos)
 			brew install diff-so-fancy
@@ -122,8 +123,7 @@ if [[ "${FLAGS_fish}" -eq "$YES" ]] || [ "${FLAGS_all}" -eq "$YES" ]; then
 		echo === installing starship ===
 		case "$OS_NAME" in
 		linux)
-			sudo apt install python3-dev python3-pip python3-setuptools
-			sudo pip3 install thefuck
+			curl -fsSL https://starship.rs/install.sh | bash
 			;;
 		macos)
 			brew install starship
@@ -147,7 +147,7 @@ if [[ "${FLAGS_nvim}" -eq "$YES" ]] || [[ "${FLAGS_all}" -eq "$YES" ]]; then
 		echo === installing neovim ===
 		case "$OS_NAME" in
 		linux)
-			sudo apt install neovim
+			sudo apt install -y neovim
 			;;
 		macos)
 			brew install neovim
@@ -164,7 +164,7 @@ if [[ "${FLAGS_node}" -eq "$YES" ]] || [[ "${FLAGS_all}" -eq "$YES" ]]; then
 		case "$OS_NAME" in
 		linux)
 			sudo apt update
-			sudo apt install nodejs
+			sudo apt install -y nodejs
 			;;
 		macos)
 			brew install node
@@ -173,25 +173,29 @@ if [[ "${FLAGS_node}" -eq "$YES" ]] || [[ "${FLAGS_all}" -eq "$YES" ]]; then
 	)
 	checkBin yarn || (
 		echo === installing yarn ===
-		npm install -g yarn
+		sudo apt install -y yarnpkg
 	)
 fi
 
 # === setup alacritty === #
 if [[ "${FLAGS_alacritty}" -eq "$YES" ]] || [[ "${FLAGS_all}" -eq "$YES" ]]; then
-	checkBin alacritty || (
-		echo === installing alacritty ===
-		case "$OS_NAME" in
-		linux)
-			sudo add-apt-repository ppa:mmstick76/alacritty
-			sudo apt install alacritty
-			;;
-		macos)
-			brew cask install alacritty
-			;;
-		esac
-	)
-	symlink config/alacritty ~/.config/alacritty
+	if [[ "$LINUX_DISTRO" = wsl ]]; then
+		:
+	else
+		checkBin alacritty || (
+			echo === installing alacritty ===
+			case "$OS_NAME" in
+			linux)
+				sudo add-apt-repository ppa:mmstick76/alacritty
+				sudo apt install alacritty
+				;;
+			macos)
+				brew cask install alacritty
+				;;
+			esac
+		)
+		symlink config/alacritty ~/.config/alacritty
+	fi
 fi
 
 # === setup tmux === #
