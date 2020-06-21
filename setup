@@ -131,6 +131,18 @@ if [[ "${FLAGS_fish}" -eq "$YES" ]] || [ "${FLAGS_all}" -eq "$YES" ]; then
 		esac
 	)
 	symlink config/starship.toml ~/.config/starship.toml
+	checkBin fzf || (
+		echo === installing fzf ===
+		case "$OS_NAME" in
+		linux)
+			sudo apt install -y fzf
+			;;
+		macos)
+			brew install fzf
+			;;
+		esac
+		symlink ~/.fzf/shell/key-bindings.fish config/fish/functions/fzf_key_bindings.fish
+	)
 fi
 
 # === setup gnu === #
