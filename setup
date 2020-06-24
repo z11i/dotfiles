@@ -39,6 +39,7 @@ DEFINE_boolean 'gnu' "$NO" 'configure gnu tools for mac'
 DEFINE_boolean 'node' "$NO" 'configure node and yarn'
 DEFINE_boolean 'alacritty' "$NO" 'configure alacritty'
 DEFINE_boolean 'tmux' "$NO" 'configure tmux'
+DEFINE_boolean 'karabiner' "$NO" 'configure karabiner for mac'
 
 FLAGS "$@" || exit $?
 eval set -- "${FLAGS_ARGV}"
@@ -225,4 +226,15 @@ if [[ "${FLAGS_tmux}" -eq "$YES" ]] || [[ "${FLAGS_all}" -eq "$YES" ]]; then
 		esac
 	)
 	symlink config/tmux/tmux.conf ~/.tmux.conf
+fi
+
+# === setup karabiner === #
+if [[ "${FLAGS_karabiner}" -eq "$YES" ]] || [[ "${FLAGS_all}" -eq "$YES" ]]; then
+	if [[ "$OS_NAME" = "macos" ]]; then
+		brew cask list karabiner-elements 2>/dev/null || (
+			echo '=== installing karabiner-elements ==='
+			brew cask install karabiner-elements
+			symlink config/karabiner ~/.config/karabiner
+		)
+	fi
 fi

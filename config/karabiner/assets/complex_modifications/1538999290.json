@@ -1,0 +1,362 @@
+{
+    "title" : "Click right command to switch between zh/en or ja/en, double click to switch between these two modes",
+    "rules" : [
+        {
+            "description": "Right command to Switch Input Source",
+            "manipulators": [
+                {
+                    "conditions": [
+                        {
+                            "name": "right_command pressed",
+                            "type": "variable_if",
+                            "value": 1
+                        },
+                        {
+                            "name": "language mode",
+                            "type": "variable_if",
+                            "value": 1
+                        }
+                    ],
+                    "from": {
+                        "key_code": "right_command",
+                        "modifiers": {
+                            "optional": [
+                                "any"
+                            ]
+                        }
+                    },
+                    "to": [
+                        {
+                            "set_variable": {
+                                "name": "right_command pressed",
+                                "value": 0
+                            }
+                        },
+                        {
+                            "set_variable": {
+                                "name": "language mode",
+                                "value": 0
+                            }
+                        },
+                        {
+                            "select_input_source": {
+                                "language": "zh"
+                            }
+                        }
+                    ],
+                    "type": "basic"
+                },
+                {
+                    "conditions": [
+                        {
+                            "name": "right_command pressed",
+                            "type": "variable_if",
+                            "value": 1
+                        },
+                        {
+                            "name": "language mode",
+                            "type": "variable_if",
+                            "value": 0
+                        }
+                    ],
+                    "from": {
+                        "key_code": "right_command",
+                        "modifiers": {
+                            "optional": [
+                                "any"
+                            ]
+                        }
+                    },
+                    "to": [
+                        {
+                            "set_variable": {
+                                "name": "right_command pressed",
+                                "value": 0
+                            }
+                        },
+                        {
+                            "set_variable": {
+                                "name": "language mode",
+                                "value": 1
+                            }
+                        },
+                        {
+                            "select_input_source": {
+                                "language": "ja"
+                            }
+                        }
+                    ],
+                    "type": "basic"
+                },
+                {
+                    "conditions": [
+                        {
+                            "input_sources": [
+                                {
+                                    "language": "en"
+                                }
+                            ],
+                            "type": "input_source_if"
+                        },
+                        {
+                            "name": "right_command pressed",
+                            "type": "variable_if",
+                            "value": 0
+                        },
+                        {
+                            "name": "language mode",
+                            "type": "variable_if",
+                            "value": 0
+                        }
+                    ],
+                    "from": {
+                        "key_code": "right_command",
+                        "modifiers": {
+                            "optional": [
+                                "any"
+                            ]
+                        }
+                    },
+                    "to": [
+                        {
+                            "key_code": "right_command"
+                        }
+                    ],
+                    "to_delayed_action": {
+                        "to_if_canceled": [
+                            {
+                                "set_variable": {
+                                    "name": "right_command pressed",
+                                    "value": 0
+                                }
+                            }
+                        ],
+                        "to_if_invoked": [
+                            {
+                                "set_variable": {
+                                    "name": "right_command pressed",
+                                    "value": 0
+                                }
+                            }
+                        ]
+                    },
+                    "to_if_alone": [
+                        {
+                            "select_input_source": {
+                                "language": "zh"
+                            }
+                        },
+                        {
+                            "set_variable": {
+                                "name": "right_shift pressed",
+                                "value": 1
+                            }
+                        }
+                    ],
+                    "type": "basic"
+                },
+                {
+                    "conditions": [
+                        {
+                            "input_sources": [
+                                {
+                                    "language": "zh"
+                                }
+                            ],
+                            "type": "input_source_if"
+                        },
+                        {
+                            "name": "right_command pressed",
+                            "type": "variable_if",
+                            "value": 0
+                        },
+                        {
+                            "name": "language mode",
+                            "type": "variable_if",
+                            "value": 0
+                        }
+                    ],
+                    "from": {
+                        "key_code": "right_command",
+                        "modifiers": {
+                            "optional": [
+                                "any"
+                            ]
+                        }
+                    },
+                    "to": [
+                        {
+                            "key_code": "right_command"
+                        }
+                    ],
+                    "to_delayed_action": {
+                        "to_if_canceled": [
+                            {
+                                "set_variable": {
+                                    "name": "right_command pressed",
+                                    "value": 0
+                                }
+                            }
+                        ],
+                        "to_if_invoked": [
+                            {
+                                "set_variable": {
+                                    "name": "right_command pressed",
+                                    "value": 0
+                                }
+                            }
+                        ]
+                    },
+                    "to_if_alone": [
+                        {
+                            "select_input_source": {
+                                "language": "en"
+                            }
+                        },
+                        {
+                            "set_variable": {
+                                "name": "right_command pressed",
+                                "value": 1
+                            }
+                        }
+                    ],
+                    "type": "basic"
+                },
+                {
+                    "conditions": [
+                        {
+                            "input_sources": [
+                                {
+                                    "language": "en"
+                                }
+                            ],
+                            "type": "input_source_if"
+                        },
+                        {
+                            "name": "right_command pressed",
+                            "type": "variable_if",
+                            "value": 0
+                        },
+                        {
+                            "name": "language mode",
+                            "type": "variable_if",
+                            "value": 1
+                        }
+                    ],
+                    "from": {
+                        "key_code": "right_command",
+                        "modifiers": {
+                            "optional": [
+                                "any"
+                            ]
+                        }
+                    },
+                    "to": [
+                        {
+                            "key_code": "right_command"
+                        }
+                    ],
+                    "to_delayed_action": {
+                        "to_if_canceled": [
+                            {
+                                "set_variable": {
+                                    "name": "right_command pressed",
+                                    "value": 0
+                                }
+                            }
+                        ],
+                        "to_if_invoked": [
+                            {
+                                "set_variable": {
+                                    "name": "right_command pressed",
+                                    "value": 0
+                                }
+                            }
+                        ]
+                    },
+                    "to_if_alone": [
+                        {
+                            "select_input_source": {
+                                "language": "ja"
+                            }
+                        },
+                        {
+                            "set_variable": {
+                                "name": "right_shift pressed",
+                                "value": 1
+                            }
+                        }
+                    ],
+                    "type": "basic"
+                },
+                {
+                    "conditions": [
+                        {
+                            "input_sources": [
+                                {
+                                    "language": "ja"
+                                }
+                            ],
+                            "type": "input_source_if"
+                        },
+                        {
+                            "name": "right_command pressed",
+                            "type": "variable_if",
+                            "value": 0
+                        },
+                        {
+                            "name": "language mode",
+                            "type": "variable_if",
+                            "value": 1
+                        }
+                    ],
+                    "from": {
+                        "key_code": "right_command",
+                        "modifiers": {
+                            "optional": [
+                                "any"
+                            ]
+                        }
+                    },
+                    "to": [
+                        {
+                            "key_code": "right_command"
+                        }
+                    ],
+                    "to_delayed_action": {
+                        "to_if_canceled": [
+                            {
+                                "set_variable": {
+                                    "name": "right_command pressed",
+                                    "value": 0
+                                }
+                            }
+                        ],
+                        "to_if_invoked": [
+                            {
+                                "set_variable": {
+                                    "name": "right_command pressed",
+                                    "value": 0
+                                }
+                            }
+                        ]
+                    },
+                    "to_if_alone": [
+                        {
+                            "select_input_source": {
+                                "language": "en"
+                            }
+                        },
+                        {
+                            "set_variable": {
+                                "name": "right_command pressed",
+                                "value": 1
+                            }
+                        }
+                    ],
+                    "type": "basic"
+                }
+            ]
+        }
+    ]
+}
