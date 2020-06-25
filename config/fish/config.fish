@@ -38,3 +38,9 @@ end
 if type -q starship
     starship init fish | source
 end
+
+# less with color
+if set -u lesspipe (type -p src-hilite-lesspipe.sh)
+    set -Ux LESSOPEN "| $lesspipe %s"
+    set -Ux LESS ' -R'
+end

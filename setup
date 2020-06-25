@@ -40,6 +40,7 @@ DEFINE_boolean 'node' "$NO" 'configure node and yarn'
 DEFINE_boolean 'alacritty' "$NO" 'configure alacritty'
 DEFINE_boolean 'tmux' "$NO" 'configure tmux'
 DEFINE_boolean 'karabiner' "$NO" 'configure karabiner for mac'
+DEFINE_boolean 'less' "$NO" 'configure less'
 
 FLAGS "$@" || exit $?
 eval set -- "${FLAGS_ARGV}"
@@ -237,4 +238,19 @@ if [[ "${FLAGS_karabiner}" -eq "$YES" ]] || [[ "${FLAGS_all}" -eq "$YES" ]]; the
 			symlink config/karabiner ~/.config/karabiner
 		)
 	fi
+fi
+
+# === setup less === #
+if [[ "${FLAGS_less}" -eq "$YES" ]] || [[ "${FLAGS_all}" -eq "$YES" ]]; then
+	checkBin source-highlight || (
+		echo === installing source-highlight ===
+		case "$OS_NAME" in
+		linux)
+			sudo apt install -y source-highlight
+			;;
+		macos)
+			brew install source-highlight
+			;;
+		esac
+	)
 fi
