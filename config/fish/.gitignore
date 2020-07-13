@@ -1,3 +1,4 @@
 functions/__*
 functions/fzf_key_bindings.fish
 fish_variables
+completions/
