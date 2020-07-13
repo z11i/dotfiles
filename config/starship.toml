@@ -4,3 +4,15 @@ truncate_to_repo = true
 
 [git_branch]
 truncation_length = 32
+
+[kubernetes]
+disabled = false
+style = "bold blue"
+
+[kubernetes.context_aliases]
+docker-desktop = "docker-desktop"
+docker-for-desktop = "docker-desktop"
+gke_go-merchant-staging_asia-southeast1-a_go-merchant-staging-data = "gomerchants-stag-data"
+gke_scientific-glow-170214_asia-southeast1_nadipos-prod = "nadipos-prod"
+gke_scientific-glow-170214_asia-southeast1_nadipos-stag = "nadipos-stag"
+gke_silk-route-staging_asia-east1_silk-route-staging-app = "silk-route-stag"
