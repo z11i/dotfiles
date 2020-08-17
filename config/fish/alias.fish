@@ -4,3 +4,5 @@ alias g='git'
 alias tm='tmux new -A -s tmux'
 alias vim='nvim'
 aliasset yarn yarnpkg
+aliasset l exa
+
