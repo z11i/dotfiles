@@ -47,3 +47,6 @@ if set -u lesspipe (type -p src-hilite-lesspipe.sh)
     set -Ux LESSOPEN "| $lesspipe %s"
     set -Ux LESS ' -R'
 end
+
+# asdf
+sourceadd /usr/local/opt/asdf/asdf.fish
