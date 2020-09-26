@@ -4,20 +4,17 @@ detectOS() {
 	case $(uname | tr '[:upper:]' '[:lower:]') in
 	linux*)
 		OS_NAME=linux
-		distro=$(
+		LINUX_DISTRO=$(
 			(lsb_release -ds || cat /etc/*release || uname -om) 2>/dev/null |
 				head -n1 |
 				tr '[:upper:]' '[:lower:]'
 		)
 		if uname -r | grep microsoft > /dev/null; then
-			distro=wsl
+			IS_WSL=wsl
 		fi
-		case $distro in
+		case $LINUX_DISTRO in
 		ubuntu*)
 			LINUX_DISTRO=ubuntu
-			;;
-		wsl)
-			LINUX_DISTRO=wsl
 			;;
 		*)
 			echo 'Distro not supported yet!'

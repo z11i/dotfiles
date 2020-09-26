@@ -43,10 +43,16 @@ if type -q starship
 end
 
 # less with color
-if set -u lesspipe (type -p src-hilite-lesspipe.sh)
+# https://superuser.com/a/71593
+if type -q dpkg
+    and set -u lesspipe (dpkg -L libsource-highlight-common | grep lesspipe)
+    set -Ux LESSOPEN "| $lesspipe %s"
+    set -Ux LESS ' -R'
+else if type -q rpm
+    and set -u lesspipe (rpm -ql source-highlight | grep lesspipe)
     set -Ux LESSOPEN "| $lesspipe %s"
     set -Ux LESS ' -R'
 end
 
 # asdf
-sourceadd /usr/local/opt/asdf/asdf.fish
+sourceadd ~/.asdf/asdf.fish
