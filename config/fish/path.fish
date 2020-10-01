@@ -15,6 +15,3 @@ pathadd $GOBIN
 
 # rust
 pathadd ~/.cargo/bin
-
-# jenv
-pathadd ~/.jenv/bin

@@ -10,7 +10,7 @@ done
 # === OS detection and OS specific preparations needed to proceed. === #
 OS_NAME=''
 LINUX_DISTRO=''
-IS_WSL=0
+unset IS_WSL
 
 detectOS
 
@@ -69,15 +69,8 @@ if [[ "${FLAGS_git}" -eq "$YES" ]] || [[ "${FLAGS_all}" -eq "$YES" ]]; then
 EOF
 	fi
 	checkBin diff-so-fancy || (
-		case "$OS_NAME" in
-		linux)
-			curl "https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy" | sudo tee /usr/local/bin/diff-so-fancy >/dev/null
-			sudo chmod +x /usr/local/bin/diff-so-fancy
-			;;
-		macos)
-			brew install diff-so-fancy
-			;;
-		esac
+		curl "https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy" | sudo tee /usr/local/bin/diff-so-fancy >/dev/null
+		sudo chmod +x /usr/local/bin/diff-so-fancy
 	)
 fi
 
@@ -104,7 +97,7 @@ if [[ "${FLAGS_fish}" -eq "$YES" ]] || [ "${FLAGS_all}" -eq "$YES" ]; then
 				line='/usr/local/bin/fish'
 				file=/etc/shells
 				echo === adding fish as a standard shell ===
-				grep -qF "$line" "$file" || echo "$line" | sudo tee --append "$file"
+				grep -qF "$line" "$file" || echo "$line" | sudo tee -a "$file"
 				echo === changing default shell ===
 				chsh -s "$line"
 			)
@@ -156,7 +149,7 @@ fi
 # === setup alacritty === #
 if [[ "${FLAGS_alacritty}" -eq "$YES" ]] || [[ "${FLAGS_all}" -eq "$YES" ]]; then
 	if [[ "$IS_WSL" ]]; then
-		:
+		echo 'skipping alacritty for WSL'
 	else
 		checkBin alacritty || (
 			echo === installing alacritty ===
@@ -252,7 +245,7 @@ dep_elixir() {
 
 # === setup asdf === #
 setup_asdf() {
-	local -r plugins='elixir|erlang|fzf|helm|java'
+	local -r plugins='elixir|erlang|fzf|helm|java|golang'
 	checkBin asdf || (
 		echo === installing asdf dependencies ===
 		case "$OS_NAME" in
@@ -283,6 +276,7 @@ setup_asdf() {
 	asdf install fzf 0.22.0 && asdf global fzf 0.22.0 || echo -n
 	dep_erlang && asdf install erlang 23.1 && asdf global erlang 23.1 || echo -n
 	dep_elixir && asdf install elixir 1.10.4-otp-23 && asdf global elixir 1.10.4-otp-23 || echo -n
+	asdf install golang 1.15 && asdf global golang 1.15 || true
 }
 if [[ "${FLAGS_asdf}" -eq "$YES" ]] || [[ "${FLAGS_all}" -eq "$YES" ]]; then
 	setup_asdf
