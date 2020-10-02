@@ -42,6 +42,7 @@ DEFINE_boolean 'tmux' "$NO" 'configure tmux'
 DEFINE_boolean 'karabiner' "$NO" 'configure karabiner for mac'
 DEFINE_boolean 'less' "$NO" 'configure less'
 DEFINE_boolean 'asdf' "$NO" 'configure asdf'
+DEFINE_boolean 'oed' "$NO" 'configure OED'
 
 FLAGS "$@" || exit $?
 eval set -- "${FLAGS_ARGV}"
@@ -282,4 +283,20 @@ setup_asdf() {
 }
 if [[ "${FLAGS_asdf}" -eq "$YES" ]] || [[ "${FLAGS_all}" -eq "$YES" ]]; then
 	setup_asdf
+fi
+
+setup_oed() {
+	if [[ "$OS_NAME" != "macos" ]]; then
+		return 0
+	fi
+	[[ -f ~/Library/Spelling/en_GB-oed.dic ]] || (
+		cd $(mktemp -d)
+		curl -L https://sourceforge.net/projects/openofficeorg.mirror/files/contrib/dictionaries/en_GB-oed.zip/download > en_GB-oed.zip
+		unzip en_GB-oed.zip
+		mv en_GB-oed.aff ~/Library/Spelling/
+		mv en_GB-oed.dic ~/Library/Spelling/
+	)
+}
+if [[ "${FLAGS_oed}" -eq "$YES" ]] || [[ "${FLAGS_all}" -eq "$YES" ]]; then
+	setup_oed
 fi
