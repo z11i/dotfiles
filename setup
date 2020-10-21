@@ -228,6 +228,7 @@ dep_erlang() {
 			;;
 		macos)
 			brew install autoconf
+			;;
 		esac
 		;;
 	esac
@@ -248,6 +249,7 @@ dep_elixir() {
 
 # === setup asdf === #
 setup_asdf() {
+	symlink homefiles/.tool-versions ~/.tool-versions
 	local -r plugins='elixir|erlang|fzf|helm|java|golang'
 	checkBin asdf || (
 		echo === installing asdf dependencies ===
@@ -289,13 +291,9 @@ setup_oed() {
 	if [[ "$OS_NAME" != "macos" ]]; then
 		return 0
 	fi
-	[[ -f ~/Library/Spelling/en_GB-oed.dic ]] || (
-		cd $(mktemp -d)
-		curl -L https://sourceforge.net/projects/openofficeorg.mirror/files/contrib/dictionaries/en_GB-oed.zip/download > en_GB-oed.zip
-		unzip en_GB-oed.zip
-		mv en_GB-oed.aff ~/Library/Spelling/
-		mv en_GB-oed.dic ~/Library/Spelling/
-	)
+	cd $(mktemp -d)
+	curl -L https://raw.githubusercontent.com/ropensci/hunspell/master/inst/dict/en_GB.aff >~/Library/Spelling/en_GB-oed.aff
+	curl -L https://raw.githubusercontent.com/ropensci/hunspell/master/inst/dict/en_GB.dic >~/Library/Spelling/en_GB-oed.dic
 }
 if [[ "${FLAGS_oed}" -eq "$YES" ]] || [[ "${FLAGS_all}" -eq "$YES" ]]; then
 	setup_oed
