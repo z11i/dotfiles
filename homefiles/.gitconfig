@@ -9,6 +9,7 @@
 	c = commit -v
 	ri = rebase --interactive
 	ff = merge --ff-only
+    sw = switch
 
 [core]
 	pager = diff-so-fancy | less --tabs=4 -RFX
@@ -29,3 +30,5 @@
 	old = red bold
 	new = green bold
 	whitespace = red reverse
+[credential]
+	helper = store
