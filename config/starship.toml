@@ -1,47 +1,11 @@
-prompt_order = [
-    "username",
-    "hostname",
-    "kubernetes",
-    "line_break",
-    "directory",
-    "git_branch",
-    "git_commit",
-    "git_state",
-    "git_status",
-    "hg_branch",
-    "docker_context",
-    "package",
-    "dotnet",
-    #"elixir",
-    "elm",
-    "erlang",
-    "golang",
-    "java",
-    "julia",
-    "nim",
-    "nodejs",
-    "ocaml",
-    "php",
-    "purescript",
-    "python",
-    "ruby",
-    "rust",
-    "terraform",
-    "zig",
-    "nix_shell",
-    "conda",
-    "memory_usage",
-    "aws",
-    "env_var",
-    "crystal",
-    "cmd_duration",
-    "custom",
-    "line_break",
-    "jobs",
-    "battery",
-    "time",
-    "character",
-]
+format = """
+$directory$git_branch$git_status$git_state$golang$rust$java$elixir$erlang$python$nodejs$ruby$terraform$package
+$time$cmd_duration$kubernetes$gcloud$status$battery$jobs
+$character"""
+
+[character]
+success_symbol = "[λ](bold green)"
+error_symbol = "[λ](bold red)"
 
 [directory]
 truncation_length = 4
@@ -50,10 +14,14 @@ truncate_to_repo = false
 [git_branch]
 truncation_length = 32
 
+[gcloud]
+format = "⛅ [$project]($style)"
+
 [kubernetes]
 disabled = false
 style = "bold blue"
-symbol = "[k8s] "
+format = '[$symbol $context \[$namespace\]]($style) '
+symbol = "⛵"
 
 [kubernetes.context_aliases]
 "docker-desktop" = "local"
@@ -64,3 +32,10 @@ symbol = "[k8s] "
 "gke_silk-route-staging_asia-east1_silk-route-staging-app" = "silk-route-stag"
 "gke_id-aegis-integration_asia-southeast1_id-aegis-integration" = "aegis-stag"
 "gke_id-aegis-production_asia-southeast1_id-aegis-production" = "aegis-PROD"
+
+[time]
+disabled = false
+format = '[$time]($style) '
+
+[status]
+disabled = false
