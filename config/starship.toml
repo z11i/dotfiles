@@ -16,6 +16,7 @@ truncation_length = 32
 
 [gcloud]
 format = "⛅ [$project]($style)"
+style = "bold green"
 
 [kubernetes]
 disabled = false
