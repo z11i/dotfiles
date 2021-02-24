@@ -32,3 +32,6 @@
 	whitespace = red reverse
 [credential]
 	helper = store
+
+[diff]
+    algorithm = histogram
