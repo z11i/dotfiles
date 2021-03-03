@@ -1,6 +1,6 @@
 #!/usr/bin/env fish
 
-set fish_color_autosuggestion blue
+set fish_color_autosuggestion 999999
 set fish_color_cancel -r
 set fish_color_command green
 set fish_color_comment yellow

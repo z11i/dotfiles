@@ -1,3 +1,3 @@
 function gcpip
-    gcloud compute instances list | fzf | awk '{print $4}'
+    gcpinstances | fzf | awk '{print $4}'
 end

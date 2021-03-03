@@ -6,4 +6,4 @@ alias vim='nvim'
 alias lc="awk 'END{print NR}'"
 aliasset yarn yarnpkg
 aliasset l exa
-
+aliasset k kubectl
