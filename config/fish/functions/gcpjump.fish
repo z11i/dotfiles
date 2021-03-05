@@ -5,7 +5,7 @@ function gcpjump -a remote_ip remote_port local_port
         return
     end
     set --local user (set -q GC_USER && echo $GC_USER || echo $USER)
-    set --local jumpIP (gcloud --format='value(networkInterfaces[0].networkIP)' compute instances list --filter='labels.app=cloud-sql-jumpbox')
+    set --local jumpIP (gcpinstances | awk '/jumpbox/ {print $4}')
     test -n "$jumpIP" || begin
         echo 'unable to find jumpbox IP'
         return 1

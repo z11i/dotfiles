@@ -3,3 +3,4 @@ functions/fzf_key_bindings.fish
 fish_variables
 completions/
 secret.fish
+colors.fish
