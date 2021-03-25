@@ -33,6 +33,7 @@ symbol = "⛵"
 "gke_silk-route-staging_asia-east1_silk-route-staging-app" = "silk-route-stag"
 "gke_id-aegis-integration_asia-southeast1_id-aegis-integration" = "aegis-stag"
 "gke_id-aegis-production_asia-southeast1_id-aegis-production" = "aegis-PROD"
+"gke_risk-integration_asia-southeast1_risk-integration" = "risk-integration"
 
 [time]
 disabled = false
