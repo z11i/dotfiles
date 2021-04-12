@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+_datetime() {
+	date '+%Y-%m-%d %H:%M:%S'
+}
+
+log() {
+	green=$(tput setaf 2)
+	reset=$(tput sgr0)
+	echo "${green}$(_datetime)    $1${reset}"
+}
+
+err() {
+	red=$(tput setaf 1)
+	reset=$(tput sgr0)
+	echo "${red}$(_datetime)    $1${reset}"
+}

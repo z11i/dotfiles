@@ -14,53 +14,64 @@ unset IS_WSL
 
 detectOS
 
-## macos preparations
-if [[ $OS_NAME = 'macos' ]]; then
-	checkBin brew ||
-		(
-			echo === installing homeberw ===
-			curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh
-		)
-	[[ -e /usr/local/opt/gnu-getopt/bin/getopt ]] ||
-		brew install gnu-getopt # solve getopt on macos doesn't support long options
-	export FLAGS_GETOPT_CMD=/usr/local/opt/gnu-getopt/bin/getopt
-fi
-
-# === read flags === #
-. shflags/shflags
-
-YES="${FLAGS_TRUE}"
-NO="${FLAGS_FALSE}"
-
-DEFINE_boolean 'all' "$NO" 'configure all tools'
-DEFINE_boolean 'git' "$NO" 'configure git'
-DEFINE_boolean 'fish' "$NO" 'configure fish'
-DEFINE_boolean 'nvim' "$NO" 'configure neovim'
-DEFINE_boolean 'gnu' "$NO" 'configure gnu tools for mac'
-DEFINE_boolean 'alacritty' "$NO" 'configure alacritty'
-DEFINE_boolean 'tmux' "$NO" 'configure tmux'
-DEFINE_boolean 'karabiner' "$NO" 'configure karabiner for mac'
-DEFINE_boolean 'less' "$NO" 'configure less'
-DEFINE_boolean 'asdf' "$NO" 'configure asdf'
-DEFINE_boolean 'oed' "$NO" 'configure OED'
-
-FLAGS "$@" || exit $?
-eval set -- "${FLAGS_ARGV}"
-
 if [[ "$OS_NAME" = 'linux' ]]; then
 	#sudo apt update
 	echo "Linux distro is $LINUX_DISTRO"
 fi
 
-# === setup git === #
-if [[ "${FLAGS_git}" -eq "$YES" ]] || [[ "${FLAGS_all}" -eq "$YES" ]]; then
+setup_nix() {
+	checkBin nix || (
+		log 'installing Nix'
+		sh <(curl -L https://nixos.org/nix/install) --daemon
+		log 'Nix is installed'
+	)
+	log 'installing packages with Nix'
+	nix-env -iA nixpkgs.zoxide
+	nix-env -iA nixpkgs.gitAndTools.delta
+	nix-env -iA nixpkgs.ripgrep
+	nix-env -iA nixpkgs.starship
+	symlink config/starship.toml ~/.config/starship.toml
+	nix-env -iA nixpkgs.fzf
+}
+
+setup_mac() {
+	if [[ "$OS_NAME" != "macos" ]]; then
+		return 0
+	fi
+
+	log 'setting up macOS specific stuff'
+
+	### Homebrew
+	checkBin brew || (
+		echo === installing homebrew ===
+		curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh
+	)
+	### Homebrew END
+
+	### Karabiner
+	brew list --cask karabiner-elements 2>/dev/null || (
+		log 'installing karabiner-elements'
+		brew install karabiner-elements
+		symlink config/karabiner ~/.config/karabiner
+	)
+	### Karabiner END
+
+	### OED dictionary
+	curl -L https://raw.githubusercontent.com/ropensci/hunspell/master/inst/dict/en_GB.aff >~/Library/Spelling/en_GB-oed.aff
+	curl -L https://raw.githubusercontent.com/ropensci/hunspell/master/inst/dict/en_GB.dic >~/Library/Spelling/en_GB-oed.dic
+	### OED dictionary END
+
+	### coreutils
+	nix-env -iA nixpkgs.coreutils
+	### coreutils END
+}
+
+setup_git() {
 	symlink config/git ~/.config/git
 	symlink homefiles/.gitconfig ~/.gitconfig
-	if [[ "$OS_NAME" = 'macos' ]]; then
-		brew install git
-	fi
+	nix-env -iA nixpkgs.gitAndTools.gitFull
 	if [[ ! -f ~/.gituser ]]; then
-		echo '=== ~/.gituser file missing, creating one ==='
+		log '~/.gituser file missing, creating one'
 		read -p 'Email for git: ' git_email
 		read -p 'Name for git: ' git_name
 		cat <<EOF >~/.gituser
@@ -69,231 +80,46 @@ if [[ "${FLAGS_git}" -eq "$YES" ]] || [[ "${FLAGS_all}" -eq "$YES" ]]; then
 	name = $git_name
 EOF
 	fi
-	checkBin delta || (
-		cargo install git-delta
-	)
-fi
+}
 
-# === setup fish === #
-if [[ "${FLAGS_fish}" -eq "$YES" ]] || [ "${FLAGS_all}" -eq "$YES" ]; then
+setup_fish() {
 	symlink config/fish ~/.config/fish
 	checkBin fish || (
-		case "$OS_NAME" in
-		linux)
-			case "$LINUX_DISTRO" in
-			ubuntu)
-				echo === installing fish ===
-				sudo apt-add-repository -y ppa:fish-shell/release-3
-				sudo apt-get update -y
-				sudo apt-get install -y fish
-				echo === changing default shell ===
-				chsh -s /usr/bin/fish
-				;;
-			esac
-			;;
-		macos)
-			echo === installing fish ===
-			brew install fish && (
-				line='/usr/local/bin/fish'
-				file=/etc/shells
-				echo === adding fish as a standard shell ===
-				grep -qF "$line" "$file" || echo "$line" | sudo tee -a "$file"
-				echo === changing default shell ===
-				chsh -s "$line"
-			)
-			;;
-		esac
+		nix-env -iA nixpkgs.fish
+		log 'adding fish as a standard shell'
+		shell='~/.nix-profile/bin/fish'
+		file=/etc/shells
+		grep -qF "$shell" "$file" || echo "$shell" | sudo tee -a "$file"
+		log 'changing default shell'
+		chsh -s "$line"
 	)
-	echo === running fish custom setup script
+	log 'running fish custom setup script'
 	bash config/fish/custom_ext.sh
+}
 
-	echo === installing shell tools ===
-	checkBin starship || (
-		echo === installing starship ===
-		case "$OS_NAME" in
-		linux)
-			curl -fsSL https://starship.rs/install.sh | bash
-			;;
-		macos)
-			brew install starship
-			;;
-		esac
-	)
-	symlink config/starship.toml ~/.config/starship.toml
-fi
-
-# === setup gnu === #
-if [[ "${FLAGS_gnu}" -eq "$YES" ]] || [[ "${FLAGS_all}" -eq "$YES" ]]; then
-	if [[ "$OS_NAME" = 'macos' ]]; then
-		echo === installing gnu utilities ===
-		brew install coreutils findutils gnu-tar gnu-sed gawk gnutls gnu-indent gnu-getopt grep
-	fi
-fi
-
-# === setup neovim === #
-if [[ "${FLAGS_nvim}" -eq "$YES" ]] || [[ "${FLAGS_all}" -eq "$YES" ]]; then
-	checkBin nvim || (
-		echo === installing neovim ===
-		case "$OS_NAME" in
-		linux)
-			sudo apt install -y neovim
-			;;
-		macos)
-			brew install neovim
-			;;
-		esac
-	)
+setup_neovim() {
+	nix-env -iA nixpkgs.neovim
 	symlink config/nvim ~/.config/nvim
-fi
+}
 
-# === setup alacritty === #
-if [[ "${FLAGS_alacritty}" -eq "$YES" ]] || [[ "${FLAGS_all}" -eq "$YES" ]]; then
+setup_alacritty() {
 	if [[ "$IS_WSL" ]]; then
 		echo 'skipping alacritty for WSL'
 	else
-		checkBin alacritty || (
-			echo === installing alacritty ===
-			case "$OS_NAME" in
-			linux)
-				sudo add-apt-repository ppa:mmstick76/alacritty
-				sudo apt install alacritty
-				;;
-			macos)
-				brew cask install alacritty
-				;;
-			esac
-		)
+		nix-env -iA nixpkgs.alacritty
 		symlink config/alacritty ~/.config/alacritty
 	fi
-fi
+}
 
-# === setup tmux === #
-if [[ "${FLAGS_tmux}" -eq "$YES" ]] || [[ "${FLAGS_all}" -eq "$YES" ]]; then
-	checkBin tmux || (
-		echo === installing tmux ===
-		case "$OS_NAME" in
-		linux)
-			sudo apt update
-			sudo apt install tmux
-			;;
-		macos)
-			brew install tmux
-			;;
-		esac
-	)
+setup_tmux() {
+	nix-env -iA nixpkgs.tmux
 	symlink config/tmux/tmux.conf ~/.tmux.conf
-fi
-
-# === setup karabiner === #
-if [[ "${FLAGS_karabiner}" -eq "$YES" ]] || [[ "${FLAGS_all}" -eq "$YES" ]]; then
-	if [[ "$OS_NAME" = "macos" ]]; then
-		brew cask list karabiner-elements 2>/dev/null || (
-			echo '=== installing karabiner-elements ==='
-			brew cask install karabiner-elements
-			symlink config/karabiner ~/.config/karabiner
-		)
-	fi
-fi
-
-# === setup less === #
-if [[ "${FLAGS_less}" -eq "$YES" ]] || [[ "${FLAGS_all}" -eq "$YES" ]]; then
-	checkBin source-highlight || (
-		echo === installing source-highlight ===
-		case "$OS_NAME" in
-		linux)
-			case "$LINUX_DISTRO" in
-			ubuntu)
-				sudo apt install -y libsource-highlight-common source-highlight
-				;;
-			fedora)
-				sudo dnf install -y source-highlight
-				;;
-			esac
-			;;
-		macos)
-			brew install source-highlight
-			;;
-		esac
-	)
-fi
-
-dep_erlang() {
-	echo '=== installing erlang dependencies ==='
-	case "$OS_NAME" in
-	linux)
-		case "$LINUX_DISTRO" in
-		ubuntu)
-			sudo apt -y install build-essential autoconf m4 libncurses5-dev libwxgtk3.0-gtk3-dev libgl1-mesa-dev libglu1-mesa-dev libpng-dev libssh-dev unixodbc-dev xsltproc fop libxml2-utils libncurses-dev libssl-dev make automake
-			;;
-		macos)
-			brew install autoconf
-			;;
-		esac
-		;;
-	esac
 }
 
-dep_elixir() {
-	echo '=== installing elixir dependencies ==='
-	case "$OS_NAME" in
-	linux)
-		case "$LINUX_DISTRO" in
-		ubuntu)
-			sudo apt install -y unzip
-			;;
-		esac
-		;;
-	esac
-}
-
-# === setup asdf === #
-setup_asdf() {
-	symlink homefiles/.tool-versions ~/.tool-versions
-	local -r plugins='elixir|erlang|fzf|helm|java|golang'
-	checkBin asdf || (
-		echo === installing asdf dependencies ===
-		case "$OS_NAME" in
-		linux)
-			case "$LINUX_DISTRO" in
-			ubuntu)
-				sudo apt install -y curl git
-				;;
-			fedora)
-				sudo dnf install curl git
-				;;
-			esac
-			;;
-		macos)
-			brew install coreutils curl git
-			;;
-		esac
-		echo === installing asdf ===
-		git clone https://github.com/asdf-vm/asdf.git ~/.asdf
-		cd ~/.asdf
-		git checkout "$(git describe --abbrev=0 --tags)"
-		echo === asdf installed ===
-	)
-	echo === installing asdf plugins ===
-	asdf plugin list all | awk '/^('"$plugins"')\s/ {print $1}' | xargs -I {} asdf plugin add {} || echo -n
-	echo === installing asdf managed languages/tools ===
-	asdf install java openjdk-11 && asdf global java openjdk-11 || echo -n
-	asdf install fzf 0.22.0 && asdf global fzf 0.22.0 || echo -n
-	dep_erlang && asdf install erlang 23.1 && asdf global erlang 23.1 || echo -n
-	dep_elixir && asdf install elixir 1.10.4-otp-23 && asdf global elixir 1.10.4-otp-23 || echo -n
-	asdf install golang 1.15 && asdf global golang 1.15 || true
-}
-if [[ "${FLAGS_asdf}" -eq "$YES" ]] || [[ "${FLAGS_all}" -eq "$YES" ]]; then
-	setup_asdf
-fi
-
-setup_oed() {
-	if [[ "$OS_NAME" != "macos" ]]; then
-		return 0
-	fi
-	cd $(mktemp -d)
-	curl -L https://raw.githubusercontent.com/ropensci/hunspell/master/inst/dict/en_GB.aff >~/Library/Spelling/en_GB-oed.aff
-	curl -L https://raw.githubusercontent.com/ropensci/hunspell/master/inst/dict/en_GB.dic >~/Library/Spelling/en_GB-oed.dic
-}
-if [[ "${FLAGS_oed}" -eq "$YES" ]] || [[ "${FLAGS_all}" -eq "$YES" ]]; then
-	setup_oed
-fi
+setup_nix
+setup_mac
+setup_fish
+setup_git
+setup_neovim
+setup_alacritty
+setup_tmux

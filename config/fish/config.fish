@@ -27,11 +27,6 @@ set -Ux VISUAL "$EDITOR"
 # disable fish welcome message
 set fish_greeting 
 
-# jenv
-if type -q jenv
-    status --is-interactive; and source (jenv init -|psub)
-end
-
 # thefuck
 if type -q thefuck
     thefuck --alias | source
@@ -40,6 +35,11 @@ end
 # starship prompt
 if type -q starship
     starship init fish | source
+end
+
+# zoxide
+if type -q zoxide
+    zoxide init fish | source
 end
 
 # less with color
@@ -54,9 +54,6 @@ else if type -q rpm
     set -Ux LESS ' -R'
 end
 
-# asdf
-sourceadd ~/.asdf/asdf.fish
-
 # brew completion
 if test -d (brew --prefix)"/share/fish/completions"
     set -gx fish_complete_path $fish_complete_path (brew --prefix)/share/fish/completions
@@ -65,6 +62,3 @@ end
 if test -d (brew --prefix)"/share/fish/vendor_completions.d"
     set -gx fish_complete_path $fish_complete_path (brew --prefix)/share/fish/vendor_completions.d
 end
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/elliot/Downloads/google-cloud-sdk/path.fish.inc' ]; . '/Users/elliot/Downloads/google-cloud-sdk/path.fish.inc'; end

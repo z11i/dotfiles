@@ -17,7 +17,7 @@ detectOS() {
 			LINUX_DISTRO=ubuntu
 			;;
 		*)
-			echo 'Distro not supported yet!'
+			err 'Distro not supported yet!'
 			exit 127
 			;;
 		esac
@@ -29,7 +29,7 @@ detectOS() {
 	#	OS_NAME=windows
 	#	;;
 	*)
-		echo 'OS not supported yet!'
+		err 'OS not supported yet!'
 		exit 127
 		;;
 	esac
