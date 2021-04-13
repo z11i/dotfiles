@@ -26,12 +26,21 @@ setup_nix() {
 		log 'Nix is installed'
 	)
 	log 'installing packages with Nix'
-	nix-env -iA nixpkgs.zoxide
-	nix-env -iA nixpkgs.gitAndTools.delta
-	nix-env -iA nixpkgs.ripgrep
+	# CLI tools
+	nix-env -iA \
+		nixpkgs.bat \
+		nixpkgs.exa \
+		nixpkgs.fd \
+		nixpkgs.fzf \
+		nixpkgs.gitAndTools.delta \
+		nixpkgs.htop \
+		nixpkgs.ripgrep \
+		nixpkgs.unixtools.watch \
+		nixpkgs.zoxide
+
 	nix-env -iA nixpkgs.starship
 	symlink config/starship.toml ~/.config/starship.toml
-	nix-env -iA nixpkgs.fzf
+
 }
 
 setup_mac() {
@@ -116,10 +125,17 @@ setup_tmux() {
 	symlink config/tmux/tmux.conf ~/.tmux.conf
 }
 
+setup_rust() {
+	nix-env -iA nixpkgs.rustup
+	rustup install stable
+	rustup default stable
+}
+
 setup_nix
 setup_mac
 setup_fish
 setup_git
 setup_neovim
-setup_alacritty
+###setup_alacritty
 setup_tmux
+setup_rust

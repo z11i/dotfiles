@@ -13,6 +13,9 @@
 
 [core]
     pager = delta
+    ## highlight whitespaces
+    ## https://github.com/dandavison/delta/issues/522
+    # pager = sed 's/\t/⇥/g' | delta
 
 [delta]
     features = side-by-side line-numbers decorations
