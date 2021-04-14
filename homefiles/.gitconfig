@@ -13,21 +13,23 @@
 
 [core]
     pager = delta
+
     ## highlight whitespaces
     ## https://github.com/dandavison/delta/issues/522
     # pager = sed 's/\t/⇥/g' | delta
 
 [delta]
-    features = side-by-side line-numbers decorations
+    features = line-numbers decorations
     syntax-theme = Dracula
     plus-style = syntax "#003800"
     minus-style = syntax "#3f0001"
+    whitespace-error-style = 22 reverse
 
 [delta "decorations"]
     commit-decoration-style = bold yellow box ul
     file-style = bold yellow ul
     file-decoration-style = none
-    hunk-header-decoration-style = cyan box ul
+    hunk-header-decoration-style = yellow box
 
 [delta "line-numbers"]
     line-numbers-left-style = cyan
