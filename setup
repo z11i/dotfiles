@@ -26,6 +26,10 @@ setup_nix() {
 		log 'Nix is installed'
 	)
 	log 'installing packages with Nix'
+	# Libraries
+	nix-env -iA \
+		nixpkgs.libressl
+
 	# CLI tools
 	nix-env -iA \
 		nixpkgs.bat \
