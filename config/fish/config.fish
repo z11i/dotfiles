@@ -42,23 +42,13 @@ if type -q zoxide
     zoxide init fish | source
 end
 
-# less with color
-# https://superuser.com/a/71593
-if type -q dpkg
-    and set -u lesspipe (dpkg -L libsource-highlight-common | grep lesspipe)
-    set -Ux LESSOPEN "| $lesspipe %s"
-    set -Ux LESS ' -R'
-else if type -q rpm
-    and set -u lesspipe (rpm -ql source-highlight | grep lesspipe)
-    set -Ux LESSOPEN "| $lesspipe %s"
-    set -Ux LESS ' -R'
-end
-
 # brew completion
-if test -d (brew --prefix)"/share/fish/completions"
-    set -gx fish_complete_path $fish_complete_path (brew --prefix)/share/fish/completions
-end
+if type -q brew
+    if test -d (brew --prefix)"/share/fish/completions"
+        set -gx fish_complete_path $fish_complete_path (brew --prefix)/share/fish/completions
+    end
 
-if test -d (brew --prefix)"/share/fish/vendor_completions.d"
-    set -gx fish_complete_path $fish_complete_path (brew --prefix)/share/fish/vendor_completions.d
+    if test -d (brew --prefix)"/share/fish/vendor_completions.d"
+        set -gx fish_complete_path $fish_complete_path (brew --prefix)/share/fish/vendor_completions.d
+    end
 end

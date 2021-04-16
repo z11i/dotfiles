@@ -22,7 +22,8 @@ fi
 setup_nix() {
 	checkBin nix || (
 		log 'installing Nix'
-		sh <(curl -L https://nixos.org/nix/install) --daemon
+		sh <(curl -L https://nixos.org/nix/install) --no-daemon
+		. /home/elliot/.nix-profile/etc/profile.d/nix.sh
 		log 'Nix is installed'
 	)
 	log 'installing packages with Nix'
@@ -100,7 +101,7 @@ setup_fish() {
 	checkBin fish || (
 		nix-env -iA nixpkgs.fish
 		log 'adding fish as a standard shell'
-		shell='~/.nix-profile/bin/fish'
+		shell="$HOME/.nix-profile/bin/fish"
 		file=/etc/shells
 		grep -qF "$shell" "$file" || echo "$shell" | sudo tee -a "$file"
 		log 'changing default shell'
