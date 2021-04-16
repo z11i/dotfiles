@@ -39,6 +39,7 @@ setup_nix() {
 		nixpkgs.fzf \
 		nixpkgs.gitAndTools.delta \
 		nixpkgs.htop \
+		nixpkgs.nixfmt \
 		nixpkgs.ripgrep \
 		nixpkgs.unixtools.watch \
 		nixpkgs.zoxide
