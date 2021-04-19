@@ -81,6 +81,15 @@ setup_mac() {
 	### coreutils END
 }
 
+setup_mac_gui() {
+	if [[ "$OS_NAME" != "macos" ]]; then
+		return 0
+	fi
+	log 'setting up macOS GUI applications'
+	brew update
+	brew install keka
+}
+
 setup_git() {
 	symlink config/git ~/.config/git
 	symlink homefiles/.gitconfig ~/.gitconfig
