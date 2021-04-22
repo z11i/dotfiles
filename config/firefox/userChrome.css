@@ -1,0 +1,32 @@
+/* macOS vibrancy */
+:root:-moz-any([inFullscreen], [tabsintitlebar]) #TabsToolbar {
+  -moz-appearance: -moz-mac-vibrant-titlebar-dark !important;
+  -moz-appearance: -moz-mac-vibrancy-dark !important;
+  -moz-font-smoothing-background-color: -moz-mac-vibrant-titlebar-dark !important;
+}
+
+#navigator-toolbox {
+  -moz-appearance: -moz-mac-vibrant-titlebar-dark !important;
+}
+
+#TabsToolbar,
+#nav-bar,
+#urlbar-container,
+#PersonalToolbar,
+.tab-background-inner,
+.theme-dark,
+.theme-light,
+slider,
+.CodeMirror,
+.devtools-toolbar,
+.message,
+.theme-body,
+.table-widget-empty-text {
+  -moz-appearance: -moz-mac-vibrant-titlebar-dark !important;
+}
+
+/* remove border color of url bar */
+#nav-bar {
+  --lwt-toolbar-field-border-color: transparent;
+  --toolbar-field-focus-border-color: transparent;
+}

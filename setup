@@ -34,6 +34,7 @@ setup_nix() {
 	# CLI tools
 	nix-env -iA \
 		nixpkgs.bat \
+		nixpkgs.entr \
 		nixpkgs.exa \
 		nixpkgs.fd \
 		nixpkgs.fzf \
@@ -79,6 +80,11 @@ setup_mac() {
 	### coreutils
 	nix-env -iA nixpkgs.coreutils
 	### coreutils END
+
+	### defaults
+	log 'setting defaults for macOS'
+	./mac-defaults.sh
+	### defaults END
 }
 
 setup_mac_gui() {
