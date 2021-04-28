@@ -25,7 +25,7 @@ end
 set -Ux VISUAL "$EDITOR"
 
 # disable fish welcome message
-set fish_greeting 
+set fish_greeting
 
 # thefuck
 if type -q thefuck
@@ -52,3 +52,6 @@ if type -q brew
         set -gx fish_complete_path $fish_complete_path (brew --prefix)/share/fish/vendor_completions.d
     end
 end
+
+# source asdf
+sourceadd ~/.asdf/asdf.fish

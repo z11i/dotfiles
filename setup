@@ -132,6 +132,10 @@ setup_neovim() {
 	symlink config/nvim ~/.config/nvim
 }
 
+setup_ideavim() {
+    symlink homefiles/ideavimrc ~/.ideavimrc
+}
+
 setup_alacritty() {
 	if [[ "$IS_WSL" ]]; then
 		echo 'skipping alacritty for WSL'
@@ -146,10 +150,9 @@ setup_tmux() {
 	symlink config/tmux/tmux.conf ~/.tmux.conf
 }
 
-setup_rust() {
-	nix-env -iA nixpkgs.rustup
-	rustup install stable
-	rustup default stable
+setup_asdf() {
+    git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.8.0
+    mkdir -p ~/.config/fish/completions; and cp ~/.asdf/completions/asdf.fish ~/.config/fish/completions
 }
 
 setup_nix
@@ -157,6 +160,7 @@ setup_mac
 setup_fish
 setup_git
 setup_neovim
+setup_ideavim
 ###setup_alacritty
 setup_tmux
-setup_rust
+setup_asdf

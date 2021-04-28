@@ -1,0 +1,7 @@
+set showmode
+set incsearch
+set nu
+""" Idea specific settings ------------------
+set ideajoin
+set ideastatusicon=gray
+set idearefactormode=keep

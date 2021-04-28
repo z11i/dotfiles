@@ -46,9 +46,7 @@
 [credential]
 	helper = store
 
-[user]
-	name = z11i
-	email = z11imdk@gmail.com
-
 [diff]
     algorithm = histogram
+[init]
+	defaultBranch = main

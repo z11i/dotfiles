@@ -1,0 +1,72 @@
+{
+  "autoCollapseExpandSubtreeOnSelect": false,
+  "chunkedUserStyleRules0": "LyogU2hvdyB0aXRsZSBvZiB1bnJlYWQgdGFicyB3aXRoIHJlZCBhbmQgaXRhbGljIGZvbnQgKi8KLyoKOnJvb3Quc2lkZWJhciB0YWItaXRlbS51bnJlYWQgLmxhYmVsLWNvbnRlbnQgewogIGNvbG9yOiByZWQgIWltcG9ydGFudDsKICBmb250LXN0eWxlOiBpdGFsaWMgIWltcG9ydGFudDsKfQoqLwoKLyogQWRkIHByaXZhdGUgYnJvd3NpbmcgaW5kaWNhdG9yIHBlciB0YWIgKi8KLyoKOnJvb3Quc2lkZWJhciB0YWItaXRlbS5wcml2YXRlLWJyb3dzaW5nIHRhYi1sYWJlbDpiZWZvcmUgewogIGNvbnRlbnQ6ICLwn5W2IjsKfQoqLw==",
+  "closeParentBehavior_insideSidebar_expanded": 5,
+  "closeParentBehavior_outsideSidebar_collapsed": 5,
+  "closeParentBehavior_outsideSidebar_expanded": 5,
+  "configsVersion": 24,
+  "context_topLevel_closeDescendants": true,
+  "lastConfirmedToCloseTabs": 1621217008383,
+  "migratedBookmarkUrls": [
+    "moz-extension://29e4839d-dacf-1d48-8697-d30f8dfd7540/sidebar/sidebar.html",
+    "moz-extension://29e4839d-dacf-1d48-8697-d30f8dfd7540/resources/group-tab.html",
+    "moz-extension://29e4839d-dacf-1d48-8697-d30f8dfd7540/options/options.html",
+    "moz-extension://29e4839d-dacf-1d48-8697-d30f8dfd7540/resources/startup.html",
+    "moz-extension://29e4839d-dacf-1d48-8697-d30f8dfd7540/tests/runner.html"
+  ],
+  "notifiedFeaturesVersion": 8,
+  "optionsExpandedSections": [
+    "section-appearance",
+    "section-contextMenu",
+    "section-newTab",
+    "section-treeBehavior",
+    "section-drag",
+    "section-advanced",
+    "section-addons",
+    "section-debug"
+  ],
+  "parentTabOperationBehaviorMode": -1,
+  "showExpertOptions": true,
+  "style": "proton",
+  "syncAvailableNotified": true,
+  "syncDeviceInfo": {
+    "id": "device-1620964109357-6668",
+    "name": "Firefox on macOS",
+    "icon": "device-desktop",
+    "timestamp": 1621824469467
+  },
+  "syncDevices": {
+    "device-1621824254197-51451": {
+      "id": "device-1621824254197-51451",
+      "name": "Firefox on macOS",
+      "icon": "device-desktop",
+      "timestamp": 1621824370158
+    },
+    "device-1620964109357-6668": {
+      "id": "device-1620964109357-6668",
+      "name": "Firefox on macOS",
+      "icon": "device-desktop",
+      "timestamp": 1621821183874
+    }
+  },
+  "syncDevicesLocalCache": {
+    "device-1621824254197-51451": {
+      "id": "device-1621824254197-51451",
+      "name": "Firefox on macOS",
+      "icon": "device-desktop",
+      "timestamp": 1621824370158
+    },
+    "device-1620964109357-6668": {
+      "id": "device-1620964109357-6668",
+      "name": "Firefox on macOS",
+      "icon": "device-desktop",
+      "timestamp": 1621821183874
+    }
+  },
+  "syncOtherDevicesDetected": true,
+  "treeDoubleClickBehavior": 1,
+  "userStyleRules": "",
+  "userStyleRulesFieldHeight": "130px",
+  "warnOnCloseTabs": false,
+  "warnOnCloseTabsByClosebox": false
+}
