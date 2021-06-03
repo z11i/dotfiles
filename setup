@@ -27,25 +27,10 @@ setup_nix() {
 		log 'Nix is installed'
 	)
 	log 'installing packages with Nix'
-	# Libraries
-	nix-env -iA \
-		nixpkgs.libressl
 
-	# CLI tools
-	nix-env -iA \
-		nixpkgs.bat \
-		nixpkgs.entr \
-		nixpkgs.exa \
-		nixpkgs.fd \
-		nixpkgs.fzf \
-		nixpkgs.gitAndTools.delta \
-		nixpkgs.htop \
-		nixpkgs.nixfmt \
-		nixpkgs.ripgrep \
-		nixpkgs.unixtools.watch \
-		nixpkgs.zoxide
+	nix-env -f ./home.nix -ir
 
-	nix-env -iA nixpkgs.starship
+	log 'configure starship'
 	symlink config/starship.toml ~/.config/starship.toml
 
 }
@@ -77,10 +62,6 @@ setup_mac() {
 	curl -L https://raw.githubusercontent.com/ropensci/hunspell/master/inst/dict/en_GB.dic >~/Library/Spelling/en_GB-oed.dic
 	### OED dictionary END
 
-	### coreutils
-	nix-env -iA nixpkgs.coreutils
-	### coreutils END
-
 	### defaults
 	log 'setting defaults for macOS'
 	./mac-defaults.sh
@@ -99,7 +80,6 @@ setup_mac_gui() {
 setup_git() {
 	symlink config/git ~/.config/git
 	symlink homefiles/.gitconfig ~/.gitconfig
-	nix-env -iA nixpkgs.gitAndTools.gitFull
 	if [[ ! -f ~/.gituser ]]; then
 		log '~/.gituser file missing, creating one'
 		read -p 'Email for git: ' git_email
@@ -128,26 +108,11 @@ setup_fish() {
 }
 
 setup_neovim() {
-	nix-env -iA nixpkgs.neovim
 	symlink config/nvim ~/.config/nvim
 }
 
 setup_ideavim() {
     symlink homefiles/ideavimrc ~/.ideavimrc
-}
-
-setup_alacritty() {
-	if [[ "$IS_WSL" ]]; then
-		echo 'skipping alacritty for WSL'
-	else
-		nix-env -iA nixpkgs.alacritty
-		symlink config/alacritty ~/.config/alacritty
-	fi
-}
-
-setup_tmux() {
-	nix-env -iA nixpkgs.tmux
-	symlink config/tmux/tmux.conf ~/.tmux.conf
 }
 
 setup_asdf() {
@@ -161,6 +126,4 @@ setup_fish
 setup_git
 setup_neovim
 setup_ideavim
-###setup_alacritty
-setup_tmux
 setup_asdf
