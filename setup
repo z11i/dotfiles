@@ -23,7 +23,7 @@ setup_nix() {
 	checkBin nix || (
 		log 'installing Nix'
 		sh <(curl -L https://nixos.org/nix/install) --no-daemon
-		. /home/elliot/.nix-profile/etc/profile.d/nix.sh
+		. ~/.nix-profile/etc/profile.d/nix.sh
 		log 'Nix is installed'
 	)
 	log 'installing packages with Nix'
@@ -95,13 +95,13 @@ EOF
 setup_fish() {
 	symlink config/fish ~/.config/fish
 	checkBin fish || (
-		nix-env -iA nixpkgs.fish
+		brew install fish
 		log 'adding fish as a standard shell'
-		shell="$HOME/.nix-profile/bin/fish"
+		shell="/usr/local/bin/fish"
 		file=/etc/shells
 		grep -qF "$shell" "$file" || echo "$shell" | sudo tee -a "$file"
 		log 'changing default shell'
-		chsh -s "$line"
+		chsh -s "$shell"
 	)
 	log 'running fish custom setup script'
 	bash config/fish/custom_ext.sh
@@ -112,12 +112,13 @@ setup_neovim() {
 }
 
 setup_ideavim() {
-    symlink homefiles/ideavimrc ~/.ideavimrc
+	symlink homefiles/ideavimrc ~/.ideavimrc
 }
 
 setup_asdf() {
-    git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.8.0
-    mkdir -p ~/.config/fish/completions; and cp ~/.asdf/completions/asdf.fish ~/.config/fish/completions
+	git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.8.0
+	mkdir -p ~/.config/fish/completions
+	and cp ~/.asdf/completions/asdf.fish ~/.config/fish/completions
 }
 
 setup_nix

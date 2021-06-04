@@ -10,7 +10,6 @@ in buildEnv {
       pkgs.entr
       pkgs.exa
       pkgs.fd
-      pkgs.fish
       pkgs.fzf
       pkgs.gitAndTools.delta
       pkgs.gitAndTools.gitFull
@@ -26,6 +25,5 @@ in buildEnv {
       pkgs.starship
       pkgs.unixtools.watch
       pkgs.zoxide
-      pkgs.hello
    ];
 }
