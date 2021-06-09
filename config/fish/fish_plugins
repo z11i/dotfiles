@@ -1,5 +1,6 @@
-edc/bass
 jethrokuan/fzf
 evanlucas/fish-kubectl-completions
 lilyball/nix-env.fish
 jorgebucaran/fisher
+acomagu/fish-async-prompt
+jorgebucaran/replay.fish
