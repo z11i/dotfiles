@@ -7,6 +7,7 @@ in buildEnv {
    paths = [
       pkgs.bat
       pkgs.coreutils
+      pkgs.du-dust
       pkgs.entr
       pkgs.exa
       pkgs.fd
@@ -19,10 +20,12 @@ in buildEnv {
       pkgs.kafkacat
       pkgs.libressl
       pkgs.neovim
+      pkgs.nix
       pkgs.protobuf
       pkgs.ripgrep
       pkgs.socat
       pkgs.starship
+      pkgs.tmux
       pkgs.unixtools.watch
       pkgs.zoxide
    ];
