@@ -3,7 +3,7 @@
 
 [include]
 	path = ~/.config/git/gitalias/gitalias.txt
-	path = ~/.gituser
+	path = ~/.gitlocal
 
 [alias]
 	c = commit -v
