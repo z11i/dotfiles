@@ -18,7 +18,7 @@ format = "☁️  [$project]($style)"
 style = "bold blue"
 
 [git_branch]
-truncation_length = 32
+truncation_length = 48
 format = "[$symbol$branch]($style) "
 
 [git_commit]
