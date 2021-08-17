@@ -3,6 +3,7 @@ pathadd ~/bin
 
 # homebrew
 pathadd /usr/local/sbin
+pathadd /opt/homebrew/bin
 
 # coreutils
 set -l coreutils /usr/local/opt/coreutils

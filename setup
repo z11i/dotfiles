@@ -22,7 +22,8 @@ fi
 setup_nix() {
 	checkBin nix || (
 		log 'installing Nix'
-		sh <(curl -L https://nixos.org/nix/install) --no-daemon
+		#sh <(curl -L https://nixos.org/nix/install) --no-daemon
+		sh <(curl -L https://nixos.org/nix/install) --darwin-use-unencrypted-nix-store-volume --daemon
 		. ~/.nix-profile/etc/profile.d/nix.sh
 		log 'Nix is installed'
 	)
@@ -43,9 +44,10 @@ setup_mac() {
 	log 'setting up macOS specific stuff'
 
 	### Homebrew
+	eval "$(/opt/homebrew/bin/brew shellenv)" || true
 	checkBin brew || (
 		echo === installing homebrew ===
-		curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh
+		/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 	)
 	### Homebrew END
 
@@ -75,6 +77,7 @@ setup_mac_gui() {
 	log 'setting up macOS GUI applications'
 	brew update
 	brew install keka
+    brew install iterm2
 }
 
 setup_git() {
@@ -97,7 +100,8 @@ setup_fish() {
 	checkBin fish || (
 		brew install fish
 		log 'adding fish as a standard shell'
-		shell="/usr/local/bin/fish"
+		#shell="/usr/local/bin/fish"
+		shell="/opt/homebrew/bin/fish"
 		file=/etc/shells
 		grep -qF "$shell" "$file" || echo "$shell" | sudo tee -a "$file"
 		log 'changing default shell'
@@ -129,3 +133,4 @@ setup_git
 setup_neovim
 setup_ideavim
 setup_asdf
+setup_mac_gui

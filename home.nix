@@ -17,7 +17,6 @@ in buildEnv {
       pkgs.gnupg
       pkgs.htop
       pkgs.jq
-      pkgs.kafkacat
       pkgs.libressl
       pkgs.neovim
       pkgs.nix
