@@ -76,8 +76,14 @@ setup_mac_gui() {
 	fi
 	log 'setting up macOS GUI applications'
 	brew update
-	brew install keka
+    brew install alfred
+    brew install amethyst
+    brew install appcleaner
     brew install iterm2
+    brew install firefox
+    brew install google-drive
+	brew install keka
+    brew install spotify
 }
 
 setup_git() {
