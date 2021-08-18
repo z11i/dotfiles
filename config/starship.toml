@@ -6,8 +6,8 @@ $nix_shell$username$character$status"""
 scan_timeout = 20
 
 [character]
-success_symbol = "[➫](bold green)"
-error_symbol = "[➫](bold red)"
+success_symbol = "[𝞴](bold green)"
+error_symbol = "[𝞴](bold red)"
 
 [directory]
 truncation_length = 4

@@ -19,7 +19,6 @@ in buildEnv {
       pkgs.jq
       pkgs.libressl
       pkgs.neovim
-      pkgs.nix
       pkgs.protobuf
       pkgs.ripgrep
       pkgs.socat
