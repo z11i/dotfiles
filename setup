@@ -90,11 +90,11 @@ setup_mac_gui() {
 setup_git() {
 	symlink config/git ~/.config/git
 	symlink homefiles/.gitconfig ~/.gitconfig
-	if [[ ! -f ~/.gituser ]]; then
-		log '~/.gituser file missing, creating one'
+	if [[ ! -f ~/.gitlocal ]]; then
+		log '~/.gitlocal file missing, creating one'
 		read -p 'Email for git: ' git_email
 		read -p 'Name for git: ' git_name
-		cat <<EOF >~/.gituser
+		cat <<EOF >~/.gitlocal
 [user]
 	email = $git_email
 	name = $git_name
