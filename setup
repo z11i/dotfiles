@@ -84,6 +84,7 @@ setup_mac_gui() {
     brew install google-drive
 	brew install keka
     brew install spotify
+    brew install visual-studio-code
 }
 
 setup_git() {
