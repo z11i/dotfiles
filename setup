@@ -48,6 +48,15 @@ setup_mac() {
 	checkBin brew || (
 		echo === installing homebrew ===
 		/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        echo === configuring homebrew access so it is not just for one user ===
+        log 'creating a usergroup brew'
+        sudo dseditgroup -o create brew
+        log 'adding the current user to group brew'
+        sudo dseditgroup -o edit -a $(whoami) -t user brew
+        log 'changing owner of brew directory to brew'
+        sudo chgrp -R brew $(brew --prefix)
+        log 'changing permissions of brew directory'
+        sudo chmod -R g+rwX $(brew --prefix)
 	)
 	### Homebrew END
 
@@ -128,7 +137,7 @@ setup_ideavim() {
 
 setup_asdf() {
 	[[ -d ~/.asdf ]] && return
-	git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.8.0
+	git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.8.1
 	mkdir -p ~/.config/fish/completions
 	cp ~/.asdf/completions/asdf.fish ~/.config/fish/completions
 }
