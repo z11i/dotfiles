@@ -48,6 +48,15 @@ setup_mac() {
 	checkBin brew || (
 		echo === installing homebrew ===
 		/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        echo === configuring homebrew access so it is not just for one user ===
+        log 'creating a usergroup brew'
+        sudo dseditgroup -o create brew
+        log 'adding the current user to group brew'
+        sudo dseditgroup -o edit -a $(whoami) -t user brew
+        log 'changing owner of brew directory to brew'
+        sudo chgrp -R brew $(brew --prefix)
+        log 'changing permissions of brew directory'
+        sudo chmod -R g+rwX $(brew --prefix)
 	)
 	### Homebrew END
 
@@ -84,16 +93,17 @@ setup_mac_gui() {
     brew install google-drive
 	brew install keka
     brew install spotify
+    brew install visual-studio-code
 }
 
 setup_git() {
 	symlink config/git ~/.config/git
 	symlink homefiles/.gitconfig ~/.gitconfig
-	if [[ ! -f ~/.gituser ]]; then
-		log '~/.gituser file missing, creating one'
+	if [[ ! -f ~/.gitlocal ]]; then
+		log '~/.gitlocal file missing, creating one'
 		read -p 'Email for git: ' git_email
 		read -p 'Name for git: ' git_name
-		cat <<EOF >~/.gituser
+		cat <<EOF >~/.gitlocal
 [user]
 	email = $git_email
 	name = $git_name
@@ -127,7 +137,7 @@ setup_ideavim() {
 
 setup_asdf() {
 	[[ -d ~/.asdf ]] && return
-	git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.8.0
+	git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.8.1
 	mkdir -p ~/.config/fish/completions
 	cp ~/.asdf/completions/asdf.fish ~/.config/fish/completions
 }
