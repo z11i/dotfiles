@@ -26,6 +26,11 @@ commit_hash_length = 4
 tag_symbol = "🔖 "
 disabled = false
 
+[git_status]
+ahead = "${count}⇑"
+diverged = "⇕ ${ahead_count}⇑ ${behind_count}⇓"
+behind = "${count}⇓"
+
 [golang]
 format = "[$symbol($version )]($style)"
 
