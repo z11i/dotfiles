@@ -1,6 +1,14 @@
 source ~/.config/nvim/plugins.vim
 
-""""" Editor ---------------------------------------------------------
+""""" Meta -------------------------------------------------------------------
+" Auto reload nvim configs when they are changed
+au BufWritePost ~/.config/nvim/*.{vim,lua} so $MYVIMRC
+" Edit vimr configuration file
+nnoremap <Leader>ve :e $MYVIMRC<CR>
+" " Reload vimr configuration file
+nnoremap <Leader>vr :source $MYVIMRC<CR>
+
+""""" Editor -----------------------------------------------------------------
 
 "see https://www.reddit.com/r/vim/wiki/tabstop
 set tabstop=4
@@ -13,9 +21,103 @@ set smartcase
 set number relativenumber
 set mouse+=a
 
-""" Airline {{{
+" https://vi.stackexchange.com/a/16511
+" Auto toggle command case sensitivity.
+" In `:' it's insensitive; in `/' it's smart
+" assumes set ignorecase smartcase
+augroup dynamic_smartcase
+    autocmd!
+    autocmd CmdLineEnter : set ignorecase
+    autocmd CmdLineLeave : set smartcase
+augroup END
+
+" === netrw (default vim explorer) ==== "
+" https://shapeshed.com/vim-netrw/
+let g:netrw_banner = 0 "remove banner
+let g:netrw_browse_split = 4 "preview when opening files
+let g:netrw_winsize = 15 "window size
+let g:netrw_liststyle = 3 "tree style listing
+let g:netrw_altv = 1
+augroup ProjectDrawer
+  autocmd!
+  autocmd VimEnter * :Vexplore
+augroup END
+
+
+" https://vi.stackexchange.com/a/655
+set autochdir                   " Changes the cwd to the directory of the current
+                                " buffer whenever you switch buffers.
+set browsedir=current           " Make the file browser always open the current
+                                " directory.
+
+""""" Search -----------------------------------------------------------------
+" fzf
+nnoremap <silent> <Leader><C-g> :Files<CR>
+nnoremap <silent> <Leader><C-f> :Rg<CR>
+nnoremap <silent> <Leader><C-e> :History<CR>
+
+""""" Language specific settings ---------------------------------------------
+""" Go
+au FileType go set noexpandtab
+au FileType go set shiftwidth=4
+au FileType go set softtabstop=4
+au FileType go set tabstop=4
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_types = 1
+let g:go_auto_sameids = 1
+let g:go_fmt_command = "goimports"
+" Error and warning signs.
+let g:ale_sign_error = '⤫'
+let g:ale_sign_warning = '⚠'
+
+" Enable integration with airline.
+let g:airline#extensions#ale#enabled = 1
+
+" show type information in the status line
+let g:go_auto_type_info = 1
+
+" map go-def
+au FileType go nnoremap <F12> <Plug>(go-def)
+
+" add json tags in snakecase
+let g:go_addtags_transform = "snakecase"
+
+
+""""" Aesthetics -------------------------------------------------------------
+set background=dark
+set termguicolors
+set cursorline
+
+try
+    colorscheme ghdark
+    "let g:neodark#terminal_transparent = 1
+    "let g:neodark#use_256color = 1
+    "let g:neodark#background = '#202020'
+catch
+    colorscheme desert
+endtry
+
+" GUI configs
+if has("gui_running")
+    set guioptions -=m
+    set guioptions -=T
+    if has("gui_gtk2")
+        set guifont=Inconsolata\ 12
+    elseif has("gui_macvim")
+        set guifont=Menlo\ Regular:h14
+    elseif has("gui_win32")
+        set guifont=Consolas:h11:cANSI
+    endif
+endif
+
 " === Vim airline ==== "
-let g:airline_theme='ayu'
+let g:airline_theme='ghdark'
 
 let g:airline_powerline_fonts = 1
 if !exists('g:airline_symbols')
@@ -76,67 +178,3 @@ let airline#extensions#coc#stl_format_warn = '%W{[%w(#%fw)]}'
 let g:airline_section_error = '%{airline#util#wrap(airline#extensions#coc#get_error(),1)}'
 let g:airline_section_warning = '%{airline#util#wrap(airline#extensions#coc#get_warning(),0)}'
 
-"Hide the Nerdtree status line to avoid clutter
-let g:NERDTreeStatusline = ''
-""" }}}
-
-
-""""" Language specific settings -------------------------------------
-""" Go
-au FileType go set noexpandtab
-au FileType go set shiftwidth=4
-au FileType go set softtabstop=4
-au FileType go set tabstop=4
-let g:go_highlight_build_constraints = 1
-let g:go_highlight_extra_types = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_structs = 1
-let g:go_highlight_types = 1
-let g:go_auto_sameids = 1
-let g:go_fmt_command = "goimports"
-" Error and warning signs.
-let g:ale_sign_error = '⤫'
-let g:ale_sign_warning = '⚠'
-
-" Enable integration with airline.
-let g:airline#extensions#ale#enabled = 1
-
-" show type information in the status line
-let g:go_auto_type_info = 1
-
-" map go-def
-au FileType go nnoremap <F12> <Plug>(go-def)
-
-" add json tags in snakecase
-let g:go_addtags_transform = "snakecase"
-
-
-""""" Aesthetics -----------------------------------------------------
-set background=dark
-set termguicolors
-set cursorline
-
-try
-    colorscheme ayu
-    let g:neodark#terminal_transparent = 1
-    let g:neodark#use_256color = 1
-    let g:neodark#background = '#202020'
-catch
-    colorscheme desert
-endtry
-
-" GUI configs
-if has("gui_running")
-    set guioptions -=m
-    set guioptions -=T
-    if has("gui_gtk2")
-        set guifont=Inconsolata\ 12
-    elseif has("gui_macvim")
-        set guifont=Menlo\ Regular:h14
-    elseif has("gui_win32")
-        set guifont=Consolas:h11:cANSI
-    endif
-endif

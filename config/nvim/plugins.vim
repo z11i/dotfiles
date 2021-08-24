@@ -33,6 +33,7 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }          " Go development plu
 "
 "" === UI === "
 Plug 'ayu-theme/ayu-vim'                                    " Colorscheme
+Plug 'wojciechkepka/vim-github-dark'                        " Colorscheme
 Plug 'vim-airline/vim-airline'                              " Customized vim status line
 
 " Initialize plugin system
