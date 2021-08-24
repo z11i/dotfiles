@@ -7,4 +7,7 @@ defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 mkdir -p ~/Pictures/Screenshots
 defaults write com.apple.screencapture location ~/Pictures/Screenshots
 
+# disable accent menu on keyboard hold
+defaults write -g ApplePressAndHoldEnabled -bool false
+
 killall Finder

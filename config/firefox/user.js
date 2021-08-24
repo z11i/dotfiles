@@ -14,5 +14,8 @@ user_pref('browser.search.suggest.enabled', false);
 user_pref("browser.urlbar.suggest.calculator", true);
 user_pref("browser.urlbar.unitConversion.enabled", true);
 
+// ************ performance ************ //
+user_pref("gfx.webrender.all", true);
+
 // ************ extensions ************ //
 user_pref('extensions.pocket.enabled', false);
