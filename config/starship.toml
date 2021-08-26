@@ -27,9 +27,9 @@ tag_symbol = "🔖 "
 disabled = false
 
 [git_status]
-ahead = "↑ "
-diverged = "⇕ "
-behind = "↓ "
+ahead = "↑"
+diverged = "⇕"
+behind = "↓"
 
 [golang]
 format = "[$symbol($version )]($style)"

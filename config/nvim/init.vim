@@ -8,6 +8,26 @@ nnoremap <Leader>ve :e $MYVIMRC<CR>
 " " Reload vimr configuration file
 nnoremap <Leader>vr :source $MYVIMRC<CR>
 
+" use space for :
+" https://stackoverflow.com/q/9952031
+nnoremap <space> :
+"nnoremap : ;
+
+""""" Navigation --------------------------------------------------------------
+"To use `ALT+{h,j,k,l}` to navigate windows from any mode: >
+tnoremap <A-h> <C-\><C-N><C-w>h
+tnoremap <A-j> <C-\><C-N><C-w>j
+tnoremap <A-k> <C-\><C-N><C-w>k
+tnoremap <A-l> <C-\><C-N><C-w>l
+inoremap <A-h> <C-\><C-N><C-w>h
+inoremap <A-j> <C-\><C-N><C-w>j
+inoremap <A-k> <C-\><C-N><C-w>k
+inoremap <A-l> <C-\><C-N><C-w>l
+nnoremap <A-h> <C-w>h
+nnoremap <A-j> <C-w>j
+nnoremap <A-k> <C-w>k
+nnoremap <A-l> <C-w>l
+
 """"" Editor -----------------------------------------------------------------
 
 "see https://www.reddit.com/r/vim/wiki/tabstop
@@ -45,16 +65,47 @@ augroup END
 
 
 " https://vi.stackexchange.com/a/655
-set autochdir                   " Changes the cwd to the directory of the current
+"set autochdir                   " Changes the cwd to the directory of the current
                                 " buffer whenever you switch buffers.
 set browsedir=current           " Make the file browser always open the current
                                 " directory.
+
+" auto save when focus is lost
+" http://ideasintosoftware.com/vim-productivity-tips/
+autocmd FocusLost * silent! wa
+
+" quick vertical buffer
+" http://ideasintosoftware.com/vim-productivity-tips/
+nnoremap <leader>w <C-w>v<C-w>l
 
 """"" Search -----------------------------------------------------------------
 " fzf
 nnoremap <silent> <Leader><C-g> :Files<CR>
 nnoremap <silent> <Leader><C-f> :Rg<CR>
 nnoremap <silent> <Leader><C-e> :History<CR>
+
+" Fuzzy insert mode completion using fzf
+" https://vim.fandom.com/wiki/Fuzzy_insert_mode_completion_(using_FZF)
+function! PInsert2(item)
+	let @z=a:item
+	norm "zp
+	call feedkeys('a')
+endfunction
+
+function! CompleteInf()
+	let nl=[]
+	let l=complete_info()
+	for k in l['items']
+		call add(nl, k['word']. ' : ' .k['info'] . ' '. k['menu'] )
+	endfor
+	call fzf#vim#complete(fzf#wrap({ 'source': nl,'reducer': { lines -> split(lines[0], '\zs :')[0] },'sink':function('PInsert2')}))
+endfunction
+
+imap <c-'> <CMD>:call CompleteInf()<CR>
+
+""""" Terminal ---------------------------------------------------------------
+" Escape to exit terminal input mode
+tnoremap <Esc> <C-\><C-n>
 
 """"" Language specific settings ---------------------------------------------
 """ Go
@@ -83,7 +134,9 @@ let g:airline#extensions#ale#enabled = 1
 let g:go_auto_type_info = 1
 
 " map go-def
-au FileType go nnoremap <F12> <Plug>(go-def)
+au FileType go nnoremap <Leader>gd <Plug>(go-def)
+au FileType go nnoremap <Leader>gt <Plug>(go-def-type)
+au FileType go nnoremap <Leader>gr <Plug>(go-referrers)
 
 " add json tags in snakecase
 let g:go_addtags_transform = "snakecase"
