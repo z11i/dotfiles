@@ -55,12 +55,13 @@ augroup END
 " https://shapeshed.com/vim-netrw/
 let g:netrw_banner = 0 "remove banner
 let g:netrw_browse_split = 4 "preview when opening files
-let g:netrw_winsize = 15 "window size
+let g:netrw_winsize = 12 "window size
 let g:netrw_liststyle = 3 "tree style listing
 let g:netrw_altv = 1
+" auto open netrw when enter vim
 augroup ProjectDrawer
   autocmd!
-  autocmd VimEnter * :Vexplore
+  autocmd VimEnter * :Lexplore
 augroup END
 
 
@@ -77,6 +78,12 @@ autocmd FocusLost * silent! wa
 " quick vertical buffer
 " http://ideasintosoftware.com/vim-productivity-tips/
 nnoremap <leader>w <C-w>v<C-w>l
+
+" fold by syntax (default is manual)
+" https://unix.stackexchange.com/a/596686
+set foldmethod=syntax
+set foldlevelstart=99
+nnoremap - za
 
 """"" Search -----------------------------------------------------------------
 " fzf
@@ -134,9 +141,9 @@ let g:airline#extensions#ale#enabled = 1
 let g:go_auto_type_info = 1
 
 " map go-def
-au FileType go nnoremap <Leader>gd <Plug>(go-def)
-au FileType go nnoremap <Leader>gt <Plug>(go-def-type)
-au FileType go nnoremap <Leader>gr <Plug>(go-referrers)
+au FileType go nmap ]d <Plug>(go-def)
+au FileType go nmap ]t <Plug>(go-def-type)
+au FileType go nmap ]r <Plug>(go-referrers)
 
 " add json tags in snakecase
 let g:go_addtags_transform = "snakecase"
