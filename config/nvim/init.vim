@@ -53,17 +53,29 @@ augroup END
 
 " === netrw (default vim explorer) ==== "
 " https://shapeshed.com/vim-netrw/
-let g:netrw_banner = 0 "remove banner
-let g:netrw_browse_split = 4 "preview when opening files
-let g:netrw_winsize = 12 "window size
-let g:netrw_liststyle = 3 "tree style listing
-let g:netrw_altv = 1
-" auto open netrw when enter vim
-augroup ProjectDrawer
-  autocmd!
-  autocmd VimEnter * :Lexplore
-augroup END
+"let g:netrw_banner = 0 "remove banner
+"let g:netrw_browse_split = 4 "preview when opening files
+"let g:netrw_winsize = 12 "window size
+"let g:netrw_liststyle = 3 "tree style listing
+"let g:netrw_altv = 1
+"" auto open netrw when enter vim
+"augroup ProjectDrawer
+"  autocmd!
+"  autocmd VimEnter * :Lexplore
+"augroup END
+"
+" === NERDTree === "
+" Start NERDTree when Vim starts with a directory argument.
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists('s:std_in') |
+    \ execute 'NERDTree' argv()[0] | wincmd p | enew | execute 'cd '.argv()[0] | endif
 
+"" If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
+"autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
+"    \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
+
+nnoremap <leader>n :NERDTreeFocus<CR>
+nnoremap <leader><C-n> :NERDTreeFind<CR>
 
 " https://vi.stackexchange.com/a/655
 "set autochdir                   " Changes the cwd to the directory of the current
@@ -87,9 +99,9 @@ nnoremap - za
 
 """"" Search -----------------------------------------------------------------
 " fzf
-nnoremap <silent> <Leader><C-g> :Files<CR>
-nnoremap <silent> <Leader><C-f> :Rg<CR>
-nnoremap <silent> <Leader><C-e> :History<CR>
+nnoremap <silent> <Leader>g :Files<CR>
+nnoremap <silent> <Leader>f :Rg<CR>
+nnoremap <silent> <Leader>e :History<CR>
 
 " Fuzzy insert mode completion using fzf
 " https://vim.fandom.com/wiki/Fuzzy_insert_mode_completion_(using_FZF)
@@ -141,9 +153,10 @@ let g:airline#extensions#ale#enabled = 1
 let g:go_auto_type_info = 1
 
 " map go-def
-au FileType go nmap ]d <Plug>(go-def)
-au FileType go nmap ]t <Plug>(go-def-type)
-au FileType go nmap ]r <Plug>(go-referrers)
+au FileType go nmap gd <Plug>(go-def)
+au FileType go nmap gt <Plug>(go-def-type)
+au FileType go nmap gr <Plug>(go-referrers)
+au FileType go nmap gi <Plug>(go-implements)
 
 " add json tags in snakecase
 let g:go_addtags_transform = "snakecase"
