@@ -19,6 +19,7 @@ call plug#begin('~/.config/nvim/plugged')
 " === Editing Plugins === "
 Plug 'ntpeters/vim-better-whitespace'                       " Trailing whitespace highlighting & automatic fixing
 Plug 'Shougo/echodoc.vim'                                   " Print function signatures in echo area
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } " Autocomplete
 
 "" === Navigation === "
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -33,7 +34,6 @@ Plug 'tpope/vim-fugitive'                                   " Enable git changes
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }          " Go development plugin for Vim
 "
 "" === UI === "
-Plug 'ayu-theme/ayu-vim'                                    " Colorscheme
 Plug 'wojciechkepka/vim-github-dark'                        " Colorscheme
 Plug 'vim-airline/vim-airline'                              " Customized vim status line
 

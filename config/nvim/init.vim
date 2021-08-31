@@ -75,7 +75,7 @@ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists('s:std_in
 "    \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
 
 nnoremap <leader>n :NERDTreeFocus<CR>
-nnoremap <leader><C-n> :NERDTreeFind<CR>
+nnoremap <leader>N :NERDTreeFind<CR>
 
 " https://vi.stackexchange.com/a/655
 "set autochdir                   " Changes the cwd to the directory of the current
@@ -97,11 +97,65 @@ set foldmethod=syntax
 set foldlevelstart=99
 nnoremap - za
 
+""""" Buffer -----------------------------------------------------------------
+set hidden " hide buffers when abandoned
+
+""""" Autocomplete -----------------------------------------------------------
+"""" deoplete
+let g:deoplete#enable_at_startup = 1
+call deoplete#custom#option('auto_complete_delay', 10)
+call deoplete#custom#option('auto_refresh_delay', 50)
+
+" instructs deoplete to use omni completion for go files
+call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*' })
+
+" <TAB>: completion.
+" https://stackoverflow.com/a/44271350
+inoremap <silent><expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+inoremap <silent><expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
+
+" deoplete candidate marks: use mnemonics for commands to insert the candidate
+call deoplete#custom#option('candidate_marks',
+      \ ['A', 'S', 'D', 'F', 'G'])
+inoremap <expr>A       pumvisible() ?
+\ deoplete#insert_candidate(0) : 'A'
+inoremap <expr>S       pumvisible() ?
+\ deoplete#insert_candidate(1) : 'S'
+inoremap <expr>D       pumvisible() ?
+\ deoplete#insert_candidate(2) : 'D'
+inoremap <expr>F       pumvisible() ?
+\ deoplete#insert_candidate(3) : 'F'
+inoremap <expr>G       pumvisible() ?
+\ deoplete#insert_candidate(4) : 'G'
+
 """"" Search -----------------------------------------------------------------
 " fzf
 nnoremap <silent> <Leader>g :Files<CR>
 nnoremap <silent> <Leader>f :Rg<CR>
 nnoremap <silent> <Leader>e :History<CR>
+nnoremap <silent> <Leader>b :Buffers<CR>
+
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-s': 'split',
+  \ 'ctrl-v': 'vsplit' }
+
+" Customize fzf colors to match your color scheme
+" - fzf#wrap translates this to a set of `--color` options
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
 
 " Fuzzy insert mode completion using fzf
 " https://vim.fandom.com/wiki/Fuzzy_insert_mode_completion_(using_FZF)
@@ -132,16 +186,35 @@ au FileType go set noexpandtab
 au FileType go set shiftwidth=4
 au FileType go set softtabstop=4
 au FileType go set tabstop=4
+
+let g:go_highlight_array_whitespace_error = 1
 let g:go_highlight_build_constraints = 1
+let g:go_highlight_chan_whitespace_error = 1
+let g:go_highlight_debug = 1
+let g:go_highlight_diagnostic_errors = 1
+let g:go_highlight_diagnostic_warnings = 1
 let g:go_highlight_extra_types = 1
 let g:go_highlight_fields = 1
+let g:go_highlight_format_strings = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_function_parameters = 1
 let g:go_highlight_functions = 1
+let g:go_highlight_generate_tags = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_operators = 1
+let g:go_highlight_space_tab_error = 1
+let g:go_highlight_string_spellcheck = 1
 let g:go_highlight_structs = 1
+let g:go_highlight_trailing_whitespace_error = 0
 let g:go_highlight_types = 1
+let g:go_highlight_variable_assignments = 1
+let g:go_highlight_variable_declarations = 1
+
 let g:go_auto_sameids = 1
 let g:go_fmt_command = "goimports"
+let g:go_doc_popup_window = 1
+let g:go_doc_balloon = 0
+
 " Error and warning signs.
 let g:ale_sign_error = '⤫'
 let g:ale_sign_warning = '⚠'
@@ -151,12 +224,23 @@ let g:airline#extensions#ale#enabled = 1
 
 " show type information in the status line
 let g:go_auto_type_info = 1
+let g:go_updatetime = 500 " reduce time delay for jobs like go_auto_type_info
 
-" map go-def
-au FileType go nmap gd <Plug>(go-def)
-au FileType go nmap gt <Plug>(go-def-type)
+" map commands
+let g:go_def_mapping_enabled = 0 " disable default gd mapping
+let g:go_def_reuse_buffer = 1
+au FileType go nmap <C-]> <Plug>(go-def)
+au FileType go nmap gd <Plug>(go-def-vertical)
+au FileType go nmap gD <Plug>(go-def-split)
+au FileType go nmap gt <Plug>(go-def-type-vertical)
+au FileType go nmap gT <Plug>(go-def-type-split)
+au FileType go nmap g] <Plug>(go-def-type)
 au FileType go nmap gr <Plug>(go-referrers)
 au FileType go nmap gi <Plug>(go-implements)
+
+au FileType go nnoremap gl :GoDecls
+au FileType go nnoremap gL :GoDeclsDir
+au FileType go nnoremap gotf :GoTestFunc
 
 " add json tags in snakecase
 let g:go_addtags_transform = "snakecase"
