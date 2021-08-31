@@ -20,6 +20,8 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'ntpeters/vim-better-whitespace'                       " Trailing whitespace highlighting & automatic fixing
 Plug 'Shougo/echodoc.vim'                                   " Print function signatures in echo area
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } " Autocomplete
+Plug 'LucHermitte/lh-vim-lib'                               " bracket autoclose
+Plug 'LucHermitte/lh-brackets'                              " bracket autoclose
 
 "" === Navigation === "
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }

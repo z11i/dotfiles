@@ -97,6 +97,9 @@ set foldmethod=syntax
 set foldlevelstart=99
 nnoremap - za
 
+""" disable lh-brackets placeholders
+let g:usemarks = 0
+
 """"" Buffer -----------------------------------------------------------------
 set hidden " hide buffers when abandoned
 
