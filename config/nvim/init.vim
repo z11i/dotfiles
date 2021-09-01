@@ -108,22 +108,81 @@ set hidden " hide buffers when abandoned
 
 """"" Autocomplete -----------------------------------------------------------
 """" deoplete
-let g:deoplete#enable_at_startup = 1
-call deoplete#custom#option('auto_complete_delay', 10)
-call deoplete#custom#option('auto_refresh_delay', 50)
+"let g:deoplete#enable_at_startup = 1
+"call deoplete#custom#option('auto_complete_delay', 10)
+"call deoplete#custom#option('auto_refresh_delay', 50)
 
 " instructs deoplete to use omni completion for go files
-call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*' })
+"call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*' })
 
 " <TAB>: completion.
 " https://stackoverflow.com/a/44271350
 inoremap <silent><expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 inoremap <silent><expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
 
+""" nvim-compe """
+lua vim.o.completeopt = "menuone,noselect"
+
+lua <<EOF
+require'compe'.setup {
+enabled = true;
+autocomplete = true;
+debug = false;
+min_length = 1;
+preselect = 'enable';
+throttle_time = 80;
+source_timeout = 200;
+resolve_timeout = 800;
+incomplete_delay = 400;
+max_abbr_width = 100;
+max_kind_width = 100;
+max_menu_width = 100;
+documentation = {
+    border = { '', '' ,'', ' ', '', '', '', ' ' }, -- the border option is the same as `|help nvim_open_win|`
+    winhighlight = "NormalFloat:CompeDocumentation,FloatBorder:CompeDocumentationBorder",
+    max_width = 120,
+    min_width = 60,
+    max_height = math.floor(vim.o.lines * 0.3),
+    min_height = 1,
+    };
+
+source = {
+    path = true;
+    buffer = true;
+    calc = true;
+    nvim_lsp = true;
+    --nvim_lua = true;
+    --vsnip = true;
+    --ultisnips = true;
+    --luasnip = true;
+    };
+}
+EOF
+
+" autopair compat
+inoremap <silent><expr> <C-Space> compe#complete()
+inoremap <silent><expr> <CR>      compe#confirm(luaeval("require 'nvim-autopairs'.autopairs_cr()"))
+inoremap <silent><expr> <C-e>     compe#close('<C-e>')
+inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
+inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
+
+"change documentation window's highlight group
+highlight link CompeDocumentation NormalFloat
+
+" === nvim-autopairs ===
+lua <<EOF
+require('nvim-autopairs').setup{}
+require("nvim-autopairs.completion.compe").setup({
+map_cr = true, --  map <CR> on insert mode
+map_complete = true, -- it will auto insert `(` after select function or method item
+auto_select = false,  -- auto select first item
+})
+EOF
+
 """"" Search -----------------------------------------------------------------
 " fzf
-nnoremap <silent> <Leader>g :Files<CR>
-nnoremap <silent> <Leader>f :Rg<CR>
+nnoremap <silent> <Leader>f :Files<CR>
+nnoremap <silent> <Leader>s :Rg<CR>
 nnoremap <silent> <Leader>e :History<CR>
 nnoremap <silent> <Leader>b :Buffers<CR>
 nnoremap <silent> <Leader>a :Commands<CR>
@@ -174,63 +233,81 @@ imap <c-'> <CMD>:call CompleteInf()<CR>
 tnoremap <Esc> <C-\><C-n>
 
 """"" Language specific settings ---------------------------------------------
+""" Generic LSP settings
+lua << EOF
+local nvim_lsp = require('lspconfig')
+
+-- Use an on_attach function to only map the following keys
+-- after the language server attaches to the current buffer
+local on_attach = function(client, bufnr)
+local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+
+-- Enable completion triggered by <c-x><c-o>
+buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+-- Mappings.
+local opts = { noremap=true, silent=false }
+
+-- See `:help vim.lsp.*` for documentation on any of the below functions
+buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+--buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+--buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+--buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+--buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+--buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+--buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+--buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+--buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+
+-- Set some keybinds conditional on server capabilities
+if client.resolved_capabilities.document_formatting then
+    buf_set_keymap("n", "<leader>l", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+elseif client.resolved_capabilities.document_range_formatting then
+    buf_set_keymap("n", "<leader>l", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+end
+
+end
+
+-- Use a loop to conveniently call 'setup' on multiple servers and
+-- map buffer local keybindings when the language server attaches
+local servers = { 'gopls' }
+for _, lsp in ipairs(servers) do
+    nvim_lsp[lsp].setup {
+        on_attach = on_attach,
+        flags = {
+            debounce_text_changes = 150,
+            }
+        }
+end
+
+-- highlighting
+require'nvim-treesitter.configs'.setup {
+    highlight = {
+    enable = true
+    }
+}
+EOF
+
 """ Go
 au FileType go set noexpandtab
 au FileType go set shiftwidth=4
 au FileType go set softtabstop=4
 au FileType go set tabstop=4
 
-let g:go_highlight_array_whitespace_error = 1
-let g:go_highlight_build_constraints = 1
-let g:go_highlight_chan_whitespace_error = 1
-let g:go_highlight_debug = 1
-let g:go_highlight_diagnostic_errors = 1
-let g:go_highlight_diagnostic_warnings = 1
-let g:go_highlight_extra_types = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_format_strings = 1
-let g:go_highlight_function_calls = 1
-let g:go_highlight_function_parameters = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_generate_tags = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_space_tab_error = 1
-let g:go_highlight_string_spellcheck = 1
-let g:go_highlight_structs = 1
-let g:go_highlight_trailing_whitespace_error = 0
-let g:go_highlight_types = 1
-let g:go_highlight_variable_assignments = 1
-let g:go_highlight_variable_declarations = 1
-
-let g:go_auto_sameids = 1
-let g:go_fmt_command = "goimports"
-let g:go_doc_popup_window = 1
-let g:go_doc_balloon = 0
-
-" show type information in the status line
-let g:go_auto_type_info = 1
-let g:go_updatetime = 500 " reduce time delay for jobs like go_auto_type_info
-
-" map commands
-let g:go_def_mapping_enabled = 0 " disable default gd mapping
-let g:go_def_reuse_buffer = 1
-au FileType go nmap <C-]> <Plug>(go-def)
-au FileType go nmap gd <Plug>(go-def-vertical)
-au FileType go nmap gD <Plug>(go-def-split)
-au FileType go nmap gt <Plug>(go-def-type-vertical)
-au FileType go nmap gT <Plug>(go-def-type-split)
-au FileType go nmap g] <Plug>(go-def-type)
-au FileType go nmap gr <Plug>(go-referrers)
-au FileType go nmap gi <Plug>(go-implements)
-
-au FileType go nnoremap gl :GoDecls
-au FileType go nnoremap gL :GoDeclsDir
-au FileType go nnoremap gotf :GoTestFunc
-
-" add json tags in snakecase
-let g:go_addtags_transform = "snakecase"
-
+" === go.nvim ===
+lua <<EOF
+require('go').setup()
+EOF
+" Auto gofmt on write
+autocmd BufWritePre *.go :silent! lua require('go.format').gofmt()
 
 """"" Aesthetics -------------------------------------------------------------
 set background=dark
@@ -244,10 +321,19 @@ augroup CursorlineOnActiveWin
 augroup END
 
 try
-    colorscheme ghdark
-    "let g:neodark#terminal_transparent = 1
-    "let g:neodark#use_256color = 1
-    "let g:neodark#background = '#202020'
+    lua << EOF
+    require("github-theme").setup({
+    functionStyle = "italic",
+    themeStyle = "dimmed",
+    sidebars = {"qf", "vista_kind", "terminal", "packer"},
+
+    -- Change the "hint" color to the "orange" color, and make the "error" color bright red
+    colors = {hint = "orange", error = "#ff0000"}
+    })
+EOF
+"let g:neodark#terminal_transparent = 1
+"let g:neodark#use_256color = 1
+"let g:neodark#background = '#202020'
 catch
     colorscheme desert
 endtry
@@ -266,7 +352,7 @@ if has("gui_running")
 endif
 
 " === Vim airline ==== "
-let g:airline_theme='ghdark'
+let g:airline_theme='dark'
 
 let g:airline_powerline_fonts = 1
 if !exists('g:airline_symbols')
