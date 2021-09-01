@@ -38,7 +38,7 @@ set expandtab
 
 set ignorecase
 set smartcase
-set number relativenumber
+set number "" relativenumber
 set mouse+=a
 
 " https://vi.stackexchange.com/a/16511
@@ -49,6 +49,12 @@ augroup dynamic_smartcase
     autocmd!
     autocmd CmdLineEnter : set ignorecase
     autocmd CmdLineLeave : set smartcase
+augroup END
+
+augroup dynamic_number
+    autocmd!
+    autocmd InsertEnter * :set norelativenumber
+    autocmd InsertLeave * :set relativenumber
 augroup END
 
 " === netrw (default vim explorer) ==== "
@@ -68,7 +74,7 @@ augroup END
 " Start NERDTree when Vim starts with a directory argument.
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists('s:std_in') |
-    \ execute 'NERDTree' argv()[0] | wincmd p | enew | execute 'cd '.argv()[0] | endif
+            \ execute 'NERDTree' argv()[0] | wincmd p | enew | execute 'cd '.argv()[0] | endif
 
 "" If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
 "autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
@@ -79,9 +85,9 @@ nnoremap <leader>N :NERDTreeFind<CR>
 
 " https://vi.stackexchange.com/a/655
 "set autochdir                   " Changes the cwd to the directory of the current
-                                " buffer whenever you switch buffers.
+" buffer whenever you switch buffers.
 set browsedir=current           " Make the file browser always open the current
-                                " directory.
+" directory.
 
 " auto save when focus is lost
 " http://ideasintosoftware.com/vim-productivity-tips/
@@ -96,9 +102,6 @@ nnoremap <leader>w <C-w>v<C-w>l
 set foldmethod=syntax
 set foldlevelstart=99
 nnoremap - za
-
-""" disable lh-brackets placeholders
-let g:usemarks = 0
 
 """"" Buffer -----------------------------------------------------------------
 set hidden " hide buffers when abandoned
@@ -117,64 +120,51 @@ call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*' })
 inoremap <silent><expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 inoremap <silent><expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
 
-" deoplete candidate marks: use mnemonics for commands to insert the candidate
-call deoplete#custom#option('candidate_marks',
-      \ ['A', 'S', 'D', 'F', 'G'])
-inoremap <expr>A       pumvisible() ?
-\ deoplete#insert_candidate(0) : 'A'
-inoremap <expr>S       pumvisible() ?
-\ deoplete#insert_candidate(1) : 'S'
-inoremap <expr>D       pumvisible() ?
-\ deoplete#insert_candidate(2) : 'D'
-inoremap <expr>F       pumvisible() ?
-\ deoplete#insert_candidate(3) : 'F'
-inoremap <expr>G       pumvisible() ?
-\ deoplete#insert_candidate(4) : 'G'
-
 """"" Search -----------------------------------------------------------------
 " fzf
 nnoremap <silent> <Leader>g :Files<CR>
 nnoremap <silent> <Leader>f :Rg<CR>
 nnoremap <silent> <Leader>e :History<CR>
 nnoremap <silent> <Leader>b :Buffers<CR>
+nnoremap <silent> <Leader>a :Commands<CR>
 
 let g:fzf_action = {
-  \ 'ctrl-t': 'tab split',
-  \ 'ctrl-s': 'split',
-  \ 'ctrl-v': 'vsplit' }
+            \ 'ctrl-t': 'tab split',
+            \ 'ctrl-s': 'split',
+            \ 'ctrl-v': 'vsplit' }
 
 " Customize fzf colors to match your color scheme
 " - fzf#wrap translates this to a set of `--color` options
 let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['bg', 'Normal'],
-  \ 'hl':      ['fg', 'Comment'],
-  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-  \ 'hl+':     ['fg', 'Statement'],
-  \ 'info':    ['fg', 'PreProc'],
-  \ 'border':  ['fg', 'Ignore'],
-  \ 'prompt':  ['fg', 'Conditional'],
-  \ 'pointer': ['fg', 'Exception'],
-  \ 'marker':  ['fg', 'Keyword'],
-  \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment'] }
+            \ { 'fg':      ['fg', 'Normal'],
+            \ 'bg':      ['bg', 'Normal'],
+            \ 'hl':      ['fg', 'Comment'],
+            \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+            \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+            \ 'hl+':     ['fg', 'Statement'],
+            \ 'info':    ['fg', 'PreProc'],
+            \ 'border':  ['fg', 'Ignore'],
+            \ 'prompt':  ['fg', 'Conditional'],
+            \ 'pointer': ['fg', 'Exception'],
+            \ 'marker':  ['fg', 'Keyword'],
+            \ 'spinner': ['fg', 'Label'],
+            \ 'header':  ['fg', 'Comment'] }
 
 " Fuzzy insert mode completion using fzf
 " https://vim.fandom.com/wiki/Fuzzy_insert_mode_completion_(using_FZF)
 function! PInsert2(item)
-	let @z=a:item
-	norm "zp
-	call feedkeys('a')
+    let @z=a:item
+    norm "zp
+    call feedkeys('a')
 endfunction
 
 function! CompleteInf()
-	let nl=[]
-	let l=complete_info()
-	for k in l['items']
-		call add(nl, k['word']. ' : ' .k['info'] . ' '. k['menu'] )
-	endfor
-	call fzf#vim#complete(fzf#wrap({ 'source': nl,'reducer': { lines -> split(lines[0], '\zs :')[0] },'sink':function('PInsert2')}))
+    let nl=[]
+    let l=complete_info()
+    for k in l['items']
+        call add(nl, k['word']. ' : ' .k['info'] . ' '. k['menu'] )
+    endfor
+    call fzf#vim#complete(fzf#wrap({ 'source': nl,'reducer': { lines -> split(lines[0], '\zs :')[0] },'sink':function('PInsert2')}))
 endfunction
 
 imap <c-'> <CMD>:call CompleteInf()<CR>
@@ -218,13 +208,6 @@ let g:go_fmt_command = "goimports"
 let g:go_doc_popup_window = 1
 let g:go_doc_balloon = 0
 
-" Error and warning signs.
-let g:ale_sign_error = '⤫'
-let g:ale_sign_warning = '⚠'
-
-" Enable integration with airline.
-let g:airline#extensions#ale#enabled = 1
-
 " show type information in the status line
 let g:go_auto_type_info = 1
 let g:go_updatetime = 500 " reduce time delay for jobs like go_auto_type_info
@@ -252,7 +235,13 @@ let g:go_addtags_transform = "snakecase"
 """"" Aesthetics -------------------------------------------------------------
 set background=dark
 set termguicolors
-set cursorline
+
+" cursorline based on active window
+augroup CursorlineOnActiveWin
+    autocmd!
+    autocmd WinEnter * set cursorline
+    autocmd WinLeave * set nocursorline
+augroup END
 
 try
     colorscheme ghdark
@@ -314,9 +303,15 @@ let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = '☰'
 let g:airline_symbols.maxlinenr = ''
 let g:airline_symbols.dirty='⚡'
+
 " Enable extensions
+let g:airline#extensions#ale#enabled = 1
+let g:airline#extensions#branch#enabled = 1
+let g:airline#extensions#branch#displayed_head_limit = 10
+let g:airline#extensions#branch#format = 2
+let g:airline#extensions#fzf#enabled = 1
+let g:airline#extensions#nerdtree_statusline = 1
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_extensions = ['branch', 'hunks', 'coc']
 
 " Update section z to just have line number
 "let g:airline_section_z = airline#section#create(['linenr'])
@@ -329,12 +324,4 @@ let g:airline#extensions#tabline#formatter = 'unique_tail'
 
 " Custom setup that removes filetype/whitespace from default vim airline bar
 let g:airline#extensions#default#layout = [['a', 'b', 'c'], ['x', 'z', 'warning', 'error']]
-
-let airline#extensions#coc#stl_format_err = '%E{[%e(#%fe)]}'
-
-let airline#extensions#coc#stl_format_warn = '%W{[%w(#%fw)]}'
-
-" Configure error/warning section to use coc.nvim
-let g:airline_section_error = '%{airline#util#wrap(airline#extensions#coc#get_error(),1)}'
-let g:airline_section_warning = '%{airline#util#wrap(airline#extensions#coc#get_warning(),0)}'
 
