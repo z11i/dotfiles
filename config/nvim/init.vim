@@ -293,7 +293,7 @@ let g:airline_symbols.spell = 'Ꞩ'
 let g:airline_symbols.notexists = 'Ɇ'
 let g:airline_symbols.whitespace = 'Ξ'
 
-" powerline symbols
+"" powerline symbols
 let g:airline_left_sep = ''
 let g:airline_left_alt_sep = ''
 let g:airline_right_sep = ''
@@ -313,15 +313,24 @@ let g:airline#extensions#fzf#enabled = 1
 let g:airline#extensions#nerdtree_statusline = 1
 let g:airline#extensions#tabline#enabled = 1
 
-" Update section z to just have line number
-"let g:airline_section_z = airline#section#create(['linenr'])
-
+" enable experimental features >
+" Currently: Enable Vim9 Script implementation
+let g:airline_experimental = 1
+" determine whether inactive windows should have the left section collapsed
+" to only the filename of that buffer.  >
+let g:airline_inactive_collapse=0
+" Use alternative seperators for the statusline of inactive windows >
+let g:airline_inactive_alt_sep=1
+" enable iminsert detection >
+let g:airline_detect_iminsert=0
 " Do not draw separators for empty sections (only for the active window) >
 let g:airline_skip_empty_sections = 1
-
 " Smartly uniquify buffers names with similar filename, suppressing common parts of paths.
 let g:airline#extensions#tabline#formatter = 'unique_tail'
-
 " Custom setup that removes filetype/whitespace from default vim airline bar
 let g:airline#extensions#default#layout = [['a', 'b', 'c'], ['x', 'z', 'warning', 'error']]
+" defines whether the preview window should be excluded from having its window
+" statusline modified (may help with plugins which use the preview window
+" heavily) >
+let g:airline_exclude_preview = 0
 
