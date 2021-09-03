@@ -1586,9 +1586,11 @@ Maximize Active Pane</string>
 			<key>Name</key>
 			<string>Default</string>
 			<key>Non Ascii Font</key>
-			<string>Input-Regular 15</string>
+			<string>IosevkaNerdFontComplete- 15</string>
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
+			<key>Non-ASCII Ligatures</key>
+			<false/>
 			<key>Normal Font</key>
 			<string>Iosevka-Term 14</string>
 			<key>Only The Default BG Color Uses Transparency</key>
@@ -1787,7 +1789,7 @@ Maximize Active Pane</string>
 			<key>Use Italic Font</key>
 			<true/>
 			<key>Use Non-ASCII Font</key>
-			<false/>
+			<true/>
 			<key>Vertical Spacing</key>
 			<real>1</real>
 			<key>Visual Bell</key>

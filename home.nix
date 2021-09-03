@@ -6,6 +6,8 @@ in buildEnv {
    name = "home";
    paths = [
       pkgs.bat
+      pkgs.bit
+      pkgs.cacert
       pkgs.coreutils
       pkgs.du-dust
       pkgs.entr
@@ -15,10 +17,12 @@ in buildEnv {
       pkgs.gitAndTools.delta
       pkgs.gitAndTools.gitFull
       pkgs.gnupg
+      pkgs.gnused
       pkgs.htop
       pkgs.jq
       pkgs.libressl
       pkgs.neovim
+      pkgs.nix
       pkgs.protobuf
       pkgs.ripgrep
       pkgs.socat

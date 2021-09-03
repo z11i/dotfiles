@@ -16,20 +16,27 @@ endif
 
 call plug#begin('~/.config/nvim/plugged')
 
+" === Foundation ===
+Plug 'nvim-lua/plenary.nvim'                                " Common Lua modules
+
 " === Editing Plugins === "
 Plug 'ntpeters/vim-better-whitespace'                       " Trailing whitespace highlighting & automatic fixing
-Plug 'Shougo/echodoc.vim'                                   " Print function signatures in echo area
 Plug 'hrsh7th/nvim-compe'                                   " Auto completion Lua plugin for nvim
 Plug 'windwp/nvim-autopairs'                                " autopairs for neovim written by lua
+Plug 'windwp/nvim-spectre'                                  " Search and replace
+Plug 'folke/which-key.nvim'                                 " displays a popup with possible keybindings of the command you started typing
+Plug 'romgrk/nvim-treesitter-context'                       " Show code context
+Plug 'lukas-reineke/indent-blankline.nvim'                  " Indent guides for Neovim
 
 "" === Navigation === "
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-Plug 'preservim/nerdtree'
+Plug 'ibhagwan/fzf-lua'                                     " Improved fzf.vim written in lua
+Plug 'vijaymarupudi/nvim-fzf'                               " A Lua API for using fzf in neovim.
+"Plug 'ray-x/guihua.lua', {'do': 'cd lua/fzy && make' }
+"Plug 'ray-x/navigator.lua'                                  " Easy code navigation, view diagnostic errors, see relationships of functions, variables
 
 "" === Git Plugins === "
-Plug 'mhinz/vim-signify'                                    " Enable git changes to be shown in sign column
 Plug 'tpope/vim-fugitive'                                   " Enable git changes to be shown in sign column
+Plug 'lewis6991/gitsigns.nvim'                               " Git signs written in pure lua
 
 "" === Language support === "
 function! s:TreesitterHook(_)
@@ -45,8 +52,12 @@ Plug 'ray-x/go.nvim'                                                " Go Neovim 
 
 "" === UI === "
 Plug 'projekt0n/github-nvim-theme'                          " Github theme with treesitter support
-Plug 'wojciechkepka/vim-github-dark'                        " Colorscheme
-Plug 'vim-airline/vim-airline'                              " Customized vim status line
+Plug 'kyazdani42/nvim-web-devicons' " for file icons
+Plug 'kyazdani42/nvim-tree.lua'                             " File explorer
+Plug 'beauwilliams/focus.nvim'                              " Auto-Focusing and Auto-Resizing Splits/Windows
+Plug 'kevinhwang91/nvim-bqf'                                " Better quickfix window in Neovim
+Plug 'hoob3rt/lualine.nvim'                                 " statusline plugin
+Plug 'jose-elias-alvarez/buftabline.nvim'                   " bufferline"
 
 " Initialize plugin system
 call plug#end()

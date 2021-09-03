@@ -5,15 +5,16 @@ source ~/.config/nvim/plugins.vim
 au BufWritePost ~/.config/nvim/*.{vim,lua} so $MYVIMRC
 " Edit vimr configuration file
 nnoremap <Leader>ve :e $MYVIMRC<CR>
-" " Reload vimr configuration file
+" Reload vimr configuration file
 nnoremap <Leader>vr :source $MYVIMRC<CR>
 
 " use space for :
 " https://stackoverflow.com/q/9952031
 nnoremap <space> :
-"nnoremap : ;
 
 """"" Navigation --------------------------------------------------------------
+set hidden " hide buffers when abandoned
+
 "To use `ALT+{h,j,k,l}` to navigate windows from any mode: >
 tnoremap <A-h> <C-\><C-N><C-w>h
 tnoremap <A-j> <C-\><C-N><C-w>j
@@ -27,6 +28,34 @@ nnoremap <A-h> <C-w>h
 nnoremap <A-j> <C-w>j
 nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
+
+" split current buffer and go to previous buffer
+nnoremap <A-\> <C-w>v<C-o>
+nnoremap <A--> <C-w>s<C-o>
+
+" === NvimTree === "
+nnoremap <leader>n :NvimTreeFocus<CR>
+nnoremap <leader>N :NvimTreeFindFile<CR>
+
+set winminwidth=20
+let g:nvim_tree_width = 20
+
+let g:nvim_tree_highlight_opened_files = 1
+let g:nvim_tree_lsp_diagnostics = 1 "0 by default, will show lsp diagnostics in the signcolumn. See :help nvim_tree_lsp_diagnostics
+let g:nvim_tree_indent_markers = 0 "0 by default, this option shows indent markers when folders are open
+let g:nvim_tree_follow = 0 "0 by default, this option allows the cursor to be updated when entering a buffer
+let g:nvim_tree_auto_open = 1 "0 by default, opens the tree when typing `vim $DIR` or `vim`
+let g:nvim_tree_auto_close = 0 "0 by default, closes the tree when it's the last window
+let g:nvim_tree_disable_netrw = 1 "1 by default, disables netrw
+let g:nvim_tree_hijack_netrw = 1 "1 by default, prevents netrw from automatically opening when opening directories (but lets you keep its other utilities)
+let g:nvim_tree_gitignore = 1 "0 by default
+
+highlight NvimTreeFolderIcon guibg=blue
+
+" === focus.nvim === "
+lua <<EOF
+local focus = require('focus')
+EOF
 
 """"" Editor -----------------------------------------------------------------
 
@@ -57,38 +86,6 @@ augroup dynamic_number
     autocmd InsertLeave * :set relativenumber
 augroup END
 
-" === netrw (default vim explorer) ==== "
-" https://shapeshed.com/vim-netrw/
-"let g:netrw_banner = 0 "remove banner
-"let g:netrw_browse_split = 4 "preview when opening files
-"let g:netrw_winsize = 12 "window size
-"let g:netrw_liststyle = 3 "tree style listing
-"let g:netrw_altv = 1
-"" auto open netrw when enter vim
-"augroup ProjectDrawer
-"  autocmd!
-"  autocmd VimEnter * :Lexplore
-"augroup END
-"
-" === NERDTree === "
-" Start NERDTree when Vim starts with a directory argument.
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists('s:std_in') |
-            \ execute 'NERDTree' argv()[0] | wincmd p | enew | execute 'cd '.argv()[0] | endif
-
-"" If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
-"autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
-"    \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
-
-nnoremap <leader>n :NERDTreeFocus<CR>
-nnoremap <leader>N :NERDTreeFind<CR>
-
-" https://vi.stackexchange.com/a/655
-"set autochdir                   " Changes the cwd to the directory of the current
-" buffer whenever you switch buffers.
-set browsedir=current           " Make the file browser always open the current
-" directory.
-
 " auto save when focus is lost
 " http://ideasintosoftware.com/vim-productivity-tips/
 autocmd FocusLost * silent! wa
@@ -103,24 +100,66 @@ set foldmethod=syntax
 set foldlevelstart=99
 nnoremap - za
 
-""""" Buffer -----------------------------------------------------------------
-set hidden " hide buffers when abandoned
+" === nvim-spectre ==="
+nnoremap <leader>R :lua require('spectre').open()<CR>
+nnoremap <leader>r viw:lua require('spectre').open_file_search()<cr>
+
+" === gitsigns ==="
+lua <<EOF
+require('gitsigns').setup({
+  keymaps = {
+    noremap = true,
+
+    ['n ]c'] = { expr = true, "&diff ? ']c' : '<cmd>lua require\"gitsigns.actions\".next_hunk()<CR>'"},
+    ['n [c'] = { expr = true, "&diff ? '[c' : '<cmd>lua require\"gitsigns.actions\".prev_hunk()<CR>'"},
+
+    ['n <C-g><C-g>'] = ':Gitsigns ',
+    ['n <C-g><C-s>h'] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
+    ['v <C-g><C-s>h'] = '<cmd>lua require"gitsigns".stage_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
+    ['n <C-g><C-s>u'] = '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
+    ['n <C-g><C-s>b'] = '<cmd>lua require"gitsigns".stage_buffer()<CR>',
+    ['n <C-g><C-r>h'] = '<cmd>lua require"gitsigns".reset_hunk()<CR>',
+    ['v <C-g><C-r>h'] = '<cmd>lua require"gitsigns".reset_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
+    ['n <C-g><C-r>b'] = '<cmd>lua require"gitsigns".reset_buffer()<CR>',
+    ['n <C-g><C-r>B'] = '<cmd>lua require"gitsigns".reset_buffer_index()<CR>',
+    ['n <C-g><C-p>'] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
+    ['n <C-g><C-b>'] = '<cmd>lua require"gitsigns".blame_line(true)<CR>',
+
+    -- Text objects
+    ['o ih'] = ':<C-U>lua require"gitsigns.actions".select_hunk()<CR>',
+    ['x ih'] = ':<C-U>lua require"gitsigns.actions".select_hunk()<CR>'
+  },
+})
+EOF
+
+" === treesitter-context === "
+lua <<EOF
+require'treesitter-context'.setup{
+    enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
+    throttle = true, -- Throttles plugin updates (may improve performance)
+}
+EOF
+
+" === nvim-bqf === "
+hi BqfPreviewBorder guifg=#50a14f ctermfg=71
+hi link BqfPreviewRange Search
+lua <<EOF
+require('bqf').setup({
+    auto_enable = true,
+    magic_window = true,
+    preview = {
+        win_height = 15,
+    },
+})
+EOF
 
 """"" Autocomplete -----------------------------------------------------------
-"""" deoplete
-"let g:deoplete#enable_at_startup = 1
-"call deoplete#custom#option('auto_complete_delay', 10)
-"call deoplete#custom#option('auto_refresh_delay', 50)
-
-" instructs deoplete to use omni completion for go files
-"call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*' })
-
 " <TAB>: completion.
 " https://stackoverflow.com/a/44271350
 inoremap <silent><expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 inoremap <silent><expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
 
-""" nvim-compe """
+" === nvim-compe ===
 lua vim.o.completeopt = "menuone,noselect"
 
 lua <<EOF
@@ -179,54 +218,29 @@ auto_select = false,  -- auto select first item
 })
 EOF
 
+" === which-key === "
+set timeoutlen=500
+lua << EOF
+require("which-key").setup {
+    -- your configuration comes here
+    -- or leave it empty to use the default settings
+    -- refer to the configuration section below
+    }
+EOF
+
 """"" Search -----------------------------------------------------------------
-" fzf
-nnoremap <silent> <Leader>f :Files<CR>
-nnoremap <silent> <Leader>s :Rg<CR>
-nnoremap <silent> <Leader>e :History<CR>
-nnoremap <silent> <Leader>b :Buffers<CR>
-nnoremap <silent> <Leader>a :Commands<CR>
-
-let g:fzf_action = {
-            \ 'ctrl-t': 'tab split',
-            \ 'ctrl-s': 'split',
-            \ 'ctrl-v': 'vsplit' }
-
-" Customize fzf colors to match your color scheme
-" - fzf#wrap translates this to a set of `--color` options
-let g:fzf_colors =
-            \ { 'fg':      ['fg', 'Normal'],
-            \ 'bg':      ['bg', 'Normal'],
-            \ 'hl':      ['fg', 'Comment'],
-            \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-            \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-            \ 'hl+':     ['fg', 'Statement'],
-            \ 'info':    ['fg', 'PreProc'],
-            \ 'border':  ['fg', 'Ignore'],
-            \ 'prompt':  ['fg', 'Conditional'],
-            \ 'pointer': ['fg', 'Exception'],
-            \ 'marker':  ['fg', 'Keyword'],
-            \ 'spinner': ['fg', 'Label'],
-            \ 'header':  ['fg', 'Comment'] }
-
-" Fuzzy insert mode completion using fzf
-" https://vim.fandom.com/wiki/Fuzzy_insert_mode_completion_(using_FZF)
-function! PInsert2(item)
-    let @z=a:item
-    norm "zp
-    call feedkeys('a')
-endfunction
-
-function! CompleteInf()
-    let nl=[]
-    let l=complete_info()
-    for k in l['items']
-        call add(nl, k['word']. ' : ' .k['info'] . ' '. k['menu'] )
-    endfor
-    call fzf#vim#complete(fzf#wrap({ 'source': nl,'reducer': { lines -> split(lines[0], '\zs :')[0] },'sink':function('PInsert2')}))
-endfunction
-
-imap <c-'> <CMD>:call CompleteInf()<CR>
+" === fzf-lua === "
+lua require("fzf")
+nnoremap <silent> <Leader>A :FzfLua<CR>
+nnoremap <silent> <Leader>f :FzfLua files<CR>
+nnoremap <silent> <Leader>s :FzfLua live_grep<CR>
+nnoremap <silent> <Leader>e :FzfLua oldfiles<CR>
+nnoremap <silent> <Leader>b :FzfLua buffers<CR>
+nnoremap <silent> <Leader>a :FzfLua commands<CR>
+nnoremap <silent> <Leader>o :FzfLua lsp_document_symbols<CR>
+nnoremap <silent> <Leader>O :FzfLua lsp_workspace_symbols<CR>
+nnoremap <silent> <Leader>?o :FzfLua lsp_document_diagnostics<CR>
+nnoremap <silent> <Leader>?O :FzfLua lsp_workspace_diagnostics<CR>
 
 """"" Terminal ---------------------------------------------------------------
 " Escape to exit terminal input mode
@@ -234,67 +248,7 @@ tnoremap <Esc> <C-\><C-n>
 
 """"" Language specific settings ---------------------------------------------
 """ Generic LSP settings
-lua << EOF
-local nvim_lsp = require('lspconfig')
-
--- Use an on_attach function to only map the following keys
--- after the language server attaches to the current buffer
-local on_attach = function(client, bufnr)
-local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-
--- Enable completion triggered by <c-x><c-o>
-buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
-
--- Mappings.
-local opts = { noremap=true, silent=false }
-
--- See `:help vim.lsp.*` for documentation on any of the below functions
-buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
---buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
---buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
---buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
---buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
---buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
---buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
---buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
---buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-
--- Set some keybinds conditional on server capabilities
-if client.resolved_capabilities.document_formatting then
-    buf_set_keymap("n", "<leader>l", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-elseif client.resolved_capabilities.document_range_formatting then
-    buf_set_keymap("n", "<leader>l", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-end
-
-end
-
--- Use a loop to conveniently call 'setup' on multiple servers and
--- map buffer local keybindings when the language server attaches
-local servers = { 'gopls' }
-for _, lsp in ipairs(servers) do
-    nvim_lsp[lsp].setup {
-        on_attach = on_attach,
-        flags = {
-            debounce_text_changes = 150,
-            }
-        }
-end
-
--- highlighting
-require'nvim-treesitter.configs'.setup {
-    highlight = {
-    enable = true
-    }
-}
-EOF
+lua require("lsp")
 
 """ Go
 au FileType go set noexpandtab
@@ -304,8 +258,22 @@ au FileType go set tabstop=4
 
 " === go.nvim ===
 lua <<EOF
-require('go').setup()
+require 'go'.setup({
+goimport = 'gopls', -- if set to 'gopls' will use golsp format
+gofmt = 'gopls', -- if set to gopls will use golsp format
+max_line_len = 120,
+tag_transform = false,
+test_dir = '',
+comment_placeholder = '<>',
+lsp_cfg = false, -- false: use your own lspconfig
+lsp_gofumpt = true, -- true: set default gofmt in gopls format to gofumpt
+lsp_on_attach = true, -- use on_attach from go.nvim
+dap_debug = true,
+})
+
+local protocol = require'vim.lsp.protocol'
 EOF
+
 " Auto gofmt on write
 autocmd BufWritePre *.go :silent! lua require('go.format').gofmt()
 
@@ -323,17 +291,16 @@ augroup END
 try
     lua << EOF
     require("github-theme").setup({
-    functionStyle = "italic",
-    themeStyle = "dimmed",
+    themeStyle = 'dimmed',
+    keywordStyle = 'italic',
     sidebars = {"qf", "vista_kind", "terminal", "packer"},
-
+    darkSidebar = true,
+    darkFloat = true,
+    hideEndOfBuffer = true,
     -- Change the "hint" color to the "orange" color, and make the "error" color bright red
     colors = {hint = "orange", error = "#ff0000"}
     })
 EOF
-"let g:neodark#terminal_transparent = 1
-"let g:neodark#use_256color = 1
-"let g:neodark#background = '#202020'
 catch
     colorscheme desert
 endtry
@@ -351,72 +318,36 @@ if has("gui_running")
     endif
 endif
 
-" === Vim airline ==== "
-let g:airline_theme='dark'
+" === lualine === "
+lua <<EOF
+require'lualine'.setup {
+    options = {
+        icons_enabled = true,
+        theme = 'github',
+        section_separators = {'', ''},
+        component_separators = {'', ''},
+        disabled_filetypes = {}
+        },
+    sections = {
+        lualine_a = {'mode'},
+        lualine_b = {'branch'},
+        lualine_c = {'filename'},
+        lualine_x = {'encoding', 'fileformat', 'filetype'},
+        lualine_y = {'progress'},
+        lualine_z = {'location'}
+        },
+    inactive_sections = {
+        lualine_a = {},
+        lualine_b = {},
+        lualine_c = {'filename'},
+        lualine_x = {'location'},
+        lualine_y = {},
+        lualine_z = {}
+        },
+    tabline = {},
+    extensions = {'quickfix', 'nvim-tree'},
+    }
+EOF
 
-let g:airline_powerline_fonts = 1
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-endif
-
-" unicode symbols
-let g:airline_left_sep = '»'
-let g:airline_left_sep = '▶'
-let g:airline_right_sep = '«'
-let g:airline_right_sep = '◀'
-let g:airline_symbols.crypt = '🔒'
-let g:airline_symbols.linenr = '☰'
-let g:airline_symbols.linenr = '␊'
-let g:airline_symbols.linenr = '␤'
-let g:airline_symbols.linenr = '¶'
-let g:airline_symbols.maxlinenr = ''
-let g:airline_symbols.maxlinenr = '㏑'
-let g:airline_symbols.branch = '⎇'
-let g:airline_symbols.paste = 'ρ'
-let g:airline_symbols.paste = 'Þ'
-let g:airline_symbols.paste = '∥'
-let g:airline_symbols.spell = 'Ꞩ'
-let g:airline_symbols.notexists = 'Ɇ'
-let g:airline_symbols.whitespace = 'Ξ'
-
-"" powerline symbols
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
-let g:airline_symbols.branch = ''
-let g:airline_symbols.readonly = ''
-let g:airline_symbols.linenr = '☰'
-let g:airline_symbols.maxlinenr = ''
-let g:airline_symbols.dirty='⚡'
-
-" Enable extensions
-let g:airline#extensions#ale#enabled = 1
-let g:airline#extensions#branch#enabled = 1
-let g:airline#extensions#branch#displayed_head_limit = 10
-let g:airline#extensions#branch#format = 2
-let g:airline#extensions#fzf#enabled = 1
-let g:airline#extensions#nerdtree_statusline = 1
-let g:airline#extensions#tabline#enabled = 1
-
-" enable experimental features >
-" Currently: Enable Vim9 Script implementation
-let g:airline_experimental = 1
-" determine whether inactive windows should have the left section collapsed
-" to only the filename of that buffer.  >
-let g:airline_inactive_collapse=0
-" Use alternative seperators for the statusline of inactive windows >
-let g:airline_inactive_alt_sep=1
-" enable iminsert detection >
-let g:airline_detect_iminsert=0
-" Do not draw separators for empty sections (only for the active window) >
-let g:airline_skip_empty_sections = 1
-" Smartly uniquify buffers names with similar filename, suppressing common parts of paths.
-let g:airline#extensions#tabline#formatter = 'unique_tail'
-" Custom setup that removes filetype/whitespace from default vim airline bar
-let g:airline#extensions#default#layout = [['a', 'b', 'c'], ['x', 'z', 'warning', 'error']]
-" defines whether the preview window should be excluded from having its window
-" statusline modified (may help with plugins which use the preview window
-" heavily) >
-let g:airline_exclude_preview = 0
-
+" === buftabline === "
+lua require("buftabline").setup {}
