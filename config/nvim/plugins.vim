@@ -25,7 +25,7 @@ Plug 'hrsh7th/nvim-compe'                                   " Auto completion Lu
 Plug 'windwp/nvim-autopairs'                                " autopairs for neovim written by lua
 Plug 'windwp/nvim-spectre'                                  " Search and replace
 Plug 'folke/which-key.nvim'                                 " displays a popup with possible keybindings of the command you started typing
-Plug 'romgrk/nvim-treesitter-context'                       " Show code context
+Plug 'romgrk/nvim-treesitter-context'                       " Show code context (show function if scrolled beyond screen)
 Plug 'lukas-reineke/indent-blankline.nvim'                  " Indent guides for Neovim
 
 "" === Navigation === "
@@ -47,12 +47,14 @@ endfunction
 let TreesitterHookRef = function('s:TreesitterHook')
 Plug 'nvim-treesitter/nvim-treesitter', { 'do': TreesitterHookRef } " Nvim Treesitter configurations and abstraction layer
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'                  " Create your own textobjects using tree-sitter queries
+Plug 'nvim-treesitter/playground', {'on': 'TSPlaygroundToggle'}     " Debug tree-sitter
 Plug 'neovim/nvim-lspconfig'                                        " Quickstart configurations for the Nvim LSP client
 Plug 'ray-x/go.nvim'                                                " Go Neovim plugin, based on nvim-lsp, treesitter and Dap
 
 "" === UI === "
 Plug 'projekt0n/github-nvim-theme'                          " Github theme with treesitter support
-Plug 'kyazdani42/nvim-web-devicons' " for file icons
+Plug 'z11i/gruvbox-material'                                " Gruvbox with Material Palette and treesitter support (forked from sainnhe/gruvbox-material)"
+Plug 'kyazdani42/nvim-web-devicons'                         " for file icons
 Plug 'kyazdani42/nvim-tree.lua'                             " File explorer
 Plug 'kevinhwang91/nvim-bqf'                                " Better quickfix window in Neovim
 Plug 'hoob3rt/lualine.nvim'                                 " statusline plugin

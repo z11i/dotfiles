@@ -34,7 +34,7 @@ nnoremap <A-\> <C-w>v<C-o>
 nnoremap <A--> <C-w>s<C-o>
 
 " go back and forth buffer files
-nnoremap gn <Cmd>bf<CR>
+nnoremap gn <Cmd>bn<CR>
 nnoremap gp <Cmd>bp<CR>
 
 " === NvimTree === "
@@ -99,7 +99,8 @@ nnoremap <leader>w <C-w>v<C-w>l
 
 " fold by syntax (default is manual)
 " https://unix.stackexchange.com/a/596686
-set foldmethod=syntax
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
 set foldlevelstart=99
 nnoremap - za
 
@@ -283,20 +284,32 @@ autocmd BufWritePre *.go :silent! lua require('go.format').gofmt()
 """"" Aesthetics -------------------------------------------------------------
 set background=dark
 set termguicolors
+set winblend=10 " transparency of floating windows
+set pumblend=10 " transparency of popup menus
 
 try
-    lua << EOF
-    require("github-theme").setup({
-    themeStyle = 'dimmed',
-    keywordStyle = 'italic',
-    sidebars = {"qf", "vista_kind", "terminal", "packer"},
-    darkSidebar = true,
-    darkFloat = true,
-    hideEndOfBuffer = true,
-    -- Change the "hint" color to the "orange" color, and make the "error" color bright red
-    colors = {hint = "orange", error = "#ff0000"}
-    })
-EOF
+""    lua << EOF
+""    require("github-theme").setup({
+""    themeStyle = 'dimmed',
+""    keywordStyle = 'italic',
+""    sidebars = {"qf", "vista_kind", "terminal", "packer"},
+""    darkSidebar = true,
+""    darkFloat = true,
+""    hideEndOfBuffer = true,
+""    -- Change the "hint" color to the "orange" color, and make the "error" color bright red
+""    colors = {hint = "orange", error = "#ff0000"}
+""    })
+""EOF
+    let g:gruvbox_material_palette = 'mix'
+    let g:gruvbox_material_ui_contrast = 'hard'
+    let g:gruvbox_material_enable_bold = 1
+    let g:gruvbox_material_enable_italic = 1
+    let g:gruvbox_material_transparent_background = 1
+    let g:gruvbox_material_visual = 'reverse'
+    let g:gruvbox_material_menu_selection_background = 'green'
+    let g:gruvbox_material_diagnostic_virtual_text = 'colored'
+    let g:gruvbox_material_current_word = 'underline'
+    colorscheme gruvbox-material
 catch
     colorscheme desert
 endtry
@@ -319,7 +332,7 @@ lua <<EOF
 require'lualine'.setup {
     options = {
         icons_enabled = true,
-        theme = 'onedark',
+        theme = 'gruvbox',
         section_separators = {'', ''},
         component_separators = {'', ''},
         disabled_filetypes = {}
