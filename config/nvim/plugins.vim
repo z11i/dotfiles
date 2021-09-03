@@ -54,10 +54,10 @@ Plug 'ray-x/go.nvim'                                                " Go Neovim 
 Plug 'projekt0n/github-nvim-theme'                          " Github theme with treesitter support
 Plug 'kyazdani42/nvim-web-devicons' " for file icons
 Plug 'kyazdani42/nvim-tree.lua'                             " File explorer
-Plug 'beauwilliams/focus.nvim'                              " Auto-Focusing and Auto-Resizing Splits/Windows
 Plug 'kevinhwang91/nvim-bqf'                                " Better quickfix window in Neovim
 Plug 'hoob3rt/lualine.nvim'                                 " statusline plugin
 Plug 'jose-elias-alvarez/buftabline.nvim'                   " bufferline"
+Plug 'numtostr/FTerm.nvim'                                  " floating terminal
 
 " Initialize plugin system
 call plug#end()

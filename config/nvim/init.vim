@@ -33,12 +33,15 @@ nnoremap <A-l> <C-w>l
 nnoremap <A-\> <C-w>v<C-o>
 nnoremap <A--> <C-w>s<C-o>
 
+" go back and forth buffer files
+nnoremap gn <Cmd>bf<CR>
+nnoremap gp <Cmd>bp<CR>
+
 " === NvimTree === "
-nnoremap <leader>n :NvimTreeFocus<CR>
+nnoremap <leader>n :NvimTreeToggle<CR>
 nnoremap <leader>N :NvimTreeFindFile<CR>
 
-set winminwidth=20
-let g:nvim_tree_width = 20
+let g:nvim_tree_width = '12%'
 
 let g:nvim_tree_highlight_opened_files = 1
 let g:nvim_tree_lsp_diagnostics = 1 "0 by default, will show lsp diagnostics in the signcolumn. See :help nvim_tree_lsp_diagnostics
@@ -52,10 +55,10 @@ let g:nvim_tree_gitignore = 1 "0 by default
 
 highlight NvimTreeFolderIcon guibg=blue
 
-" === focus.nvim === "
-lua <<EOF
-local focus = require('focus')
-EOF
+" === FTerm === "
+lua require('FTerm').setup()
+nnoremap <F12> :lua require('FTerm').toggle()<CR>
+tnoremap <F12> <C-\><C-N>:lua require('FTerm').toggle()<CR>
 
 """"" Editor -----------------------------------------------------------------
 
@@ -67,7 +70,7 @@ set expandtab
 
 set ignorecase
 set smartcase
-set number "" relativenumber
+set number relativenumber
 set mouse+=a
 
 " https://vi.stackexchange.com/a/16511
@@ -214,7 +217,7 @@ require('nvim-autopairs').setup{}
 require("nvim-autopairs.completion.compe").setup({
 map_cr = true, --  map <CR> on insert mode
 map_complete = true, -- it will auto insert `(` after select function or method item
-auto_select = false,  -- auto select first item
+auto_select = true,  -- auto select first item
 })
 EOF
 
@@ -281,13 +284,6 @@ autocmd BufWritePre *.go :silent! lua require('go.format').gofmt()
 set background=dark
 set termguicolors
 
-" cursorline based on active window
-augroup CursorlineOnActiveWin
-    autocmd!
-    autocmd WinEnter * set cursorline
-    autocmd WinLeave * set nocursorline
-augroup END
-
 try
     lua << EOF
     require("github-theme").setup({
@@ -323,7 +319,7 @@ lua <<EOF
 require'lualine'.setup {
     options = {
         icons_enabled = true,
-        theme = 'github',
+        theme = 'onedark',
         section_separators = {'', ''},
         component_separators = {'', ''},
         disabled_filetypes = {}
