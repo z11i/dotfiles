@@ -175,6 +175,16 @@ setup_asdf() {
 	cp ~/.asdf/completions/asdf.fish ~/.config/fish/completions
 }
 
+setup_golang() {
+    checkBin asdf && (
+        asdf plugin-add golang
+        asdf install golang (asdf list-all golang | fzf)
+        asdf global golang (asdf list golang | awk '{print $1; exit}')
+        GO111MODULE=on go install golang.org/x/tools/gopls@latest
+        GO111MODULE=on go install mvdan.cc/gofumpt@latest
+    )
+}
+
 setup_nix
 setup_mac
 setup_fish
@@ -183,3 +193,4 @@ setup_neovim
 setup_ideavim
 setup_asdf
 setup_mac_gui
+## setup_golang
