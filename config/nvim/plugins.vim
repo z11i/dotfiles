@@ -18,6 +18,7 @@ call plug#begin('~/.config/nvim/plugged')
 
 " === Foundation ===
 Plug 'nvim-lua/plenary.nvim'                                " Common Lua modules
+Plug 'nvim-lua/popup.nvim'
 
 " === Editing Plugins === "
 Plug 'ntpeters/vim-better-whitespace'                       " Trailing whitespace highlighting & automatic fixing
@@ -50,10 +51,12 @@ Plug 'nvim-treesitter/nvim-treesitter-textobjects'                  " Create you
 Plug 'nvim-treesitter/playground', {'on': 'TSPlaygroundToggle'}     " Debug tree-sitter
 Plug 'neovim/nvim-lspconfig'                                        " Quickstart configurations for the Nvim LSP client
 Plug 'ray-x/go.nvim'                                                " Go Neovim plugin, based on nvim-lsp, treesitter and Dap
+Plug 'nvim-lua/lsp_extensions.nvim', {'for': 'rust'}                " LSP extensions
+Plug 'simrat39/rust-tools.nvim'                                     " Battery-included rust lsp setup
 
 "" === UI === "
 Plug 'projekt0n/github-nvim-theme'                          " Github theme with treesitter support
-Plug 'z11i/gruvbox-material'                                " Gruvbox with Material Palette and treesitter support (forked from sainnhe/gruvbox-material)"
+Plug 'z11i/gruvbox-material'                                " Gruvbox with Material Palette and treesitter support (forked from sainnhe/gruvbox-material)
 Plug 'kyazdani42/nvim-web-devicons'                         " for file icons
 Plug 'kyazdani42/nvim-tree.lua'                             " File explorer
 Plug 'kevinhwang91/nvim-bqf'                                " Better quickfix window in Neovim

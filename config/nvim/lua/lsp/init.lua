@@ -32,6 +32,8 @@ local on_attach = function(client, bufnr)
     elseif client.resolved_capabilities.document_range_formatting then
         buf_set_keymap("n", "<leader>l", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
     end
+
+    require'completion'.on_attach(client)
 end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
@@ -45,6 +47,26 @@ for _, lsp in ipairs(servers) do
         }
     }
 end
+
+nvim_lsp.rust_analyzer.setup({
+    on_attach=on_attach,
+    settings = {
+        ["rust-analyzer"] = {
+            assist = {
+                importGranularity = "module",
+                importPrefix = "by_self",
+            },
+            cargo = {
+                loadOutDirsFromCheck = true
+            },
+            procMacro = {
+                enable = true
+            },
+        }
+    }
+})
+
+require('rust-tools').setup({})
 
 -- highlighting
 require'nvim-treesitter.configs'.setup {

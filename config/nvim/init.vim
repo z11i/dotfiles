@@ -253,6 +253,8 @@ tnoremap <Esc> <C-\><C-n>
 """"" Language specific settings ---------------------------------------------
 """ Generic LSP settings
 lua require("lsp")
+" LSP extensions
+autocmd BufEnter,BufWinEnter,TabEnter *.rs :lua require'lsp_extensions'.inlay_hints{}
 
 """ Go
 au FileType go set noexpandtab

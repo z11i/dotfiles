@@ -16,8 +16,11 @@ detectOS() {
 		ubuntu*)
 			LINUX_DISTRO=ubuntu
 			;;
+		*debian*)
+			LINUX_DISTRO=debian
+			;;
 		*)
-			err 'Distro not supported yet!'
+			err "Distro $LINUX_DISTRO not handled yet!"
 			exit 127
 			;;
 		esac

@@ -5,10 +5,6 @@ $nix_shell$username$status$character"""
 
 scan_timeout = 20
 
-[character]
-success_symbol = "[𝞴](bold green)"
-error_symbol = "[𝞴](bold red)"
-
 [directory]
 truncation_length = 4
 truncate_to_repo = false

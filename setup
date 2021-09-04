@@ -15,18 +15,34 @@ unset IS_WSL
 detectOS
 
 if [[ "$OS_NAME" = 'linux' ]]; then
-	#sudo apt update
-	echo "Linux distro is $LINUX_DISTRO"
+	log "Linux distro is $LINUX_DISTRO"
+	checkBin apt && sudo apt update
+	checkBin curl || (
+		checkBin apt && sudo apt install curl
+	)
+	checkBin xz || (
+		checkBin apt && sudo apt install xz-utils
+	)
+    checkBin gcc || (
+        checkBin apt && sudo apt install build-essential
+    )
+)
 fi
 
 setup_nix() {
 	checkBin nix || (
 		log 'installing Nix'
-		#sh <(curl -L https://nixos.org/nix/install) --no-daemon
-		sh <(curl -L https://nixos.org/nix/install) --darwin-use-unencrypted-nix-store-volume --daemon
-		. ~/.nix-profile/etc/profile.d/nix.sh
+		case "$OS_NAME" in
+		linux)
+			sh <(curl -L https://nixos.org/nix/install)
+			;;
+		macos)
+			sh <(curl -L https://nixos.org/nix/install) --darwin-use-unencrypted-nix-store-volume --daemon
+			;;
+		esac
 		log 'Nix is installed'
 	)
+	. ~/.nix-profile/etc/profile.d/nix.sh || echo
 	log 'installing packages with Nix'
 
 	nix-env -f ./home.nix -ir
@@ -35,8 +51,8 @@ setup_nix() {
 	symlink config/starship.toml ~/.config/starship.toml
 
     log 'symlink gsed to sed'
-    ln -s $(which sed) /usr/local/bin/gsed
-    chmod +x /usr/local/bin/gsed
+    sudo ln -s $(which sed) /usr/local/bin/gsed
+    sudo chmod +x /usr/local/bin/gsed
 }
 
 setup_mac() {
@@ -117,10 +133,20 @@ EOF
 setup_fish() {
 	symlink config/fish ~/.config/fish
 	checkBin fish || (
-		brew install fish
+		if [[ "$OS_NAME" = 'linux' ]]; then
+			case "$LINUX_DISTRO" in
+			debian*)
+				echo 'deb http://download.opensuse.org/repositories/shells:/fish:/release:/3/Debian_11/ /' | sudo tee /etc/apt/sources.list.d/shells:fish:release:3.list
+				curl -fsSL https://download.opensuse.org/repositories/shells:fish:release:3/Debian_11/Release.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/shells_fish_release_3.gpg > /dev/null
+				sudo apt install fish
+				;;
+			esac
+		fi
+		if [[ "$OS_NAME" = 'macos' ]]; then
+			brew install fish
+		fi
 		log 'adding fish as a standard shell'
-		#shell="/usr/local/bin/fish"
-		shell="/opt/homebrew/bin/fish"
+		shell=$(which fish)
 		file=/etc/shells
 		grep -qF "$shell" "$file" || echo "$shell" | sudo tee -a "$file"
 		log 'changing default shell'

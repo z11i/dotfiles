@@ -1,5 +1,5 @@
 jethrokuan/fzf
 evanlucas/fish-kubectl-completions
 lilyball/nix-env.fish
-acomagu/fish-async-prompt
 jorgebucaran/replay.fish
+acomagu/fish-async-prompt

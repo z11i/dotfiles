@@ -13,6 +13,8 @@
     sw = switch
     # diff two patches
     diff-patches = "!bash -c 'diff <(git show $0) <(git show $1)'"
+    forget-file = "!bash -c 'git rm --cached $0 && git update-index --assume-unchanged $0'"
+    forget-dir = "!bash -c 'git rm -r --cached $0 && git update-index --assume-unchanged $0'"
 
 [core]
     pager = delta
