@@ -40,6 +40,7 @@ Plug 'tpope/vim-fugitive'                                   " Enable git changes
 Plug 'lewis6991/gitsigns.nvim'                               " Git signs written in pure lua
 
 "" === Language support === "
+"" --- general language parser and lsp ---
 function! s:TreesitterHook(_)
     TSUpdate
     TSInstall go
@@ -50,9 +51,13 @@ Plug 'nvim-treesitter/nvim-treesitter', { 'do': TreesitterHookRef } " Nvim Trees
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'                  " Create your own textobjects using tree-sitter queries
 Plug 'nvim-treesitter/playground', {'on': 'TSPlaygroundToggle'}     " Debug tree-sitter
 Plug 'neovim/nvim-lspconfig'                                        " Quickstart configurations for the Nvim LSP client
+"" --- go ---
 Plug 'ray-x/go.nvim'                                                " Go Neovim plugin, based on nvim-lsp, treesitter and Dap
-Plug 'nvim-lua/lsp_extensions.nvim', {'for': 'rust'}                " LSP extensions
+"" --- rust ---
 Plug 'simrat39/rust-tools.nvim'                                     " Battery-included rust lsp setup
+Plug 'nvim-lua/lsp_extensions.nvim', {'for': 'rust'}                " LSP extensions
+"" --- markdown ---
+Plug 'SidOfc/mkdx'                                                  " A vim plugin that adds some nice extra's for working with markdown documents
 
 "" === UI === "
 Plug 'projekt0n/github-nvim-theme'                          " Github theme with treesitter support

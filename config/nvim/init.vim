@@ -283,6 +283,9 @@ EOF
 " Auto gofmt on write
 autocmd BufWritePre *.go :silent! lua require('go.format').gofmt()
 
+""" Markdown
+au BufRead,BufNewFile *.md setlocal textwidth=80
+
 """"" Aesthetics -------------------------------------------------------------
 set background=dark
 set termguicolors
