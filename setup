@@ -23,10 +23,9 @@ if [[ "$OS_NAME" = 'linux' ]]; then
 	checkBin xz || (
 		checkBin apt && sudo apt install xz-utils
 	)
-    checkBin gcc || (
-        checkBin apt && sudo apt install build-essential
-    )
-)
+	checkBin gcc || (
+		checkBin apt && sudo apt install build-essential
+	)
 fi
 
 setup_nix() {
@@ -42,7 +41,7 @@ setup_nix() {
 		esac
 		log 'Nix is installed'
 	)
-	. ~/.nix-profile/etc/profile.d/nix.sh || echo
+	. ~/.nix-profile/etc/profile.d/nix.sh || true
 	log 'installing packages with Nix'
 
 	nix-env -f ./home.nix -ir
@@ -51,7 +50,7 @@ setup_nix() {
 	symlink config/starship.toml ~/.config/starship.toml
 
     log 'symlink gsed to sed'
-    sudo ln -s $(which sed) /usr/local/bin/gsed
+    sudo ln -s $(which sed) /usr/local/bin/gsed || true
     sudo chmod +x /usr/local/bin/gsed
 }
 
@@ -135,6 +134,11 @@ setup_fish() {
 	checkBin fish || (
 		if [[ "$OS_NAME" = 'linux' ]]; then
 			case "$LINUX_DISTRO" in
+			ubuntu*)
+				sudo apt-add-repository ppa:fish-shell/release-3
+				sudo apt-get update
+				sudo apt-get install fish
+				;;
 			debian*)
 				echo 'deb http://download.opensuse.org/repositories/shells:/fish:/release:/3/Debian_11/ /' | sudo tee /etc/apt/sources.list.d/shells:fish:release:3.list
 				curl -fsSL https://download.opensuse.org/repositories/shells:fish:release:3/Debian_11/Release.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/shells_fish_release_3.gpg > /dev/null
