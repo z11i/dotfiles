@@ -43,7 +43,7 @@ symbol = "☸️ "
 [nix_shell]
 impure_msg = "[+](yellow)"
 pure_msg = "[-](green)"
-format = '[(\($name,$state\)) ](bold blue)'
+format = '[(\($name$state\)) ](bold blue)'
 
 [nodejs]
 format = "[$symbol($version)]($style) "

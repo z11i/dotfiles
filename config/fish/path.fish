@@ -1,5 +1,6 @@
 # dotfiles
 pathadd ~/bin
+pathadd ~/.local/bin
 
 # homebrew
 pathadd /usr/local/sbin
