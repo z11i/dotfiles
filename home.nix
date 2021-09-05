@@ -28,6 +28,7 @@ in buildEnv {
       pkgs.socat
       pkgs.starship
       pkgs.tmux
+      pkgs.universal-ctags
       pkgs.unixtools.watch
       pkgs.zoxide
    ];

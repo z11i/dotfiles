@@ -43,15 +43,15 @@ nnoremap <leader>N :NvimTreeFindFile<CR>
 
 let g:nvim_tree_width = '12%'
 
-let g:nvim_tree_highlight_opened_files = 1
+let g:nvim_tree_highlight_opened_files = 3
 let g:nvim_tree_lsp_diagnostics = 1 "0 by default, will show lsp diagnostics in the signcolumn. See :help nvim_tree_lsp_diagnostics
-let g:nvim_tree_indent_markers = 0 "0 by default, this option shows indent markers when folders are open
-let g:nvim_tree_follow = 0 "0 by default, this option allows the cursor to be updated when entering a buffer
+let g:nvim_tree_indent_markers = 1 "0 by default, this option shows indent markers when folders are open
+let g:nvim_tree_follow = 1 "0 by default, this option allows the cursor to be updated when entering a buffer
 let g:nvim_tree_auto_open = 1 "0 by default, opens the tree when typing `vim $DIR` or `vim`
 let g:nvim_tree_auto_close = 0 "0 by default, closes the tree when it's the last window
 let g:nvim_tree_disable_netrw = 1 "1 by default, disables netrw
 let g:nvim_tree_hijack_netrw = 1 "1 by default, prevents netrw from automatically opening when opening directories (but lets you keep its other utilities)
-let g:nvim_tree_gitignore = 1 "0 by default
+let g:nvim_tree_gitignore = 0 "0 by default, 0 means not ignoring
 
 highlight NvimTreeFolderIcon guibg=blue
 
@@ -59,6 +59,12 @@ highlight NvimTreeFolderIcon guibg=blue
 lua require('FTerm').setup()
 nnoremap <F12> :lua require('FTerm').toggle()<CR>
 tnoremap <F12> <C-\><C-N>:lua require('FTerm').toggle()<CR>
+
+" === Vista === "
+nnoremap <F5> :Vista!!<CR>
+
+" === Symbols-outline === "
+nnoremap <F6> :SymbolsOutline<CR>
 
 """"" Editor -----------------------------------------------------------------
 
@@ -70,8 +76,20 @@ set expandtab
 
 set ignorecase
 set smartcase
-set number relativenumber
+set number
 set mouse+=a
+
+" wrapping
+set wrap
+set linebreak
+
+" show indentation
+set smartindent
+set autoindent
+set breakindent
+set showbreak=\ \ \ \ ⤷
+" ident by an additional 2 characters on wrapped lines, when line >= 40 characters, put 'showbreak' at start of line
+set breakindentopt=shift:2,min:40,sbr
 
 " https://vi.stackexchange.com/a/16511
 " Auto toggle command case sensitivity.
@@ -83,11 +101,11 @@ augroup dynamic_smartcase
     autocmd CmdLineLeave : set smartcase
 augroup END
 
-augroup dynamic_number
-    autocmd!
-    autocmd InsertEnter * :set norelativenumber
-    autocmd InsertLeave * :set relativenumber
-augroup END
+"augroup dynamic_number
+"    autocmd!
+"    autocmd InsertEnter * :set norelativenumber
+"    autocmd InsertLeave * :set relativenumber
+"augroup END
 
 " auto save when focus is lost
 " http://ideasintosoftware.com/vim-productivity-tips/
@@ -233,18 +251,59 @@ require("which-key").setup {
 EOF
 
 """"" Search -----------------------------------------------------------------
+" === Telescope === "
+lua <<EOF
+local actions = require('telescope.actions')
+require'telescope'.setup {
+    defaults = {
+        layout_strategy = "flex",
+        scroll_strategy = 'cycle',
+        winblend = 0,
+        layout_config = {
+            flex = {
+                horizontal = {
+                    preview_width = 0.6,
+                    },
+                vertical = {
+                    preview_height = 0.4,
+                    },
+                flip_columns = 120,
+                flip_lines = 10,
+                },
+            preview_cutoff = 10,
+                },
+        file_ignore_patterns = { 'tags' },
+        mappings = {
+            i = {
+                ["<esc>"] = actions.close,
+                },
+            },
+        },
+    }
+EOF
+nnoremap <Leader><Leader> :Telescope<CR>
+nnoremap <Leader>f :Telescope fd<CR>
+nnoremap <Leader>s :Telescope live_grep<CR>
+nnoremap <Leader>e :Telescope oldfiles<CR>
+nnoremap <Leader>b :Telescope buffers<CR>
+nnoremap <Leader>a :Telescope commands<CR>
+nnoremap <Leader>o :Telescope lsp_document_symbols<CR>
+nnoremap <Leader>O :Telescope lsp_dynamic_workspace_symbols<CR>
+nnoremap <Leader>?o :Telescope lsp_document_diagnostics<CR>
+nnoremap <Leader>?O :Telescope lsp_workspace_diagnostics<CR>
+
 " === fzf-lua === "
-lua require("fzf")
-nnoremap <silent> <Leader>A :FzfLua<CR>
-nnoremap <silent> <Leader>f :FzfLua files<CR>
-nnoremap <silent> <Leader>s :FzfLua live_grep<CR>
-nnoremap <silent> <Leader>e :FzfLua oldfiles<CR>
-nnoremap <silent> <Leader>b :FzfLua buffers<CR>
-nnoremap <silent> <Leader>a :FzfLua commands<CR>
-nnoremap <silent> <Leader>o :FzfLua lsp_document_symbols<CR>
-nnoremap <silent> <Leader>O :FzfLua lsp_workspace_symbols<CR>
-nnoremap <silent> <Leader>?o :FzfLua lsp_document_diagnostics<CR>
-nnoremap <silent> <Leader>?O :FzfLua lsp_workspace_diagnostics<CR>
+"lua require("fzf")
+"nnoremap <silent> <Leader>A :FzfLua<CR>
+"nnoremap <silent> <Leader>f :FzfLua files<CR>
+"nnoremap <silent> <Leader>s :FzfLua live_grep<CR>
+"nnoremap <silent> <Leader>e :FzfLua oldfiles<CR>
+"nnoremap <silent> <Leader>b :FzfLua buffers<CR>
+"nnoremap <silent> <Leader>a :FzfLua commands<CR>
+"nnoremap <silent> <Leader>o :FzfLua lsp_document_symbols<CR>
+"nnoremap <silent> <Leader>O :FzfLua lsp_workspace_symbols<CR>
+"nnoremap <silent> <Leader>?o :FzfLua lsp_document_diagnostics<CR>
+"nnoremap <silent> <Leader>?O :FzfLua lsp_workspace_diagnostics<CR>
 
 """"" Terminal ---------------------------------------------------------------
 " Escape to exit terminal input mode

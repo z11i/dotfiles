@@ -28,10 +28,13 @@ Plug 'windwp/nvim-spectre'                                  " Search and replace
 Plug 'folke/which-key.nvim'                                 " displays a popup with possible keybindings of the command you started typing
 Plug 'romgrk/nvim-treesitter-context'                       " Show code context (show function if scrolled beyond screen)
 Plug 'lukas-reineke/indent-blankline.nvim'                  " Indent guides for Neovim
+Plug 'simrat39/symbols-outline.nvim'                        " A tree like view for symbols in Neovim using the Language Server Protocol
+Plug 'liuchengxu/vista.vim'                                 " 🌵 Viewer & Finder for LSP symbols and tags
 
 "" === Navigation === "
 Plug 'ibhagwan/fzf-lua'                                     " Improved fzf.vim written in lua
-Plug 'vijaymarupudi/nvim-fzf'                               " A Lua API for using fzf in neovim.
+Plug 'vijaymarupudi/nvim-fzf'                               " A Lua API for using fzf in neovim. (depends by fzf-lua)
+Plug 'nvim-telescope/telescope.nvim'                        " Find, filter, preview, pick
 "Plug 'ray-x/guihua.lua', {'do': 'cd lua/fzy && make' }
 "Plug 'ray-x/navigator.lua'                                  " Easy code navigation, view diagnostic errors, see relationships of functions, variables
 
