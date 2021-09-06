@@ -64,7 +64,15 @@ tnoremap <F12> <C-\><C-N>:lua require('FTerm').toggle()<CR>
 nnoremap <F5> :Vista!!<CR>
 
 " === Symbols-outline === "
-nnoremap <F6> :SymbolsOutline<CR>
+nnoremap <Leader>t :SymbolsOutline<CR>
+lua <<EOF
+vim.g.symbols_outline = {
+    keymaps = {
+        close = {},
+        goto_location = {"<Cr>", "<2-LeftMouse>"},
+    },
+}
+EOF
 
 """"" Editor -----------------------------------------------------------------
 
@@ -276,6 +284,8 @@ require'telescope'.setup {
         mappings = {
             i = {
                 ["<esc>"] = actions.close,
+                ["<c-s>"] = actions.select_horizontal,
+                ["<c-x>"] = actions.delete_buffer,
                 },
             },
         },
