@@ -130,6 +130,11 @@ set foldexpr=nvim_treesitter#foldexpr()
 set foldlevelstart=99
 nnoremap - za
 
+" Ctrl-C in visual mode copies
+vnoremap <C-c> "+y
+" Ctrl-V in insert mode pastes
+inoremap <C-v> <Esc>"+p
+
 " === nvim-spectre ==="
 nnoremap <leader>R :lua require('spectre').open()<CR>
 nnoremap <leader>r viw:lua require('spectre').open_file_search()<cr>
@@ -289,10 +294,17 @@ require'telescope'.setup {
                 },
             },
         },
+    pickers = {
+        find_files = {
+            },
+        lsp_code_actions = {
+            theme = "cursor",
+            }
+        }
     }
 EOF
 nnoremap <Leader><Leader> :Telescope<CR>
-nnoremap <Leader>f :Telescope fd<CR>
+nnoremap <Leader>f :Telescope fd no_ignore=true<CR>
 nnoremap <Leader>s :Telescope live_grep<CR>
 nnoremap <Leader>e :Telescope oldfiles<CR>
 nnoremap <Leader>b :Telescope buffers<CR>
@@ -301,6 +313,7 @@ nnoremap <Leader>o :Telescope lsp_document_symbols<CR>
 nnoremap <Leader>O :Telescope lsp_dynamic_workspace_symbols<CR>
 nnoremap <Leader>?o :Telescope lsp_document_diagnostics<CR>
 nnoremap <Leader>?O :Telescope lsp_workspace_diagnostics<CR>
+nnoremap g. :Telescope lsp_code_actions<CR>
 
 " === fzf-lua === "
 "lua require("fzf")
