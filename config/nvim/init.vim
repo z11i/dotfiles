@@ -1,6 +1,11 @@
 source ~/.config/nvim/plugins.vim
 
 """"" Meta -------------------------------------------------------------------
+" leader
+let mapleader = "\<space>"
+
+nnoremap <leader><leader> :
+
 " Auto reload nvim configs when they are changed
 au BufWritePost ~/.config/nvim/*.{vim,lua} so $MYVIMRC
 " Edit vimr configuration file
@@ -8,9 +13,6 @@ nnoremap <Leader>ve :e $MYVIMRC<CR>
 " Reload vimr configuration file
 nnoremap <Leader>vr :source $MYVIMRC<CR>
 
-" use space for :
-" https://stackoverflow.com/q/9952031
-nnoremap <space> :
 
 """"" Navigation --------------------------------------------------------------
 set hidden " hide buffers when abandoned
@@ -41,7 +43,7 @@ nnoremap gp <Cmd>bp<CR>
 nnoremap <leader>n :NvimTreeToggle<CR>
 nnoremap <leader>N :NvimTreeFindFile<CR>
 
-let g:nvim_tree_width = '12%'
+let g:nvim_tree_width = '15%'
 
 let g:nvim_tree_highlight_opened_files = 3
 let g:nvim_tree_lsp_diagnostics = 1 "0 by default, will show lsp diagnostics in the signcolumn. See :help nvim_tree_lsp_diagnostics
@@ -56,7 +58,6 @@ let g:nvim_tree_gitignore = 0 "0 by default, 0 means not ignoring
 highlight NvimTreeFolderIcon guibg=blue
 
 " === FTerm === "
-lua require('FTerm').setup()
 nnoremap <F12> :lua require('FTerm').toggle()<CR>
 tnoremap <F12> <C-\><C-N>:lua require('FTerm').toggle()<CR>
 
@@ -67,6 +68,7 @@ nnoremap <F5> :Vista!!<CR>
 nnoremap <Leader>t :SymbolsOutline<CR>
 lua <<EOF
 vim.g.symbols_outline = {
+    width = 18,
     keymaps = {
         close = {},
         goto_location = {"<Cr>", "<2-LeftMouse>"},
@@ -303,7 +305,7 @@ require'telescope'.setup {
         }
     }
 EOF
-nnoremap <Leader><Leader> :Telescope<CR>
+nnoremap <Leader>T :Telescope<CR>
 nnoremap <Leader>f :Telescope fd no_ignore=true<CR>
 nnoremap <Leader>s :Telescope live_grep<CR>
 nnoremap <Leader>e :Telescope oldfiles<CR>
@@ -313,7 +315,7 @@ nnoremap <Leader>o :Telescope lsp_document_symbols<CR>
 nnoremap <Leader>O :Telescope lsp_dynamic_workspace_symbols<CR>
 nnoremap <Leader>?o :Telescope lsp_document_diagnostics<CR>
 nnoremap <Leader>?O :Telescope lsp_workspace_diagnostics<CR>
-nnoremap g. :Telescope lsp_code_actions<CR>
+nnoremap <Leader>g. :Telescope lsp_code_actions<CR>
 
 " === fzf-lua === "
 "lua require("fzf")
