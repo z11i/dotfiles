@@ -49,7 +49,7 @@ let g:nvim_tree_highlight_opened_files = 3
 let g:nvim_tree_lsp_diagnostics = 1 "0 by default, will show lsp diagnostics in the signcolumn. See :help nvim_tree_lsp_diagnostics
 let g:nvim_tree_indent_markers = 1 "0 by default, this option shows indent markers when folders are open
 let g:nvim_tree_follow = 1 "0 by default, this option allows the cursor to be updated when entering a buffer
-let g:nvim_tree_auto_open = 1 "0 by default, opens the tree when typing `vim $DIR` or `vim`
+let g:nvim_tree_auto_open = 0 "0 by default, opens the tree when typing `vim $DIR` or `vim`
 let g:nvim_tree_auto_close = 0 "0 by default, closes the tree when it's the last window
 let g:nvim_tree_disable_netrw = 1 "1 by default, disables netrw
 let g:nvim_tree_hijack_netrw = 1 "1 by default, prevents netrw from automatically opening when opening directories (but lets you keep its other utilities)
@@ -295,9 +295,23 @@ require'telescope'.setup {
                 ["<c-x>"] = actions.delete_buffer,
                 },
             },
+        vimgrep_arguments = {
+            'rg',
+            '--color=never',
+            '--no-heading',
+            '--with-filename',
+            '--line-number',
+            '--column',
+            '--smart-case',
+            '-u'
+            },
         },
     pickers = {
         find_files = {
+            no_ignore = true,
+            },
+        live_grep = {
+
             },
         lsp_code_actions = {
             theme = "cursor",
@@ -306,8 +320,9 @@ require'telescope'.setup {
     }
 EOF
 nnoremap <Leader>T :Telescope<CR>
-nnoremap <Leader>f :Telescope fd no_ignore=true<CR>
+nnoremap <Leader>f :Telescope find_files<CR>
 nnoremap <Leader>s :Telescope live_grep<CR>
+nnoremap <Leader>S :Telescope live_grep additional_args=<CR>
 nnoremap <Leader>e :Telescope oldfiles<CR>
 nnoremap <Leader>b :Telescope buffers<CR>
 nnoremap <Leader>a :Telescope commands<CR>
