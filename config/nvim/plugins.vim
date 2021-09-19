@@ -22,7 +22,14 @@ Plug 'nvim-lua/popup.nvim'
 
 " === Editing Plugins === "
 Plug 'ntpeters/vim-better-whitespace'                       " Trailing whitespace highlighting & automatic fixing
-Plug 'hrsh7th/nvim-compe'                                   " Auto completion Lua plugin for nvim
+Plug 'hrsh7th/nvim-cmp'                                     " Auto completion Lua plugin for nvim
+"nvim-cmp completion
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-vsnip'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/vim-vsnip'                                    " Snippet plugin for vim/nvim that supports LSP/VSCode's snippet format.
+Plug 'hrsh7th/vim-vsnip-integ'
 Plug 'windwp/nvim-autopairs'                                " autopairs for neovim written by lua
 Plug 'windwp/nvim-spectre'                                  " Search and replace
 Plug 'folke/which-key.nvim'                                 " displays a popup with possible keybindings of the command you started typing
