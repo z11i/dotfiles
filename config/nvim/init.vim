@@ -127,15 +127,17 @@ nnoremap <leader>w <C-w>v<C-w>l
 
 " fold by syntax (default is manual)
 " https://unix.stackexchange.com/a/596686
-set foldmethod=expr
+set foldmethod=syntax
 set foldexpr=nvim_treesitter#foldexpr()
 set foldlevelstart=99
 nnoremap - za
 
-" Ctrl-C in visual mode copies
-vnoremap <C-c> "+y
-" Ctrl-V in insert mode pastes
-inoremap <C-v> <Esc>"+p
+" Alt-A in normal mode selects all
+nnoremap <A-a> ggVG
+" Alt-C in visual mode copies
+vnoremap <A-c> "+y
+" Alt-V in insert mode pastes
+inoremap <A-v> <Esc>"+p
 
 " === nvim-spectre ==="
 nnoremap <leader>R :lua require('spectre').open()<CR>
@@ -340,6 +342,7 @@ lua require("lsp")
 autocmd BufEnter,BufWinEnter,TabEnter *.rs :lua require'lsp_extensions'.inlay_hints{}
 nnoremap K             :lua vim.lsp.buf.hover()<CR>
 nnoremap <C-k>         :lua vim.lsp.buf.signature_help()<CR>
+inoremap <C-k>         <Esc>:lua vim.lsp.buf.signature_help()<CR>a
 nnoremap <Leader>i     :lua vim.lsp.buf.implementation()<CR>
 nnoremap <Leader>d     :lua vim.lsp.buf.definition()<CR>
 nnoremap <Leader>D     :lua vim.lsp.buf.declaration()<CR>
@@ -376,6 +379,10 @@ autocmd BufWritePre *.go :silent! lua require('go.format').gofmt()
 
 """ Markdown
 au BufRead,BufNewFile *.md setlocal textwidth=80
+
+""" JSON"
+" 2-space indent
+au FileType json set shiftwidth=2
 
 """"" Aesthetics -------------------------------------------------------------
 set background=dark

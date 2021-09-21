@@ -20,6 +20,7 @@ in buildEnv {
       pkgs.gnused
       pkgs.htop
       pkgs.jq
+      pkgs.lazygit
       pkgs.libressl
       pkgs.neovim
       pkgs.nix
