@@ -318,15 +318,15 @@ require'telescope'.setup {
         }
     }
 EOF
-nnoremap <Leader>st :Telescope<CR>
-nnoremap <Leader>sf :Telescope find_files<CR>
-nnoremap <Leader>ss :Telescope live_grep<CR>
-nnoremap <Leader>SS :Telescope live_grep additional_args=<CR>
-nnoremap <Leader>se :Telescope oldfiles<CR>
-nnoremap <Leader>sb :Telescope buffers<CR>
-nnoremap <Leader>sa :Telescope commands<CR>
-nnoremap <Leader>so :Telescope lsp_document_symbols<CR>
-nnoremap <Leader>SO :Telescope lsp_dynamic_workspace_symbols<CR>
+nnoremap <Leader>tt :Telescope<CR>
+nnoremap <Leader>f :Telescope find_files<CR>
+nnoremap <Leader>s :Telescope live_grep<CR>
+nnoremap <Leader>S :Telescope live_grep additional_args=<CR>
+nnoremap <Leader>h :Telescope oldfiles<CR>
+nnoremap <Leader>b :Telescope buffers<CR>
+nnoremap <Leader>ta :Telescope commands<CR>
+nnoremap <Leader>o :Telescope lsp_document_symbols<CR>
+nnoremap <Leader>O :Telescope lsp_dynamic_workspace_symbols<CR>
 nnoremap <Leader>?o :Telescope lsp_document_diagnostics<CR>
 nnoremap <Leader>?O :Telescope lsp_workspace_diagnostics<CR>
 nnoremap <Leader>g. :Telescope lsp_code_actions<CR>
@@ -461,5 +461,5 @@ require'lualine'.setup {
     }
 EOF
 
-" === buftabline === "
-lua require("buftabline").setup {}
+" === bufferline === "
+lua require("bufferline").setup {}
