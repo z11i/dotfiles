@@ -35,7 +35,7 @@ Plug 'windwp/nvim-spectre'                                  " Search and replace
 Plug 'folke/which-key.nvim'                                 " displays a popup with possible keybindings of the command you started typing
 
 " https://github.com/NixOS/nixpkgs/pull/129543
-"Plug 'romgrk/nvim-treesitter-context'                       " Show code context (show function if scrolled beyond screen)
+Plug 'romgrk/nvim-treesitter-context'                       " Show code context (show function if scrolled beyond screen)
 Plug 'lukas-reineke/indent-blankline.nvim'                  " Indent guides for Neovim
 
 " https://github.com/NixOS/nixpkgs/pull/129543
