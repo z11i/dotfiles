@@ -543,8 +543,9 @@ key_bindings:
   # https://donsnotes.com/tech/charsets/ascii.html
   # https://www.reddit.com/r/neovim/comments/mbj8m5/how_to_setup_ctrlshiftkey_mappings_in_neovim_and/
   # https://github.com/sodiumjoe/dotfiles/blob/6fb833c628d857efe5ba61ddc86ffea644af4260/alacritty/alacritty.yml
-  - { key: Tab,      mods: Control,       chars: "\x01n"                 } # <C-a>n
-  - { key: Tab,      mods: Control|Shift, chars: "\x01p"                 } # <C-a>p
+  - { key: Tab,      mods: Control,       chars: "\x01\x01"              } # <C-a><C-a>
+  - { key: LBracket, mods: Command|Shift, chars: "\x01p"                 } # <C-a>p
+  - { key: RBracket, mods: Command|Shift, chars: "\x01n"                 } # <C-a>n
   - { key: T,        mods: Command,       chars: "\x01c"                 } # <C-a>c
   - { key: W,        mods: Command,       chars: "\x01x"                 } # <C-a>x
   - { key: Key0,     mods: Command,       chars: "\x010"                 } # <C-a>0
