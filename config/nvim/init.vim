@@ -43,19 +43,42 @@ nnoremap gp <Cmd>bp<CR>
 nnoremap <leader>n :NvimTreeToggle<CR>
 nnoremap <leader>N :NvimTreeFindFile<CR>
 
-let g:nvim_tree_width = '15%'
-
 let g:nvim_tree_highlight_opened_files = 3
-let g:nvim_tree_lsp_diagnostics = 1 "0 by default, will show lsp diagnostics in the signcolumn. See :help nvim_tree_lsp_diagnostics
-let g:nvim_tree_indent_markers = 1 "0 by default, this option shows indent markers when folders are open
-let g:nvim_tree_follow = 1 "0 by default, this option allows the cursor to be updated when entering a buffer
-let g:nvim_tree_auto_open = 0 "0 by default, opens the tree when typing `vim $DIR` or `vim`
-let g:nvim_tree_auto_close = 0 "0 by default, closes the tree when it's the last window
-let g:nvim_tree_disable_netrw = 1 "1 by default, disables netrw
-let g:nvim_tree_hijack_netrw = 1 "1 by default, prevents netrw from automatically opening when opening directories (but lets you keep its other utilities)
+let g:nvim_tree_indent_markers = 0 "0 by default, this option shows indent markers when folders are open
 let g:nvim_tree_gitignore = 0 "0 by default, 0 means not ignoring
 
 highlight NvimTreeFolderIcon guibg=blue
+lua <<EOF
+require'nvim-tree'.setup {
+    disable_netrw       = true,
+    hijack_netrw        = true,
+    open_on_setup       = false,
+    ignore_ft_on_setup  = {},
+    auto_close          = false,
+    open_on_tab         = false,
+    hijack_cursor       = false,
+    update_cwd          = false,
+    lsp_diagnostics     = true,
+    update_focused_file = {
+        enable      = true,
+        update_cwd  = false,
+        ignore_list = {}
+    },
+    system_open = {
+        cmd  = nil,
+        args = {}
+    },
+    view = {
+        width = '18%',
+        side = 'left',
+        auto_resize = true,
+        mappings = {
+            custom_only = false,
+            list = {}
+        }
+    }
+}
+EOF
 
 " === FTerm === "
 nnoremap <F12> :lua require('FTerm').toggle()<CR>
