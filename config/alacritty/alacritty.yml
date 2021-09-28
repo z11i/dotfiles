@@ -539,13 +539,24 @@ key_bindings:
   - { key: Y,        mods: Alt,     chars: "\x1by"                       }
   - { key: Z,        mods: Alt,     chars: "\x1bz"                       }
 
-  ## Tmux keys
+  ## Tmux keys, assuming prefix key
+  # https://donsnotes.com/tech/charsets/ascii.html
   # https://www.reddit.com/r/neovim/comments/mbj8m5/how_to_setup_ctrlshiftkey_mappings_in_neovim_and/
   # https://github.com/sodiumjoe/dotfiles/blob/6fb833c628d857efe5ba61ddc86ffea644af4260/alacritty/alacritty.yml
   - { key: Tab,      mods: Control,       chars: "\x01n"                 } # <C-a>n
   - { key: Tab,      mods: Control|Shift, chars: "\x01p"                 } # <C-a>p
   - { key: T,        mods: Command,       chars: "\x01c"                 } # <C-a>c
   - { key: W,        mods: Command,       chars: "\x01x"                 } # <C-a>x
+  - { key: Key0,     mods: Command,       chars: "\x010"                 } # <C-a>0
+  - { key: Key1,     mods: Command,       chars: "\x011"                 } # <C-a>1
+  - { key: Key2,     mods: Command,       chars: "\x012"                 } # <C-a>2
+  - { key: Key3,     mods: Command,       chars: "\x013"                 } # <C-a>3
+  - { key: Key4,     mods: Command,       chars: "\x014"                 } # <C-a>4
+  - { key: Key5,     mods: Command,       chars: "\x015"                 } # <C-a>5
+  - { key: Key6,     mods: Command,       chars: "\x016"                 } # <C-a>6
+  - { key: Key7,     mods: Command,       chars: "\x017"                 } # <C-a>7
+  - { key: Key8,     mods: Command,       chars: "\x018"                 } # <C-a>8
+  - { key: Key9,     mods: Command,       chars: "\x019"                 } # <C-a>9
 
 #debug:
   # Display the time it takes to redraw each frame.
