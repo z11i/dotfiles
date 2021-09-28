@@ -39,7 +39,7 @@ Plug 'romgrk/nvim-treesitter-context'                       " Show code context 
 Plug 'lukas-reineke/indent-blankline.nvim'                  " Indent guides for Neovim
 
 " https://github.com/NixOS/nixpkgs/pull/129543
-"Plug 'simrat39/symbols-outline.nvim'                        " A tree like view for symbols in Neovim using the Language Server Protocol
+Plug 'simrat39/symbols-outline.nvim'                        " A tree like view for symbols in Neovim using the Language Server Protocol
 Plug 'liuchengxu/vista.vim'                                 " 🌵 Viewer & Finder for LSP symbols and tags
 
 "" === Navigation === "
