@@ -185,6 +185,13 @@ setup_golang() {
     )
 }
 
+setup_tmux() {
+    checkBin tmux && (
+        symlink config/tmux/tmux.conf ~/.tmux.conf
+        [[ -e ~/.tmux/plugins/tpm ]] || git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+    )
+}
+
 setup_nix
 setup_mac
 setup_fish
@@ -193,4 +200,5 @@ setup_neovim
 setup_ideavim
 setup_asdf
 setup_mac_gui
-## setup_golang
+setup_golang
+setup_tmux
