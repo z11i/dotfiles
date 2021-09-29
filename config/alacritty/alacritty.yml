@@ -538,6 +538,8 @@ key_bindings:
   - { key: X,        mods: Alt,     chars: "\x1bx"                       }
   - { key: Y,        mods: Alt,     chars: "\x1by"                       }
   - { key: Z,        mods: Alt,     chars: "\x1bz"                       }
+  - { key: LBracket, mods: Alt,     chars: "\x1b["                       }
+  - { key: RBracket, mods: Alt,     chars: "\x1b]"                       }
 
   ## Tmux keys, assuming prefix key
   # https://donsnotes.com/tech/charsets/ascii.html

@@ -13,7 +13,6 @@ nnoremap <Leader>ve :e $MYVIMRC<CR>
 " Reload vimr configuration file
 nnoremap <Leader>vr :source $MYVIMRC<CR>
 
-
 """"" Navigation --------------------------------------------------------------
 set hidden " hide buffers when abandoned
 
@@ -35,12 +34,15 @@ nnoremap <A-l> <C-w>l
 nnoremap <A-\> <C-w>v<C-o>
 nnoremap <A--> <C-w>s<C-o>
 
-" cycle buffer files
-nnoremap gn <Cmd>bn<CR>
-nnoremap gp <Cmd>bp<CR>
+" Cycle through last used buffers with Ctrl-\
+nnoremap <C-\> <Cmd>e#<CR>
 
-" switch to last opened buffer
-nnoremap <C-3> <Cmd>e#<CR>
+" cycle buffer files
+nnoremap <A-[> <Cmd>bp<CR>
+nnoremap <A-]> <Cmd>bn<CR>
+
+" Close buffer
+nnoremap <A-w> <Cmd>bdelete<CR>
 
 " === NvimTree === "
 nnoremap <leader>n :NvimTreeToggle<CR>
