@@ -66,6 +66,7 @@ Plug 'nvim-treesitter/nvim-treesitter-textobjects'                  " Create you
 Plug 'nvim-treesitter/playground', {'on': 'TSPlaygroundToggle'}     " Debug tree-sitter
 Plug 'neovim/nvim-lspconfig'                                        " Quickstart configurations for the Nvim LSP client
 "" --- go ---
+Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 Plug 'ray-x/go.nvim'                                                " Go Neovim plugin, based on nvim-lsp, treesitter and Dap
 "" --- rust ---
 Plug 'simrat39/rust-tools.nvim'                                     " Battery-included rust lsp setup

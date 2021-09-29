@@ -84,7 +84,7 @@ window:
 scrolling:
   # Maximum number of lines in the scrollback buffer.
   # Specifying '0' will disable scrolling.
-  history: 60000
+  history: 100000
 
   # Number of lines the viewport will move for every line scrolled when
   # scrollback is enabled (history > 0).
@@ -139,7 +139,7 @@ font:
     style: Bold Italic
 
   # Point size
-  size: 14
+  size: 14.5
 
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
@@ -558,25 +558,6 @@ key_bindings:
   - { key: Key7,     mods: Command,       chars: "\x017"                 } # <C-a>7
   - { key: Key8,     mods: Command,       chars: "\x018"                 } # <C-a>8
   - { key: Key9,     mods: Command,       chars: "\x019"                 } # <C-a>9
-
-#debug:
-  # Display the time it takes to redraw each frame.
-  #render_timer: false
-
-  # Keep the log file after quitting Alacritty.
-  #persistent_logging: false
-
-  # Log level
-  #
-  # Values for `log_level`:
-  #   - None
-  #   - Error
-  #   - Warn
-  #   - Info
-  #   - Debug
-  #   - Trace
-  #log_level: Warn
-
-  # Print all received window events.
-  #print_events: false
+  - { key: D,        mods: Command,       chars: "\x01-"                 } # <C-a>-
+  - { key: D,        mods: Command|Shift, chars: "\x01|"                 } # <C-a>|
 

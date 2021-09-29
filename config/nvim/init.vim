@@ -35,9 +35,12 @@ nnoremap <A-l> <C-w>l
 nnoremap <A-\> <C-w>v<C-o>
 nnoremap <A--> <C-w>s<C-o>
 
-" go back and forth buffer files
+" cycle buffer files
 nnoremap gn <Cmd>bn<CR>
 nnoremap gp <Cmd>bp<CR>
+
+" switch to last opened buffer
+nnoremap <C-3> <Cmd>e#<CR>
 
 " === NvimTree === "
 nnoremap <leader>n :NvimTreeToggle<CR>
@@ -337,6 +340,9 @@ require'telescope'.setup {
             },
         lsp_code_actions = {
             theme = "cursor",
+            },
+        oldfiles = {
+            only_cwd = true,
             }
         }
     }
@@ -345,7 +351,7 @@ nnoremap <Leader>tt :Telescope<CR>
 nnoremap <Leader>f :Telescope find_files<CR>
 nnoremap <Leader>s :Telescope live_grep<CR>
 nnoremap <Leader>S :Telescope live_grep additional_args=<CR>
-nnoremap <Leader>h :Telescope oldfiles<CR>
+nnoremap <Leader>h :Telescope oldfiles only_cwd=true<CR>
 nnoremap <Leader>b :Telescope buffers<CR>
 nnoremap <Leader>ta :Telescope commands<CR>
 nnoremap <Leader>o :Telescope lsp_document_symbols<CR>
@@ -380,25 +386,30 @@ au FileType go set softtabstop=4
 au FileType go set tabstop=4
 
 " === go.nvim ===
-lua <<EOF
-require 'go'.setup({
-goimport = 'gopls', -- if set to 'gopls' will use golsp format
-gofmt = 'gopls', -- if set to gopls will use golsp format
-max_line_len = 120,
-tag_transform = false,
-test_dir = '',
-comment_placeholder = '<>',
-lsp_cfg = false, -- false: use your own lspconfig
-lsp_gofumpt = true, -- true: set default gofmt in gopls format to gofumpt
-lsp_on_attach = true, -- use on_attach from go.nvim
-dap_debug = true,
-})
-
-local protocol = require'vim.lsp.protocol'
-EOF
+"lua <<EOF
+"require 'go'.setup({
+"    goimport = 'gopls', -- if set to 'gopls' will use golsp format
+"    gofmt = 'gopls', -- if set to gopls will use golsp format
+"    max_line_len = 120,
+"    tag_transform = false,
+"    test_dir = '',
+"    comment_placeholder = '<>',
+"    lsp_cfg = false, -- false: use your own lspconfig
+"    lsp_gofumpt = true, -- true: set default gofmt in gopls format to gofumpt
+"    lsp_on_attach = true, -- use on_attach from go.nvim
+"    lsp_codelens = true,
+"    dap_debug = true,
+"})
+"
+"local protocol = require'vim.lsp.protocol'
+"EOF
 
 " Auto gofmt on write
-autocmd BufWritePre *.go :silent! lua require('go.format').gofmt()
+"autocmd BufWritePre *.go :silent! lua require('go.format').gofmt()
+"
+" === vim-go ===
+let g:go_code_completion_enabled = 0
+let g:go_auto_type_info = 1
 
 """ Markdown
 au BufRead,BufNewFile *.md setlocal textwidth=80
@@ -480,7 +491,7 @@ require'lualine'.setup {
         lualine_z = {}
         },
     tabline = {},
-    extensions = {'quickfix', 'nvim-tree'},
+    extensions = {'quickfix', 'nvim-tree', 'fugitive'},
     }
 EOF
 
