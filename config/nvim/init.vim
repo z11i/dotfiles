@@ -106,6 +106,19 @@ vim.g.symbols_outline = {
 EOF
 
 """"" Editor -----------------------------------------------------------------
+""" Generic LSP settings
+lua require("lsp")
+" LSP extensions
+autocmd BufEnter,BufWinEnter,TabEnter *.rs :lua require'lsp_extensions'.inlay_hints{}
+nnoremap K             :lua vim.lsp.buf.hover()<CR>
+nnoremap <C-k>         :lua vim.lsp.buf.signature_help()<CR>
+inoremap <C-k>         <Esc>:lua vim.lsp.buf.signature_help()<CR>a
+nnoremap <Leader>i     :lua vim.lsp.buf.implementation()<CR>
+nnoremap <Leader>d     :lua vim.lsp.buf.definition()<CR>
+nnoremap <Leader>D     :lua vim.lsp.buf.declaration()<CR>
+nnoremap <Leader>r     :lua vim.lsp.buf.references()<CR>
+nnoremap <Leader>t     :lua vim.lsp.buf.type_definition()<CR>
+nnoremap <Leader>e     :lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
 
 "see https://www.reddit.com/r/vim/wiki/tabstop
 set tabstop=4
@@ -167,6 +180,9 @@ nnoremap <A-a> ggVG
 vnoremap <A-c> "+y
 " Alt-V in insert mode pastes
 inoremap <A-v> <Esc>"+p
+" Alt-S in normal and insert mode saves
+nnoremap <A-s> <Cmd>w<CR>
+inoremap <A-s> <Esc><Cmd>w<CR>
 
 " === nvim-spectre ==="
 nnoremap <leader>R :lua require('spectre').open()<CR>
@@ -280,7 +296,21 @@ EOF
 
 " === nvim-autopairs ===
 lua <<EOF
-require('nvim-autopairs').setup{}
+local npairs = require("nvim-autopairs")
+local Rule = require("nvim-autopairs.rule")
+npairs.setup({
+})
+-- you need setup cmp first put this after cmp.setup()
+require("nvim-autopairs.completion.cmp").setup({
+  map_cr = true, --  map <CR> on insert mode
+  map_complete = true, -- it will auto insert `(` (map_char) after select function or method item
+  auto_select = true, -- automatically select the first item
+  insert = false, -- use insert confirm behavior instead of replace
+  map_char = { -- modifies the function or method delimiter by filetypes
+    all = '(',
+    tex = '{'
+  }
+})
 EOF
 
 " === which-key === "
@@ -368,20 +398,6 @@ nnoremap <Leader>g. :Telescope lsp_code_actions<CR>
 tnoremap <Esc> <C-\><C-n>
 
 """"" Language specific settings ---------------------------------------------
-""" Generic LSP settings
-lua require("lsp")
-" LSP extensions
-autocmd BufEnter,BufWinEnter,TabEnter *.rs :lua require'lsp_extensions'.inlay_hints{}
-nnoremap K             :lua vim.lsp.buf.hover()<CR>
-nnoremap <C-k>         :lua vim.lsp.buf.signature_help()<CR>
-inoremap <C-k>         <Esc>:lua vim.lsp.buf.signature_help()<CR>a
-nnoremap <Leader>i     :lua vim.lsp.buf.implementation()<CR>
-nnoremap <Leader>d     :lua vim.lsp.buf.definition()<CR>
-nnoremap <Leader>D     :lua vim.lsp.buf.declaration()<CR>
-nnoremap <Leader>r     :lua vim.lsp.buf.references()<CR>
-nnoremap <Leader>t     :lua vim.lsp.buf.type_definition()<CR>
-nnoremap <Leader>e     :lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
-
 """ Go
 au FileType go set noexpandtab
 au FileType go set shiftwidth=4
@@ -473,8 +489,8 @@ require'lualine'.setup {
     options = {
         icons_enabled = true,
         theme = 'gruvbox',
-        section_separators = {'', ''},
-        component_separators = {'', ''},
+        section_separators = {'', ''},
+        component_separators = {'', ''},
         disabled_filetypes = {}
         },
     sections = {
