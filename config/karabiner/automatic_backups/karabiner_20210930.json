@@ -40,32 +40,6 @@
                                 "type": "basic"
                             }
                         ]
-                    },
-                    {
-                        "description": "Change right_control to fn if pressed alone.",
-                        "manipulators": [
-                            {
-                                "from": {
-                                    "key_code": "right_control",
-                                    "modifiers": {
-                                        "optional": [
-                                            "any"
-                                        ]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "right_control"
-                                    }
-                                ],
-                                "to_if_alone": [
-                                    {
-                                        "key_code": "fn"
-                                    }
-                                ],
-                                "type": "basic"
-                            }
-                        ]
                     }
                 ]
             },
@@ -142,7 +116,7 @@
                             },
                             "to": [
                                 {
-                                    "key_code": "right_control"
+                                    "apple_vendor_top_case_key_code": "keyboard_fn"
                                 }
                             ]
                         },
@@ -152,7 +126,7 @@
                             },
                             "to": [
                                 {
-                                    "key_code": "right_command"
+                                    "key_code": "right_option"
                                 }
                             ]
                         }

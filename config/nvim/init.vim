@@ -41,7 +41,8 @@ nnoremap <C-\> <Cmd>e#<CR>
 nnoremap <A-[> <Cmd>bp<CR>
 nnoremap <A-]> <Cmd>bn<CR>
 
-" Close buffer
+" New/Close buffer
+nnoremap <A-t> <Cmd>enew<CR>
 nnoremap <A-w> <Cmd>bdelete<CR>
 
 " === NvimTree === "
