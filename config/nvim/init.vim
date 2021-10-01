@@ -185,8 +185,8 @@ nnoremap <A-s> <Cmd>w<CR>
 inoremap <A-s> <Esc><Cmd>w<CR>
 
 " === nvim-spectre ==="
-nnoremap <leader>R :lua require('spectre').open()<CR>
-nnoremap <leader>r viw:lua require('spectre').open_file_search()<cr>
+nnoremap <leader>/R :lua require('spectre').open()<CR>
+nnoremap <leader>/r viw:lua require('spectre').open_file_search()<cr>
 
 " === gitsigns ==="
 lua <<EOF
@@ -383,7 +383,7 @@ EOF
 nnoremap <Leader>tt :Telescope<CR>
 nnoremap <Leader>f :Telescope find_files<CR>
 nnoremap <Leader>s :Telescope live_grep<CR>
-nnoremap <Leader>S :Telescope live_grep additional_args=<CR>
+"nnoremap <Leader> :Telescope live_grep additional_args=<CR>
 nnoremap <Leader>h :Telescope oldfiles only_cwd=true<CR>
 nnoremap <Leader>b :Telescope buffers<CR>
 nnoremap <Leader>ta :Telescope commands<CR>
@@ -428,7 +428,31 @@ au FileType go set tabstop=4
 "
 " === vim-go ===
 let g:go_code_completion_enabled = 0
-let g:go_auto_type_info = 1
+let g:go_auto_type_info = 0
+let g:go_auto_sameids = 0
+let g:go_fmt_autosave = 1
+let g:go_textobj_enabled = 0
+let g:go_textobj_include_variable = 0
+let g:go_fold_enable = []
+let g:go_highlight_array_whitespace_error = 0
+let g:go_highlight_chan_whitespace_error = 0
+let g:go_highlight_extra_types = 0
+let g:go_highlight_space_tab_error = 0
+let g:go_highlight_trailing_whitespace_error = 0
+let g:go_highlight_operators = 0
+let g:go_highlight_functions = 0
+let g:go_highlight_function_parameters = 0
+let g:go_highlight_function_calls = 0
+let g:go_highlight_types = 0
+let g:go_highlight_fields = 0
+let g:go_highlight_build_constraints = 0
+let g:go_highlight_generate_tags = 0
+let g:go_highlight_string_spellcheck = 0
+let g:go_highlight_format_strings = 0
+let g:go_highlight_variable_declarations = 0
+let g:go_highlight_variable_assignments = 0
+let g:go_highlight_diagnostic_errors = 0
+let g:go_highlight_diagnostic_warnings = 0
 
 """ Markdown
 au BufRead,BufNewFile *.md setlocal textwidth=80
