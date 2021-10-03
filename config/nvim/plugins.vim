@@ -57,8 +57,7 @@ Plug 'lewis6991/gitsigns.nvim'                               " Git signs written
 "" --- general language parser and lsp ---
 function! s:TreesitterHook(_)
     TSUpdate
-    TSInstall go
-    TSInstall gomod
+    TSInstall all
 endfunction
 let TreesitterHookRef = function('s:TreesitterHook')
 Plug 'nvim-treesitter/nvim-treesitter', { 'do': TreesitterHookRef } " Nvim Treesitter configurations and abstraction layer

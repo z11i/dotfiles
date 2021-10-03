@@ -116,7 +116,9 @@ inoremap <C-k>         <Esc>:lua vim.lsp.buf.signature_help()<CR>a
 nnoremap <Leader>i     :lua vim.lsp.buf.implementation()<CR>
 nnoremap <Leader>d     :lua vim.lsp.buf.definition()<CR>
 nnoremap <Leader>D     :lua vim.lsp.buf.declaration()<CR>
+nnoremap <Leader>l     :lua vim.lsp.buf.formatting()<CR>
 nnoremap <Leader>r     :lua vim.lsp.buf.references()<CR>
+nnoremap <F2>          :lua vim.lsp.buf.rename()<CR>
 nnoremap <Leader>t     :lua vim.lsp.buf.type_definition()<CR>
 nnoremap <Leader>e     :lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
 
