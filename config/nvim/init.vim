@@ -64,7 +64,9 @@ require'nvim-tree'.setup {
     open_on_tab         = false,
     hijack_cursor       = false,
     update_cwd          = false,
-    lsp_diagnostics     = true,
+    diagnostics = {
+        enable = true,
+    },
     update_focused_file = {
         enable      = true,
         update_cwd  = false,
@@ -515,15 +517,17 @@ require'lualine'.setup {
     options = {
         icons_enabled = true,
         theme = 'gruvbox',
-        section_separators = {'', ''},
-        component_separators = {'', ''},
+        component_separators = {'', ''},
+        section_separators = {'', ''},
         disabled_filetypes = {}
         },
     sections = {
         lualine_a = {'mode'},
         lualine_b = {'branch'},
-        lualine_c = {'filename'},
-        lualine_x = {'encoding', 'fileformat', 'filetype'},
+        lualine_c = {
+            {'filename', file_status = true, path = 1}
+        },
+        lualine_x = {'filetype', 'diff'},
         lualine_y = {'progress'},
         lualine_z = {'location'}
         },
