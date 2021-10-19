@@ -8,6 +8,7 @@ abbr dk 'docker'
 abbr dkc 'docker-compose'
 abbr g 'git'
 abbr k kubectl
+abbr mkdir 'mkdir -p'
 abbr nsh 'nix-shell --command fish'
 abbr uuid 'echo -n (uuidgen) | pbcopy'
 abbr vim 'nvim'
