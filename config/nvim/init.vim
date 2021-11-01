@@ -316,16 +316,10 @@ local Rule = require("nvim-autopairs.rule")
 npairs.setup({
 })
 -- you need setup cmp first put this after cmp.setup()
-require("nvim-autopairs.completion.cmp").setup({
-  map_cr = true, --  map <CR> on insert mode
-  map_complete = true, -- it will auto insert `(` (map_char) after select function or method item
-  auto_select = true, -- automatically select the first item
-  insert = false, -- use insert confirm behavior instead of replace
-  map_char = { -- modifies the function or method delimiter by filetypes
-    all = '(',
-    tex = '{'
-  }
-})
+-- setup nvim-cmp
+local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+local cmp = require('cmp')
+cmp.event:on( 'confirm_done', cmp_autopairs.on_confirm_done({  map_char = { tex = '' } }))
 EOF
 
 " === which-key === "
@@ -495,16 +489,20 @@ try
 ""    colors = {hint = "orange", error = "#ff0000"}
 ""    })
 ""EOF
-    let g:gruvbox_material_palette = 'mix'
-    let g:gruvbox_material_ui_contrast = 'hard'
-    let g:gruvbox_material_enable_bold = 1
-    let g:gruvbox_material_enable_italic = 1
-    let g:gruvbox_material_transparent_background = 1
-    let g:gruvbox_material_visual = 'reverse'
-    let g:gruvbox_material_menu_selection_background = 'green'
-    let g:gruvbox_material_diagnostic_virtual_text = 'colored'
-    let g:gruvbox_material_current_word = 'underline'
-    colorscheme gruvbox-material
+    "let g:gruvbox_material_palette = 'mix'
+    "let g:gruvbox_material_ui_contrast = 'hard'
+    "let g:gruvbox_material_enable_bold = 1
+    "let g:gruvbox_material_enable_italic = 1
+    "let g:gruvbox_material_transparent_background = 1
+    "let g:gruvbox_material_visual = 'reverse'
+    "let g:gruvbox_material_menu_selection_background = 'green'
+    "let g:gruvbox_material_diagnostic_virtual_text = 'colored'
+    "let g:gruvbox_material_current_word = 'underline'
+
+    let g:sonokai_style = 'andromeda'
+    let g:sonokai_enable_italic = 1
+    let g:sonokai_disable_italic_comment = 0
+    colorscheme sonokai
 catch
     colorscheme desert
 endtry
@@ -527,7 +525,7 @@ lua <<EOF
 require'lualine'.setup {
     options = {
         icons_enabled = true,
-        theme = 'gruvbox',
+        theme = 'ayu_mirage',
         component_separators = {'', ''},
         section_separators = {'', ''},
         disabled_filetypes = {}
@@ -556,4 +554,27 @@ require'lualine'.setup {
 EOF
 
 " === bufferline === "
-lua require("bufferline").setup {}
+lua <<EOF
+require("bufferline").setup {
+    options = {
+        numbers = "buffer_id",
+        buffer_close_icon= "",
+        modified_icon = "●",
+        close_icon = "",
+        left_trunc_marker = "",
+        right_trunc_marker = "",
+        max_name_length = 18,
+        max_prefix_length = 15, -- prefix used when a buffer is deduplicated
+        tab_size = 18,
+        diagnostics = "nvim_lsp",
+        show_buffer_icons = true,
+        show_buffer_close_icons = true,
+        show_close_icon = false,
+        show_tab_indicators = true,
+        persist_buffer_sort = true,
+        separator_style = "thick",
+        offsets = {{filetype = "NvimTree", text = "File Explorer", text_align = "center"}},
+        sort_by = "relative_directory"
+    },
+}
+EOF
