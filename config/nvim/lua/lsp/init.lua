@@ -46,27 +46,6 @@ for _, lsp in ipairs(servers) do
     }
 end
 
-nvim_lsp.rust_analyzer.setup({
-    on_attach=on_attach,
-    settings = {
-        ["rust-analyzer"] = {
-            assist = {
-                importGranularity = "module",
-                importPrefix = "by_self",
-            },
-            cargo = {
-                loadOutDirsFromCheck = true
-            },
-            procMacro = {
-                enable = true
-            },
-            checkOnSave = {
-                command = "clippy"
-            }
-        }
-    }
-})
-
 require('rust-tools').setup({})
 
 -- highlighting
