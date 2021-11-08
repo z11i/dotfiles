@@ -92,18 +92,44 @@ EOF
 nnoremap <F12> :lua require('FTerm').toggle()<CR>
 tnoremap <F12> <C-\><C-N>:lua require('FTerm').toggle()<CR>
 
-" === Vista === "
-nnoremap <F5> :Vista!!<CR>
-
 " === Symbols-outline === "
-nnoremap <Leader>t :SymbolsOutline<CR>
+nnoremap <F5> :SymbolsOutline<CR>
 lua <<EOF
 vim.g.symbols_outline = {
-    width = 18,
+    width = 20,
+    highlight_hovered_item = true,
     keymaps = {
         close = {},
         goto_location = {"<Cr>", "<2-LeftMouse>"},
     },
+    symbols = {
+        File = {icon = "", hl = "TSURI"},
+        Module = {icon = "", hl = "TSNamespace"},
+        Namespace = {icon = "", hl = "TSNamespace"},
+        Package = {icon = "", hl = "TSNamespace"},
+        Class = {icon = "", hl = "TSType"},
+        Method = {icon = "", hl = "TSMethod"},
+        Property = {icon = "", hl = "TSMethod"},
+        Field = {icon = "", hl = "TSField"},
+        Constructor = {icon = "", hl = "TSConstructor"},
+        Enum = {icon = "ℰ", hl = "TSType"},
+        Interface = {icon = "ﰮ", hl = "TSType"},
+        Function = {icon = "", hl = "TSFunction"},
+        Variable = {icon = "", hl = "TSConstant"},
+        Constant = {icon = "", hl = "TSConstant"},
+        String = {icon = "", hl = "TSString"},
+        Number = {icon = "#", hl = "TSNumber"},
+        Boolean = {icon = "⊨", hl = "TSBoolean"},
+        Array = {icon = "", hl = "TSConstant"},
+        Object = {icon = "", hl = "TSType"},
+        Key = {icon = "", hl = "TSType"},
+        Null = {icon = "ﳠ", hl = "TSType"},
+        EnumMember = {icon = "", hl = "TSField"},
+        Struct = {icon = "", hl = "TSType"},
+        Event = {icon = "🗲", hl = "TSType"},
+        Operator = {icon = "+", hl = "TSOperator"},
+        TypeParameter = {icon = "𝙏", hl = "TSParameter"}
+    }
 }
 EOF
 
