@@ -499,6 +499,7 @@ set background=dark
 set termguicolors
 set winblend=10 " transparency of floating windows
 set pumblend=10 " transparency of popup menus
+set cursorline
 
 try
 ""    lua << EOF
