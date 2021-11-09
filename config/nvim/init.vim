@@ -50,8 +50,9 @@ nnoremap <leader>n :NvimTreeToggle<CR>
 nnoremap <leader>N :NvimTreeFindFile<CR>
 
 let g:nvim_tree_highlight_opened_files = 3
-let g:nvim_tree_indent_markers = 0 "0 by default, this option shows indent markers when folders are open
+let g:nvim_tree_indent_markers = 1 "0 by default, this option shows indent markers when folders are open
 let g:nvim_tree_gitignore = 0 "0 by default, 0 means not ignoring
+let g:nvim_tree_window_picker_exclude = {'filetype':["packer","qf","help"]}
 
 highlight NvimTreeFolderIcon guibg=blue
 lua <<EOF
@@ -438,27 +439,28 @@ au FileType go set softtabstop=4
 au FileType go set tabstop=4
 
 " === go.nvim ===
-"lua <<EOF
-"require 'go'.setup({
-"    goimport = 'gopls', -- if set to 'gopls' will use golsp format
-"    gofmt = 'gopls', -- if set to gopls will use golsp format
-"    max_line_len = 120,
-"    tag_transform = false,
-"    test_dir = '',
-"    comment_placeholder = '<>',
-"    lsp_cfg = false, -- false: use your own lspconfig
-"    lsp_gofumpt = true, -- true: set default gofmt in gopls format to gofumpt
-"    lsp_on_attach = true, -- use on_attach from go.nvim
-"    lsp_codelens = true,
-"    dap_debug = true,
-"})
-"
-"local protocol = require'vim.lsp.protocol'
-"EOF
 
 " Auto gofmt on write
-"autocmd BufWritePre *.go :silent! lua require('go.format').gofmt()
-"
+autocmd BufWritePre *.go :lua require('go.format').goimport()
+
+lua <<EOF
+require 'go'.setup({
+    goimport = 'gopls', -- if set to 'gopls' will use golsp format
+    gofmt = 'gopls', -- if set to gopls will use golsp format
+    max_line_len = 120,
+    tag_transform = false,
+    test_dir = '',
+    comment_placeholder = '<>',
+    lsp_cfg = false, -- false: use your own lspconfig
+    lsp_gofumpt = true, -- true: set default gofmt in gopls format to gofumpt
+    lsp_on_attach = false, -- use on_attach from go.nvim
+    lsp_codelens = true,
+    dap_debug = true,
+})
+
+local protocol = require'vim.lsp.protocol'
+EOF
+
 " === vim-go ===
 let g:go_code_completion_enabled = 0
 let g:go_auto_type_info = 0
