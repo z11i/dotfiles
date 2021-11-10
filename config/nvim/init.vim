@@ -525,8 +525,28 @@ try
     "let g:gruvbox_material_menu_selection_background = 'green'
     "let g:gruvbox_material_diagnostic_virtual_text = 'colored'
     "let g:gruvbox_material_current_word = 'underline'
+    "colorscheme gruvbox-material
 
-    let g:sonokai_style = 'andromeda'
+    function! s:sonokai_custom() abort
+        " Link a highlight group to a predefined highlight group.
+        " See `colors/sonokai.vim` for all predefined highlight groups.
+        highlight! link TSField Purple
+        highlight! link TSFuncBuiltin GreenItalic
+        highlight! link TSProperty Purple
+        highlight! link TSType Blue
+        highlight! link TSParameter Orange
+        highlight! link TSParameterReference Orange
+
+        " Initialize the color palette.
+        " The parameter is a valid value for `g:sonokai_style`,
+        let l:palette = sonokai#get_palette('default')
+    endfunction
+
+    augroup SonokaiCustom
+        autocmd!
+        autocmd ColorScheme sonokai call s:sonokai_custom()
+    augroup END
+
     let g:sonokai_enable_italic = 1
     let g:sonokai_disable_italic_comment = 0
     colorscheme sonokai
@@ -552,6 +572,7 @@ lua <<EOF
 require'lualine'.setup {
     options = {
         icons_enabled = true,
+        --theme = "gruvbox",
         theme = 'ayu_mirage',
         component_separators = {'', ''},
         section_separators = {'', ''},
