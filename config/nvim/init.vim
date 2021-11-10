@@ -38,8 +38,8 @@ nnoremap <A--> <C-w>s<C-o>
 nnoremap <C-\> <Cmd>e#<CR>
 
 " cycle buffer files
-nnoremap <A-[> <Cmd>bp<CR>
-nnoremap <A-]> <Cmd>bn<CR>
+nnoremap <A-[> <Cmd>BufferLineCyclePrev<CR>
+nnoremap <A-]> <Cmd>BufferLineCycleNext<CR>
 
 " New/Close buffer
 nnoremap <A-t> <Cmd>enew<CR>
@@ -52,7 +52,7 @@ nnoremap <leader>N :NvimTreeFindFile<CR>
 let g:nvim_tree_highlight_opened_files = 3
 let g:nvim_tree_indent_markers = 1 "0 by default, this option shows indent markers when folders are open
 let g:nvim_tree_gitignore = 0 "0 by default, 0 means not ignoring
-let g:nvim_tree_window_picker_exclude = {'filetype':["packer","qf","help"]}
+let g:nvim_tree_window_picker_exclude = {'filetype':["packer","qf","help","Outline"]}
 
 highlight NvimTreeFolderIcon guibg=blue
 lua <<EOF
@@ -286,52 +286,72 @@ local feedkey = function(key, mode)
     vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
 end
 
-  local cmp = require'cmp'
-  cmp.setup({
+local cmp = require'cmp'
+cmp.setup({
     snippet = {
-      expand = function(args)
-        -- For `vsnip` user.
-        vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` user.
-      end,
+        expand = function(args)
+            -- For `vsnip` user.
+            vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` user.
+        end,
     },
     mapping = {
-      ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-      ['<C-f>'] = cmp.mapping.scroll_docs(4),
-      ['<C-Space>'] = cmp.mapping.complete(),
-      ['<C-e>'] = cmp.mapping.close(),
-      ['<CR>'] = cmp.mapping.confirm({ select = true }),
-      ["<Tab>"] = cmp.mapping(function(fallback)
-          if cmp.visible() then
-              cmp.select_next_item()
-          elseif vim.fn["vsnip#available"]() == 1 then
-              feedkey("<Plug>(vsnip-expand-or-jump)", "")
-          elseif has_words_before() then
-              cmp.complete()
-          else
-              fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
-          end
-      end, { "i", "s" }),
-      ["<S-Tab>"] = cmp.mapping(function()
-          if cmp.visible() then
-              cmp.select_prev_item()
-          elseif vim.fn["vsnip#jumpable"](-1) == 1 then
-              feedkey("<Plug>(vsnip-jump-prev)", "")
-          end
-      end, { "i", "s" }),
-      },
-    sources = {
-      { name = 'nvim_lsp' },
-      { name = 'vsnip' },
-      { name = 'buffer' },
-	  { name = 'path' },
-    }
-  })
+        ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-f>'] = cmp.mapping.scroll_docs(4),
+        ['<C-Space>'] = cmp.mapping.complete(),
+        ['<C-e>'] = cmp.mapping.close(),
+        ['<CR>'] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Insert }),
+        ["<Tab>"] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                cmp.confirm({ select = true, behavior = cmp.ConfirmBehavior.Insert })
+            elseif vim.fn["vsnip#available"]() == 1 then
+                feedkey("<Plug>(vsnip-expand-or-jump)", "")
+            elseif has_words_before() then
+                cmp.complete()
+            else
+                fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
+            end
+        end, { "i", "s" }),
+        ["<S-Tab>"] = cmp.mapping(function()
+            if cmp.visible() then
+                cmp.select_prev_item()
+            elseif vim.fn["vsnip#jumpable"](-1) == 1 then
+                feedkey("<Plug>(vsnip-jump-prev)", "")
+            end
+        end, { "i", "s" }),
+        ['.'] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                cmp.confirm({ select = true, behavior = cmp.ConfirmBehavior.Insert }, fallback)
+            else
+                fallback()
+            end
+        end, { "i", "s" }),
+    },
+    sources = cmp.config.sources({
+            { name = 'nvim_lsp' },
+            { name = 'vsnip' },
+        }, {
+            { name = 'buffer' },
+            { name = 'path' },
+        })
+    })
 
-  -- Setup lspconfig.
-  require('lspconfig')['gopls'].setup {
+-- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline('/', {
+    sources = {
+        { name = 'buffer' }
+    }
+})
+cmp.setup.cmdline('?', {
+    sources = {
+        { name = 'buffer' }
+    }
+})
+
+-- Setup lspconfig.
+require('lspconfig')['gopls'].setup {
     capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-  }
-  -- rust-analyzer is setup via rust-tools
+}
+-- rust-analyzer is setup via rust-tools
 EOF
 
 " === nvim-autopairs ===
@@ -620,7 +640,7 @@ require("bufferline").setup {
         show_close_icon = false,
         show_tab_indicators = true,
         persist_buffer_sort = true,
-        separator_style = "thick",
+        separator_style = "thin",
         offsets = {{filetype = "NvimTree", text = "File Explorer", text_align = "center"}},
         sort_by = "relative_directory"
     },
