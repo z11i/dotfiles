@@ -1,19 +1,19 @@
 # dotfiles
-pathadd ~/bin
-pathadd ~/.local/bin
+path_prepend ~/bin
+path_prepend ~/.local/bin
 
 # homebrew
-pathadd /usr/local/sbin
-pathadd /opt/homebrew/bin
+path_append /usr/local/sbin
+path_append /opt/homebrew/bin
 
 # coreutils
 set -l coreutils /usr/local/opt/coreutils
-pathadd $coreutils/libexec/gnubin
+path_prepend $coreutils/libexec/gnubin
 
 # golang
 set -gx GOPATH $HOME/go
 set -gx GOBIN $GOPATH/bin
-pathadd $GOBIN
+path_prepend $GOBIN
 
 # rust
-pathadd ~/.cargo/bin
+path_prepend ~/.cargo/bin
