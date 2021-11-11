@@ -51,8 +51,7 @@ nnoremap <A-t> <Cmd>enew<CR>
 nnoremap <A-w> <Cmd>bdelete<CR>
 
 " === NvimTree === "
-nnoremap <leader>n :NvimTreeToggle<CR>
-nnoremap <leader>N :NvimTreeFindFile<CR>
+nnoremap <F3> :NvimTreeFindFile<CR>
 
 let g:nvim_tree_highlight_opened_files = 3
 let g:nvim_tree_indent_markers = 1 "0 by default, this option shows indent markers when folders are open
