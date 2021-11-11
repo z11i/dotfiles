@@ -45,6 +45,7 @@ Plug 'vijaymarupudi/nvim-fzf'                               " A Lua API for usin
 Plug 'nvim-telescope/telescope.nvim'                        " Find, filter, preview, pick
 "Plug 'ray-x/guihua.lua', {'do': 'cd lua/fzy && make' }
 "Plug 'ray-x/navigator.lua'                                  " Easy code navigation, view diagnostic errors, see relationships of functions, variables
+Plug 'ggandor/lightspeed.nvim'                              " Next-generation motion plugin with incremental input processing
 
 "" === Git Plugins === "
 Plug 'tpope/vim-fugitive'                                   " Enable git changes to be shown in sign column

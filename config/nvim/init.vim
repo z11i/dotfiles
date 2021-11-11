@@ -1,10 +1,15 @@
 source ~/.config/nvim/plugins.vim
 
 """"" Meta -------------------------------------------------------------------
-" leader
+" leader key is <Space>
 let mapleader = "\<space>"
 
-nnoremap <leader><leader> :
+" Use ; as : for easier command typing
+" Functionality replaced by lightspeed
+nnoremap ; :
+
+" Use bash as the shell. Better for plugin compatibility
+set shell=/bin/bash
 
 " Auto reload nvim configs when they are changed
 au BufWritePost ~/.config/nvim/*.{vim,lua} so $MYVIMRC
@@ -134,6 +139,22 @@ vim.g.symbols_outline = {
 }
 EOF
 
+""" lightspeed
+lua <<EOF
+require('lightspeed').setup({
+    x_mode_prefix_key = '<tab>',
+    exit_after_idle_msecs = { labeled = nil, unlabeled = 1000 },
+})
+EOF
+silent! unmap s
+silent! unmap S
+nmap \ <Plug>Lightspeed_s
+vmap \ <Plug>Lightspeed_s
+omap \ <Plug>Lightspeed_s
+nmap \| <Plug>Lightspeed_S
+vmap \| <Plug>Lightspeed_S
+omap \| <Plug>Lightspeed_S
+
 """"" Editor -----------------------------------------------------------------
 """ Generic LSP settings
 lua require("lsp")
@@ -180,7 +201,7 @@ set breakindentopt=shift:2,min:40,sbr
 " assumes set ignorecase smartcase
 augroup dynamic_smartcase
     autocmd!
-    autocmd CmdLineEnter : set ignorecase
+    autocmd CmdLineEnter : set nosmartcase
     autocmd CmdLineLeave : set smartcase
 augroup END
 
@@ -434,7 +455,7 @@ require'telescope'.setup {
         }
     }
 EOF
-nnoremap <Leader>tt :Telescope<CR>
+nnoremap <Leader><Leader> :Telescope<CR>
 nnoremap <Leader>f :Telescope find_files<CR>
 nnoremap <Leader>s :Telescope live_grep<CR>
 "nnoremap <Leader> :Telescope live_grep additional_args=<CR>
