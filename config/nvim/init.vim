@@ -623,7 +623,8 @@ require'lualine'.setup {
         lualine_a = {'mode'},
         lualine_b = {'branch'},
         lualine_c = {
-            {'filename', file_status = true, path = 1}
+            {'filename', file_status = true, path = 1},
+            {'lsp_progress'},
         },
         lualine_x = {'filetype', 'diff'},
         lualine_y = {'progress'},
