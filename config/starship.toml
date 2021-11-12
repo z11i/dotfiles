@@ -5,6 +5,9 @@ $nix_shell$username$status$character"""
 
 scan_timeout = 20
 
+[battery]
+disabled = true
+
 [directory]
 truncation_length = 4
 truncate_to_repo = false
