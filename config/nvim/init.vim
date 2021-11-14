@@ -7,6 +7,7 @@ let mapleader = "\<space>"
 " Use ; as : for easier command typing
 " Functionality replaced by lightspeed
 nnoremap ; :
+nnoremap : :!
 
 " Use bash as the shell. Better for plugin compatibility
 set shell=/bin/bash
@@ -51,7 +52,7 @@ nnoremap <A-t> <Cmd>enew<CR>
 nnoremap <A-w> <Cmd>bdelete<CR>
 
 " === NvimTree === "
-nnoremap <F3> :NvimTreeToggle<CR>
+nnoremap <F1> :NvimTreeToggle<CR>
 
 let g:nvim_tree_highlight_opened_files = 3
 let g:nvim_tree_indent_markers = 1 "0 by default, this option shows indent markers when folders are open
@@ -646,7 +647,7 @@ EOF
 lua <<EOF
 require("bufferline").setup {
     options = {
-        numbers = "buffer_id",
+        numbers = "ordinal",
         buffer_close_icon= "",
         modified_icon = "●",
         close_icon = "",
