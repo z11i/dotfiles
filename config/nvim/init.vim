@@ -219,9 +219,7 @@ autocmd FocusLost * silent! wa
 " http://ideasintosoftware.com/vim-productivity-tips/
 nnoremap <leader>w <C-w>v<C-w>l
 
-" fold by syntax (default is manual)
-" https://unix.stackexchange.com/a/596686
-set foldmethod=syntax
+set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
 set foldlevelstart=99
 nnoremap - za
