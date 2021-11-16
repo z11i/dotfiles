@@ -558,5 +558,5 @@ key_bindings:
   - { key: Key9,     mods: Command,       chars: "\x019"                 } # <C-a>9
   - { key: D,        mods: Command,       chars: "\x01-"                 } # <C-a>-
   - { key: D,        mods: Command|Shift, chars: "\x01|"                 } # <C-a>|
-  - { key: F,        mods: Command,       chars: "\x01\x5b\x3f"          } # <C-a>[?
+  - { key: F,        mods: Command,       chars: "\x01/"                 } # <C-a>/
 
