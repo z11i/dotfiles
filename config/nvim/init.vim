@@ -439,7 +439,7 @@ require'telescope'.setup {
         },
     pickers = {
         find_files = {
-            no_ignore = true,
+            --no_ignore = false,
             },
         live_grep = {
 
@@ -455,6 +455,7 @@ require'telescope'.setup {
 EOF
 nnoremap <Leader><Leader> :Telescope<CR>
 nnoremap <Leader>f :Telescope find_files<CR>
+nnoremap <Leader>F :Telescope find_files hidden=true no_ignore=true<CR>
 nnoremap <Leader>s :Telescope live_grep<CR>
 "nnoremap <Leader> :Telescope live_grep additional_args=<CR>
 nnoremap <Leader>h :Telescope oldfiles only_cwd=true<CR>
@@ -611,20 +612,29 @@ lua <<EOF
 require'lualine'.setup {
     options = {
         icons_enabled = true,
-        --theme = "gruvbox",
-        theme = 'ayu_mirage',
-      section_separators = { left = '', right = ''},
-      component_separators = { left = '', right = ''},
+        theme = 'material',
+        section_separators = { left = '', right = ''},
+        component_separators = { left = '', right = ''},
         disabled_filetypes = {}
         },
     sections = {
         lualine_a = {'mode'},
-        lualine_b = {'branch'},
+        lualine_b = {'branch', 'diff'},
         lualine_c = {
             {'filename', file_status = true, path = 1},
             {'lsp_progress'},
         },
-        lualine_x = {'filetype', 'diff'},
+        lualine_x = {'filetype',
+            {
+                'diagnostics',
+                sources = {'nvim_lsp'},
+                sections = {'error', 'warn', 'info', 'hint'},
+                symbols = {error = ' ', warn = ' ', info = ' ', hint = ' '},
+                colored = true,
+                update_in_insert = true,
+                always_visible = false,
+            }
+        },
         lualine_y = {'progress'},
         lualine_z = {'location'}
         },
@@ -662,7 +672,16 @@ require("bufferline").setup {
         persist_buffer_sort = true,
         separator_style = "thin",
         offsets = {{filetype = "NvimTree", text = "File Explorer", text_align = "center"}},
-        sort_by = "relative_directory"
+        sort_by = "relative_directory",
+        custom_filter = function(buf, buf_nums)
+            -- dont show help or qf buffers in the bufferline
+            if vim.bo[buf].filetype == "help" then
+                return false
+            elseif vim.bo[buf].filetype == "qf" then
+                return false
+            end
+            return true
+        end,
     },
 }
 EOF
