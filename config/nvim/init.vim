@@ -217,7 +217,9 @@ autocmd FocusLost * silent! wa
 
 " quick vertical buffer
 " http://ideasintosoftware.com/vim-productivity-tips/
-nnoremap <leader>w <C-w>v<C-w>l
+nnoremap <leader>\| <C-w>v<C-w>l
+" quick horizontal buffer
+nnoremap <leader>- <C-w>s<C-w>j
 
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
