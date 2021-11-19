@@ -240,6 +240,8 @@ inoremap <A-s> <Esc><Cmd>w<CR>
 nnoremap <leader>/R :lua require('spectre').open()<CR>
 nnoremap <leader>/r viw:lua require('spectre').open_file_search()<cr>
 
+" === fugitive === "
+nnoremap <C-g><C-g> :Git 
 " === gitsigns ==="
 lua <<EOF
 require('gitsigns').setup({
@@ -249,7 +251,7 @@ require('gitsigns').setup({
     ['n ]c'] = { expr = true, "&diff ? ']c' : '<cmd>lua require\"gitsigns.actions\".next_hunk()<CR>'"},
     ['n [c'] = { expr = true, "&diff ? '[c' : '<cmd>lua require\"gitsigns.actions\".prev_hunk()<CR>'"},
 
-    ['n <C-g><C-g>'] = ':Gitsigns ',
+    ['n <C-g>g'] = ':Gitsigns ',
     ['n <C-g><C-s>h'] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
     ['v <C-g><C-s>h'] = '<cmd>lua require"gitsigns".stage_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
     ['n <C-g><C-s>u'] = '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
