@@ -44,8 +44,6 @@ Plug 'norcalli/nvim-colorizer.lua'                          " Neovim colorizer
 Plug 'ibhagwan/fzf-lua'                                     " Improved fzf.vim written in lua
 Plug 'vijaymarupudi/nvim-fzf'                               " A Lua API for using fzf in neovim. (depends by fzf-lua)
 Plug 'nvim-telescope/telescope.nvim'                        " Find, filter, preview, pick
-"Plug 'ray-x/guihua.lua', {'do': 'cd lua/fzy && make' }
-"Plug 'ray-x/navigator.lua'                                  " Easy code navigation, view diagnostic errors, see relationships of functions, variables
 Plug 'ggandor/lightspeed.nvim'                              " Next-generation motion plugin with incremental input processing
 Plug 'chentau/marks.nvim'                                   " viewing and interacting with Vim marks
 
@@ -66,9 +64,9 @@ Plug 'nvim-treesitter/playground', {'on': 'TSPlaygroundToggle'}     " Debug tree
 Plug 'neovim/nvim-lspconfig'                                        " Quickstart configurations for the Nvim LSP client
 Plug 'ray-x/lsp_signature.nvim'                                     " LSP signature hint as you type
 "" --- debug ---
-Plug 'mfussenegger/nvim-dap'
-Plug 'rcarriga/nvim-dap-ui'
-Plug 'theHamsta/nvim-dap-virtual-text'
+"Plug 'mfussenegger/nvim-dap'
+"Plug 'rcarriga/nvim-dap-ui'
+"Plug 'theHamsta/nvim-dap-virtual-text'
 "" --- go ---
 Plug 'ray-x/go.nvim'                                                " Go Neovim plugin, based on nvim-lsp, treesitter and Dap
 "" --- rust ---
