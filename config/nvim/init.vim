@@ -461,7 +461,7 @@ nnoremap <Leader>s :Telescope live_grep<CR>
 nnoremap <Leader>S :lua require('telescope.builtin').live_grep({vimgrep_arguments={'rg','--color=never','--no-heading','--column','-HSu'}})<CR>
 nnoremap <Leader>h :Telescope oldfiles only_cwd=true<CR>
 nnoremap <Leader>b :Telescope buffers<CR>
-nnoremap <Leader>ta :Telescope commands<CR>
+nnoremap <Leader>a :Telescope commands<CR>
 nnoremap <Leader>o :Telescope lsp_document_symbols<CR>
 nnoremap <Leader>O :Telescope lsp_dynamic_workspace_symbols<CR>
 nnoremap <Leader>?o :Telescope lsp_document_diagnostics<CR>

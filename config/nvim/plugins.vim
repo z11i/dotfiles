@@ -83,6 +83,7 @@ Plug 'kyazdani42/nvim-web-devicons'                         " for file icons
 Plug 'kyazdani42/nvim-tree.lua'                             " File explorer
 Plug 'kevinhwang91/nvim-bqf'                                " Better quickfix window in Neovim
 Plug 'nvim-lualine/lualine.nvim'                            " statusline plugin
+"Plug 'https://github.com/adelarsq/neoline.vim'              " Status Line for Neovim focused on beauty and performance
 Plug 'arkav/lualine-lsp-progress'                           " LSP Progress lualine componenet
 Plug 'akinsho/bufferline.nvim'                              " A snazzy buferline for Neovim
 Plug 'numtostr/FTerm.nvim'                                  " floating terminal
