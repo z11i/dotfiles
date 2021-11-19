@@ -448,6 +448,7 @@ require'telescope'.setup {
             '--line-number',
             '--column',
             '--smart-case',
+            '--hidden',
             },
         },
     pickers = {
@@ -470,7 +471,7 @@ nnoremap <Leader><Leader> :Telescope<CR>
 nnoremap <Leader>f :Telescope find_files<CR>
 nnoremap <Leader>F :Telescope find_files hidden=true no_ignore=true<CR>
 nnoremap <Leader>s :Telescope live_grep<CR>
-nnoremap <Leader>S :lua require('telescope.builtin').live_grep({vimgrep_arguments={'rg','--color=never','--no-heading','--column','-HSu'}})<CR>
+nnoremap <Leader>S :lua require('telescope.builtin').live_grep({vimgrep_arguments={'rg','--color=never','--no-heading','--column','-HS', '-uu'}})<CR>
 nnoremap <Leader>h :Telescope oldfiles only_cwd=true<CR>
 nnoremap <Leader>b :Telescope buffers<CR>
 nnoremap <Leader>a :Telescope commands<CR>
