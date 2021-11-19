@@ -38,6 +38,7 @@ Plug 'folke/which-key.nvim'                                 " displays a popup w
 Plug 'romgrk/nvim-treesitter-context'                       " Show code context (show function if scrolled beyond screen)
 Plug 'lukas-reineke/indent-blankline.nvim'                  " Indent guides for Neovim
 Plug 'simrat39/symbols-outline.nvim'                        " A tree like view for symbols in Neovim using the Language Server Protocol
+Plug 'norcalli/nvim-colorizer.lua'                          " Neovim colorizer
 
 "" === Navigation === "
 Plug 'ibhagwan/fzf-lua'                                     " Improved fzf.vim written in lua
@@ -46,6 +47,7 @@ Plug 'nvim-telescope/telescope.nvim'                        " Find, filter, prev
 "Plug 'ray-x/guihua.lua', {'do': 'cd lua/fzy && make' }
 "Plug 'ray-x/navigator.lua'                                  " Easy code navigation, view diagnostic errors, see relationships of functions, variables
 Plug 'ggandor/lightspeed.nvim'                              " Next-generation motion plugin with incremental input processing
+Plug 'chentau/marks.nvim'                                   " viewing and interacting with Vim marks
 
 "" === Git Plugins === "
 Plug 'tpope/vim-fugitive'                                   " Enable git changes to be shown in sign column

@@ -415,7 +415,7 @@ require'telescope'.setup {
                 vertical = {
                     preview_height = 0.4,
                     },
-                flip_columns = 120,
+                flip_columns = 140,
                 flip_lines = 10,
                 },
             preview_cutoff = 10,
@@ -684,5 +684,43 @@ require("bufferline").setup {
             return true
         end,
     },
+}
+EOF
+
+" === nvim-colorizer === "
+lua <<EOF
+require 'colorizer'.setup {
+    'vim';
+    'css';
+    'javascript';
+    'javascriptreact';
+    'typescript';
+    'typescriptreact';
+    html = {
+        mode = 'foreground';
+    };
+}
+EOF
+
+" === marks.nvim === "
+lua <<EOF
+require'marks'.setup {
+    -- how often (in ms) to redraw signs/recompute mark positions.
+    -- higher values will have better performance but may cause visual lag,
+    -- while lower values may cause performance penalties. default 150.
+    refresh_interval = 50,
+    -- sign priorities for each type of mark - builtin marks, uppercase marks, lowercase
+    -- marks, and bookmarks.
+    -- can be either a table with all/none of the keys, or a single number, in which case
+    -- the priority applies to all marks.
+    -- default 10.
+    --sign_priority = { lower=10, upper=15, builtin=8, bookmark=20 },
+    -- disables mark tracking for specific filetypes. default {}
+    excluded_filetypes = {},
+    mappings = {
+        preview = "qm",
+        next = "M",
+        prev = "<C-m>",
+    }
 }
 EOF
