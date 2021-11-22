@@ -425,7 +425,6 @@ lua <<EOF
 local actions = require('telescope.actions')
 require'telescope'.setup {
     defaults = {
-        path_display = {shorten = 3},
         dynamic_preview_title = true,
         layout_strategy = "flex",
         scroll_strategy = 'cycle',
@@ -466,7 +465,7 @@ require'telescope'.setup {
             --no_ignore = false,
             },
         live_grep = {
-
+            path_display = {shorten = {len = 2, exclude = {-1}}},
             },
         lsp_code_actions = {
             theme = "cursor",
@@ -487,8 +486,8 @@ nnoremap <Leader>b :Telescope buffers<CR>
 nnoremap <Leader>a :Telescope commands<CR>
 nnoremap <Leader>o :Telescope lsp_document_symbols<CR>
 nnoremap <Leader>O :Telescope lsp_dynamic_workspace_symbols<CR>
-nnoremap <Leader>?o :Telescope lsp_document_diagnostics<CR>
-nnoremap <Leader>?O :Telescope lsp_workspace_diagnostics<CR>
+nnoremap <Leader>gd :Telescope lsp_document_diagnostics<CR>
+nnoremap <Leader>gD :Telescope lsp_workspace_diagnostics<CR>
 nnoremap <Leader>g. :Telescope lsp_code_actions<CR>
 
 """"" Terminal ---------------------------------------------------------------
