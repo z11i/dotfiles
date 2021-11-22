@@ -89,6 +89,7 @@ Plug 'nvim-lualine/lualine.nvim'                            " statusline plugin
 Plug 'arkav/lualine-lsp-progress'                           " LSP Progress lualine componenet
 Plug 'akinsho/bufferline.nvim'                              " A snazzy buferline for Neovim
 Plug 'numtostr/FTerm.nvim'                                  " floating terminal
+Plug 'kdheepak/lazygit.nvim'                                " calling lazygit within neovim
 
 " Initialize plugin system
 call plug#end()

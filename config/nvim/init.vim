@@ -746,3 +746,6 @@ require'marks'.setup {
     }
 }
 EOF
+
+" === lazygit === "
+nnoremap <silent> <leader>gg :LazyGit<CR>
