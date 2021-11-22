@@ -30,6 +30,7 @@ Plug 'chentau/marks.nvim'                                   " viewing and intera
 "" === Git Plugins === "
 Plug 'tpope/vim-fugitive'                                   " Enable git changes to be shown in sign column
 Plug 'lewis6991/gitsigns.nvim'                               " Git signs written in pure lua
+Plug 'kdheepak/lazygit.nvim'                                " calling lazygit within neovim
 
 "" === Language support === "
 "" --- general language parser and lsp ---
@@ -89,7 +90,6 @@ Plug 'nvim-lualine/lualine.nvim'                            " statusline plugin
 Plug 'arkav/lualine-lsp-progress'                           " LSP Progress lualine componenet
 Plug 'akinsho/bufferline.nvim'                              " A snazzy buferline for Neovim
 Plug 'numtostr/FTerm.nvim'                                  " floating terminal
-Plug 'kdheepak/lazygit.nvim'                                " calling lazygit within neovim
 
 " Initialize plugin system
 call plug#end()

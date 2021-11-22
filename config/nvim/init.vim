@@ -426,6 +426,7 @@ local actions = require('telescope.actions')
 require'telescope'.setup {
     defaults = {
         path_display = {shorten = 3},
+        dynamic_preview_title = true,
         layout_strategy = "flex",
         scroll_strategy = 'cycle',
         winblend = 0,
