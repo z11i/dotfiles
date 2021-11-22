@@ -425,6 +425,7 @@ lua <<EOF
 local actions = require('telescope.actions')
 require'telescope'.setup {
     defaults = {
+        path_display = {shorten = 3},
         layout_strategy = "flex",
         scroll_strategy = 'cycle',
         winblend = 0,
@@ -457,7 +458,6 @@ require'telescope'.setup {
             '--line-number',
             '--column',
             '--smart-case',
-            '--hidden',
             },
         },
     pickers = {
