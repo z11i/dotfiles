@@ -301,6 +301,15 @@ require('bqf').setup({
 })
 EOF
 
+" === nvim-comment === "
+lua <<EOF
+require('nvim_comment').setup({
+    line_mapping = "<leader>cc",
+    operator_mapping = "<leader>c",
+    comment_empty = false,
+})
+EOF
+
 """"" Autocomplete -----------------------------------------------------------
 " <TAB>: completion.
 " https://stackoverflow.com/a/44271350

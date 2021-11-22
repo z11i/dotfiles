@@ -20,26 +20,6 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'nvim-lua/plenary.nvim'                                " Common Lua modules
 Plug 'nvim-lua/popup.nvim'
 
-" === Editing Plugins === "
-Plug 'ntpeters/vim-better-whitespace'                       " Trailing whitespace highlighting & automatic fixing
-Plug 'hrsh7th/nvim-cmp'                                     " Auto completion Lua plugin for nvim
-"nvim-cmp completion
-Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'hrsh7th/cmp-vsnip'
-Plug 'hrsh7th/cmp-path'
-Plug 'hrsh7th/cmp-buffer'
-Plug 'hrsh7th/vim-vsnip'                                    " Snippet plugin for vim/nvim that supports LSP/VSCode's snippet format.
-Plug 'hrsh7th/vim-vsnip-integ'
-Plug 'windwp/nvim-autopairs'                                " autopairs for neovim written by lua
-Plug 'windwp/nvim-spectre'                                  " Search and replace
-Plug 'folke/which-key.nvim'                                 " displays a popup with possible keybindings of the command you started typing
-
-" https://github.com/NixOS/nixpkgs/pull/129543
-Plug 'romgrk/nvim-treesitter-context'                       " Show code context (show function if scrolled beyond screen)
-Plug 'lukas-reineke/indent-blankline.nvim'                  " Indent guides for Neovim
-Plug 'simrat39/symbols-outline.nvim'                        " A tree like view for symbols in Neovim using the Language Server Protocol
-Plug 'norcalli/nvim-colorizer.lua'                          " Neovim colorizer
-
 "" === Navigation === "
 Plug 'ibhagwan/fzf-lua'                                     " Improved fzf.vim written in lua
 Plug 'vijaymarupudi/nvim-fzf'                               " A Lua API for using fzf in neovim. (depends by fzf-lua)
@@ -74,6 +54,28 @@ Plug 'simrat39/rust-tools.nvim'                                     " Battery-in
 Plug 'nvim-lua/lsp_extensions.nvim', {'for': 'rust'}                " LSP extensions
 "" --- markdown ---
 Plug 'SidOfc/mkdx'                                                  " A vim plugin that adds some nice extra's for working with markdown documents
+
+" === Editing Plugins === "
+Plug 'ntpeters/vim-better-whitespace'                       " Trailing whitespace highlighting & automatic fixing
+Plug 'hrsh7th/nvim-cmp'                                     " Auto completion Lua plugin for nvim
+"nvim-cmp completion
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-vsnip'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/vim-vsnip'                                    " Snippet plugin for vim/nvim that supports LSP/VSCode's snippet format.
+Plug 'hrsh7th/vim-vsnip-integ'
+Plug 'windwp/nvim-autopairs'                                " autopairs for neovim written by lua
+Plug 'windwp/nvim-spectre'                                  " Search and replace
+Plug 'folke/which-key.nvim'                                 " displays a popup with possible keybindings of the command you started typing
+
+" https://github.com/NixOS/nixpkgs/pull/129543
+Plug 'romgrk/nvim-treesitter-context'                       " Show code context (show function if scrolled beyond screen)
+Plug 'lukas-reineke/indent-blankline.nvim'                  " Indent guides for Neovim
+Plug 'simrat39/symbols-outline.nvim'                        " A tree like view for symbols in Neovim using the Language Server Protocol
+Plug 'norcalli/nvim-colorizer.lua'                          " Neovim colorizer
+Plug 'lukas-reineke/indent-blankline.nvim'                  " Indent guides for Neovim
+Plug 'terrortylor/nvim-comment'                             " A comment toggler for Neovim
 
 "" === UI === "
 Plug 'projekt0n/github-nvim-theme'                          " Github theme with treesitter support
