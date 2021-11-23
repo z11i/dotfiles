@@ -237,7 +237,7 @@ nnoremap <A-s> <Cmd>w<CR>
 inoremap <A-s> <Esc><Cmd>w<CR>
 
 " === indent-blankline === "
-let g:indent_blankline_context_patterns = ['class', 'function', 'method', '^if', '^for', 'switch', 'case', 'declaration', 'composite_literal']
+let g:indent_blankline_context_patterns = ['class', 'function', 'method', '^if', '^for', 'switch', 'case', 'declaration', 'literal', 'statement']
 lua <<EOF
 require("indent_blankline").setup {
     -- for example, context is off by default, use this to turn it on
