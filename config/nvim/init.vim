@@ -751,9 +751,10 @@ require'marks'.setup {
     -- disables mark tracking for specific filetypes. default {}
     excluded_filetypes = {},
     mappings = {
-        preview = "qm",
-        next = "M",
-        prev = "<C-m>",
+        -- mapping causes <CR> to stop working in cmdwin
+        --preview = "qm",
+        --next = "M",
+        --prev = "<C-m>",
     }
 }
 EOF
