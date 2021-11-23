@@ -53,8 +53,6 @@ Plug 'ray-x/go.nvim'                                                " Go Neovim 
 "" --- rust ---
 Plug 'simrat39/rust-tools.nvim'                                     " Battery-included rust lsp setup
 Plug 'nvim-lua/lsp_extensions.nvim', {'for': 'rust'}                " LSP extensions
-"" --- markdown ---
-Plug 'SidOfc/mkdx'                                                  " A vim plugin that adds some nice extra's for working with markdown documents
 
 " === Editing Plugins === "
 Plug 'ntpeters/vim-better-whitespace'                       " Trailing whitespace highlighting & automatic fixing
@@ -74,6 +72,7 @@ Plug 'folke/which-key.nvim'                                 " displays a popup w
 Plug 'romgrk/nvim-treesitter-context'                       " Show code context (show function if scrolled beyond screen)
 Plug 'lukas-reineke/indent-blankline.nvim'                  " Indent guides for Neovim
 Plug 'simrat39/symbols-outline.nvim'                        " A tree like view for symbols in Neovim using the Language Server Protocol
+"Plug 'stevearc/aerial.nvim'
 Plug 'norcalli/nvim-colorizer.lua'                          " Neovim colorizer
 Plug 'terrortylor/nvim-comment'                             " A comment toggler for Neovim
 

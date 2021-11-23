@@ -103,7 +103,7 @@ nnoremap <F5> :SymbolsOutline<CR>
 lua <<EOF
 vim.g.symbols_outline = {
     width = 20,
-    highlight_hovered_item = true,
+    highlight_hovered_item = false,
     keymaps = {
         close = {},
         goto_location = {"<Cr>", "<2-LeftMouse>"},
@@ -138,6 +138,22 @@ vim.g.symbols_outline = {
     }
 }
 EOF
+
+" === aerial === "
+"nnoremap <F5> :AerialToggle!<CR>
+"nnoremap [[ :AerialPrev<CR>
+"nnoremap ]] :AerialNext<CR>
+"lua <<EOF
+"vim.g.aerial = {
+"    backends = {
+"        ['_'] = {'treesitter'},
+"        ['go'] = {'lsp', 'treesitter'},
+"        ['rust'] = {'lsp'},
+"        ['python'] = {'treesitter'},
+"    },
+"    filter_kind = false, -- display all symbols
+"}
+"EOF
 
 """ lightspeed
 lua <<EOF
@@ -502,7 +518,7 @@ nnoremap <Leader>g. :Telescope lsp_code_actions<CR>
 
 """"" Terminal ---------------------------------------------------------------
 " Escape to exit terminal input mode
-tnoremap <Esc> <C-\><C-n>
+"tnoremap <Esc> <C-\><C-n>
 
 """"" Language specific settings ---------------------------------------------
 """ Go
@@ -616,14 +632,10 @@ try
         let l:palette = sonokai#get_palette('default')
     endfunction
 
-    augroup SonokaiCustom
-        autocmd!
-        autocmd ColorScheme sonokai call s:sonokai_custom()
-    augroup END
-
     let g:sonokai_enable_italic = 1
     let g:sonokai_disable_italic_comment = 0
     colorscheme sonokai
+    call s:sonokai_custom()
 catch
     colorscheme desert
 endtry
@@ -649,7 +661,7 @@ require'lualine'.setup {
         theme = 'material',
         section_separators = { left = '', right = ''},
         component_separators = { left = '', right = ''},
-        disabled_filetypes = {}
+        disabled_filetypes = {'aerial'}
         },
     sections = {
         lualine_a = {'mode'},
@@ -751,10 +763,8 @@ require'marks'.setup {
     -- disables mark tracking for specific filetypes. default {}
     excluded_filetypes = {},
     mappings = {
-        -- mapping causes <CR> to stop working in cmdwin
-        --preview = "qm",
-        --next = "M",
-        --prev = "<C-m>",
+        next = "]m",
+        prev = "[m",
     }
 }
 EOF
