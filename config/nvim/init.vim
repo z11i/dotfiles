@@ -236,6 +236,16 @@ inoremap <A-v> <Esc>"+p
 nnoremap <A-s> <Cmd>w<CR>
 inoremap <A-s> <Esc><Cmd>w<CR>
 
+" === indent-blankline === "
+let g:indent_blankline_context_patterns = ['class', 'function', 'method', '^if', '^for', 'switch', 'case', 'declaration', 'composite_literal']
+lua <<EOF
+require("indent_blankline").setup {
+    -- for example, context is off by default, use this to turn it on
+    show_current_context = true,
+    use_treesitter = true,
+}
+EOF
+
 " === nvim-spectre ==="
 nnoremap <leader>/R :lua require('spectre').open()<CR>
 nnoremap <leader>/r viw:lua require('spectre').open_file_search()<cr>
@@ -599,6 +609,7 @@ try
         highlight! link TSType Blue
         highlight! link TSParameter Orange
         highlight! link TSParameterReference Orange
+        highlight! link IndentBlanklineContextChar Red
 
         " Initialize the color palette.
         " The parameter is a valid value for `g:sonokai_style`,

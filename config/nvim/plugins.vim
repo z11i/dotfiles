@@ -75,7 +75,6 @@ Plug 'romgrk/nvim-treesitter-context'                       " Show code context 
 Plug 'lukas-reineke/indent-blankline.nvim'                  " Indent guides for Neovim
 Plug 'simrat39/symbols-outline.nvim'                        " A tree like view for symbols in Neovim using the Language Server Protocol
 Plug 'norcalli/nvim-colorizer.lua'                          " Neovim colorizer
-Plug 'lukas-reineke/indent-blankline.nvim'                  " Indent guides for Neovim
 Plug 'terrortylor/nvim-comment'                             " A comment toggler for Neovim
 
 "" === UI === "
