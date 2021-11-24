@@ -68,7 +68,7 @@ nnoremap <silent> <Space>Bb :BufferOrderByBufferNumber<CR>
 nnoremap <silent> <Space>Bd :BufferOrderByDirectory<CR>
 nnoremap <silent> <Space>Bl :BufferOrderByLanguage<CR>
 nnoremap <silent> <Space>Bw :BufferOrderByWindowNumber<CR>
-let g:bufferline.exclude_ft = ['qf']
+let g:bufferline_exclude_ft = ['qf']
 
 " New/Close buffer
 nnoremap <A-t> <Cmd>enew<CR>
