@@ -10,6 +10,7 @@ local on_attach = function(client, bufnr)
     buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
     require'lsp_signature'.on_attach()
+    require'virtualtypes'.on_attach()
 
     -- Mappings.
     local opts = { noremap=true, silent=false }

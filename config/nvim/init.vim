@@ -43,13 +43,35 @@ nnoremap <A--> <C-w>s<C-o>
 " Cycle through last used buffers with Ctrl-\
 nnoremap <C-\> <Cmd>e#<CR>
 
-" cycle buffer files
-nnoremap <A-[> <Cmd>BufferLineCyclePrev<CR>
-nnoremap <A-]> <Cmd>BufferLineCycleNext<CR>
+" Move to previous/next buffer
+nnoremap <silent> <A-[> :BufferPrevious<CR>
+nnoremap <silent> <A-]> :BufferNext<CR>
+" Goto buffer in position...
+nnoremap <silent> <A-1> :BufferGoto 1<CR>
+nnoremap <silent> <A-2> :BufferGoto 2<CR>
+nnoremap <silent> <A-3> :BufferGoto 3<CR>
+nnoremap <silent> <A-4> :BufferGoto 4<CR>
+nnoremap <silent> <A-5> :BufferGoto 5<CR>
+nnoremap <silent> <A-6> :BufferGoto 6<CR>
+nnoremap <silent> <A-7> :BufferGoto 7<CR>
+nnoremap <silent> <A-8> :BufferGoto 8<CR>
+nnoremap <silent> <A-9> :BufferGoto 9<CR>
+nnoremap <silent> <A-0> :BufferLast<CR>
+" Pin/unpin buffer
+nnoremap <silent>    <A-p> :BufferPin<CR>
+" Close buffer
+nnoremap <silent>    <A-w> :BufferClose<CR>
+" Magic buffer-picking mode
+nnoremap <silent> <C-s>    :BufferPick<CR>
+" Sort automatically by...
+nnoremap <silent> <Space>Bb :BufferOrderByBufferNumber<CR>
+nnoremap <silent> <Space>Bd :BufferOrderByDirectory<CR>
+nnoremap <silent> <Space>Bl :BufferOrderByLanguage<CR>
+nnoremap <silent> <Space>Bw :BufferOrderByWindowNumber<CR>
+let g:bufferline.exclude_ft = ['qf']
 
 " New/Close buffer
 nnoremap <A-t> <Cmd>enew<CR>
-nnoremap <A-w> <Cmd>bdelete<CR>
 
 " === NvimTree === "
 nnoremap <F1> :NvimTreeToggle<CR>
@@ -220,12 +242,6 @@ augroup dynamic_smartcase
     autocmd CmdLineEnter : set nosmartcase
     autocmd CmdLineLeave : set smartcase
 augroup END
-
-"augroup dynamic_number
-"    autocmd!
-"    autocmd InsertEnter * :set norelativenumber
-"    autocmd InsertLeave * :set relativenumber
-"augroup END
 
 " auto save when focus is lost
 " http://ideasintosoftware.com/vim-productivity-tips/
@@ -550,34 +566,6 @@ require 'go'.setup({
 local protocol = require'vim.lsp.protocol'
 EOF
 
-" === vim-go ===
-"let g:go_code_completion_enabled = 0
-"let g:go_auto_type_info = 0
-"let g:go_auto_sameids = 0
-"let g:go_fmt_autosave = 1
-"let g:go_textobj_enabled = 0
-"let g:go_textobj_include_variable = 0
-"let g:go_fold_enable = []
-"let g:go_highlight_array_whitespace_error = 0
-"let g:go_highlight_chan_whitespace_error = 0
-"let g:go_highlight_extra_types = 0
-"let g:go_highlight_space_tab_error = 0
-"let g:go_highlight_trailing_whitespace_error = 0
-"let g:go_highlight_operators = 0
-"let g:go_highlight_functions = 0
-"let g:go_highlight_function_parameters = 0
-"let g:go_highlight_function_calls = 0
-"let g:go_highlight_types = 0
-"let g:go_highlight_fields = 0
-"let g:go_highlight_build_constraints = 0
-"let g:go_highlight_generate_tags = 0
-"let g:go_highlight_string_spellcheck = 0
-"let g:go_highlight_format_strings = 0
-"let g:go_highlight_variable_declarations = 0
-"let g:go_highlight_variable_assignments = 0
-"let g:go_highlight_diagnostic_errors = 0
-"let g:go_highlight_diagnostic_warnings = 0
-
 """ Markdown
 au BufRead,BufNewFile *.md setlocal textwidth=80
 
@@ -593,29 +581,6 @@ set pumblend=10 " transparency of popup menus
 set cursorline
 
 try
-""    lua << EOF
-""    require("github-theme").setup({
-""    themeStyle = 'dimmed',
-""    keywordStyle = 'italic',
-""    sidebars = {"qf", "vista_kind", "terminal", "packer"},
-""    darkSidebar = true,
-""    darkFloat = true,
-""    hideEndOfBuffer = true,
-""    -- Change the "hint" color to the "orange" color, and make the "error" color bright red
-""    colors = {hint = "orange", error = "#ff0000"}
-""    })
-""EOF
-    "let g:gruvbox_material_palette = 'mix'
-    "let g:gruvbox_material_ui_contrast = 'hard'
-    "let g:gruvbox_material_enable_bold = 1
-    "let g:gruvbox_material_enable_italic = 1
-    "let g:gruvbox_material_transparent_background = 1
-    "let g:gruvbox_material_visual = 'reverse'
-    "let g:gruvbox_material_menu_selection_background = 'green'
-    "let g:gruvbox_material_diagnostic_virtual_text = 'colored'
-    "let g:gruvbox_material_current_word = 'underline'
-    "colorscheme gruvbox-material
-
     function! s:sonokai_custom() abort
         " Link a highlight group to a predefined highlight group.
         " See `colors/sonokai.vim` for all predefined highlight groups.
@@ -695,41 +660,6 @@ require'lualine'.setup {
     tabline = {},
     extensions = {'quickfix', 'nvim-tree', 'fugitive'},
     }
-EOF
-
-" === bufferline === "
-lua <<EOF
-require("bufferline").setup {
-    options = {
-        numbers = "ordinal",
-        buffer_close_icon= "",
-        modified_icon = "●",
-        close_icon = "",
-        left_trunc_marker = "",
-        right_trunc_marker = "",
-        max_name_length = 18,
-        max_prefix_length = 15, -- prefix used when a buffer is deduplicated
-        tab_size = 18,
-        diagnostics = "nvim_lsp",
-        show_buffer_icons = true,
-        show_buffer_close_icons = true,
-        show_close_icon = false,
-        show_tab_indicators = true,
-        persist_buffer_sort = true,
-        separator_style = "thin",
-        offsets = {{filetype = "NvimTree", text = "File Explorer", text_align = "center"}},
-        sort_by = "relative_directory",
-        custom_filter = function(buf, buf_nums)
-            -- dont show help or qf buffers in the bufferline
-            if vim.bo[buf].filetype == "help" then
-                return false
-            elseif vim.bo[buf].filetype == "qf" then
-                return false
-            end
-            return true
-        end,
-    },
-}
 EOF
 
 " === nvim-colorizer === "

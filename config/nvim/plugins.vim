@@ -44,6 +44,7 @@ Plug 'nvim-treesitter/nvim-treesitter-textobjects'                  " Create you
 Plug 'nvim-treesitter/playground', {'on': 'TSPlaygroundToggle'}     " Debug tree-sitter
 Plug 'neovim/nvim-lspconfig'                                        " Quickstart configurations for the Nvim LSP client
 Plug 'ray-x/lsp_signature.nvim'                                     " LSP signature hint as you type
+Plug 'jubnzv/virtual-types.nvim'                                    " shows type annotations as virtual text
 "" --- debug ---
 "Plug 'mfussenegger/nvim-dap'
 "Plug 'rcarriga/nvim-dap-ui'
@@ -86,7 +87,7 @@ Plug 'kevinhwang91/nvim-bqf'                                " Better quickfix wi
 Plug 'nvim-lualine/lualine.nvim'                            " statusline plugin
 "Plug 'https://github.com/adelarsq/neoline.vim'              " Status Line for Neovim focused on beauty and performance
 Plug 'arkav/lualine-lsp-progress'                           " LSP Progress lualine componenet
-Plug 'akinsho/bufferline.nvim'                              " A snazzy buferline for Neovim
+Plug 'romgrk/barbar.nvim'                                   " tabline plugin
 Plug 'numtostr/FTerm.nvim'                                  " floating terminal
 
 " Initialize plugin system
