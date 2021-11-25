@@ -75,7 +75,7 @@ Plug 'lukas-reineke/indent-blankline.nvim'                  " Indent guides for 
 Plug 'simrat39/symbols-outline.nvim'                        " A tree like view for symbols in Neovim using the Language Server Protocol
 "Plug 'stevearc/aerial.nvim'
 Plug 'norcalli/nvim-colorizer.lua'                          " Neovim colorizer
-Plug 'terrortylor/nvim-comment'                             " A comment toggler for Neovim
+Plug 'numToStr/Comment.nvim'                                " comment plugin
 
 "" === UI === "
 Plug 'projekt0n/github-nvim-theme'                          " Github theme with treesitter support

@@ -62,7 +62,7 @@ nnoremap <silent>    <A-p> :BufferPin<CR>
 " Close buffer
 nnoremap <silent>    <A-w> :BufferClose<CR>
 " Magic buffer-picking mode
-nnoremap <silent> <C-s>    :BufferPick<CR>
+nnoremap <silent> <C-p>    :BufferPick<CR>
 " Sort automatically by...
 nnoremap <silent> <Space>Bb :BufferOrderByBufferNumber<CR>
 nnoremap <silent> <Space>Bd :BufferOrderByDirectory<CR>
@@ -203,7 +203,6 @@ nnoremap <C-k>         :lua vim.lsp.buf.signature_help()<CR>
 inoremap <C-k>         <Esc>:lua vim.lsp.buf.signature_help()<CR>a
 nnoremap <Leader>i     :lua vim.lsp.buf.implementation()<CR>
 nnoremap <Leader>d     :lua vim.lsp.buf.definition()<CR>
-nnoremap <Leader>D     :lua vim.lsp.buf.declaration()<CR>
 nnoremap <Leader>l     :lua vim.lsp.buf.formatting()<CR>
 nnoremap <Leader>r     :lua vim.lsp.buf.references()<CR>
 nnoremap <F2>          :lua vim.lsp.buf.rename()<CR>
@@ -343,13 +342,9 @@ require('bqf').setup({
 })
 EOF
 
-" === nvim-comment === "
+" === Comment.nvim === "
 lua <<EOF
-require('nvim_comment').setup({
-    line_mapping = "<leader>cc",
-    operator_mapping = "<leader>c",
-    comment_empty = false,
-})
+require('Comment').setup()
 EOF
 
 """"" Autocomplete -----------------------------------------------------------
@@ -692,10 +687,7 @@ require'marks'.setup {
     --sign_priority = { lower=10, upper=15, builtin=8, bookmark=20 },
     -- disables mark tracking for specific filetypes. default {}
     excluded_filetypes = {},
-    mappings = {
-        next = "]m",
-        prev = "[m",
-    }
+    mappings = {}
 }
 EOF
 
