@@ -78,7 +78,6 @@ nnoremap <F1> :NvimTreeToggle<CR>
 
 let g:nvim_tree_highlight_opened_files = 3
 let g:nvim_tree_indent_markers = 1 "0 by default, this option shows indent markers when folders are open
-let g:nvim_tree_gitignore = 0 "0 by default, 0 means not ignoring
 let g:nvim_tree_window_picker_exclude = {'filetype':["packer","qf","help","Outline"]}
 
 highlight NvimTreeFolderIcon guibg=blue
@@ -94,6 +93,9 @@ require'nvim-tree'.setup {
     update_cwd          = false,
     diagnostics = {
         enable = true,
+    },
+    git = {
+        ignore = false,
     },
     update_focused_file = {
         enable      = true,
@@ -474,7 +476,7 @@ require'telescope'.setup {
                 vertical = {
                     preview_height = 0.4,
                     },
-                flip_columns = 140,
+                flip_columns = 160,
                 flip_lines = 10,
                 },
             preview_cutoff = 10,
