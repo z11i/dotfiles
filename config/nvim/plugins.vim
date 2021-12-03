@@ -24,6 +24,7 @@ Plug 'nvim-lua/popup.nvim'
 Plug 'ibhagwan/fzf-lua'                                     " Improved fzf.vim written in lua
 Plug 'vijaymarupudi/nvim-fzf'                               " A Lua API for using fzf in neovim. (depends by fzf-lua)
 Plug 'nvim-telescope/telescope.nvim'                        " Find, filter, preview, pick
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' } " use fzf in telescope
 Plug 'ggandor/lightspeed.nvim'                              " Next-generation motion plugin with incremental input processing
 Plug 'chentau/marks.nvim'                                   " viewing and interacting with Vim marks
 

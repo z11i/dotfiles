@@ -514,6 +514,7 @@ require'telescope'.setup {
             }
         }
     }
+require('telescope').load_extension('fzf')
 EOF
 nnoremap <Leader><Leader> :Telescope<CR>
 nnoremap <Leader>f :Telescope find_files<CR>
@@ -528,6 +529,7 @@ nnoremap <Leader>O :Telescope lsp_dynamic_workspace_symbols<CR>
 nnoremap <Leader>gd :Telescope lsp_document_diagnostics<CR>
 nnoremap <Leader>gD :Telescope lsp_workspace_diagnostics<CR>
 nnoremap <Leader>g. :Telescope lsp_code_actions<CR>
+nnoremap <Leader>p :Telescope resume<CR>
 
 """"" Terminal ---------------------------------------------------------------
 " Escape to exit terminal input mode
