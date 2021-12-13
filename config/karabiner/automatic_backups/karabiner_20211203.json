@@ -1695,25 +1695,6 @@
                                 "type": "basic"
                             }
                         ]
-                    },
-                    {
-                        "description": "Change left_control + middle click to mission control",
-                        "manipulators": [
-                            {
-                                "type": "basic",
-                                "from": {
-                                    "pointing_button": "button3",
-                                    "modifiers": {
-                                        "mandatory": ["control"]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "mission_control"
-                                    }
-                                ]
-                            }
-                        ]
                     }
                 ]
             },
