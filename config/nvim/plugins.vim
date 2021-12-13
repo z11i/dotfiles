@@ -56,6 +56,9 @@ Plug 'ray-x/go.nvim'                                                " Go Neovim 
 Plug 'simrat39/rust-tools.nvim'                                     " Battery-included rust lsp setup
 Plug 'nvim-lua/lsp_extensions.nvim', {'for': 'rust'}                " LSP extensions
 
+" === Copilot === "
+Plug 'github/copilot.vim'
+
 " === Editing Plugins === "
 Plug 'ntpeters/vim-better-whitespace'                       " Trailing whitespace highlighting & automatic fixing
 Plug 'hrsh7th/nvim-cmp'                                     " Auto completion Lua plugin for nvim
