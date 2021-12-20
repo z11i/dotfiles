@@ -182,7 +182,6 @@ EOF
 """ lightspeed
 lua <<EOF
 require('lightspeed').setup({
-    x_mode_prefix_key = '<tab>',
     exit_after_idle_msecs = { labeled = nil, unlabeled = 1000 },
 })
 EOF
@@ -637,7 +636,7 @@ require'lualine'.setup {
         lualine_x = {'filetype',
             {
                 'diagnostics',
-                sources = {'nvim_lsp'},
+                sources = {'nvim_diagnostic'},
                 sections = {'error', 'warn', 'info', 'hint'},
                 symbols = {error = ' ', warn = ' ', info = ' ', hint = ' '},
                 colored = true,
