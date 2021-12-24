@@ -284,44 +284,6 @@ nnoremap <leader>/r viw:lua require('spectre').open_file_search()<cr>
 
 " === fugitive === "
 nnoremap <C-g><C-g> :Git 
-" === gitsigns ==="
-lua <<EOF
-require('gitsigns').setup({
-    numhl = true,
-    word_diff = true,
-    current_line_blame = true,
-    signs = {
-        delete = {hl = 'GitSignsDelete', text = '-', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
-    },
-    diff_opts = {
-        algorithm = 'histogram',
-        internal = true,
-    },
-    keymaps = {
-        noremap = true,
-
-        ['n ]c'] = { expr = true, "&diff ? ']c' : '<cmd>lua require\"gitsigns.actions\".next_hunk()<CR>'"},
-        ['n [c'] = { expr = true, "&diff ? '[c' : '<cmd>lua require\"gitsigns.actions\".prev_hunk()<CR>'"},
-
-        ['n <C-g>g'] = ':Gitsigns ',
-        ['n <C-g><C-s>h'] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
-        ['v <C-g><C-s>h'] = '<cmd>lua require"gitsigns".stage_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
-        ['n <C-g><C-s>u'] = '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
-        ['n <C-g><C-s>b'] = '<cmd>lua require"gitsigns".stage_buffer()<CR>',
-        ['n <C-g><C-r>h'] = '<cmd>lua require"gitsigns".reset_hunk()<CR>',
-        ['v <C-g><C-r>h'] = '<cmd>lua require"gitsigns".reset_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
-        ['n <C-g><C-r>b'] = '<cmd>lua require"gitsigns".reset_buffer()<CR>',
-        ['n <C-g><C-r>B'] = '<cmd>lua require"gitsigns".reset_buffer_index()<CR>',
-        ['n <C-g><C-p>'] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
-        ['n <C-g><C-b>'] = '<cmd>lua require"gitsigns".blame_line(true)<CR>',
-
-        -- Text objects
-        ['o ih'] = ':<C-U>lua require"gitsigns.actions".select_hunk()<CR>',
-        ['x ih'] = ':<C-U>lua require"gitsigns.actions".select_hunk()<CR>'
-    },
-})
-EOF
-
 " === treesitter-context === "
 lua <<EOF
 require'treesitter-context'.setup{
@@ -418,12 +380,12 @@ cmp.setup({
 -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline('/', {
     sources = {
-        { name = 'buffer' }
+        { name = 'buffer', keyword_length = 2, max_item_count = 7 },
     }
 })
 cmp.setup.cmdline('?', {
     sources = {
-        { name = 'buffer' }
+        { name = 'buffer', keyword_length = 2, max_item_count = 7 },
     }
 })
 
@@ -525,8 +487,8 @@ nnoremap <Leader>b :Telescope buffers<CR>
 nnoremap <Leader>a :Telescope commands<CR>
 nnoremap <Leader>o :Telescope lsp_document_symbols<CR>
 nnoremap <Leader>O :Telescope lsp_dynamic_workspace_symbols<CR>
-nnoremap <Leader>gd :Telescope lsp_document_diagnostics<CR>
-nnoremap <Leader>gD :Telescope lsp_workspace_diagnostics<CR>
+nnoremap <Leader>gd :Telescope diagnostics bufnr=0<CR>
+nnoremap <Leader>gD :Telescope diagnostics<CR>
 nnoremap <Leader>g. :Telescope lsp_code_actions<CR>
 nnoremap <Leader>p :Telescope resume<CR>
 
@@ -579,26 +541,35 @@ set pumblend=10 " transparency of popup menus
 set cursorline
 
 try
-    function! s:sonokai_custom() abort
-        " Link a highlight group to a predefined highlight group.
-        " See `colors/sonokai.vim` for all predefined highlight groups.
-        highlight! link TSField Purple
-        highlight! link TSFuncBuiltin GreenItalic
-        highlight! link TSProperty Purple
-        highlight! link TSType Blue
-        highlight! link TSParameter Orange
-        highlight! link TSParameterReference Orange
-        highlight! link IndentBlanklineContextChar Red
+    lua <<EOF
+    local default_colors = require("kanagawa.colors")
+    local overrides = {
+        DiffDelete = { fg = default_colors.waveRed, bg = "#AAAAAA", style="underline,bold", guisp="blue" },
+        }
 
-        " Initialize the color palette.
-        " The parameter is a valid value for `g:sonokai_style`,
-        let l:palette = sonokai#get_palette('default')
-    endfunction
+    require'kanagawa'.setup({ overrides = overrides })
+    vim.cmd("colorscheme kanagawa")
+EOF
+    "function! s:sonokai_custom() abort
+    "    " Link a highlight group to a predefined highlight group.
+    "    " See `colors/sonokai.vim` for all predefined highlight groups.
+    "    highlight! link TSField Purple
+    "    highlight! link TSFuncBuiltin GreenItalic
+    "    highlight! link TSProperty Purple
+    "    highlight! link TSType Blue
+    "    highlight! link TSParameter Orange
+    "    highlight! link TSParameterReference Orange
+    "    highlight! link IndentBlanklineContextChar Red
 
-    let g:sonokai_enable_italic = 1
-    let g:sonokai_disable_italic_comment = 0
-    colorscheme sonokai
-    call s:sonokai_custom()
+    "    " Initialize the color palette.
+    "    " The parameter is a valid value for `g:sonokai_style`,
+    "    let l:palette = sonokai#get_palette('default')
+    "endfunction
+
+    "let g:sonokai_enable_italic = 1
+    "let g:sonokai_disable_italic_comment = 0
+    "colorscheme sonokai
+    "call s:sonokai_custom()
 catch
     colorscheme desert
 endtry
@@ -621,7 +592,7 @@ lua <<EOF
 require'lualine'.setup {
     options = {
         icons_enabled = true,
-        theme = 'material',
+        theme = 'kanagawa',
         section_separators = { left = '', right = ''},
         component_separators = { left = '', right = ''},
         disabled_filetypes = {'aerial'}
@@ -696,3 +667,42 @@ EOF
 
 " === lazygit === "
 nnoremap <silent> <leader>gg :LazyGit<CR>
+
+" === gitsigns ===" later than kanagawa as we need to override the hlgroup
+lua <<EOF
+require('gitsigns').setup({
+    numhl = true,
+    word_diff = true,
+    current_line_blame = true,
+    signs = {
+        delete = {hl = 'GitSignsDelete', text = '-', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
+    },
+    diff_opts = {
+        algorithm = 'histogram',
+        internal = true,
+    },
+    keymaps = {
+        noremap = true,
+
+        ['n ]c'] = { expr = true, "&diff ? ']c' : '<cmd>lua require\"gitsigns.actions\".next_hunk()<CR>'"},
+        ['n [c'] = { expr = true, "&diff ? '[c' : '<cmd>lua require\"gitsigns.actions\".prev_hunk()<CR>'"},
+
+        ['n <C-g>g'] = ':Gitsigns ',
+        ['n <C-g><C-s>h'] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
+        ['v <C-g><C-s>h'] = '<cmd>lua require"gitsigns".stage_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
+        ['n <C-g><C-s>u'] = '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
+        ['n <C-g><C-s>b'] = '<cmd>lua require"gitsigns".stage_buffer()<CR>',
+        ['n <C-g><C-r>h'] = '<cmd>lua require"gitsigns".reset_hunk()<CR>',
+        ['v <C-g><C-r>h'] = '<cmd>lua require"gitsigns".reset_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
+        ['n <C-g><C-r>b'] = '<cmd>lua require"gitsigns".reset_buffer()<CR>',
+        ['n <C-g><C-r>B'] = '<cmd>lua require"gitsigns".reset_buffer_index()<CR>',
+        ['n <C-g><C-p>'] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
+        ['n <C-g><C-b>'] = '<cmd>lua require"gitsigns".blame_line(true)<CR>',
+
+        -- Text objects
+        ['o ih'] = ':<C-U>lua require"gitsigns.actions".select_hunk()<CR>',
+        ['x ih'] = ':<C-U>lua require"gitsigns.actions".select_hunk()<CR>'
+    },
+})
+EOF
+

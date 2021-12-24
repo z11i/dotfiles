@@ -81,10 +81,13 @@ Plug 'simrat39/symbols-outline.nvim'                        " A tree like view f
 Plug 'norcalli/nvim-colorizer.lua'                          " Neovim colorizer
 Plug 'numToStr/Comment.nvim'                                " comment plugin
 
-"" === UI === "
+"" === Colorthemes === "
 Plug 'projekt0n/github-nvim-theme'                          " Github theme with treesitter support
 Plug 'z11i/gruvbox-material'                                " Gruvbox with Material Palette and treesitter support (forked from sainnhe/gruvbox-material)
 Plug 'sainnhe/sonokai'
+Plug 'rebelot/kanagawa.nvim'
+
+"" === UI === "
 Plug 'kyazdani42/nvim-web-devicons'                         " for file icons
 Plug 'kyazdani42/nvim-tree.lua'                             " File explorer
 Plug 'kevinhwang91/nvim-bqf'                                " Better quickfix window in Neovim
