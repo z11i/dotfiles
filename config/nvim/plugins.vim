@@ -80,6 +80,7 @@ Plug 'simrat39/symbols-outline.nvim'                        " A tree like view f
 "Plug 'stevearc/aerial.nvim'
 Plug 'norcalli/nvim-colorizer.lua'                          " Neovim colorizer
 Plug 'numToStr/Comment.nvim'                                " comment plugin
+Plug 'matze/vim-move'                                       " Plugin to move lines and selections up and down
 
 "" === Colorthemes === "
 Plug 'projekt0n/github-nvim-theme'                          " Github theme with treesitter support
