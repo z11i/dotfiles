@@ -200,8 +200,8 @@ lua require("lsp")
 " LSP extensions
 autocmd BufEnter,BufWinEnter,TabEnter *.rs :lua require'lsp_extensions'.inlay_hints{}
 nnoremap K             :lua vim.lsp.buf.hover()<CR>
-"nnoremap <C-k>         :lua vim.lsp.buf.signature_help()<CR>
-"inoremap <C-k>         <Esc>:lua vim.lsp.buf.signature_help()<CR>a
+nnoremap <C-k>         :lua vim.lsp.buf.signature_help()<CR>
+inoremap <C-k>         <Esc>:lua vim.lsp.buf.signature_help()<CR>a
 nnoremap <Leader>i     :lua vim.lsp.buf.implementation()<CR>
 nnoremap <Leader>d     :lua vim.lsp.buf.definition()<CR>
 nnoremap <Leader>l     :lua vim.lsp.buf.formatting()<CR>
@@ -312,10 +312,10 @@ EOF
 
 " === vim-move === "
 let g:move_map_keys = 0 " disable default key maps
-vmap <C-j> <Plug>MoveBlockDown
-vmap <C-k> <Plug>MoveBlockUp
-vmap <C-h> <Plug>MoveBlockLeft
-vmap <C-l> <Plug>MoveBlockRight
+vmap J <Plug>MoveBlockDown
+vmap K <Plug>MoveBlockUp
+vmap H <Plug>MoveBlockLeft
+vmap L <Plug>MoveBlockRight
 
 """"" Autocomplete -----------------------------------------------------------
 " <TAB>: completion.
