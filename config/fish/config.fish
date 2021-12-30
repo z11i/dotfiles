@@ -57,3 +57,9 @@ end
 
 # source asdf
 sourceadd ~/.asdf/asdf.fish
+
+# Source completions. Somehow when re-entering fish, such as in tmux, or just do `fish` again,
+# the completions under ~/.config/fish/completions are not used. Only directory completions become available.
+for f in ~/.config/fish/completions/*.fish
+    source $f
+end
