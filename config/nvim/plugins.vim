@@ -83,9 +83,6 @@ Plug 'numToStr/Comment.nvim'                                " comment plugin
 Plug 'matze/vim-move'                                       " Plugin to move lines and selections up and down
 
 "" === Colorthemes === "
-Plug 'projekt0n/github-nvim-theme'                          " Github theme with treesitter support
-Plug 'z11i/gruvbox-material'                                " Gruvbox with Material Palette and treesitter support (forked from sainnhe/gruvbox-material)
-Plug 'sainnhe/sonokai'
 Plug 'rebelot/kanagawa.nvim'
 
 "" === UI === "

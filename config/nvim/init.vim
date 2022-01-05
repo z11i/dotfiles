@@ -548,35 +548,7 @@ set pumblend=10 " transparency of popup menus
 set cursorline
 
 try
-    lua <<EOF
-    local default_colors = require("kanagawa.colors")
-    local overrides = {
-        DiffDelete = { fg = default_colors.waveRed, bg = "#AAAAAA", style="underline,bold", guisp="blue" },
-        }
-
-    require'kanagawa'.setup({ overrides = overrides })
-    vim.cmd("colorscheme kanagawa")
-EOF
-    "function! s:sonokai_custom() abort
-    "    " Link a highlight group to a predefined highlight group.
-    "    " See `colors/sonokai.vim` for all predefined highlight groups.
-    "    highlight! link TSField Purple
-    "    highlight! link TSFuncBuiltin GreenItalic
-    "    highlight! link TSProperty Purple
-    "    highlight! link TSType Blue
-    "    highlight! link TSParameter Orange
-    "    highlight! link TSParameterReference Orange
-    "    highlight! link IndentBlanklineContextChar Red
-
-    "    " Initialize the color palette.
-    "    " The parameter is a valid value for `g:sonokai_style`,
-    "    let l:palette = sonokai#get_palette('default')
-    "endfunction
-
-    "let g:sonokai_enable_italic = 1
-    "let g:sonokai_disable_italic_comment = 0
-    "colorscheme sonokai
-    "call s:sonokai_custom()
+    lua require('z11i/theme/kanagawa')
 catch
     colorscheme desert
 endtry
