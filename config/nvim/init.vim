@@ -299,9 +299,7 @@ lua <<EOF
 require('bqf').setup({
     auto_enable = true,
     magic_window = true,
-    preview = {
-        win_height = 15,
-    },
+    auto_resize_height = true,
 })
 EOF
 
