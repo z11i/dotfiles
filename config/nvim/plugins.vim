@@ -92,7 +92,7 @@ Plug 'kevinhwang91/nvim-bqf'                                " Better quickfix wi
 Plug 'nvim-lualine/lualine.nvim'                            " statusline plugin
 "Plug 'https://github.com/adelarsq/neoline.vim'              " Status Line for Neovim focused on beauty and performance
 Plug 'arkav/lualine-lsp-progress'                           " LSP Progress lualine componenet
-Plug 'romgrk/barbar.nvim'                                   " tabline plugin
+"Plug 'romgrk/barbar.nvim'                                   " tabline plugin
 Plug 'numtostr/FTerm.nvim'                                  " floating terminal
 
 " Initialize plugin system
