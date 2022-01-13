@@ -416,6 +416,11 @@ return require('packer').startup(function(use)
     use {'ntpeters/vim-better-whitespace' }
     --}}}
 
+    ---- Testing {{{
+    use {'vim-test/vim-test'}
+    use {'sebdah/vim-delve'}
+    --}}}
+
     ---- THEME plugins {{{
     use {
         'rebelot/kanagawa.nvim',
