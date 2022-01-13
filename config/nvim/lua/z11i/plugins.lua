@@ -1,8 +1,35 @@
 local fn = vim.fn
+
+-- Auto install packer
 local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
 if fn.empty(fn.glob(install_path)) > 0 then
     packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+    print 'Installing packer. Neovim will be closed and reopened...'
+    vim.cmd [[packadd packer.nvim]]
 end
+
+-- Autocommand that reloads neovim whenever you save the plugins.lua file
+vim.cmd [[
+augroup packer_user_config
+autocmd!
+autocmd BufWritePost plugins.lua source <afile> | PackerSync
+augroup end
+]]
+
+-- Use a protected call so we don't error out on first use
+local status_ok, packer = pcall(require, "packer")
+if not status_ok then
+    return
+end
+
+-- Have packer use a popup window
+packer.init {
+    display = {
+        open_fn = function()
+            return require("packer.util").float { border = "rounded" }
+        end,
+    },
+}
 
 return require('packer').startup(function(use)
     use {
@@ -117,8 +144,6 @@ return require('packer').startup(function(use)
     -- nvim-tree: file explorer
     use {
         'kyazdani42/nvim-tree.lua',
-        opt = true,
-        cmd = {'NvimTreeFocus', 'NvimTreeOpen', 'NvimTreeFindFile', 'NvimTreeToggle'},
         requires = {
             {'kyazdani42/nvim-web-devicons', opt = true} -- optional, for file icon
         },
@@ -195,7 +220,7 @@ return require('packer').startup(function(use)
             vim.api.nvim_set_keymap("n", "<leader>xq", "<cmd>Trouble quickfix<cr>", {silent = true, noremap = true})
             vim.api.nvim_set_keymap("n", "gR", "<cmd>Trouble lsp_references<cr>", {silent = true, noremap = true})
         end
-   }
+    }
     --}}}
 
     ---- Git integration {{{
