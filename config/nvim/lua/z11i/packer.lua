@@ -104,12 +104,12 @@ return require('packer').startup(function(use)
             vim.cmd [[nnoremap : :!]]
             vim.cmd [[silent! unmap s ]] -- TODO: check why this doesn't work
             vim.cmd [[silent! unmap S ]] -- TODO: check why this doesn't work
-            vim.cmd [[nmap \ <Plug>Lightspeed_s ]]
-            vim.cmd [[vmap \ <Plug>Lightspeed_s ]]
-            vim.cmd [[omap \ <Plug>Lightspeed_s ]]
-            vim.cmd [[nmap \| <Plug>Lightspeed_S ]]
-            vim.cmd [[vmap \| <Plug>Lightspeed_S ]]
-            vim.cmd [[omap \| <Plug>Lightspeed_S ]]
+            vim.cmd [[nmap \ <Plug>Lightspeed_s]]
+            vim.cmd [[vmap \ <Plug>Lightspeed_s]]
+            vim.cmd [[omap \ <Plug>Lightspeed_s]]
+            vim.cmd [[nmap \| <Plug>Lightspeed_S]]
+            vim.cmd [[vmap \| <Plug>Lightspeed_S]]
+            vim.cmd [[omap \| <Plug>Lightspeed_S]]
         end,
         requires = { {'tpope/vim-repeat', opt = true} }
     }
@@ -234,7 +234,9 @@ return require('packer').startup(function(use)
     ---- EDITING {{{
     -- Copilot
     use {
-        'github/copilot.vim',
+        'github/copilot.vim', config = function()
+            vim.g.copilot_filetypes = { xml = false, TelescopePrompt = false }
+        end,
     }
     -- Autocomplete
     use {
@@ -351,6 +353,8 @@ return require('packer').startup(function(use)
             }
         end,
     }
+    -- Trailing whitespace highlighting & automatic fixing
+    use {'ntpeters/vim-better-whitespace' }
     --}}}
 
     ---- THEME plugins {{{
@@ -371,6 +375,7 @@ return require('packer').startup(function(use)
     }
     use {
         'nvim-lualine/lualine.nvim',
+        requires = { {'arkav/lualine-lsp-progress' } },
         config = function()
             require'lualine'.setup {
                 options = {
