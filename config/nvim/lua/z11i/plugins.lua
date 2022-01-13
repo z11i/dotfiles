@@ -100,18 +100,24 @@ return require('packer').startup(function(use)
             }
             require('telescope').load_extension('fzf')
             vim.cmd [[nnoremap <Leader><Leader> :Telescope<CR>]]
-            vim.cmd [[nnoremap <Leader>f :Telescope find_files<CR>]]
-            vim.cmd [[nnoremap <Leader>F :Telescope find_files hidden=true no_ignore=true<CR>]]
-            vim.cmd [[nnoremap <Leader>s :Telescope live_grep<CR>]]
-            vim.cmd [[nnoremap <Leader>S :lua require('telescope.builtin').live_grep({vimgrep_arguments={'rg','--color=never','--no-heading','--column','-HS', '-uu'}})<CR>]]
-            vim.cmd [[nnoremap <Leader>h :Telescope oldfiles only_cwd=true<CR>]]
-            vim.cmd [[nnoremap <Leader>b :Telescope buffers<CR>]]
-            vim.cmd [[nnoremap <Leader>a :Telescope commands<CR>]]
-            vim.cmd [[nnoremap <Leader>o :Telescope lsp_document_symbols<CR>]]
-            vim.cmd [[nnoremap <Leader>O :Telescope lsp_dynamic_workspace_symbols<CR>]]
-            vim.cmd [[nnoremap <Leader>gd :Telescope diagnostics bufnr=0<CR>]]
-            vim.cmd [[nnoremap <Leader>gD :Telescope diagnostics<CR>]]
-            vim.cmd [[nnoremap <Leader>g. :Telescope lsp_code_actions<CR>]]
+            vim.cmd [[nnoremap <Leader>ff :Telescope find_files<CR>]]
+            vim.cmd [[nnoremap <Leader>fF :Telescope find_files hidden=true no_ignore=true<CR>]]
+            vim.cmd [[nnoremap <Leader>fs :Telescope live_grep<CR>]]
+            vim.cmd [[nnoremap <Leader>fg :Telescope grep_string<CR>]]
+            vim.cmd [[nnoremap <Leader>fS :lua require('telescope.builtin').live_grep({vimgrep_arguments={'rg','--color=never','--no-heading','--column','-HS', '-uu'}})<CR>]]
+            vim.cmd [[nnoremap <Leader>fh :Telescope oldfiles only_cwd=true<CR>]]
+            vim.cmd [[nnoremap <Leader>fb :Telescope buffers<CR>]]
+            vim.cmd [[nnoremap <Leader>fa :Telescope commands<CR>]]
+            vim.cmd [[nnoremap <Leader>fo :Telescope lsp_document_symbols<CR>]]
+            vim.cmd [[nnoremap <Leader>fO :Telescope lsp_dynamic_workspace_symbols<CR>]]
+            vim.cmd [[nnoremap <Leader>fr :Telescope lsp_references<CR>]]
+            vim.cmd [[nnoremap <Leader>ft :Telescope lsp_type_definitions<CR>]]
+            vim.cmd [[nnoremap <Leader>fi :Telescope lsp_implementations<CR>]]
+            vim.cmd [[nnoremap <Leader>f. :Telescope lsp_code_actions<CR>]]
+            vim.cmd [[nnoremap <Leader>gc :Telescope git_commits theme=ivy<CR>]]
+            vim.cmd [[nnoremap <Leader>gb :Telescope git_bcommits theme=ivy<CR>]]
+            vim.cmd [[nnoremap <Leader>gs :Telescope git_status theme=ivy<CR>]]
+            vim.cmd [[nnoremap <Leader>gb :Telescope git_branches theme=ivy<CR>]]
             vim.cmd [[nnoremap <Leader>p :Telescope resume<CR>]]
         end,
         requires = {
@@ -144,9 +150,7 @@ return require('packer').startup(function(use)
     -- nvim-tree: file explorer
     use {
         'kyazdani42/nvim-tree.lua',
-        requires = {
-            {'kyazdani42/nvim-web-devicons', opt = true} -- optional, for file icon
-        },
+        requires = { {'kyazdani42/nvim-web-devicons'} },
         config = function()
             vim.cmd [[nnoremap <F3> :NvimTreeToggle<CR>]] -- TODO: doesn't work when lazy loading
             vim.g.nvim_tree_highlight_opened_files = 3
@@ -208,6 +212,7 @@ return require('packer').startup(function(use)
         config = function() require('lsp_extensions').inlay_hints{} end,
         ft = {'rust'},
         requires = {{'neovim/nvim-lspconfig', opt = true}}}
+    -- Diagnostics window
     use {
         "folke/trouble.nvim",
         requires = {"kyazdani42/nvim-web-devicons"},
@@ -218,8 +223,24 @@ return require('packer').startup(function(use)
             vim.api.nvim_set_keymap("n", "<leader>xd", "<cmd>Trouble document_diagnostics<cr>", {silent = true, noremap = true})
             vim.api.nvim_set_keymap("n", "<leader>xl", "<cmd>Trouble loclist<cr>", {silent = true, noremap = true})
             vim.api.nvim_set_keymap("n", "<leader>xq", "<cmd>Trouble quickfix<cr>", {silent = true, noremap = true})
-            vim.api.nvim_set_keymap("n", "gR", "<cmd>Trouble lsp_references<cr>", {silent = true, noremap = true})
+            vim.api.nvim_set_keymap("n", "<leader>xr", "<cmd>Trouble lsp_references<cr>", {silent = true, noremap = true})
+            vim.api.nvim_set_keymap("n", "<leader>xi", "<cmd>Trouble lsp_implementations<cr>", {silent = true, noremap = true})
         end
+    }
+    -- Generate Go stub for interface on a type
+    use {
+		'edolphin-ydf/goimpl.nvim',
+        opt = true, ft = {'go'},
+		requires = {
+			{'nvim-lua/plenary.nvim'},
+            {'nvim-lua/popup.nvim'},
+			{'nvim-telescope/telescope.nvim'},
+			{'nvim-treesitter/nvim-treesitter'},
+		},
+		config = function()
+			require'telescope'.load_extension'goimpl'
+            vim.api.nvim_set_keymap('n', '<leader>.i', [[<cmd>lua require'telescope'.extensions.goimpl.goimpl{}<CR>]], {noremap=true, silent=true})
+		end,
     }
     --}}}
 

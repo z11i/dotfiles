@@ -12,15 +12,10 @@ local on_attach = function(client, bufnr)
     require'lsp_signature'.on_attach()
     require'virtualtypes'.on_attach()
 
+    lsp_highlight_document(client)
+
     -- Mappings.
     local opts = { noremap=true, silent=false }
-
-    -- Set some keybinds conditional on server capabilities
-    if client.resolved_capabilities.document_formatting then
-        buf_set_keymap("n", "<leader>l", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-    elseif client.resolved_capabilities.document_range_formatting then
-        buf_set_keymap("n", "<leader>l", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
-    end
 end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
@@ -55,11 +50,21 @@ vim.cmd [[
 nnoremap K             :lua vim.lsp.buf.hover()<CR>
 nnoremap <C-k>         :lua vim.lsp.buf.signature_help()<CR>
 inoremap <C-k>         <Esc>:lua vim.lsp.buf.signature_help()<CR>a
-nnoremap <Leader>i     :lua vim.lsp.buf.implementation()<CR>
-nnoremap <Leader>d     :lua vim.lsp.buf.definition()<CR>
 nnoremap <Leader>l     :lua vim.lsp.buf.formatting()<CR>
-nnoremap <Leader>r     :lua vim.lsp.buf.references()<CR>
 nnoremap <F2>          :lua vim.lsp.buf.rename()<CR>
-nnoremap <Leader>t     :lua vim.lsp.buf.type_definition()<CR>
 nnoremap <Leader>e     :lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
+nnoremap <Leader>ld    :lua vim.lsp.buf.definitions()<CR>
+nnoremap <Leader>li    :lua vim.lsp.buf.implementations()<CR>
+nnoremap <Leader>lt    :lua vim.lsp.buf.type_definitions()<CR>
+nnoremap <Leader>lr    :lua vim.lsp.buf.references()<CR>
 ]]
+
+local function lsp_highlight_document(client)
+    vim.api.nvim_exec ( [[
+    augroup lsp_document_highlight
+    autocmd! * <buffer>
+    autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+    autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+    augroup END
+        ]], false)
+end
