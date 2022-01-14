@@ -129,14 +129,13 @@ return require('packer').startup(function(use)
     use {
         'ggandor/lightspeed.nvim',
         config = function()
+            vim.g.lightspeed_no_default_keymaps = true
             require('lightspeed').setup({
                 exit_after_idle_msecs = { labeled = nil, unlabeled = 1000 },
             })
             -- Use ; as : for easier command typing
             vim.cmd [[nnoremap ; :]]
             vim.cmd [[nnoremap : :!]]
-            vim.cmd [[silent! unmap s ]] -- TODO: check why this doesn't work
-            vim.cmd [[silent! unmap S ]] -- TODO: check why this doesn't work
             vim.cmd [[nmap \ <Plug>Lightspeed_s]]
             vim.cmd [[vmap \ <Plug>Lightspeed_s]]
             vim.cmd [[omap \ <Plug>Lightspeed_s]]
