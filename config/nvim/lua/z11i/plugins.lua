@@ -8,13 +8,13 @@ if fn.empty(fn.glob(install_path)) > 0 then
     vim.cmd [[packadd packer.nvim]]
 end
 
--- Autocommand that reloads neovim whenever you save the plugins.lua file
-vim.cmd [[
-augroup packer_user_config
-autocmd!
-autocmd BufWritePost plugins.lua source <afile> | PackerSync
-augroup end
-]]
+-- -- Autocommand that reloads neovim whenever you save the plugins.lua file
+-- vim.cmd [[
+-- augroup packer_user_config
+-- autocmd!
+-- autocmd BufWritePost plugins.lua source <afile> | PackerSync
+-- augroup end
+-- ]]
 
 -- Use a protected call so we don't error out on first use
 local status_ok, packer = pcall(require, "packer")
@@ -483,6 +483,29 @@ return require('packer').startup(function(use)
             }
         end,
     }
+    use {
+        'kdheepak/tabline.nvim',
+        config = function()
+            require'tabline'.setup {
+                enable = true,
+                options = {
+                    max_bufferline_percent = 66, -- set to nil by default, and it uses vim.o.columns * 2/3
+                    show_tabs_always = false, -- this shows tabs only when there are more than one tab or if the first tab is named
+                    show_devicons = true, -- this shows devicons in buffer section
+                    show_bufnr = false, -- this appends [bufnr] to buffer section,
+                    show_filename_only = false, -- shows base filename only instead of relative path in filename
+                }
+            }
+            vim.cmd[[
+            set guioptions-=e " Use showtabline in gui vim
+            set sessionoptions+=tabpages,globals " store tabpages and globals in session
+            ]]
+            vim.api.nvim_set_keymap("n", "<A-]>", "<cmd>TablineBufferNext<cr>", {silent = true, noremap = true})
+            vim.api.nvim_set_keymap("n", "<A-[>", "<cmd>TablineBufferPrevious<cr>", {silent = true, noremap = true})
+            vim.api.nvim_set_keymap("n", "<A-w>", "<cmd>bd<cr>", {silent = true, noremap = true})
+        end,
+        requires = { { 'hoob3rt/lualine.nvim', opt=true }, {'kyazdani42/nvim-web-devicons', opt = true} }
+}
     --}}}
 
     ---- BOOTSTRAP {{{

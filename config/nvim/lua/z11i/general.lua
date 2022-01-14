@@ -7,7 +7,8 @@ vim.opt.hidden = true -- hide buffers when abandoned
 vim.cmd [[
 au BufWritePost ~/.config/nvim/*.{vim,lua} so $MYVIMRC
 nnoremap <Leader>ve :e $MYVIMRC<CR>
-nnoremap <Leader>vr :source $MYVIMRC<CR>
+nnoremap <Leader>vrc :source $MYVIMRC<CR>:PackerCompile<CR>
+nnoremap <Leader>vrs :source $MYVIMRC<CR>:PackerSync<CR>
 ]]
 
 

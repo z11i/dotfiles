@@ -54,7 +54,7 @@ nnoremap <Leader>l     :lua vim.lsp.buf.formatting()<CR>
 nnoremap <F2>          :lua vim.lsp.buf.rename()<CR>
 nnoremap <Leader>e     :lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
 nnoremap <Leader>ld    :lua vim.lsp.buf.definition()<CR>
-nnoremap <Leader>li    :lua vim.lsp.buf.implementations()<CR>
+nnoremap <Leader>li    :lua vim.lsp.buf.implementation()<CR>
 nnoremap <Leader>lt    :lua vim.lsp.buf.type_definition()<CR>
 nnoremap <Leader>lr    :lua vim.lsp.buf.references()<CR>
 ]]
