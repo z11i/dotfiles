@@ -145,7 +145,6 @@ return require('packer').startup(function(use)
         end,
         requires = { {'tpope/vim-repeat', opt = true} }
     }
-    -- }}}
     -- nvim-tree: file explorer
     use {
         'kyazdani42/nvim-tree.lua',
@@ -170,6 +169,31 @@ return require('packer').startup(function(use)
             }
         end
     }
+    use {
+        'ThePrimeagen/harpoon',
+        requires = {
+			{'nvim-telescope/telescope.nvim'},
+            {'nvim-lua/plenary.nvim'},
+        },
+        config = function()
+            require('telescope').load_extension('harpoon')
+            vim.cmd [[nnoremap <Leader>hh :lua require('harpoon.ui').toggle_quick_menu()<CR>]]
+            vim.cmd [[nnoremap <Leader>h] :lua require('harpoon.ui').nav_next()<CR>]]
+            vim.cmd [[nnoremap <Leader>h[ :lua require('harpoon.ui').nav_prev()<CR>]]
+            vim.cmd [[nnoremap <Leader>ha :lua require('harpoon.mark').add_file()<CR>]]
+
+            vim.cmd [[nnoremap <Leader>h1 :lua require('harpoon.ui').nav_file(1)<CR>]]
+            vim.cmd [[nnoremap <Leader>h2 :lua require('harpoon.ui').nav_file(2)<CR>]]
+            vim.cmd [[nnoremap <Leader>h3 :lua require('harpoon.ui').nav_file(3)<CR>]]
+            vim.cmd [[nnoremap <Leader>h4 :lua require('harpoon.ui').nav_file(4)<CR>]]
+            vim.cmd [[nnoremap <Leader>h5 :lua require('harpoon.ui').nav_file(5)<CR>]]
+            vim.cmd [[nnoremap <Leader>h6 :lua require('harpoon.ui').nav_file(6)<CR>]]
+            vim.cmd [[nnoremap <Leader>h7 :lua require('harpoon.ui').nav_file(7)<CR>]]
+            vim.cmd [[nnoremap <Leader>h8 :lua require('harpoon.ui').nav_file(8)<CR>]]
+            vim.cmd [[nnoremap <Leader>h9 :lua require('harpoon.ui').nav_file(9)<CR>]]
+        end,
+    }
+    -- }}}
 
     ---- Treesitter {{{
     use { 'nvim-treesitter/nvim-treesitter', run = {':TSUpdate', ':TSInstall maintained'} }
