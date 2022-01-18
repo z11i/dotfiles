@@ -100,20 +100,20 @@ return require('packer').startup(function(use)
             }
             require('telescope').load_extension('fzf')
             vim.cmd [[nnoremap <Leader><Leader> :Telescope<CR>]]
-            vim.cmd [[nnoremap <Leader>ff :Telescope find_files<CR>]]
-            vim.cmd [[nnoremap <Leader>fF :Telescope find_files hidden=true no_ignore=true<CR>]]
-            vim.cmd [[nnoremap <Leader>fs :Telescope live_grep<CR>]]
-            vim.cmd [[nnoremap <Leader>fg :Telescope grep_string<CR>]]
-            vim.cmd [[nnoremap <Leader>fS :lua require('telescope.builtin').live_grep({vimgrep_arguments={'rg','--color=never','--no-heading','--column','-HS', '-uu'}})<CR>]]
-            vim.cmd [[nnoremap <Leader>fh :Telescope oldfiles only_cwd=true<CR>]]
-            vim.cmd [[nnoremap <Leader>fb :Telescope buffers<CR>]]
-            vim.cmd [[nnoremap <Leader>fa :Telescope commands<CR>]]
-            vim.cmd [[nnoremap <Leader>fo :Telescope lsp_document_symbols<CR>]]
-            vim.cmd [[nnoremap <Leader>fO :Telescope lsp_dynamic_workspace_symbols<CR>]]
-            vim.cmd [[nnoremap <Leader>fr :Telescope lsp_references<CR>]]
-            vim.cmd [[nnoremap <Leader>ft :Telescope lsp_type_definitions<CR>]]
-            vim.cmd [[nnoremap <Leader>fi :Telescope lsp_implementations<CR>]]
-            vim.cmd [[nnoremap <Leader>f. :Telescope lsp_code_actions<CR>]]
+            vim.cmd [[nnoremap <Leader>f :Telescope find_files<CR>]]
+            vim.cmd [[nnoremap <Leader>F :Telescope find_files hidden=true no_ignore=true<CR>]]
+            vim.cmd [[nnoremap <Leader>/ :Telescope live_grep<CR>]]
+            vim.cmd [[nnoremap <Leader>? :lua require('telescope.builtin').live_grep({vimgrep_arguments={'rg','--color=never','--no-heading','--column','-HS', '-uu'}})<CR>]]
+            vim.cmd [[nnoremap <Leader>H :Telescope oldfiles only_cwd=true<CR>]]
+            vim.cmd [[nnoremap <Leader>b :Telescope buffers<CR>]]
+            vim.cmd [[nnoremap <Leader>s :Telescope lsp_document_symbols<CR>]]
+            vim.cmd [[nnoremap <Leader>S :Telescope lsp_dynamic_workspace_symbols<CR>]]
+            vim.cmd [[nnoremap <Leader>ta :Telescope commands<CR>]]
+            vim.cmd [[nnoremap <Leader>tr :Telescope lsp_references<CR>]]
+            vim.cmd [[nnoremap <Leader>tt :Telescope lsp_type_definitions<CR>]]
+            vim.cmd [[nnoremap <Leader>ti :Telescope lsp_implementations<CR>]]
+            vim.cmd [[nnoremap <Leader>tg :Telescope grep_string<CR>]]
+            vim.cmd [[nnoremap <Leader>a :Telescope lsp_code_actions<CR>]]
             vim.cmd [[nnoremap <Leader>gc :Telescope git_commits theme=ivy<CR>]]
             vim.cmd [[nnoremap <Leader>gb :Telescope git_bcommits theme=ivy<CR>]]
             vim.cmd [[nnoremap <Leader>gs :Telescope git_status theme=ivy<CR>]]
@@ -128,6 +128,7 @@ return require('packer').startup(function(use)
     -- Lightspeed: motion and jump to location
     use {
         'ggandor/lightspeed.nvim',
+        disable = true, -- replaced by pounce
         config = function()
             vim.g.lightspeed_no_default_keymaps = true
             require('lightspeed').setup({
@@ -144,6 +145,15 @@ return require('packer').startup(function(use)
             vim.cmd [[omap \| <Plug>Lightspeed_S]]
         end,
         requires = { {'tpope/vim-repeat', opt = true} }
+    }
+    -- Incremental fuzzy search motion plugin
+    use {
+        'rlane/pounce.nvim',
+        config = function()
+            vim.cmd [[nmap \ <Cmd>Pounce<CR>]]
+            vim.cmd [[vmap \ <Cmd>Pounce<CR>]]
+            vim.cmd [[omap \ <Cmd>Pounce<CR>]]
+        end,
     }
     -- nvim-tree: file explorer
     use {
@@ -172,7 +182,7 @@ return require('packer').startup(function(use)
     use {
         'ThePrimeagen/harpoon',
         requires = {
-			{'nvim-telescope/telescope.nvim'},
+            {'nvim-telescope/telescope.nvim'},
             {'nvim-lua/plenary.nvim'},
         },
         config = function()
@@ -193,6 +203,39 @@ return require('packer').startup(function(use)
             vim.cmd [[nnoremap <Leader>h9 :lua require('harpoon.ui').nav_file(9)<CR>]]
         end,
     }
+    -- manage multiple terminal windows
+    use {"akinsho/toggleterm.nvim", config = function()
+        require'toggleterm'.setup{
+            direction = 'horizontal',
+            hide_numbers = true,
+            open_mapping = nil,
+            shell = 'fish',
+            start_in_insert = true,
+        }
+        vim.cmd [[nnoremap <F12> <cmd>ToggleTerm<cr>]]
+        vim.cmd [[nnoremap <Esc><F12> <cmd>ToggleTermToggleAll<cr>]]
+        vim.cmd [[tnoremap <F12> <C-\><C-n><cmd>ToggleTerm<cr>]]
+        vim.cmd [[nnoremap 1<F12> <cmd>1ToggleTerm<cr>]]
+        vim.cmd [[nnoremap 2<F12> <cmd>2ToggleTerm<cr>]]
+        vim.cmd [[nnoremap 3<F12> <cmd>3ToggleTerm<cr>]]
+        vim.cmd [[nnoremap 4<F12> <cmd>4ToggleTerm<cr>]]
+        vim.cmd [[nnoremap 5<F12> <cmd>5ToggleTerm<cr>]]
+        vim.cmd [[nnoremap 6<F12> <cmd>6ToggleTerm<cr>]]
+        vim.cmd [[nnoremap 7<F12> <cmd>7ToggleTerm<cr>]]
+        vim.cmd [[nnoremap 8<F12> <cmd>8ToggleTerm<cr>]]
+        vim.cmd [[nnoremap 9<F12> <cmd>9ToggleTerm<cr>]]
+
+        local Terminal  = require('toggleterm.terminal').Terminal
+        local lazygit
+        function _lazygit_toggle()
+            if lazygit == nil then
+                lazygit = Terminal:new({ cmd = "lazygit", hidden = true })
+            end
+            lazygit:toggle()
+        end
+        vim.cmd [[nnoremap <F12>g <cmd>lua _lazygit_toggle()<cr>]]
+        vim.cmd [[tnoremap <F12>g <C-\><C-n><cmd>lua _lazygit_toggle()<cr>]]
+    end}
     -- }}}
 
     ---- Treesitter {{{
@@ -209,26 +252,29 @@ return require('packer').startup(function(use)
 
     ---- LSP plugins {{{
     -- Quickstart configurations for the Nvim LSP client
-    use {'neovim/nvim-lspconfig'}
-    -- LSP signature hint as you type
-    use {'ray-x/lsp_signature.nvim', config = function() require('lsp_signature').setup() end}
-    -- shows type annotations as virtual text
-    use {'jubnzv/virtual-types.nvim'}
+    use {'neovim/nvim-lspconfig',
+        requires = {
+            {'ray-x/lsp_signature.nvim'},  -- LSP signature hint as you type
+            {'jubnzv/virtual-types.nvim'}, -- shows type annotations as virtual text
+        },
+    }
     -- Go Neovim plugin, based on nvim-lsp, treesitter and Dap
     use {
         'ray-x/go.nvim',
         ft = {'go', 'gomod'},
         requires = {
-            {'neovim/nvim-lspconfig', opt = true},
-            {'ray-x/lsp_signature.nvim', opt = true},
-            {'jubnzv/virtual-types.nvim', opt = true}},
+            {'neovim/nvim-lspconfig'},
+        },
     }
     -- Battery-included rust lsp setup
     use {
         'simrat39/rust-tools.nvim',
         ft = {'rust'},
         config = function() require('rust-tools').setup() end,
-        requires = {{'neovim/nvim-lspconfig', opt = true}}}
+        requires = {
+            {'neovim/nvim-lspconfig', opt = true},
+            {'jubnzv/virtual-types.nvim'},-- shows type annotations as virtual text
+        }}
     -- LSP extensions
     use {'nvim-lua/lsp_extensions.nvim',
         -- autocmd BufEnter,BufWinEnter,TabEnter *.rs :lua require'lsp_extensions'.inlay_hints{}
@@ -252,18 +298,18 @@ return require('packer').startup(function(use)
     }
     -- Generate Go stub for interface on a type
     use {
-		'edolphin-ydf/goimpl.nvim',
+        'edolphin-ydf/goimpl.nvim',
         opt = true, ft = {'go'},
-		requires = {
-			{'nvim-lua/plenary.nvim'},
+        requires = {
+            {'nvim-lua/plenary.nvim'},
             {'nvim-lua/popup.nvim'},
-			{'nvim-telescope/telescope.nvim'},
-			{'nvim-treesitter/nvim-treesitter'},
-		},
-		config = function()
-			require'telescope'.load_extension'goimpl'
+            {'nvim-telescope/telescope.nvim'},
+            {'nvim-treesitter/nvim-treesitter'},
+        },
+        config = function()
+            require'telescope'.load_extension'goimpl'
             vim.api.nvim_set_keymap('n', '<leader>.i', [[<cmd>lua require'telescope'.extensions.goimpl.goimpl{}<CR>]], {noremap=true, silent=true})
-		end,
+        end,
     }
     --}}}
 
@@ -373,11 +419,6 @@ return require('packer').startup(function(use)
                     { name = 'buffer', keyword_length = 2, max_item_count = 7 },
                 }
             })
-            -- Setup lspconfig.
-            require('lspconfig')['gopls'].setup {
-                capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-            }
-            -- rust-analyzer is setup via rust-tools
         end,
         requires = {
             {'hrsh7th/cmp-nvim-lsp'},
@@ -512,7 +553,7 @@ return require('packer').startup(function(use)
             require'tabline'.setup {
                 enable = true,
                 options = {
-                    max_bufferline_percent = 66, -- set to nil by default, and it uses vim.o.columns * 2/3
+                    max_bufferline_percent = 100, -- set to nil by default, and it uses vim.o.columns * 2/3
                     show_tabs_always = false, -- this shows tabs only when there are more than one tab or if the first tab is named
                     show_devicons = true, -- this shows devicons in buffer section
                     show_bufnr = false, -- this appends [bufnr] to buffer section,
@@ -528,7 +569,7 @@ return require('packer').startup(function(use)
             vim.api.nvim_set_keymap("n", "<A-w>", "<cmd>bd<cr>", {silent = true, noremap = true})
         end,
         requires = { { 'hoob3rt/lualine.nvim', opt=true }, {'kyazdani42/nvim-web-devicons', opt = true} }
-}
+    }
     --}}}
 
     ---- BOOTSTRAP {{{
