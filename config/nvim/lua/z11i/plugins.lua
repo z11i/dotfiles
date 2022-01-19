@@ -226,15 +226,21 @@ return require('packer').startup(function(use)
         vim.cmd [[nnoremap 9<F12> <cmd>9ToggleTerm<cr>]]
 
         local Terminal  = require('toggleterm.terminal').Terminal
-        local lazygit
-        function _lazygit_toggle()
-            if lazygit == nil then
-                lazygit = Terminal:new({ cmd = "lazygit", hidden = true })
-            end
-            lazygit:toggle()
-        end
-        vim.cmd [[nnoremap <F12>g <cmd>lua _lazygit_toggle()<cr>]]
-        vim.cmd [[tnoremap <F12>g <C-\><C-n><cmd>lua _lazygit_toggle()<cr>]]
+        local lazygit = Terminal:new({
+            cmd = "lazygit",
+            dir = "git_dir",
+            direction = "float",
+            -- function to run on opening the terminal
+            on_open = function(term)
+                vim.api.nvim_buf_set_keymap(term.bufnr, "n", "q", "<cmd>close<CR>", {noremap = true, silent = true})
+            end,
+            -- function to run on closing the terminal
+            on_close = function(term)
+                vim.cmd("Closing terminal")
+            end,
+        })
+        function _lazygit_toggle() lazygit:toggle() end
+        vim.cmd [[nnoremap <Leader>gg <cmd>lua _lazygit_toggle()<cr>]]
     end}
     -- }}}
 

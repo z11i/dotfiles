@@ -16,6 +16,7 @@
 	ri = rebase --interactive
     sw = switch
     test-merge = merge --no-commit --no-ff
+    wt = worktree
 
 [core]
     pager = delta
