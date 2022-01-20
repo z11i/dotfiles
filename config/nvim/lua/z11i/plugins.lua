@@ -159,8 +159,8 @@ return require('packer').startup(function(use)
     use {
         'kyazdani42/nvim-tree.lua',
         requires = { {'kyazdani42/nvim-web-devicons'} },
+        cmd = {'NvimTreeToggle'},
         config = function()
-            vim.cmd [[nnoremap <F3> :NvimTreeToggle<CR>]] -- TODO: doesn't work when lazy loading
             vim.g.nvim_tree_highlight_opened_files = 3
             vim.g.nvim_tree_indent_markers = 1
             vim.g.nvim_tree_window_picker_exclude = {filetype = {'packer','qf','help','Outline'}}
@@ -181,6 +181,7 @@ return require('packer').startup(function(use)
     }
     use {
         'ThePrimeagen/harpoon',
+        disable = true,
         requires = {
             {'nvim-telescope/telescope.nvim'},
             {'nvim-lua/plenary.nvim'},
