@@ -68,32 +68,6 @@
                         ]
                     },
                     {
-                        "description": "Change right_shift to fn if pressed alone.",
-                        "manipulators": [
-                            {
-                                "from": {
-                                    "key_code": "right_shift",
-                                    "modifiers": {
-                                        "optional": [
-                                            "any"
-                                        ]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "right_shift"
-                                    }
-                                ],
-                                "to_if_alone": [
-                                    {
-                                        "key_code": "fn"
-                                    }
-                                ],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
                         "description": "A one-handed layout keyboard layout. Hold spacebar to mirror the keyboard layout so that both sides of the keyboard can be intuitively typed by either hand on its own.",
                         "manipulators": [
                             {
@@ -1723,32 +1697,6 @@
                         ]
                     },
                     {
-                        "description": "Change right_shift to fn if pressed alone.",
-                        "manipulators": [
-                            {
-                                "from": {
-                                    "key_code": "right_shift",
-                                    "modifiers": {
-                                        "optional": [
-                                            "any"
-                                        ]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "right_shift"
-                                    }
-                                ],
-                                "to_if_alone": [
-                                    {
-                                        "key_code": "fn"
-                                    }
-                                ],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
                         "description": "Change left_control + middle click to mission control",
                         "manipulators": [
                             {
@@ -2058,18 +2006,7 @@
                     },
                     "ignore": false,
                     "manipulate_caps_lock_led": true,
-                    "simple_modifications": [
-                        {
-                            "from": {
-                                "key_code": "right_option"
-                            },
-                            "to": [
-                                {
-                                    "key_code": "right_control"
-                                }
-                            ]
-                        }
-                    ]
+                    "simple_modifications": []
                 },
                 {
                     "disable_built_in_keyboard_if_exists": false,
