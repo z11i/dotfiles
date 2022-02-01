@@ -13,6 +13,9 @@ user_pref('findbar.highlightAll', true);
 user_pref("browser.urlbar.suggest.calculator", true);
 user_pref("browser.urlbar.unitConversion.enabled", true);
 
+// ************ search bar ************ //
+user_pref("browser.search.openintab", true);
+
 // ************ performance ************ //
 user_pref("gfx.webrender.all", true);
 
