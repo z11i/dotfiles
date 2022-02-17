@@ -40,6 +40,13 @@ return require('packer').startup(function(use)
         },
     }
 
+    use {
+        'antoinemadec/FixCursorHold.nvim', -- Fix CursorHold Performance: https://github.com/neovim/neovim/issues/12587
+        config = function()
+            vim.g.cursorhold_updatetime = 300
+        end,
+    }
+
     ---- NAVIGATION plugins {{{
     -- Telescope
     use {
@@ -359,6 +366,32 @@ return require('packer').startup(function(use)
         config = function()
             require'telescope'.load_extension'goimpl'
             vim.api.nvim_set_keymap('n', '<leader>.i', [[<cmd>lua require'telescope'.extensions.goimpl.goimpl{}<CR>]], {noremap=true, silent=true})
+        end,
+    }
+    --}}}
+
+    ---- Debugging {{{
+    use {
+        'mfussenegger/nvim-dap',
+        requires = {
+            {'Pocco81/DAPInstall.nvim'},
+            {'rcarriga/nvim-dap-ui'},
+            {'theHamsta/nvim-dap-virtual-text'},
+            {'rcarriga/vim-ultest'},
+        },
+        config = function()
+            vim.api.nvim_set_keymap("n", "<Leader>du",  "<cmd>lua require('dapui').toggle()<CR>", {noremap = true, silent = true})
+            vim.api.nvim_set_keymap("n", "<Leader>db",  "<cmd>lua require('dap').toggle_breakpoint()<CR>", {noremap = true, silent = true})
+            vim.api.nvim_set_keymap("n", "<Leader>dc",  "<cmd>lua require('dap').continue()<CR>", {noremap = true, silent = true})
+            vim.api.nvim_set_keymap("n", "<F8>",        "<cmd>lua require('dap').step_over()<CR>", {noremap = true, silent = true})
+            vim.api.nvim_set_keymap("n", "<F7>",        "<cmd>lua require('dap').step_into()<CR>", {noremap = true, silent = true})
+            vim.api.nvim_set_keymap("n", "<F9>",        "<cmd>lua require('dap').step_out()<CR>", {noremap = true, silent = true})
+            vim.api.nvim_set_keymap("n", "<Leader>dhh", "<cmd>lua require('dap.ui.variables').hover()<CR>", {noremap = true, silent = true})
+            vim.api.nvim_set_keymap("n", "<Leader>dhv", "<cmd>lua require('dap.ui.variables').visual_hover()<CR>", {noremap = true, silent = true})
+            vim.api.nvim_set_keymap("n", "<Leader>dwh", "<cmd>lua require('dap.ui.widgets').hover()<CR>", {noremap = true, silent = true})
+            vim.api.nvim_set_keymap("n", "<Leader>dwf", "<cmd>lua local widgets=require('dap.ui.widgets');widgets.centered_float(widgets.scopes)<CR>", {noremap = true, silent = true})
+            vim.api.nvim_set_keymap("n", "<Leader>dro", "<cmd>lua require('dap').repl.open()<CR>", {noremap = true, silent = true})
+            vim.api.nvim_set_keymap("n", "<Leader>drl", "<cmd>lua require('dap').repl.run_last()<CR>", {noremap = true, silent = true})
         end,
     }
     --}}}

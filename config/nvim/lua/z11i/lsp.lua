@@ -3,13 +3,15 @@ local lsp_config = require('lspconfig')
 local lsp_highlight_document = function(client)
     if client.resolved_capabilities.document_highlight then
         vim.cmd [[
-        hi LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow
-        hi LspReferenceText cterm=bold ctermbg=red guibg=LightYellow
-        hi LspReferenceWrite cterm=bold ctermbg=red guibg=LightYellow
+        " hi LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow
+        " hi LspReferenceText cterm=bold ctermbg=red guibg=LightYellow
+        " hi LspReferenceWrite cterm=bold ctermbg=red guibg=LightYellow
+        hi LspReferenceRead cterm=bold ctermbg=237 guibg=#45403d
+        hi LspReferenceText cterm=bold ctermbg=237 guibg=#45403d
+        hi LspReferenceWrite cterm=bold ctermbg=237 guibg=#45403d
         augroup lsp_document_highlight
-        autocmd! * <buffer>
-        autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-        autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+        autocmd CursorHold * lua vim.lsp.buf.document_highlight()
+        autocmd CursorMoved * lua vim.lsp.buf.clear_references()
         augroup END
         ]]
     end
@@ -72,15 +74,8 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagn
     underline = true,
     update_in_insert = true,
 })
-local signs = { Error = " ", Warning = " ", Hint = " ", Information = " " }
+local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
 for type, icon in pairs(signs) do
-    local hl = "LspDiagnosticsSign" .. type
+    local hl = "DiagnosticSign" .. type
     vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
-
-local signs = { Error = " ", Warning = " ", Hint = " ", Information = " " }
-for type, icon in pairs(signs) do
-    local hl = "LspDiagnosticsSign" .. type
-    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
-end
-
