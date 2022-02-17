@@ -368,6 +368,8 @@ return require('packer').startup(function(use)
             vim.api.nvim_set_keymap('n', '<leader>.i', [[<cmd>lua require'telescope'.extensions.goimpl.goimpl{}<CR>]], {noremap=true, silent=true})
         end,
     }
+    -- standalone ui for nvim-lsp progress
+    use { 'j-hui/fidget.nvim', config = function() require('fidget').setup() end }
     --}}}
 
     ---- Debugging {{{
@@ -577,7 +579,6 @@ return require('packer').startup(function(use)
     }
     use {
         'nvim-lualine/lualine.nvim',
-        requires = { {'arkav/lualine-lsp-progress' } },
         config = function()
             require'lualine'.setup {
                 options = {
@@ -592,7 +593,6 @@ return require('packer').startup(function(use)
                     lualine_b = {'branch', 'diff'},
                     lualine_c = {
                         {'filename', file_status = true, path = 1},
-                        {'lsp_progress'},
                     },
                     lualine_x = {'filetype',
                         {
