@@ -138,27 +138,32 @@ return require('packer').startup(function(use)
     -- Lightspeed: motion and jump to location
     use {
         'ggandor/lightspeed.nvim',
-        disable = true, -- replaced by pounce
+        --disable = true, -- replaced by pounce
         config = function()
             vim.g.lightspeed_no_default_keymaps = true
             require('lightspeed').setup({
                 exit_after_idle_msecs = { labeled = nil, unlabeled = 1000 },
+                ignore_case = true,
             })
             -- Use ; as : for easier command typing
             vim.cmd [[nnoremap ; :]]
             vim.cmd [[nnoremap : :!]]
-            vim.cmd [[nmap \ <Plug>Lightspeed_s]]
-            vim.cmd [[vmap \ <Plug>Lightspeed_s]]
-            vim.cmd [[omap \ <Plug>Lightspeed_s]]
-            vim.cmd [[nmap \| <Plug>Lightspeed_S]]
-            vim.cmd [[vmap \| <Plug>Lightspeed_S]]
-            vim.cmd [[omap \| <Plug>Lightspeed_S]]
+            vim.cmd [[nmap \ <Plug>Lightspeed_omni_s]]
+            vim.cmd [[vmap \ <Plug>Lightspeed_omni_s]]
+            vim.cmd [[omap \ <Plug>Lightspeed_omni_s]]
+            -- vim.cmd [[nmap \ <Plug>Lightspeed_s]]
+            -- vim.cmd [[vmap \ <Plug>Lightspeed_s]]
+            -- vim.cmd [[omap \ <Plug>Lightspeed_s]]
+            -- vim.cmd [[nmap \| <Plug>Lightspeed_S]]
+            -- vim.cmd [[vmap \| <Plug>Lightspeed_S]]
+            -- vim.cmd [[omap \| <Plug>Lightspeed_S]]
         end,
         requires = { {'tpope/vim-repeat', opt = true} }
     }
     -- Incremental fuzzy search motion plugin
     use {
         'rlane/pounce.nvim',
+        disable = true,
         config = function()
             vim.cmd [[nmap \ <Cmd>Pounce<CR>]]
             vim.cmd [[vmap \ <Cmd>Pounce<CR>]]
@@ -656,5 +661,5 @@ return require('packer').startup(function(use)
 end)
 
 -- Plugins to check out:
--- https://github.com/wellle/targets.vim-move
--- https://github.com/ThePrimeagen/harpoon
+-- https://github.com/wellle/targets.vim
+-- https://github.com/michaelb/sniprun
