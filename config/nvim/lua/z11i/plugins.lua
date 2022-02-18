@@ -539,8 +539,17 @@ return require('packer').startup(function(use)
         vim.cmd [[vmap H <Plug>MoveBlockLeft]]
         vim.cmd [[vmap L <Plug>MoveBlockRight]]
     end}
-    -- smart pairs
-    use {'ZhiyuanLck/smart-pairs', event = 'InsertEnter', config = function() require('pairs'):setup() end}
+    -- auto complete pairs
+    use {'windwp/nvim-autopairs', config = function()
+        local npairs = require("nvim-autopairs")
+        local Rule = require("nvim-autopairs.rule")
+        npairs.setup({})
+        -- you need setup cmp first put this after cmp.setup()
+        -- setup nvim-cmp
+        local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+        local cmp = require('cmp')
+        cmp.event:on( 'confirm_done', cmp_autopairs.on_confirm_done({  map_char = { tex = '' } }))
+    end}
     -- Keyboard shortcut cheatsheet
     use {'folke/which-key.nvim', config = function ()
         vim.opt.timeoutlen=500
