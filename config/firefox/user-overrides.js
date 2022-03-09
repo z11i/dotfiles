@@ -22,3 +22,4 @@ user_pref("gfx.webrender.all", true);
 // ************ to override arkenfox defaults ************ //
 user_pref("webgl.disabled", false); // 4520 = webgl
 user_pref("devtools.chrome.enabled", true); // 2607
+user_pref("keyword.enabled", false); // 0001
