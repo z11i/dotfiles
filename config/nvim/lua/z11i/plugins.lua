@@ -31,23 +31,7 @@ packer.init {
     },
 }
 
-return require('packer').startup(function(use)
-    use {
-        'wbthomason/packer.nvim',
-        requires = {
-            {'nvim-lua/plenary.nvim'},
-            {'nvim-lua/popup.nvim'},
-        },
-    }
-
-    use {
-        'antoinemadec/FixCursorHold.nvim', -- Fix CursorHold Performance: https://github.com/neovim/neovim/issues/12587
-        config = function()
-            vim.g.cursorhold_updatetime = 300
-        end,
-    }
-
-    ---- NAVIGATION plugins {{{
+local navigation = function(use)
     -- Telescope
     use {
         'nvim-telescope/telescope.nvim',
@@ -264,8 +248,9 @@ return require('packer').startup(function(use)
         function _lazygit_toggle() lazygit:toggle() end
         vim.cmd [[nnoremap <Leader>gg <cmd>lua _lazygit_toggle()<cr>]]
     end}
-    -- }}}
+end
 
+local treesitter = function(use)
     ---- Treesitter {{{
     use { 'nvim-treesitter/nvim-treesitter', run = {':TSUpdate', ':TSInstall maintained'} }
     -- Create your own textobjects using tree-sitter queries
@@ -277,7 +262,9 @@ return require('packer').startup(function(use)
         require'treesitter-context'.setup{ enable = true, throttle = true }
     end}
     --}}}
+end
 
+local lsp = function(use)
     ---- LSP plugins {{{
     -- Quickstart configurations for the Nvim LSP client
     use {'neovim/nvim-lspconfig',
@@ -382,7 +369,9 @@ return require('packer').startup(function(use)
     -- standalone ui for nvim-lsp progress
     use { 'j-hui/fidget.nvim', config = function() require('fidget').setup() end }
     --}}}
+end
 
+local debugging = function(use)
     ---- Debugging {{{
     use {
         'mfussenegger/nvim-dap',
@@ -408,7 +397,9 @@ return require('packer').startup(function(use)
         end,
     }
     --}}}
+end
 
+local git = function(use)
     ---- Git integration {{{
     -- Enable git changes to be shown in sign column
     use { 'tpope/vim-fugitive' }
@@ -416,7 +407,6 @@ return require('packer').startup(function(use)
     use {
         'lewis6991/gitsigns.nvim',
         config = function()
-
             require('gitsigns').setup({
                 numhl = true,
                 word_diff = true,
@@ -454,7 +444,9 @@ return require('packer').startup(function(use)
         end,
     }
     --}}}
+end
 
+local editing = function(use)
     ---- EDITING {{{
     -- Copilot
     use {
@@ -575,12 +567,16 @@ return require('packer').startup(function(use)
     -- Trailing whitespace highlighting & automatic fixing
     use {'ntpeters/vim-better-whitespace' }
     --}}}
+end
 
+local testing = function(use)
     ---- Testing {{{
     use {'vim-test/vim-test'}
     use {'sebdah/vim-delve'}
     --}}}
+end
 
+local theme = function(use)
     ---- THEME plugins {{{
     use {
         'rebelot/kanagawa.nvim',
@@ -665,6 +661,39 @@ return require('packer').startup(function(use)
         requires = { { 'hoob3rt/lualine.nvim', opt=true }, {'kyazdani42/nvim-web-devicons', opt = true} }
     }
     --}}}
+end
+
+return require('packer').startup(function(use)
+    use {
+        'wbthomason/packer.nvim',
+        requires = {
+            {'nvim-lua/plenary.nvim'},
+            {'nvim-lua/popup.nvim'},
+        },
+    }
+
+    use {
+        'antoinemadec/FixCursorHold.nvim', -- Fix CursorHold Performance: https://github.com/neovim/neovim/issues/12587
+        config = function()
+            vim.g.cursorhold_updatetime = 300
+        end,
+    }
+
+    navigation(use)
+
+    treesitter(use)
+
+    lsp(use)
+
+    debugging(use)
+
+    git(use)
+
+    editing(use)
+
+    testing(use)
+
+    theme(use)
 
     ---- BOOTSTRAP {{{
     -- Automatically set up your configuration after cloning packer.nvim
@@ -675,6 +704,3 @@ return require('packer').startup(function(use)
     -- }}} THIS HAS TO BE THE LAST LINE
 end)
 
--- Plugins to check out:
--- https://github.com/wellle/targets.vim
--- https://github.com/michaelb/sniprun
