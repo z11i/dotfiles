@@ -142,7 +142,7 @@ return require('packer').startup(function(use)
         config = function()
             vim.g.lightspeed_no_default_keymaps = true
             require('lightspeed').setup({
-                exit_after_idle_msecs = { labeled = nil, unlabeled = 1000 },
+                exit_after_idle_msecs = { labeled = nil, unlabeled = nil },
                 ignore_case = true,
             })
             -- Use ; as : for easier command typing
@@ -151,12 +151,18 @@ return require('packer').startup(function(use)
             vim.cmd [[nmap \ <Plug>Lightspeed_omni_s]]
             vim.cmd [[vmap \ <Plug>Lightspeed_omni_s]]
             vim.cmd [[omap \ <Plug>Lightspeed_omni_s]]
-            -- vim.cmd [[nmap \ <Plug>Lightspeed_s]]
-            -- vim.cmd [[vmap \ <Plug>Lightspeed_s]]
-            -- vim.cmd [[omap \ <Plug>Lightspeed_s]]
-            -- vim.cmd [[nmap \| <Plug>Lightspeed_S]]
-            -- vim.cmd [[vmap \| <Plug>Lightspeed_S]]
-            -- vim.cmd [[omap \| <Plug>Lightspeed_S]]
+            vim.cmd [[nmap f <Plug>Lightspeed_f]]
+            vim.cmd [[vmap f <Plug>Lightspeed_f]]
+            vim.cmd [[omap f <Plug>Lightspeed_f]]
+            vim.cmd [[nmap F <Plug>Lightspeed_F]]
+            vim.cmd [[vmap F <Plug>Lightspeed_F]]
+            vim.cmd [[omap F <Plug>Lightspeed_F]]
+            vim.cmd [[nmap t <Plug>Lightspeed_t]]
+            vim.cmd [[vmap t <Plug>Lightspeed_t]]
+            vim.cmd [[omap t <Plug>Lightspeed_t]]
+            vim.cmd [[nmap T <Plug>Lightspeed_T]]
+            vim.cmd [[vmap T <Plug>Lightspeed_T]]
+            vim.cmd [[omap T <Plug>Lightspeed_T]]
         end,
         requires = { {'tpope/vim-repeat', opt = true} }
     }
