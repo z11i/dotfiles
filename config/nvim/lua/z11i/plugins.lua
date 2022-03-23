@@ -576,7 +576,7 @@ local testing = function(use)
     --}}}
 end
 
-local theme = function(use)
+local theming = function(use)
     ---- THEME plugins {{{
     use {
         'rebelot/kanagawa.nvim',
@@ -693,7 +693,7 @@ return require('packer').startup(function(use)
 
     testing(use)
 
-    theme(use)
+    theming(use)
 
     ---- BOOTSTRAP {{{
     -- Automatically set up your configuration after cloning packer.nvim
