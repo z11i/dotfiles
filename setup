@@ -112,10 +112,10 @@ setup_mac_gui() {
     brew install alfred
     brew install amethyst
     brew install appcleaner
-    brew install iterm2
     brew install firefox
     brew install google-drive
 	brew install keka
+    brew install mos
     brew install spotify
     brew install visual-studio-code
 }
