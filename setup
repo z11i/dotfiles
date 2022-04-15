@@ -114,6 +114,7 @@ setup_mac_gui() {
     brew install appcleaner
     brew install firefox
     brew install google-drive
+    brew install iina
 	brew install keka
     brew install mos
     brew install spotify
