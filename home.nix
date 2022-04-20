@@ -15,6 +15,7 @@ in buildEnv {
       pkgs.fd
       pkgs.fzf
       pkgs.gitAndTools.delta
+      pkgs.gitAndTools.difftastic
       pkgs.gitAndTools.gitFull
       pkgs.gnupg
       pkgs.gnused

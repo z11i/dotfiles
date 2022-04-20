@@ -9,6 +9,7 @@
 	c = commit -v
     # diff two patches
     diff-patches = "!bash -c 'diff <(git show $0) <(git show $1)'"
+    dt = difftool
     f = fetch --prune
 	ff = merge --ff-only
     forget-file = "!bash -c 'git rm --cached $0 && git update-index --assume-unchanged $0'"
@@ -27,6 +28,15 @@
     ## highlight whitespaces
     ## https://github.com/dandavison/delta/issues/522
     # pager = sed 's/\t/⇥/g' | delta
+
+[diff]
+    tool = difftastic
+
+[difftool]
+    prompt = false
+
+[difftool "difftastic"]
+    cmd = difft "$LOCAL" "$REMOTE"
 
 [delta]
     features = line-numbers decorations
