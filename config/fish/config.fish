@@ -55,6 +55,9 @@ if type -q brew
     end
 end
 
+# gcloud
+bass source '~/google-cloud-sdk/path.bash.inc'
+
 # source asdf
 sourceadd ~/.asdf/asdf.fish
 
