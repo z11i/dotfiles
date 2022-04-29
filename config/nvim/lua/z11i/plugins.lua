@@ -268,7 +268,7 @@ local treesitter = function(use)
     -- Debug tree-sitter
     use {'nvim-treesitter/playground', opt = true, cmd = 'TSPlaygroundToggle'}
     -- Show code context (show function if scrolled beyond screen)
-    use {'romgrk/nvim-treesitter-context', config = function()
+    use {'lewis6991/nvim-treesitter-context', config = function()
         require'treesitter-context'.setup{ enable = true, throttle = true }
     end}
     --}}}
