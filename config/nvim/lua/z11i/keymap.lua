@@ -41,6 +41,8 @@ inoremap <A-v> <Esc>"+p
 nnoremap <A-s> <Cmd>w<CR>
 inoremap <A-s> <Esc><Cmd>w<CR>
 
+" <leader>cd to change pwd to the current buffer and print pwd
+nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
 
 " <TAB>: completion.
 " https://stackoverflow.com/a/44271350

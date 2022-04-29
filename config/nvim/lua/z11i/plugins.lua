@@ -167,11 +167,22 @@ local navigation = function(use)
         cmd = {'NvimTreeFindFileToggle'},
         config = function()
             vim.g.nvim_tree_highlight_opened_files = 3
-            vim.g.nvim_tree_indent_markers = 1
-            vim.g.nvim_tree_window_picker_exclude = {filetype = {'packer','qf','help','Outline'}}
             require'nvim-tree'.setup {
+                actions = {
+                    open_file = {
+                        resize_window = true,
+                        window_picker = {
+                            exclude = {filetype = {'packer','qf','help','Outline'}}
+                        }
+                    }
+                },
                 diagnostics = { enable = true },
                 git = { ignore = false },
+                renderer = {
+                    indent_markers = {
+                        enable = true,
+                    }
+                },
                 update_focused_file = {
                     enable      = true,
                     update_cwd  = false,
@@ -179,7 +190,6 @@ local navigation = function(use)
                 },
                 view = {
                     width = '18%',
-                    auto_resize = true,
                 }
             }
         end
@@ -475,6 +485,9 @@ local editing = function(use)
                     end,
                 },
                 mapping = {
+                    -- https://www.reddit.com/r/neovim/comments/u7nsje/comment/i5fv73j
+                    ['<C-n>'] = cmp.mapping(cmp.mapping.select_next_item(), {'i','c'}),
+                    ['<C-p>'] = cmp.mapping(cmp.mapping.select_prev_item(), {'i','c'}),
                     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
                     ['<C-f>'] = cmp.mapping.scroll_docs(4),
                     ['<C-Space>'] = cmp.mapping.complete(),
@@ -656,7 +669,7 @@ local theming = function(use)
             ]]
             vim.api.nvim_set_keymap("n", "<A-]>", "<cmd>TablineBufferNext<cr>", {silent = true, noremap = true})
             vim.api.nvim_set_keymap("n", "<A-[>", "<cmd>TablineBufferPrevious<cr>", {silent = true, noremap = true})
-            vim.api.nvim_set_keymap("n", "<A-w>", "<cmd>bd<cr>", {silent = true, noremap = true})
+            vim.api.nvim_set_keymap("n", "<A-w>", "<cmd>bdelete<cr>", {silent = true, noremap = true})
         end,
         requires = { { 'hoob3rt/lualine.nvim', opt=true }, {'kyazdani42/nvim-web-devicons', opt = true} }
     }
