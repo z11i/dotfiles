@@ -107,7 +107,6 @@ local navigation = function(use)
             vim.cmd [[nnoremap <Leader>tt :Telescope lsp_type_definitions<CR>]]
             vim.cmd [[nnoremap <Leader>ti :Telescope lsp_implementations<CR>]]
             vim.cmd [[nnoremap <Leader>tg :Telescope grep_string<CR>]]
-            vim.cmd [[nnoremap <Leader>a :Telescope lsp_code_actions<CR>]]
             vim.cmd [[nnoremap <Leader>gc :Telescope git_commits theme=ivy<CR>]]
             vim.cmd [[nnoremap <Leader>gb :Telescope git_bcommits theme=ivy<CR>]]
             vim.cmd [[nnoremap <Leader>gs :Telescope git_status theme=ivy<CR>]]

@@ -16,4 +16,5 @@ set -gx GOBIN $GOPATH/bin
 path_prepend $GOBIN
 
 # rust
-path_prepend ~/.cargo/bin
+path_append ~/.cargo/bin
+path_append ~/.local/bin
