@@ -333,18 +333,18 @@ local lsp = function(use)
     -- Battery-included rust lsp setup
     use {
         'simrat39/rust-tools.nvim',
-        ft = {'rust'},
-        config = function() require('rust-tools').setup() end,
+        config = function() require('z11i/rust-tools') end,
         requires = {
-            {'neovim/nvim-lspconfig', opt = true},
+            {'neovim/nvim-lspconfig'},
             {'jubnzv/virtual-types.nvim'},-- shows type annotations as virtual text
         }}
     -- LSP extensions
     use {'nvim-lua/lsp_extensions.nvim',
-        -- autocmd BufEnter,BufWinEnter,TabEnter *.rs :lua require'lsp_extensions'.inlay_hints{}
-        config = function() require('lsp_extensions').inlay_hints{} end,
-        ft = {'rust'},
-        requires = {{'neovim/nvim-lspconfig', opt = true}}}
+        config = function()
+            vim.cmd [[ autocmd BufEnter,BufWinEnter,TabEnter *.rs :lua require'lsp_extensions'.inlay_hints{} ]]
+        end,
+        ft = {'rs'},
+        requires = {{'neovim/nvim-lspconfig'}}}
     -- Diagnostics window
     use {
         "folke/trouble.nvim",
