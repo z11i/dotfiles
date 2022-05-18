@@ -567,7 +567,7 @@ local editing = function(use)
     end}
     -- View marks
     use {
-        'chentau/marks.nvim',
+        'chentoast/marks.nvim',
         config = function()
             require'marks'.setup {
                 refresh_interval = 150,
