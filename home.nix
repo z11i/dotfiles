@@ -25,6 +25,7 @@ in buildEnv {
       pkgs.libressl
       pkgs.neovim
       pkgs.nix
+      pkgs.nodejs
       pkgs.protobuf
       pkgs.ripgrep
       pkgs.socat
