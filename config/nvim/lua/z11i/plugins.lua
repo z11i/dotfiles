@@ -589,9 +589,13 @@ end
 
 local theming = function(use)
     ---- THEME plugins {{{
+    -- use {
+    --     'rebelot/kanagawa.nvim',
+    --     config = function() require('z11i/theme/kanagawa') end,
+    -- }
     use {
-        'rebelot/kanagawa.nvim',
-        config = function() require('z11i/theme/kanagawa') end,
+        "catppuccin/nvim", as = "catppuccin",
+        config = function() require('z11i/theme/catppuccin') end,
     }
     use {
         'lukas-reineke/indent-blankline.nvim',
@@ -610,7 +614,7 @@ local theming = function(use)
             require'lualine'.setup {
                 options = {
                     icons_enabled = true,
-                    theme = 'kanagawa',
+                    theme = "catppuccin",
                     section_separators = { left = '', right = ''},
                     component_separators = { left = '', right = ''},
                     disabled_filetypes = {'aerial'}
