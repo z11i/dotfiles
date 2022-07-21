@@ -23,6 +23,7 @@ in buildEnv {
       pkgs.jq
       pkgs.lazygit
       pkgs.libressl
+      pkgs.mosh
       pkgs.neovim
       pkgs.nix
       pkgs.nodejs

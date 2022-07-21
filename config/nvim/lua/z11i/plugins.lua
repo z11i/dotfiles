@@ -165,7 +165,6 @@ local navigation = function(use)
         requires = { {'kyazdani42/nvim-web-devicons'} },
         cmd = {'NvimTreeFindFileToggle'},
         config = function()
-            vim.g.nvim_tree_highlight_opened_files = 3
             require'nvim-tree'.setup {
                 actions = {
                     open_file = {
@@ -180,7 +179,8 @@ local navigation = function(use)
                 renderer = {
                     indent_markers = {
                         enable = true,
-                    }
+                    },
+                    highlight_opened_files = "all"
                 },
                 update_focused_file = {
                     enable      = true,
@@ -388,7 +388,6 @@ local debugging = function(use)
             {'Pocco81/DAPInstall.nvim'},
             {'rcarriga/nvim-dap-ui'},
             {'theHamsta/nvim-dap-virtual-text'},
-            {'rcarriga/vim-ultest'},
         },
         config = function()
             vim.api.nvim_set_keymap("n", "<Leader>du",  "<cmd>lua require('dapui').toggle()<CR>", {noremap = true, silent = true})
@@ -683,6 +682,8 @@ return require('packer').startup(function(use)
             {'nvim-lua/popup.nvim'},
         },
     }
+
+    use 'lewis6991/impatient.nvim'
 
     use {
         'antoinemadec/FixCursorHold.nvim', -- Fix CursorHold Performance: https://github.com/neovim/neovim/issues/12587
