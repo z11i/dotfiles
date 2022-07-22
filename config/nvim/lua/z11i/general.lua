@@ -11,6 +11,9 @@ nnoremap <Leader>vrc :source $MYVIMRC<CR>:PackerCompile<CR>
 nnoremap <Leader>vrs :source $MYVIMRC<CR>:PackerSync<CR>
 ]]
 
+-- filetype
+vim.g.do_filetype_lua = 1
+vim.g.did_load_filetypes = 0
 
 vim.opt.tabstop=4
 vim.opt.softtabstop=4

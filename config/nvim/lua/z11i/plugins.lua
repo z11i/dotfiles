@@ -617,7 +617,8 @@ local theming = function(use)
                     theme = "catppuccin",
                     section_separators = { left = '', right = ''},
                     component_separators = { left = '', right = ''},
-                    disabled_filetypes = {'aerial'}
+                    disabled_filetypes = {'aerial'},
+                    globalstatus = true,
                 },
                 sections = {
                     lualine_a = {'mode'},
