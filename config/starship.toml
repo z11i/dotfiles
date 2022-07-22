@@ -13,7 +13,7 @@ truncation_length = 4
 truncate_to_repo = false
 
 [gcloud]
-format = "☁️  [$project]($style)"
+format = "☁️ [$project]($style)"
 style = "bold blue"
 
 [git_branch]

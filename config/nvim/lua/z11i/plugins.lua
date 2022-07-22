@@ -111,7 +111,7 @@ local navigation = function(use)
             vim.cmd [[nnoremap <Leader>gb :Telescope git_bcommits theme=ivy<CR>]]
             vim.cmd [[nnoremap <Leader>gs :Telescope git_status theme=ivy<CR>]]
             vim.cmd [[nnoremap <Leader>gb :Telescope git_branches theme=ivy<CR>]]
-            vim.cmd [[nnoremap <Leader>p :Telescope resume<CR>]]
+            vim.cmd [[nnoremap <Leader>r :Telescope resume<CR>]]
         end,
         requires = {
             {'nvim-lua/plenary.nvim'},
@@ -286,7 +286,7 @@ local lsp = function(use)
     use {
         'ray-x/go.nvim',
         ft = {'go', 'gomod'},
-        disable = true,
+        disable = false,
         requires = {
             {'neovim/nvim-lspconfig'},
             {'mfussenegger/nvim-dap'},
@@ -461,6 +461,7 @@ local editing = function(use)
         'github/copilot.vim', config = function()
             vim.g.copilot_filetypes = { xml = false, TelescopePrompt = false }
         end,
+        disable = true,
     }
     -- Autocomplete
     use {
@@ -576,7 +577,15 @@ local editing = function(use)
         end,
     }
     -- Trailing whitespace highlighting & automatic fixing
-    use {'ntpeters/vim-better-whitespace' }
+    -- use { 'ntpeters/vim-better-whitespace' }
+
+    -- Automatically strip trailing whitespace as you are editing.
+    use {
+        'lewis6991/spaceless.nvim',
+        config = function()
+            require'spaceless'.setup()
+        end
+    }
     --}}}
 end
 
