@@ -130,7 +130,7 @@ local navigation = function(use)
             })
             -- Use ; as : for easier command typing
             vim.cmd [[nnoremap ; :]]
-            vim.cmd [[nnoremap : :!]]
+            -- vim.cmd [[nnoremap : :!]]
             vim.cmd [[nmap \ <Plug>Lightspeed_omni_s]]
             vim.cmd [[vmap \ <Plug>Lightspeed_omni_s]]
             vim.cmd [[omap \ <Plug>Lightspeed_omni_s]]
@@ -188,6 +188,7 @@ local navigation = function(use)
                     ignore_list = {}
                 },
                 view = {
+                    adaptive_size = true,
                     width = '18%',
                 }
             }
@@ -261,7 +262,7 @@ end
 
 local treesitter = function(use)
     ---- Treesitter {{{
-    use { 'nvim-treesitter/nvim-treesitter', run = {':TSUpdate', ':TSInstall maintained'} }
+    use { 'nvim-treesitter/nvim-treesitter', run = {':TSUpdate', ':TSInstall all'} }
     -- Create your own textobjects using tree-sitter queries
     use {'nvim-treesitter/nvim-treesitter-textobjects'}
     -- Debug tree-sitter
@@ -293,7 +294,7 @@ local lsp = function(use)
             {'rcarriga/nvim-dap-ui'},
             {'theHamsta/nvim-dap-virtual-text'},
         },
-		config = function()
+        config = function()
             vim.opt.expandtab = false
             vim.opt.shiftwidth=4
             vim.opt.softtabstop=4
@@ -688,6 +689,39 @@ local theming = function(use)
     --}}}
 end
 
+local tryout = function(use)
+    use { 'tpope/vim-abolish' }
+    use({
+        "gbprod/substitute.nvim",
+        config = function()
+            require("substitute").setup({
+                on_substitute = nil,
+                yank_substituted_text = false,
+                range = {
+                    prefix = "S",
+                    prompt_current_text = false,
+                    confirm = true,
+                    complete_word = false,
+                    motion1 = false,
+                    motion2 = false,
+                    suffix = "",
+                },
+                exchange = {
+                    motion = false,
+                },
+            })
+            vim.keymap.set("n", "<C-s>", "<cmd>lua require('substitute').operator()<cr>", { noremap = true })
+            vim.keymap.set("n", "<C-s><C-s>", "<cmd>lua require('substitute').line()<cr>", { noremap = true })
+            vim.keymap.set("n", "<C-c>", "<cmd>lua require('substitute').eol()<cr>", { noremap = true })
+            vim.keymap.set("x", "<C-s>", "<cmd>lua require('substitute').visual()<cr>", { noremap = true })
+
+            vim.keymap.set("n", "<leader><C-s>", "<cmd>lua require('substitute.range').operator()<cr>", { noremap = true })
+            vim.keymap.set("x", "<leader><C-s>", "<cmd>lua require('substitute.range').visual()<cr>", { noremap = true })
+            vim.keymap.set("n", "<leader><C-s><C-s>", "<cmd>lua require('substitute.range').word()<cr>", { noremap = true })
+        end
+})
+end
+
 return require('packer').startup(function(use)
     use {
         'wbthomason/packer.nvim',
@@ -721,6 +755,8 @@ return require('packer').startup(function(use)
     testing(use)
 
     theming(use)
+
+    tryout(use)
 
     ---- BOOTSTRAP {{{
     -- Automatically set up your configuration after cloning packer.nvim

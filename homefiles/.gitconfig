@@ -9,7 +9,7 @@
 	c = commit -v
     # diff two patches
     diff-patches = "!bash -c 'diff <(git show $0) <(git show $1)'"
-    dt = difftool
+    dt = "!bash -c 'GIT_EXTERNAL_DIFF=difft git diff'"
     f = fetch --prune
 	ff = merge --ff-only
     forget-file = "!bash -c 'git rm --cached $0 && git update-index --assume-unchanged $0'"
