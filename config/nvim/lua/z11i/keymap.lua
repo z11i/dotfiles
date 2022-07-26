@@ -51,4 +51,4 @@ inoremap <silent><expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
 ]]
 
 -- plugin keymaps that are not in plugins.lua because of lazyloading or something
-vim.cmd [[nnoremap <F3> :NvimTreeFindFileToggle<CR>]]
+vim.cmd [[nnoremap <F3> :Neotree toggle<CR>]]

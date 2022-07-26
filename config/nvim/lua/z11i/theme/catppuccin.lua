@@ -52,14 +52,14 @@ require("catppuccin").setup({
         leap = false,
         telescope = true,
         nvimtree = {
-            enabled = true,
+            enabled = false,
             show_root = true,
             transparent_panel = false,
         },
         neotree = {
-            enabled = false,
+            enabled = true,
             show_root = true,
-            transparent_panel = false,
+            transparent_panel = true,
         },
         dap = {
             enabled = false,
