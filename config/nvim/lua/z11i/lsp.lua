@@ -24,7 +24,7 @@ vim.keymap.set('n', '<C-k>',      '<cmd>lua vim.lsp.buf.signature_help()<CR>', o
 vim.keymap.set('n', '<Leader>l',  '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 vim.keymap.set('n', '<F2>',       '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
 vim.keymap.set('n', '<Leader>e',  '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
-vim.keymap.set('n', '<Leader>a',  '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+vim.keymap.set('n', '<Leader>A',  '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
 vim.keymap.set('n', 'gd',         '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
 vim.keymap.set('n', 'gD',         '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
 vim.keymap.set('n', 'gI',         '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)

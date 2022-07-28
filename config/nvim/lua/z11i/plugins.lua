@@ -473,6 +473,8 @@ local lsp = function(use)
             vim.opt.tabstop=4
 
             vim.cmd [[autocmd BufWritePre *.go :lua require('go.format').goimport()]]
+            -- Go add test block, use this inside a test block {} and it will clone a new one
+            vim.keymap.set("n", "<leader>at", "ya{%pi, <cr><esc><cmd>w<cr>", { noremap = true })
 
             require('go').setup({
                 goimport = 'gopls', -- if set to 'gopls' will use golsp format
