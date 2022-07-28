@@ -760,6 +760,44 @@ local editing = function(use)
         end
     }
     --}}}
+
+    use { 'tpope/vim-abolish' } -- easily search for, substitute, and abbreviate multiple variants of a word
+
+    use({ -- quickly replace and exchange text.
+        "gbprod/substitute.nvim",
+        config = function()
+            require("substitute").setup({
+                on_substitute = nil,
+                yank_substituted_text = false,
+                range = {
+                    prefix = "S",
+                    prompt_current_text = false,
+                    confirm = true,
+                    complete_word = false,
+                    motion1 = false,
+                    motion2 = false,
+                    suffix = "",
+                },
+                exchange = {
+                    motion = false,
+                },
+            })
+            vim.keymap.set("n", "<C-s>", "<cmd>lua require('substitute').operator()<cr>", { noremap = true })
+            vim.keymap.set("n", "<C-s><C-s>", "<cmd>lua require('substitute').line()<cr>", { noremap = true })
+            vim.keymap.set("n", "<C-c>", "<cmd>lua require('substitute').eol()<cr>", { noremap = true })
+            vim.keymap.set("x", "<C-s>", "<cmd>lua require('substitute').visual()<cr>", { noremap = true })
+
+            vim.keymap.set("n", "<leader><C-s>", "<cmd>lua require('substitute.range').operator()<cr>", { noremap = true })
+            vim.keymap.set("x", "<leader><C-s>", "<cmd>lua require('substitute.range').visual()<cr>", { noremap = true })
+            vim.keymap.set("n", "<leader><C-s><C-s>", "<cmd>lua require('substitute.range').word()<cr>", { noremap = true })
+
+            -- exchange / swap
+            vim.keymap.set("n", "<C-x>", "<cmd>lua require('substitute.exchange').operator()<cr>", { noremap = true })
+            vim.keymap.set("n", "<C-x><C-x>", "<cmd>lua require('substitute.exchange').line()<cr>", { noremap = true })
+            vim.keymap.set("x", "<C-x>", "<cmd>lua require('substitute.exchange').visual()<cr>", { noremap = true })
+            vim.keymap.set("n", "<C-x>c", "<cmd>lua require('substitute.exchange').cancel()<cr>", { noremap = true })
+        end
+    })
 end
 
 local testing = function(use)
@@ -862,36 +900,6 @@ local theming = function(use)
 end
 
 local tryout = function(use)
-    use { 'tpope/vim-abolish' }
-    use({
-        "gbprod/substitute.nvim",
-        config = function()
-            require("substitute").setup({
-                on_substitute = nil,
-                yank_substituted_text = false,
-                range = {
-                    prefix = "S",
-                    prompt_current_text = false,
-                    confirm = true,
-                    complete_word = false,
-                    motion1 = false,
-                    motion2 = false,
-                    suffix = "",
-                },
-                exchange = {
-                    motion = false,
-                },
-            })
-            vim.keymap.set("n", "<C-s>", "<cmd>lua require('substitute').operator()<cr>", { noremap = true })
-            vim.keymap.set("n", "<C-s><C-s>", "<cmd>lua require('substitute').line()<cr>", { noremap = true })
-            vim.keymap.set("n", "<C-c>", "<cmd>lua require('substitute').eol()<cr>", { noremap = true })
-            vim.keymap.set("x", "<C-s>", "<cmd>lua require('substitute').visual()<cr>", { noremap = true })
-
-            vim.keymap.set("n", "<leader><C-s>", "<cmd>lua require('substitute.range').operator()<cr>", { noremap = true })
-            vim.keymap.set("x", "<leader><C-s>", "<cmd>lua require('substitute.range').visual()<cr>", { noremap = true })
-            vim.keymap.set("n", "<leader><C-s><C-s>", "<cmd>lua require('substitute.range').word()<cr>", { noremap = true })
-        end
-})
 end
 
 return require('packer').startup(function(use)
