@@ -902,6 +902,44 @@ local theming = function(use)
 end
 
 local tryout = function(use)
+    use { -- Floating winbar statuslines for Neovim
+        "b0o/incline.nvim",
+        config = function()
+            require('incline').setup({
+                hide = {
+                    cursorline = true,
+                    focused_win = true,
+                    only_win = false
+                },
+                render = "basic",
+            })
+        end
+    }
+    use {
+        'norcalli/nvim-colorizer.lua',
+        config = function() require'colorizer'.setup() end
+    }
+    use({
+        "kylechui/nvim-surround",
+        config = function()
+            require("nvim-surround").setup({
+                -- Configuration here, or leave empty to use defaults
+            })
+        end
+    })
+    use({
+        "Pocco81/true-zen.nvim",
+        config = function()
+            require("true-zen").setup {}
+            vim.api.nvim_set_keymap("n", "<leader>zn", ":TZNarrow<CR>", {})
+            vim.api.nvim_set_keymap("v", "<leader>z", ":'<,'>TZNarrow<CR>", {})
+            vim.api.nvim_set_keymap("n", "<leader>zf", ":TZFocus<CR>", {})
+            vim.api.nvim_set_keymap("n", "<leader>zm", ":TZMinimalist<CR>", {})
+            vim.api.nvim_set_keymap("n", "<leader>za", ":TZAtaraxis<CR>", {})
+        end,
+    })
+    --
+    -- https://github.com/anuvyklack/hydra.nvim
 end
 
 return require('packer').startup(function(use)
