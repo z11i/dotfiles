@@ -24,6 +24,7 @@ end
 
 -- Have packer use a popup window
 packer.init {
+    auto_reload_compiled = true,
     display = {
         open_fn = function()
             return require("packer.util").float { border = "rounded" }

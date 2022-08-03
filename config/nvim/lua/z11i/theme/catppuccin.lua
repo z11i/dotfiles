@@ -1,8 +1,9 @@
 vim.g.catppuccin_flavour = "mocha" -- latte, frappe, macchiato, mocha
+local colors = require("catppuccin.palettes").get_palette()
 
 require("catppuccin").setup({
     dim_inactive = {
-        enabled = false,
+        enabled = true,
         shade = "dark",
         percentage = 0.15,
     },
@@ -13,17 +14,17 @@ require("catppuccin").setup({
         path = vim.fn.stdpath "cache" .. "/catppuccin",
     },
     styles = {
-        comments = { "italic" },
-        conditionals = { "italic" },
+        comments = {},
+        conditionals = {},
         loops = {},
         functions = {},
-        keywords = {},
+        keywords = { "bold" },
         strings = {},
         variables = {},
         numbers = {},
         booleans = {},
         properties = {},
-        types = {},
+        types = { "bold" },
         operators = {},
     },
     integrations = {
@@ -44,7 +45,7 @@ require("catppuccin").setup({
             },
         },
         coc_nvim = false,
-        lsp_trouble = false,
+        lsp_trouble = true,
         cmp = true,
         lsp_saga = false,
         gitgutter = false,
@@ -62,8 +63,8 @@ require("catppuccin").setup({
             transparent_panel = true,
         },
         dap = {
-            enabled = false,
-            enable_ui = false,
+            enabled = true,
+            enable_ui = true,
         },
         which_key = true,
         indent_blankline = {
@@ -87,6 +88,11 @@ require("catppuccin").setup({
         aerial = false,
         vimwiki = false,
         beacon = false,
+    },
+    custom_highlights = {
+        GitSignsAddLnInline = {bg = "#1c4428"},
+        GitSignsChangeLnInline = {bg = "#1e4173"},
+        GitSignsDeleteLnInline = {bg = "#542426"},
     },
 })
 
