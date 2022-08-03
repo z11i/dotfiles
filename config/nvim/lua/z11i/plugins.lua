@@ -79,7 +79,16 @@ local navigation = function(use)
                 },
                 pickers = {
                     find_files = {
-                        --no_ignore = false,
+                        find_command = {
+                            'fd',
+                            '--type',
+                            'f',
+                            '--color=never',
+                            '--hidden',
+                            '--follow',
+                            '-E',
+                            '.git/*'
+                        },
                     },
                     live_grep = {
                         path_display = {shorten = {len = 2, exclude = {-1}}},
@@ -93,16 +102,16 @@ local navigation = function(use)
                 }
             }
             require('telescope').load_extension('fzf')
-            vim.cmd [[nnoremap <Leader><Leader> :Telescope<CR>]]
-            vim.cmd [[nnoremap <Leader>f :Telescope find_files<CR>]]
-            vim.cmd [[nnoremap <Leader>F :Telescope find_files hidden=true no_ignore=true<CR>]]
-            vim.cmd [[nnoremap <Leader>/ :Telescope live_grep<CR>]]
-            vim.cmd [[nnoremap <Leader>? :lua require('telescope.builtin').live_grep({vimgrep_arguments={'rg','--color=never','--no-heading','--column','-HS', '-uu'}})<CR>]]
-            vim.cmd [[nnoremap <Leader>H :Telescope oldfiles only_cwd=true<CR>]]
+            vim.cmd [[nnoremap <Leader><space> :Telescope find_files<CR>]]
+            vim.cmd [[nnoremap <Leader>f :Telescope live_grep<CR>]]
+            vim.cmd [[nnoremap <Leader>F :lua require('telescope.builtin').live_grep({vimgrep_arguments={'rg','--color=never','--no-heading','--column','-HS', '--ignore_exclude', '--no-ignore-dot'}})<CR>]]
+            vim.cmd [[nnoremap <Leader>/ :Telescope current_buffer_fuzzy_find<CR>]]
+            vim.cmd [[nnoremap <Leader>? :Telescope treesitter<CR>]]
+            vim.cmd [[nnoremap <Leader>h :Telescope oldfiles only_cwd=true<CR>]]
             vim.cmd [[nnoremap <Leader>b :Telescope buffers<CR>]]
-            vim.cmd [[nnoremap <Leader>s :Telescope lsp_document_symbols<CR>]]
-            vim.cmd [[nnoremap <Leader>S :Telescope lsp_dynamic_workspace_symbols<CR>]]
-            vim.cmd [[nnoremap <Leader>ta :Telescope commands<CR>]]
+            vim.cmd [[nnoremap <Leader>o :Telescope lsp_dynamic_workspace_symbols<CR>]]
+            vim.cmd [[nnoremap <Leader>ta :Telescope<CR>]]
+            vim.cmd [[nnoremap <Leader>tc :Telescope commands<CR>]]
             vim.cmd [[nnoremap <Leader>tr :Telescope lsp_references<CR>]]
             vim.cmd [[nnoremap <Leader>tt :Telescope lsp_type_definitions<CR>]]
             vim.cmd [[nnoremap <Leader>ti :Telescope lsp_implementations<CR>]]
