@@ -41,17 +41,15 @@ setup_nix() {
 		esac
 		log 'Nix is installed'
 	)
-	. ~/.nix-profile/etc/profile.d/nix.sh || true
+	if [[ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]]; then
+		. '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+	fi
 	log 'installing packages with Nix'
 
 	nix-env -f ./home.nix -ir
 
 	log 'configure starship'
 	symlink config/starship.toml ~/.config/starship.toml
-
-    log 'symlink gsed to sed'
-    sudo ln -s $(which sed) /usr/local/bin/gsed || true
-    sudo chmod +x /usr/local/bin/gsed
 }
 
 setup_mac() {
@@ -62,10 +60,10 @@ setup_mac() {
 	log 'setting up macOS specific stuff'
 
 	### Homebrew
-	eval "$(/opt/homebrew/bin/brew shellenv)" || true
 	checkBin brew || (
 		echo === installing homebrew ===
 		/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+		eval "$(/opt/homebrew/bin/brew shellenv)"
         echo === configuring homebrew access so it is not just for one user ===
         log 'creating a usergroup brew'
         sudo dseditgroup -o create brew
@@ -109,16 +107,16 @@ setup_mac_gui() {
 	fi
 	log 'setting up macOS GUI applications'
 	brew update
-    brew install alfred
-    brew install amethyst
-    brew install appcleaner
-    brew install firefox
-    brew install google-drive
-    brew install iina
+	brew install amethyst
+	brew install appcleaner
+	brew install firefox
+	brew install google-drive
+	brew install iina
 	brew install keka
-    brew install mos
-    brew install spotify
-    brew install visual-studio-code
+	brew install kitty
+	brew install mos
+	brew install raycast
+	brew install spotify
 }
 
 setup_git() {
