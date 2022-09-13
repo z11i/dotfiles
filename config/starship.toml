@@ -1,6 +1,6 @@
 format = """
 $git_status$git_state$git_branch$git_commit$golang$rust$java$elixir$erlang$python$nodejs$ruby$terraform$package
-$time$directory$cmd_duration$kubernetes$gcloud$battery$jobs
+$time$directory$cmd_duration$kubernetes$aws$battery$jobs
 $nix_shell$username$status$character"""
 
 scan_timeout = 20
