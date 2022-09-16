@@ -11,6 +11,7 @@ abbr g 'git'
 abbr k kubectl
 abbr mkdir 'mkdir -p'
 abbr nsh 'nix-shell --command fish'
+alias ssh='kitty +kitten ssh'
 abbr tm 'tmux new -A -s main'
 abbr uuid 'echo -n (uuidgen) | pbcopy'
 abbr vim 'nvim'

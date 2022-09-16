@@ -515,6 +515,9 @@ local lsp = function(use)
             'neovim/nvim-lspconfig',
         }
     }
+    use {
+        'microsoft/pyright',
+    }
     -- Battery-included rust lsp setup
     use {
         'simrat39/rust-tools.nvim',

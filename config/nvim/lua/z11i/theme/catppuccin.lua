@@ -32,10 +32,10 @@ require("catppuccin").setup({
         native_lsp = {
             enabled = true,
             virtual_text = {
-                errors = { "italic" },
-                hints = { "italic" },
-                warnings = { "italic" },
-                information = { "italic" },
+                errors = {},
+                hints = {},
+                warnings = {},
+                information = {},
             },
             underlines = {
                 errors = { "underline" },

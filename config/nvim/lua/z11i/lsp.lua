@@ -58,7 +58,8 @@ local servers = {
             usePlaceholders = true,
             completeUnimported = true
         }
-    }
+    },
+    pyright = {},
 }
 
 for server, config in pairs(servers) do
@@ -108,3 +109,13 @@ for type, icon in pairs(signs) do
     local hl = "DiagnosticSign" .. type
     vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
+
+-- Python setup
+vim.cmd [[
+set autoread
+command! Black
+\   execute 'silent !black ' . expand('%')
+\ | execute 'redraw!'
+autocmd BufWritePost *.py execute ':Black'
+autocmd FileType python setlocal shiftwidth=2 softtabstop=2 expandtab
+]]
