@@ -59,11 +59,78 @@ local servers = {
             completeUnimported = true
         }
     },
-    pyright = {},
+    -- pyright = {},
+    jedi_language_server = {}
 }
 
 for server, config in pairs(servers) do
-    lsp_config[server].setup(vim.tbl_deep_extend('force', lsp_default_config, config))
+    if server == 'pyright' then -- https://github.com/neovim/nvim-lspconfig/issues/500#issuecomment-965824580
+        local lspconfig = require('lspconfig')
+        -- local python_root_files = {
+        --     'WORKSPACE', -- added for Bazel; items below are default
+        --     'pyproject.toml',
+        --     'setup.py',
+        --     'setup.cfg',
+        --     'requirements.txt',
+        --     'Pipfile',
+        --     'pyrightconfig.json',
+        -- }
+        local find_cmd = function(cmd, prefixes, start_from, stop_at)
+            local path = require("lspconfig/util").path
+
+            if type(prefixes) == "string" then
+                prefixes = { prefixes }
+            end
+
+            local found
+            for _, prefix in ipairs(prefixes) do
+                local full_cmd = prefix and path.join(prefix, cmd) or cmd
+                local possibility
+
+                -- if start_from is a dir, test it first since transverse will start from its parent
+                if start_from and path.is_dir(start_from) then
+                    possibility = path.join(start_from, full_cmd)
+                    if vim.fn.executable(possibility) > 0 then
+                        found = possibility
+                        break
+                    end
+                end
+
+                path.traverse_parents(start_from, function(dir)
+                    possibility = path.join(dir, full_cmd)
+                    if vim.fn.executable(possibility) > 0 then
+                        found = possibility
+                        return true
+                    end
+                    -- use cwd as a stopping point to avoid scanning the entire file system
+                    if stop_at and dir == stop_at then
+                        return true
+                    end
+                end)
+
+                if found ~= nil then
+                    break
+                end
+            end
+
+            return found or cmd
+        end
+        lsp_config[server].setup {
+            on_attach = on_attach,
+            -- root_dir = lspconfig.util.root_pattern(unpack(python_root_files)),
+            before_init = function(_, config)
+                local p
+                if vim.env.VIRTUAL_ENV then
+                    p = lspconfig.util.path.join(vim.env.VIRTUAL_ENV, "bin", "python3")
+                else
+                    p = find_cmd("python3", ".venv/bin", config.root_dir)
+                end
+                config.settings.python.pythonPath = p
+            end
+        }
+    else
+        lsp_config[server].setup(vim.tbl_deep_extend('force', lsp_default_config, config))
+    end
 end
 
 require('rust-tools').setup({

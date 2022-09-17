@@ -517,6 +517,9 @@ local lsp = function(use)
     }
     use {
         'microsoft/pyright',
+        disable = true,
+        config = function()
+        end
     }
     -- Battery-included rust lsp setup
     use {
