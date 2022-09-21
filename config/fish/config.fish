@@ -14,7 +14,7 @@ end
 sourceadd ~/.config/fish/secret.fish
 
 # set colors if colors.fish exists
-# sourceadd ~/.config/fish/colors.fish
+sourceadd ~/.config/fish/colors.fish
 
 # set editor
 if type -q nvim

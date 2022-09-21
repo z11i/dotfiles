@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+# usage: switch-theme [dark|light]
+reload-kitty() {
+    cp ~/.config/kitty/"$1".conf ~/.config/kitty/current-theme.conf
+    kill -sigusr1 $(pgrep -a kitty)
+}
+
+reload-fish() {
+    fish -c "fish_toggle_color $1"
+}
+
+switch-theme() {
+    if [[ "$1" = 'dark' || "$1" = 'light' ]]; then
+        reload-kitty "$@"
+        reload-fish "$@"
+    fi
+}
+
+switch-theme "$@"
