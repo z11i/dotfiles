@@ -34,7 +34,6 @@ vim.opt.showbreak=[[    ⤷]]
 -- ident by an additional 2 characters on wrapped lines, when line >= 40 characters, put 'showbreak' at start of line
 vim.opt.breakindentopt='shift:2,min:40,sbr'
 -- looks
-vim.opt.background='dark'
 vim.opt.termguicolors = true
 vim.opt.winblend=10 -- transparency of floating windows
 vim.opt.pumblend=10 -- transparency of popup menus
@@ -59,4 +58,12 @@ autocmd FocusLost * silent! wa
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
 set foldlevelstart=99
+
+" time-based background toggle 7am-6pm
+" https://askubuntu.com/questions/743610
+fun! s:set_bg(timer_id)
+    let &background = (strftime('%H') >= 07 && strftime('%H') < 18 ? 'light' : 'dark')
+endfun
+call timer_start(1000 * 60, function('s:set_bg'), {'repeat': -1})
+call s:set_bg(0)  " Run on startup
 ]]

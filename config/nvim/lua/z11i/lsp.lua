@@ -59,8 +59,8 @@ local servers = {
             completeUnimported = true
         }
     },
-    -- pyright = {},
-    jedi_language_server = {}
+    pyright = {},
+    -- jedi_language_server = {}
 }
 
 for server, config in pairs(servers) do

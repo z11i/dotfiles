@@ -50,9 +50,12 @@ local navigation = function(use)
                                 preview_width = 0.6,
                             },
                             vertical = {
-                                preview_height = 0.4,
+                                height = 0.9,
+                                preview_height = 0.5,
+                                preview_cutoff = 40,
+                                width = 0.8,
                             },
-                            flip_columns = 160,
+                            flip_columns = 400,
                             flip_lines = 10,
                         },
                         vertical = {
@@ -99,6 +102,10 @@ local navigation = function(use)
                     },
                     oldfiles = {
                         only_cwd = true,
+                    },
+                    buffers = {
+                        sort_mru = true,
+                        path_display = {shorten = {len = 1, exclude = {-1, -2, -3}}},
                     }
                 }
             }
@@ -117,6 +124,7 @@ local navigation = function(use)
             vim.cmd [[nnoremap <Leader>tt :Telescope lsp_type_definitions<CR>]]
             vim.cmd [[nnoremap <Leader>ti :Telescope lsp_implementations<CR>]]
             vim.cmd [[nnoremap <Leader>tg :Telescope grep_string<CR>]]
+            vim.cmd [[vnoremap <Leader>tg "zy:Telescope live_grep default_text=<C-r>z<CR>]]
             vim.cmd [[nnoremap <Leader>gc :Telescope git_commits theme=ivy<CR>]]
             vim.cmd [[nnoremap <Leader>gb :Telescope git_bcommits theme=ivy<CR>]]
             vim.cmd [[nnoremap <Leader>gs :Telescope git_status theme=ivy<CR>]]
@@ -404,7 +412,7 @@ local navigation = function(use)
     -- manage multiple terminal windows
     use {"akinsho/toggleterm.nvim", config = function()
         require'toggleterm'.setup{
-            direction = 'horizontal',
+            direction = 'float',
             hide_numbers = true,
             open_mapping = nil,
             shell = 'fish',
@@ -517,7 +525,7 @@ local lsp = function(use)
     }
     use {
         'microsoft/pyright',
-        disable = true,
+        disable = false,
         config = function()
         end
     }
@@ -642,6 +650,14 @@ local git = function(use)
             })
         end,
     }
+    use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim', config = function()
+        vim.cmd [[
+        ab dvo DiffviewOpen
+        ab dvc DiffviewClose
+        ab dvl DiffviewLog
+        ab dvf DiffviewFileHistory %
+        ]]
+    end }
     --}}}
 end
 

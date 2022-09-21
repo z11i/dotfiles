@@ -1,9 +1,9 @@
-vim.g.catppuccin_flavour = "mocha" -- latte, frappe, macchiato, mocha
+vim.g.catppuccin_flavour = "latte" -- latte, frappe, macchiato, mocha
 local colors = require("catppuccin.palettes").get_palette()
 
 require("catppuccin").setup({
     dim_inactive = {
-        enabled = true,
+        enabled = false,
         shade = "dark",
         percentage = 0.15,
     },
@@ -92,7 +92,7 @@ require("catppuccin").setup({
     custom_highlights = {
         GitSignsAddLnInline = {bg = "#1c4428"},
         GitSignsChangeLnInline = {bg = "#1e4173"},
-        GitSignsDeleteLnInline = {bg = "#542426"},
+        GitSignsDeleteLnInline = {bg = "#542426", fg = "#2c314a"},
     },
 })
 
