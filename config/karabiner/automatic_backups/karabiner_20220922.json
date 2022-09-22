@@ -1730,26 +1730,6 @@
                                 "type": "basic"
                             }
                         ]
-                    },
-                    {
-                        "description": "Debounce button4",
-                        "manipulators": [
-                            {
-                                "from": {
-                                    "key_code": "button4"
-                                },
-                                "parameters": {
-                                    "basic.to_if_held_down_threshold_milliseconds": 10
-                                },
-                                "to_if_held_down": [
-                                    {
-                                        "key_code": "button4",
-                                        "repeat": false
-                                    }
-                                ],
-                                "type": "basic"
-                            }
-                        ]
                     }
                 ]
             },
