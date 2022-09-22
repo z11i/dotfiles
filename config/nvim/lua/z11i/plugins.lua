@@ -432,8 +432,8 @@ local navigation = function(use)
         vim.cmd [[nnoremap 9<F12> <cmd>9ToggleTerm<cr>]]
 
         local Terminal  = require('toggleterm.terminal').Terminal
-        local lazygit = Terminal:new({
-            cmd = "lazygit",
+        local gitui = Terminal:new({
+            cmd = "gitui",
             dir = "git_dir",
             direction = "float",
             -- function to run on opening the terminal
@@ -445,8 +445,8 @@ local navigation = function(use)
                 vim.cmd("Closing terminal")
             end,
         })
-        function _lazygit_toggle() lazygit:toggle() end
-        vim.cmd [[nnoremap <Leader>gg <cmd>lua _lazygit_toggle()<cr>]]
+        function _gitui_toggle() lazygit:toggle() end
+        vim.cmd [[nnoremap <Leader>gg <cmd>lua _gitui_toggle()<cr>]]
     end}
 end
 
