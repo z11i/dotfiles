@@ -948,8 +948,7 @@ local tryout = function(use)
         end
     }
     use {
-        'norcalli/nvim-colorizer.lua',
-        config = function() require'colorizer'.setup() end
+        'uga-rosa/ccc.nvim', branch = '0.7.2'
     }
     use({
         "kylechui/nvim-surround",

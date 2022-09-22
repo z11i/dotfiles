@@ -1,4 +1,3 @@
-vim.g.catppuccin_flavour = "latte" -- latte, frappe, macchiato, mocha
 local colors = require("catppuccin.palettes").get_palette()
 
 require("catppuccin").setup({
@@ -89,14 +88,19 @@ require("catppuccin").setup({
         vimwiki = false,
         beacon = false,
     },
-    custom_highlights = {
-        GitSignsAddLnInline = {bg = "#1c4428"},
-        GitSignsChangeLnInline = {bg = "#1e4173"},
-        GitSignsDeleteLnInline = {bg = "#542426", fg = "#2c314a"},
+    highlight_overrides = {
+        mocha = {
+            GitSignsAddLnInline = {bg = "#1c4428"},
+            GitSignsChangeLnInline = {bg = "#1e4173"},
+            GitSignsDeleteLnInline = {bg = "#542426", fg = "#2c314a"},
+        },
+        latte = {
+            GitSignsAddLnInline = {bg = "#ccffd8"},
+            GitSignsChangeLnInline = {bg = "#badfff"},
+            GitSignsDeleteLnInline = {bg = "#ffd7d5"},
+        }
     },
 })
-
-vim.cmd [[colorscheme catppuccin]]
 
 vim.api.nvim_create_autocmd("OptionSet", {
 	pattern = "background",
@@ -104,3 +108,9 @@ vim.api.nvim_create_autocmd("OptionSet", {
 		vim.cmd("Catppuccin " .. (vim.v.option_new == "light" and "latte" or "mocha"))
 	end,
 })
+
+if vim.o.background == "dark" then
+    vim.g.catppuccin_flavour = "mocha"
+end
+vim.cmd [[ colorscheme catppuccin ]]
+

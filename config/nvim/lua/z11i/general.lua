@@ -59,10 +59,10 @@ set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
 set foldlevelstart=99
 
-" time-based background toggle 7am-6pm
+" time-based background toggle 7am-5pm
 " https://askubuntu.com/questions/743610
 fun! s:set_bg(timer_id)
-    let &background = (strftime('%H') >= 07 && strftime('%H') < 18 ? 'light' : 'dark')
+    let &background = (strftime('%H') >= 07 && strftime('%H') < 17 ? 'light' : 'dark')
 endfun
 call timer_start(1000 * 60, function('s:set_bg'), {'repeat': -1})
 call s:set_bg(0)  " Run on startup
