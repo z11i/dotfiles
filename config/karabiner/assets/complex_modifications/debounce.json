@@ -9,7 +9,7 @@
             "key_code": "button4"
           },
           "parameters": {
-            "basic.to_if_held_down_threshold_milliseconds": 5
+            "basic.to_if_held_down_threshold_milliseconds": 1
           },
           "to_if_held_down": [
             {
