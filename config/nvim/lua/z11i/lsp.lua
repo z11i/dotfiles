@@ -2,13 +2,20 @@ local lsp_config = require('lspconfig')
 
 local lsp_highlight_document = function(client)
     if client.resolved_capabilities.document_highlight then
+        if vim.o.background == 'light' then
+            vim.cmd [[
+            hi LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow
+            hi LspReferenceText cterm=bold ctermbg=red guibg=LightYellow
+            hi LspReferenceWrite cterm=bold ctermbg=red guibg=LightYellow
+            ]]
+        else
+            vim.cmd [[
+            hi LspReferenceRead cterm=bold ctermbg=237 guibg=#45403d
+            hi LspReferenceText cterm=bold ctermbg=237 guibg=#45403d
+            hi LspReferenceWrite cterm=bold ctermbg=237 guibg=#45403d
+            ]]
+        end
         vim.cmd [[
-        " hi LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow
-        " hi LspReferenceText cterm=bold ctermbg=red guibg=LightYellow
-        " hi LspReferenceWrite cterm=bold ctermbg=red guibg=LightYellow
-        hi LspReferenceRead cterm=bold ctermbg=237 guibg=#45403d
-        hi LspReferenceText cterm=bold ctermbg=237 guibg=#45403d
-        hi LspReferenceWrite cterm=bold ctermbg=237 guibg=#45403d
         augroup lsp_document_highlight
         autocmd! * <buffer>
         autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()

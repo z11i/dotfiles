@@ -21,6 +21,7 @@ vim.opt.shiftwidth=4
 vim.opt.expandtab = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
+vim.opt.smarttab = true
 vim.opt.number = true
 vim.opt.mouse:append('a')
 -- wrapping
@@ -59,11 +60,4 @@ set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
 set foldlevelstart=99
 
-" time-based background toggle 7am-5pm
-" https://askubuntu.com/questions/743610
-fun! s:set_bg(timer_id)
-    let &background = (strftime('%H') >= 07 && strftime('%H') < 17 ? 'light' : 'dark')
-endfun
-call timer_start(1000 * 60, function('s:set_bg'), {'repeat': -1})
-call s:set_bg(0)  " Run on startup
 ]]

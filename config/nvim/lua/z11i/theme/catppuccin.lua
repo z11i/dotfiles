@@ -109,8 +109,7 @@ vim.api.nvim_create_autocmd("OptionSet", {
 	end,
 })
 
-if vim.o.background == "dark" then
-    vim.g.catppuccin_flavour = "mocha"
+vim.cmd("Catppuccin " .. (vim.o.background == "light" and "latte" or "mocha"))
+if vim.fn.exists(':CccHighlighterEnable') then
+    vim.cmd('CccHighlighterEnable')
 end
-vim.cmd [[ colorscheme catppuccin ]]
-

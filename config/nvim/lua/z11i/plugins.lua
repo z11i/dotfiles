@@ -267,7 +267,7 @@ local navigation = function(use)
                     },
                 },
                 window = {
-                    position = "right",
+                    position = "left",
                     width = 40,
                     mapping_options = {
                         noremap = true,
@@ -529,6 +529,16 @@ local lsp = function(use)
         config = function()
         end
     }
+    -- use {
+    --     'beeender/Comrade',
+    --     ft = { 'python' },
+    --     requires = {
+    --         {'Shougo/deoplete.nvim', run = ':UpdateRemotePlugins', ft = {'python'},
+    --             config = function()
+    --                 vim.cmd [[let g:deoplete#enable_at_startup = 1]]
+    --             end},
+    --     }
+    -- }
     -- Battery-included rust lsp setup
     use {
         'simrat39/rust-tools.nvim',
@@ -793,7 +803,6 @@ local editing = function(use)
             require'spaceless'.setup()
         end
     }
-    --}}}
 
     use { 'tpope/vim-abolish' } -- easily search for, substitute, and abbreviate multiple variants of a word
 
@@ -832,6 +841,10 @@ local editing = function(use)
             vim.keymap.set("n", "<C-x>c", "<cmd>lua require('substitute.exchange').cancel()<cr>", { noremap = true })
         end
     })
+    use { -- detect indentation
+        'tpope/vim-sleuth'
+    }
+    --}}}
 end
 
 local testing = function(use)
@@ -848,17 +861,21 @@ local theming = function(use)
     --     config = function() require('z11i/theme/kanagawa') end,
     -- }
     use {
-        "catppuccin/nvim", as = "catppuccin",
+        "catppuccin/nvim", as = "catppuccin", disable = true,
         config = function() require('z11i/theme/catppuccin') end,
+    }
+    use {
+        "jsit/toast.vim",
+    }
+    use {
+        "EdenEast/nightfox.nvim", config = function() require('z11i/theme/nightfox') end,
     }
     use {
         'lukas-reineke/indent-blankline.nvim',
         config = function()
-            vim.g.indent_blankline_context_patterns = {'class', 'function', 'method', '^if', '^for', 'switch', 'case', 'declaration', 'literal', 'statement'}
             require("indent_blankline").setup {
-                -- for example, context is off by default, use this to turn it on
-                show_current_context = true,
                 use_treesitter = true,
+                use_treesitter_scope = true,
             }
         end
     }
@@ -868,7 +885,7 @@ local theming = function(use)
             require'lualine'.setup {
                 options = {
                     icons_enabled = true,
-                    theme = "catppuccin",
+                    theme = "solarized",
                     section_separators = { left = '', right = ''},
                     component_separators = { left = '', right = ''},
                     disabled_filetypes = {'aerial'},
@@ -929,6 +946,19 @@ local theming = function(use)
             vim.api.nvim_set_keymap("n", "<A-w>", "<cmd>bdelete<cr>", {silent = true, noremap = true})
         end,
         requires = { { 'hoob3rt/lualine.nvim', opt=true }, {'kyazdani42/nvim-web-devicons', opt = true} }
+    }
+    use {
+        'cormacrelf/dark-notify',
+        config = function()
+            local dn = require('dark_notify')
+            dn.run({
+                schemes = {
+                    dark = 'carbonfox',
+                    light = 'dawnfox',
+                }
+            })
+            dn.update()
+        end,
     }
     --}}}
 end
