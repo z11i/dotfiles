@@ -54,7 +54,7 @@ M.disabled = {
 
 M.buffer = {
   n = {
-    ["C-x"] = { "<cmd> bdelete <cr>", "close buffer" },
+    ["<C-x>"] = { "<cmd> bdelete <cr>", "close buffer" },
     -- pick buffers via numbers
     ["<C-~>"] = { "<cmd> TbufPick <CR>", "Pick buffer" },
   },

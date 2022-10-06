@@ -1,67 +1,71 @@
 [core]
-	excludesfile = ~/.config/git/gitignore_global
+  excludesfile = ~/.config/git/gitignore_global
 
 [include]
-	path = ~/.config/git/gitalias/gitalias.txt
-	path = ~/.gitlocal
-	path = ~/.config/git/delta_theme
+  path = ~/.config/git/gitalias/gitalias.txt
+  path = ~/.gitlocal
+  path = ~/.config/git/delta_theme
 
 [alias]
-	c = commit -v
-    # diff two patches
-    diff-patches = "!bash -c 'diff <(git show $0) <(git show $1)'"
-    dt = "!bash -c 'GIT_EXTERNAL_DIFF=difft git diff'"
-    f = fetch --prune
-	ff = merge --ff-only
-    forget-file = "!bash -c 'git rm --cached $0 && git update-index --assume-unchanged $0'"
-    forget-dir = "!bash -c 'git rm -r --cached $0 && git update-index --assume-unchanged $0'"
-	ri = rebase --interactive
-    sw = switch
-    test-merge = merge --no-commit --no-ff
-    wt = worktree
-    find-merge = "!bash -c 'commit=$0 && branch=${1:-HEAD} && (git rev-list $commit..$branch --ancestry-path | cat -n; git rev-list $commit..$branch --first-parent | cat -n) | sort -k2 -s | uniq -f1 -d | sort -n | tail -1 | cut -f2'"
-    show-merge = "!bash -c 'merge=$(git find-merge $0 $1) && [ -n \"$merge\" ] && git show $merge'"
+  c = commit -v
+  diff-patches = "!bash -c 'diff <(git show $0) <(git show $1)'" # diff two patches, pass two refs
+  dt = "!f() { GIT_EXTERNAL_DIFF=difft git diff $@; }; f"
+  dtc = !git dt --cached
+  f = fetch --prune
+  ff = merge --ff-only
+  find-merge = "!bash -c 'commit=$0 && branch=${1:-HEAD} && (git rev-list $commit..$branch --ancestry-path | cat -n; git rev-list $commit..$branch --first-parent | cat -n) | sort -k2 -s | uniq -f1 -d | sort -n | tail -1 | cut -f2'"
+  forget-dir = "!bash -c 'git rm -r --cached $0 && git update-index --assume-unchanged $0'"
+  forget-file = "!bash -c 'git rm --cached $0 && git update-index --assume-unchanged $0'"
+  ri = rebase --interactive
+  rbst = "!bash -c 'git stash && git rebase $0 && git stash pop'" # rebase with uncommitted changes
+  show-merge = "!bash -c 'merge=$(git find-merge $0 $1) && [ -n \"$merge\" ] && git show $merge'"
+  sw = switch
+  test-merge = merge --no-commit --no-ff
+  wt = worktree
 
 
 [core]
-    pager = delta
+  pager = delta
 
     ## highlight whitespaces
     ## https://github.com/dandavison/delta/issues/522
     # pager = sed 's/\t/⇥/g' | delta
 
 [diff]
-    tool = difftastic
+  tool = difftastic
 
 [difftool]
-    prompt = false
+  prompt = false
 
 [difftool "difftastic"]
-    cmd = difft "$LOCAL" "$REMOTE"
+  cmd = difft "$LOCAL" "$REMOTE"
 
 [delta]
-    features = line-numbers decorations side-by-side
+  features = line-numbers decorations side-by-side
 
 [merge] # delta to show diffs between commits on merge conflicts
-    conflictstyle = diff3
+  conflictstyle = diff3
 
 [interactive]
-    diffFilter = delta --color-only --features=interactive
+  diffFilter = delta --color-only --features=interactive
 
 [color]
-	ui = true
+  ui = true
 
 [credential]
-	helper = store
+  helper = store
 
 [diff]
-    algorithm = histogram
+  algorithm = histogram
 [init]
-	defaultBranch = main
+  defaultBranch = main
 [filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
 [push]
-	autoSetupRemote = true
+  autoSetupRemote = true
+[user]
+  name = Elliot Zhang
+  email = ezhang@abnormalsecurity.com
