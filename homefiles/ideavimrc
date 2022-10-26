@@ -5,3 +5,4 @@ set nu
 set ideajoin
 set ideastatusicon=gray
 set idearefactormode=keep
+set sneak

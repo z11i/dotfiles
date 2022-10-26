@@ -2,7 +2,7 @@ local on_attach = require("plugins.configs.lspconfig").on_attach
 local capabilities = require("plugins.configs.lspconfig").capabilities
 local lspconfig = require "lspconfig"
 local servers = {
-  "pyright", "gopls", "html", "cssls", "jsonls"
+  --[[ "pyright", ]] "pylsp", "gopls", "html", "cssls", "jsonls"
 }
 
 local find_cmd = require("custom.utils").find_cmd

@@ -1685,6 +1685,26 @@
                 },
                 "rules": [
                     {
+                        "description": "Debounce button4",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "button4"
+                                },
+                                "parameters": {
+                                    "basic.to_if_held_down_threshold_milliseconds": 1
+                                },
+                                "to_if_held_down": [
+                                    {
+                                        "key_code": "button4",
+                                        "repeat": false
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
                         "description": "Change caps_lock to control if pressed with other keys, to escape if pressed alone.",
                         "manipulators": [
                             {
@@ -1725,26 +1745,6 @@
                                 "to": [
                                     {
                                         "key_code": "mission_control"
-                                    }
-                                ],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
-                        "description": "Debounce button4",
-                        "manipulators": [
-                            {
-                                "from": {
-                                    "key_code": "button4"
-                                },
-                                "parameters": {
-                                    "basic.to_if_held_down_threshold_milliseconds": 1
-                                },
-                                "to_if_held_down": [
-                                    {
-                                        "key_code": "button4",
-                                        "repeat": false
                                     }
                                 ],
                                 "type": "basic"
