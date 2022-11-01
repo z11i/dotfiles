@@ -18,13 +18,13 @@ sourceadd ~/.config/fish/colors.fish
 
 # set editor
 if type -q nvim
-    set -Ux EDITOR nvim
+    set -gx EDITOR nvim
 else if type -q vim
-    set -Ux EDITOR vim
+    set -gx EDITOR vim
 else if type -q vi
-    set -Ux EDITOR vi
+    set -gx EDITOR vi
 end
-set -Ux VISUAL "$EDITOR"
+set -gx VISUAL "$EDITOR"
 
 # disable fish welcome message
 set fish_greeting
@@ -44,14 +44,19 @@ if type -q zoxide
     zoxide init fish | source
 end
 
+# ripgrep
+if type -q rg
+	set -gx RIPGREP_CONFIG_PATH ~/.config/ripgreprc
+end
+
 # brew completion
 if type -q brew
     if test -d (brew --prefix)"/share/fish/completions"
-        set -gx fish_complete_path $fish_complete_path (brew --prefix)/share/fish/completions
+        fish_add_path (brew --prefix)/share/fish/completions
     end
 
     if test -d (brew --prefix)"/share/fish/vendor_completions.d"
-        set -gx fish_complete_path $fish_complete_path (brew --prefix)/share/fish/vendor_completions.d
+        fish_add_path (brew --prefix)/share/fish/vendor_completions.d
     end
 end
 
@@ -65,6 +70,6 @@ sourceadd ~/.asdf/asdf.fish
 
 # Source completions. Somehow when re-entering fish, such as in tmux, or just do `fish` again,
 # the completions under ~/.config/fish/completions are not used. Only directory completions become available.
-for f in ~/.config/fish/completions/*.fish
-    source $f
-end
+### for f in ~/.config/fish/completions/*.fish
+###     source $f
+### end

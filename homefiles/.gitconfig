@@ -6,25 +6,29 @@
   path = ~/.gitlocal
   path = ~/.config/git/delta_theme
 
+[alias] # complex operations
+  branch-squash-merged = "!f() { main=${1:-main}; git switch -q main; git branch --format='%(refname:short)' | while read b; do ancestor=$(git merge-base $main $b) && [[ $(git cherry $main $(git commit-tree $(git rev-parse $b^{tree}) -p $ancestor -m _)) == '-'* ]] && echo $b; done; }; f" # list squash-merged local git branches https://blog.takanabe.tokyo/en/2020/04/remove-squash-merged-local-git-branches/
+  branch-merged = "!f() { main=${1:-main}; git switch -q main; git for-each-ref --format '%(refname) %(upstream:track)' refs/heads | awk '$2 == \"[gone]\" {sub(\"refs/heads/\", \"\", $1); print $1}'; }; f"
+  branch-delete-remote = push origin --delete
+  diff-patches = "!bash -c 'diff <(git show $0) <(git show $1)'" # diff two patches, pass two refs
+  diff-with-difft = "!f() { GIT_EXTERNAL_DIFF=difft git diff $@; }; f"
+  forget-dir = "!bash -c 'git rm -r --cached $0 && git update-index --assume-unchanged $0'"
+  forget-file = "!bash -c 'git rm --cached $0 && git update-index --assume-unchanged $0'"
+  merge-test = merge --no-commit --no-ff
+  rebase-with-stash = "!bash -c 'git stash && git rebase $0 && git stash pop'" # rebase with uncommitted changes
+  switch-safe = !bash -c 'git stash && git sw $0 && git stash pop' #safe switch
+
 [alias]
   c = commit -v
-  diff-patches = "!bash -c 'diff <(git show $0) <(git show $1)'" # diff two patches, pass two refs
-  dt = "!f() { GIT_EXTERNAL_DIFF=difft git diff $@; }; f"
+  dt = diff-with-difft
   dtc = !git dt --cached
   f = fetch --prune
   ff = merge --ff-only
-  find-merge = "!bash -c 'commit=$0 && branch=${1:-HEAD} && (git rev-list $commit..$branch --ancestry-path | cat -n; git rev-list $commit..$branch --first-parent | cat -n) | sort -k2 -s | uniq -f1 -d | sort -n | tail -1 | cut -f2'"
-  find-squash-merged = "!f() { main=${1:-main}; git switch -q main; git branch --format='%(refname:short)' | while read b; do ancestor=$(git merge-base $main $b) && [[ $(git cherry $main $(git commit-tree $(git rev-parse $b^{tree}) -p $ancestor -m _)) == '-'* ]] && echo $b; done; }; f"
-  forget-dir = "!bash -c 'git rm -r --cached $0 && git update-index --assume-unchanged $0'"
-  forget-file = "!bash -c 'git rm --cached $0 && git update-index --assume-unchanged $0'"
   ri = rebase --interactive
-  rbst = "!bash -c 'git stash && git rebase $0 && git stash pop'" # rebase with uncommitted changes
-  show-merge = "!bash -c 'merge=$(git find-merge $0 $1) && [ -n \"$merge\" ] && git show $merge'"
   sw = switch
-  sws = !bash -c 'git stash && git sw $0 && git stash pop' #safe switch
-  test-merge = merge --no-commit --no-ff
+  sws = switch-safe
+  rbt = rebase-with-stash
   wt = worktree
-
 
 [core]
   pager = delta

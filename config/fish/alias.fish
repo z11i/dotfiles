@@ -7,6 +7,8 @@ abbr crc32d 'gzip -c | tail -c8 | od -t d4 -N 4 -A n'
 abbr crc32x 'gzip -c | tail -c8 | od -t x4 -N 4 -A n'
 abbr dk 'docker'
 abbr dkc 'docker-compose'
+abbr dkr 'docker run -it'
+abbr dke 'dokcer exec -it'
 abbr g 'git'
 abbr k kubectl
 abbr mkdir 'mkdir -p'

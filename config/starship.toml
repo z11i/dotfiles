@@ -1,16 +1,31 @@
-format = """
-$git_status$git_state$git_branch$git_commit$golang$rust$java$elixir$erlang$python$nodejs$ruby$terraform$package
-$time$directory$cmd_duration$kubernetes$aws$battery$jobs
-$nix_shell$username$status$character"""
+format = """$kubernetes$aws$all$git_state$git_status$git_metrics$directory$git_branch$git_commit
+$python$nix_shell$username$status$jobs$character"""
+
+right_format = """$shlvl$duration$time"""
 
 scan_timeout = 20
+
+[aws]
+symbol = "☁️ "
+format = "[$symbol$profile@$region ]($style)"
+
+[aws.region_aliases]
 
 [battery]
 disabled = true
 
 [directory]
-truncation_length = 4
-truncate_to_repo = false
+truncation_length = 0
+truncate_to_repo = true
+fish_style_pwd_dir_length = 1
+
+[directory.substitutions]
+"src" = "s"
+"abnormal" = "ab"
+"apps" = "a"
+
+[docker_context]
+disabled = true
 
 [gcloud]
 format = "☁️ [$project]($style)"
@@ -33,15 +48,21 @@ behind = "↓"
 [golang]
 format = "[$symbol($version )]($style)"
 
+[jobs]
+symbol = "+"
+number_threshold = 1
+symbol_threshold = 1
+
 [kubernetes]
 disabled = false
 style = "bold green"
-format = '[$symbol $context\[$namespace\]]($style) '
-symbol = "☸️ "
+format = '[$symbol$context/$namespace]($style) '
 
-# [kubernetes.context_aliases]
-# "docker-desktop" = "local"
-# "docker-for-desktop" = "local"
+[kubernetes.context_aliases]
+"docker-desktop" = "local"
+"docker-for-desktop" = "local"
+"gke_.*_(?P<var_cluster>[\\w-]+)" = "GKE:$var_cluster"
+"arn:aws:eks:.*/(?P<var_cluster>[\\w]+)" = "EKS:$var_cluster"
 
 [nix_shell]
 impure_msg = "[+](yellow)"
@@ -56,12 +77,20 @@ symbol = "🤖 "
 format = "[$symbol$version]($style) "
 
 [python]
-format = '[${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
+format = '[${symbol}(${version})(:$virtualenv) ]($style)'
+version_format = "${raw}"
+
+[shlvl]
+symbol = "Lvl"
+style = "blue"
+format = "[${symbol}](blue)[$shlvl ](bold yellow)"
+disabled = false
 
 [status]
 disabled = false
 
 [time]
 disabled = false
+style = "white dimmed"
 format = '[$time]($style) '
 
