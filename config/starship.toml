@@ -6,7 +6,7 @@ right_format = """$shlvl$duration$time"""
 scan_timeout = 20
 
 [aws]
-symbol = "☁️ "
+symbol = "☁️  "
 format = "[$symbol$profile@$region ]($style)"
 
 [aws.region_aliases]
@@ -55,7 +55,7 @@ symbol_threshold = 1
 
 [kubernetes]
 disabled = false
-style = "bold green"
+style = "bold blue"
 format = '[$symbol$context/$namespace]($style) '
 
 [kubernetes.context_aliases]
@@ -84,6 +84,7 @@ version_format = "${raw}"
 symbol = "Lvl"
 style = "blue"
 format = "[${symbol}](blue)[$shlvl ](bold yellow)"
+threshold = 3
 disabled = false
 
 [status]

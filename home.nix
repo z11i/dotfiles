@@ -17,6 +17,7 @@ in buildEnv {
       pkgs.gitAndTools.delta
       pkgs.gitAndTools.difftastic
       pkgs.gitAndTools.gitFull
+      pkgs.gnugrep
       pkgs.gnupg
       pkgs.gnused
       pkgs.htop
@@ -26,7 +27,6 @@ in buildEnv {
       pkgs.mosh
       pkgs.neovim
       pkgs.nix
-      pkgs.nodejs
       pkgs.protobuf
       pkgs.ripgrep
       pkgs.socat
@@ -34,6 +34,7 @@ in buildEnv {
       pkgs.tmux
       pkgs.universal-ctags
       pkgs.unixtools.watch
+      pkgs.yq
       pkgs.zoxide
    ];
 }

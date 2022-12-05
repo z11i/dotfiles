@@ -101,7 +101,7 @@ font:
     #   - (macOS) Menlo
     #   - (Linux/BSD) monospace
     #   - (Windows) Consolas
-    family: VictorMono Nerd Font
+    family: Iosevka Nerd Font
 
     # The `style` can be specified to pick a specific face.
     style: Regular
@@ -112,7 +112,7 @@ font:
     #
     # If the bold family is not specified, it will fall back to the
     # value specified for the normal font.
-    family: VictorMono Nerd Font
+    family: Iosevka Nerd Font
 
     # The `style` can be specified to pick a specific face.
     style: Bold
@@ -123,7 +123,7 @@ font:
     #
     # If the italic family is not specified, it will fall back to the
     # value specified for the normal font.
-    family: VictorMono Nerd Font
+    family: Iosevka Nerd Font
 
     # The `style` can be specified to pick a specific face.
     style: Italic
@@ -134,7 +134,7 @@ font:
     #
     # If the bold italic family is not specified, it will fall back to the
     # value specified for the normal font.
-    family: VictorMono Nerd Font
+    family: Iosevka Nerd Font
 
     # The `style` can be specified to pick a specific face.
     style: Bold Italic
@@ -496,10 +496,10 @@ key_bindings:
 
   ## https://github.com/alacritty/alacritty/issues/93
   ## Meta mode
-  #- { key: Up,       mods: Alt,     chars: "\x1b[1;5A"                   }
-  #- { key: Down,     mods: Alt,     chars: "\x1b[1;5B"                   }
-  #- { key: Left,     mods: Alt,     chars: "\x1bb"                       }
-  #- { key: Right,    mods: Alt,     chars: "\x1bf"                       }
+  - { key: Up,       mods: Alt,     chars: "\x1b[1;5A"                   }
+  - { key: Down,     mods: Alt,     chars: "\x1b[1;5B"                   }
+  - { key: Left,     mods: Alt,     chars: "\x1bb"                       }
+  - { key: Right,    mods: Alt,     chars: "\x1bf"                       }
   - { key: A,        mods: Alt,     chars: "\x1ba"                       }
   - { key: B,        mods: Alt,     chars: "\x1bb"                       }
   - { key: C,        mods: Alt,     chars: "\x1bc"                       }
@@ -543,22 +543,22 @@ key_bindings:
   # https://donsnotes.com/tech/charsets/ascii.html
   # https://www.reddit.com/r/neovim/comments/mbj8m5/how_to_setup_ctrlshiftkey_mappings_in_neovim_and/
   # https://github.com/sodiumjoe/dotfiles/blob/6fb833c628d857efe5ba61ddc86ffea644af4260/alacritty/alacritty.yml
-  - { key: Tab,      mods: Control,       chars: "\x01a"                 } # <C-a>a
-  - { key: LBracket, mods: Command|Shift, chars: "\x01p"                 } # <C-a>p
-  - { key: RBracket, mods: Command|Shift, chars: "\x01n"                 } # <C-a>n
-  - { key: T,        mods: Command,       chars: "\x01c"                 } # <C-a>c
-  - { key: W,        mods: Command,       chars: "\x01x"                 } # <C-a>x
-  - { key: Key0,     mods: Command,       chars: "\x010"                 } # <C-a>0
-  - { key: Key1,     mods: Command,       chars: "\x011"                 } # <C-a>1
-  - { key: Key2,     mods: Command,       chars: "\x012"                 } # <C-a>2
-  - { key: Key3,     mods: Command,       chars: "\x013"                 } # <C-a>3
-  - { key: Key4,     mods: Command,       chars: "\x014"                 } # <C-a>4
-  - { key: Key5,     mods: Command,       chars: "\x015"                 } # <C-a>5
-  - { key: Key6,     mods: Command,       chars: "\x016"                 } # <C-a>6
-  - { key: Key7,     mods: Command,       chars: "\x017"                 } # <C-a>7
-  - { key: Key8,     mods: Command,       chars: "\x018"                 } # <C-a>8
-  - { key: Key9,     mods: Command,       chars: "\x019"                 } # <C-a>9
-  - { key: D,        mods: Command,       chars: "\x01-"                 } # <C-a>-
-  - { key: D,        mods: Command|Shift, chars: "\x01|"                 } # <C-a>|
-  - { key: F,        mods: Command,       chars: "\x01/"                 } # <C-a>/
+  #- { key: Tab,      mods: Control,       chars: "\x01a"                 } # <C-a>a
+  #- { key: LBracket, mods: Command|Shift, chars: "\x01p"                 } # <C-a>p
+  #- { key: RBracket, mods: Command|Shift, chars: "\x01n"                 } # <C-a>n
+  #- { key: T,        mods: Command,       chars: "\x01c"                 } # <C-a>c
+  #- { key: W,        mods: Command,       chars: "\x01x"                 } # <C-a>x
+  #- { key: Key0,     mods: Command,       chars: "\x010"                 } # <C-a>0
+  #- { key: Key1,     mods: Command,       chars: "\x011"                 } # <C-a>1
+  #- { key: Key2,     mods: Command,       chars: "\x012"                 } # <C-a>2
+  #- { key: Key3,     mods: Command,       chars: "\x013"                 } # <C-a>3
+  #- { key: Key4,     mods: Command,       chars: "\x014"                 } # <C-a>4
+  #- { key: Key5,     mods: Command,       chars: "\x015"                 } # <C-a>5
+  #- { key: Key6,     mods: Command,       chars: "\x016"                 } # <C-a>6
+  #- { key: Key7,     mods: Command,       chars: "\x017"                 } # <C-a>7
+  #- { key: Key8,     mods: Command,       chars: "\x018"                 } # <C-a>8
+  #- { key: Key9,     mods: Command,       chars: "\x019"                 } # <C-a>9
+  #- { key: D,        mods: Command,       chars: "\x01-"                 } # <C-a>-
+  #- { key: D,        mods: Command|Shift, chars: "\x01|"                 } # <C-a>|
+  #- { key: F,        mods: Command,       chars: "\x01/"                 } # <C-a>/
 

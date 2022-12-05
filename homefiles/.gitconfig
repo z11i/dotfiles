@@ -7,9 +7,11 @@
   path = ~/.config/git/delta_theme
 
 [alias] # complex operations
+  branch-current = "branch --show-current"
   branch-squash-merged = "!f() { main=${1:-main}; git switch -q main; git branch --format='%(refname:short)' | while read b; do ancestor=$(git merge-base $main $b) && [[ $(git cherry $main $(git commit-tree $(git rev-parse $b^{tree}) -p $ancestor -m _)) == '-'* ]] && echo $b; done; }; f" # list squash-merged local git branches https://blog.takanabe.tokyo/en/2020/04/remove-squash-merged-local-git-branches/
   branch-merged = "!f() { main=${1:-main}; git switch -q main; git for-each-ref --format '%(refname) %(upstream:track)' refs/heads | awk '$2 == \"[gone]\" {sub(\"refs/heads/\", \"\", $1); print $1}'; }; f"
   branch-delete-remote = push origin --delete
+  branch-update-with-remote = "!f() { branch=${1:-main}; remote=$(git remote | head -1); git fetch $remote $branch:$branch; }; f"
   diff-patches = "!bash -c 'diff <(git show $0) <(git show $1)'" # diff two patches, pass two refs
   diff-with-difft = "!f() { GIT_EXTERNAL_DIFF=difft git diff $@; }; f"
   forget-dir = "!bash -c 'git rm -r --cached $0 && git update-index --assume-unchanged $0'"
@@ -19,6 +21,7 @@
   switch-safe = !bash -c 'git stash && git sw $0 && git stash pop' #safe switch
 
 [alias]
+  bc = branch-current
   c = commit -v
   dt = diff-with-difft
   dtc = !git dt --cached
@@ -48,6 +51,7 @@
 
 [delta]
   features = line-numbers decorations side-by-side
+  	wrap-max-lines = unlimited
 
 [merge] # delta to show diffs between commits on merge conflicts
   conflictstyle = diff3
