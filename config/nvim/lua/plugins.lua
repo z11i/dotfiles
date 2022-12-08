@@ -27,7 +27,8 @@ return require('packer').startup(function(use)
   	  	}
   	}
 
-  	use {'shaunsingh/oxocarbon.nvim', config = function() require("plugin/oxocarbon") end, run = './install.sh'}
+	-- theme
+  	use {'B4mbus/oxocarbon-lua.nvim', config = function() require("plugin/oxocarbon") end}
 
   	use {'github/copilot.vim', run = ':Copilot setup', config=function() require("plugin.copilot") end}
 
@@ -53,9 +54,22 @@ return require('packer').startup(function(use)
   	  	}
   	}
 
-  	use {
+  	use { -- structural search and replace
   		"cshuaimin/ssr.nvim", module = "ssr", config=function() require("plugin/ssr") end
 	}
+
+	use {
+		"folke/which-key.nvim", config=function() require("plugin/which-key") end
+	}
+
+	use {
+  		"nvim-neo-tree/neo-tree.nvim", branch = "v2.x", config=function() require("plugin/neo-tree") end,
+    	requires = {
+      		"nvim-lua/plenary.nvim",
+      		"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+      		"MunifTanjim/nui.nvim",
+    	}
+  	}
 
   	-- Automatically set up your configuration after cloning packer.nvim
   	-- Put this at the end after all plugins

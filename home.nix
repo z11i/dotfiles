@@ -34,7 +34,7 @@ in buildEnv {
       pkgs.tmux
       pkgs.universal-ctags
       pkgs.unixtools.watch
-      pkgs.yq
+      pkgs.yq-go
       pkgs.zoxide
    ];
 }

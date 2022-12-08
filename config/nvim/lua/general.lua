@@ -51,5 +51,12 @@ g.mapleader = " "
 -- Buffer.
 map("n", "<tab>", ":bnext<cr>")
 map("n", "<s-tab>", ":bprevious<cr>")
-map({"n", "i"}, "<C-tab>", "<C-o>:bnext<cr>")
-map({"n", "i"}, "<C-s-tab>", "<C-o>:bprevious<cr>")
+map("i", "<C-tab>", "<C-o>:bnext<cr>")
+map("i", "<C-s-tab>", "<C-o>:bprevious<cr>")
+
+-- Splits.
+map("n", "<A-h>", "<C-w>h")
+map("n", "<A-j>", "<C-w>j")
+map("n", "<A-k>", "<C-w>k")
+map("n", "<A-l>", "<C-w>l")
+map("n", "<C-tab>", "<C-w>w")
