@@ -13,11 +13,8 @@ local packer_bootstrap = ensure_packer()
 
 return require('packer').startup(function(use)
   	use 'wbthomason/packer.nvim'
-
   	use {'nvim-treesitter/nvim-treesitter', config = function() require("plugin/treesitter") end}
-
   	use {'ggandor/leap.nvim', config = function() require("plugin/leap") end}
-
   	use {
   	  	'nvim-telescope/telescope.nvim', tag = '0.1.0',
   	    config = function() require("plugin/telescope") end,
@@ -26,12 +23,11 @@ return require('packer').startup(function(use)
   	  	  	{'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
   	  	}
   	}
-
 	-- theme
-  	use {'B4mbus/oxocarbon-lua.nvim', config = function() require("plugin/oxocarbon") end}
+  	--use {'nyoom-engineering/oxocarbon.nvim', config = function() require("plugin/oxocarbon") end}
+  	use {'folke/tokyonight.nvim', config = function() require("plugin/tokyonight") end}
 
   	use {'github/copilot.vim', run = ':Copilot setup', config=function() require("plugin.copilot") end}
-
   	use {
   	  	'VonHeikemen/lsp-zero.nvim', config=function() require("plugin/lsp-zero") end,
   	  	requires = {
@@ -53,15 +49,12 @@ return require('packer').startup(function(use)
     	  	{'rafamadriz/friendly-snippets'},
   	  	}
   	}
-
   	use { -- structural search and replace
   		"cshuaimin/ssr.nvim", module = "ssr", config=function() require("plugin/ssr") end
 	}
-
 	use {
 		"folke/which-key.nvim", config=function() require("plugin/which-key") end
 	}
-
 	use {
   		"nvim-neo-tree/neo-tree.nvim", branch = "v2.x", config=function() require("plugin/neo-tree") end,
     	requires = {
@@ -70,6 +63,16 @@ return require('packer').startup(function(use)
       		"MunifTanjim/nui.nvim",
     	}
   	}
+  	use { -- guess the buffer indent and set relevant vim options
+  		"NMAC427/guess-indent.nvim", config = function() require('guess-indent').setup {} end,
+	}
+	use "lukas-reineke/indent-blankline.nvim" -- show indent guides
+	use { 'lewis6991/gitsigns.nvim', tag = 'release', config = function() require("plugin/gitsigns") end }
+	-- switch between vim splits and kitty windows seamllessly
+	use { 'knubie/vim-kitty-navigator', run = 'cp ./*.py ~/.config/kitty/', config = function() require("plugin/kitty-navigator") end }
+  	use { 'numToStr/FTerm.nvim', config = function() require("plugin/FTerm") end }
+	use 'feline-nvim/feline.nvim'
+    use { 'cormacrelf/dark-notify', config = function() require("plugin/dark-notify") end } -- macOS dark mode switch hook
 
   	-- Automatically set up your configuration after cloning packer.nvim
   	-- Put this at the end after all plugins

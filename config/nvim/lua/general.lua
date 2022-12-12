@@ -22,6 +22,7 @@ o.formatoptions = o.formatoptions..'tcjnp'
 -- Line numbers.
 o.number = true
 o.relativenumber = true
+o.cursorline = true
 
 -- Command line.
 o.confirm = true
@@ -55,8 +56,13 @@ map("i", "<C-tab>", "<C-o>:bnext<cr>")
 map("i", "<C-s-tab>", "<C-o>:bprevious<cr>")
 
 -- Splits.
-map("n", "<A-h>", "<C-w>h")
-map("n", "<A-j>", "<C-w>j")
-map("n", "<A-k>", "<C-w>k")
-map("n", "<A-l>", "<C-w>l")
+-- disable here in favor of kitty-navigator
+--map("n", "<A-h>", "<C-w>h")
+--map("n", "<A-j>", "<C-w>j")
+--map("n", "<A-k>", "<C-w>k")
+--map("n", "<A-l>", "<C-w>l")
 map("n", "<C-tab>", "<C-w>w")
+
+
+-- Colors.
+vim.o.termguicolors = true

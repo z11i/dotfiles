@@ -1,2 +1,2 @@
-vim.cmd.colorscheme "oxocarbon-lua"
+vim.cmd.colorscheme "oxocarbon"
 vim.g.oxocarbon_lua_transparent = false

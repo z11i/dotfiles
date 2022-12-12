@@ -4,6 +4,7 @@ $python$nix_shell$username$status$jobs$character"""
 right_format = """$shlvl$duration$time"""
 
 scan_timeout = 20
+command_timeout = 1000
 
 [aws]
 symbol = "☁️  "
@@ -79,6 +80,8 @@ format = "[$symbol$version]($style) "
 [python]
 format = '[${symbol}(${version})(:$virtualenv) ]($style)'
 version_format = "${raw}"
+detect_extensions = []
+detect_files = []
 
 [shlvl]
 symbol = "Lvl"
