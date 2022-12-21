@@ -60,6 +60,8 @@ local setup = function(mode)
         'fugitiveblame',
       },
     },
+    provider = {
+    }
   }
 end
 

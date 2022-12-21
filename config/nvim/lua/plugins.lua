@@ -13,6 +13,7 @@ local packer_bootstrap = ensure_packer()
 
 return require('packer').startup(function(use)
   	use 'wbthomason/packer.nvim'
+  	use {'MunifTanjim/exrc.nvim', config = function() require('exrc').setup() end}
   	use {'nvim-treesitter/nvim-treesitter', config = function() require("plugin/treesitter") end}
   	use {'ggandor/leap.nvim', config = function() require("plugin/leap") end}
   	use {
@@ -66,13 +67,17 @@ return require('packer').startup(function(use)
   	use { -- guess the buffer indent and set relevant vim options
   		"NMAC427/guess-indent.nvim", config = function() require('guess-indent').setup {} end,
 	}
-	use "lukas-reineke/indent-blankline.nvim" -- show indent guides
+	-- show indent guides
+	use {"lukas-reineke/indent-blankline.nvim", config=function() require("plugin/indent-blankline") end}
 	use { 'lewis6991/gitsigns.nvim', tag = 'release', config = function() require("plugin/gitsigns") end }
 	-- switch between vim splits and kitty windows seamllessly
 	use { 'knubie/vim-kitty-navigator', run = 'cp ./*.py ~/.config/kitty/', config = function() require("plugin/kitty-navigator") end }
   	use { 'numToStr/FTerm.nvim', config = function() require("plugin/FTerm") end }
-	use 'feline-nvim/feline.nvim'
+	--use { 'feline-nvim/feline.nvim', config = function() require("plugin/feline") end }
     use { 'cormacrelf/dark-notify', config = function() require("plugin/dark-notify") end } -- macOS dark mode switch hook
+    use { 'kevinhwang91/nvim-bqf', ft = 'qf', requires = {'junegunn/fzf', run = function() vim.fn['fzf#install']() end } }
+    use { 'nvim-lualine/lualine.nvim', config = function() require("plugin/lualine") end }
+    use {'windwp/nvim-autopairs', config = function() require("plugin/autopairs") end} -- auto close brackets
 
   	-- Automatically set up your configuration after cloning packer.nvim
   	-- Put this at the end after all plugins

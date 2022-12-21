@@ -40,12 +40,6 @@ o.incsearch = true
 o.ignorecase = true
 o.smartcase = true
 
--- Swap j and gj, k and gk to handle wrapped lines.
-map("n", "j", "gj")
-map("n", "gj", "j")
-map("n", "k", "gk")
-map("n", "gk", "k")
-
 -- Leader.
 g.mapleader = " "
 
@@ -54,6 +48,19 @@ map("n", "<tab>", ":bnext<cr>")
 map("n", "<s-tab>", ":bprevious<cr>")
 map("i", "<C-tab>", "<C-o>:bnext<cr>")
 map("i", "<C-s-tab>", "<C-o>:bprevious<cr>")
+
+map("n", "<M-s>", "<cmd>w<cr>")
+map("n", "<M-q>", "<cmd>q<cr>")
+map("n", "<M-w>", "<cmd>bd<cr>")
+
+-- Buffer selection, system copy/paste.
+map("n", "vA", "ggVG")
+map("v", "<M-c>", '"+y')
+map("i", "<M-v>", '<C-o>"+p')
+
+-- Switch ; and : to make access to commands easier.
+map({"n", "v"}, ";", ":")
+map({"n", "v"}, ":", ";")
 
 -- Splits.
 -- disable here in favor of kitty-navigator
