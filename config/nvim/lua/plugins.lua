@@ -25,8 +25,7 @@ return require('packer').startup(function(use)
   	  	}
   	}
 	-- theme
-  	--use {'nyoom-engineering/oxocarbon.nvim', config = function() require("plugin/oxocarbon") end}
-  	use {'folke/tokyonight.nvim', config = function() require("plugin/tokyonight") end}
+  	use 'folke/tokyonight.nvim'
 
   	use {'github/copilot.vim', run = ':Copilot setup', config=function() require("plugin.copilot") end}
   	use {
@@ -73,8 +72,7 @@ return require('packer').startup(function(use)
 	-- switch between vim splits and kitty windows seamllessly
 	use { 'knubie/vim-kitty-navigator', run = 'cp ./*.py ~/.config/kitty/', config = function() require("plugin/kitty-navigator") end }
   	use { 'numToStr/FTerm.nvim', config = function() require("plugin/FTerm") end }
-	--use { 'feline-nvim/feline.nvim', config = function() require("plugin/feline") end }
-    use { 'cormacrelf/dark-notify', config = function() require("plugin/dark-notify") end } -- macOS dark mode switch hook
+    use 'cormacrelf/dark-notify' -- macOS dark mode switch hook
     use { 'kevinhwang91/nvim-bqf', ft = 'qf', requires = {'junegunn/fzf', run = function() vim.fn['fzf#install']() end } }
     use { 'nvim-lualine/lualine.nvim', config = function() require("plugin/lualine") end }
     use {'windwp/nvim-autopairs', config = function() require("plugin/autopairs") end} -- auto close brackets
