@@ -19,7 +19,7 @@ abbr ktx 'kubectx'
 abbr kns 'kubens'
 abbr ke kubectl exec -it
 abbr kp kubectl get po
-abbr kr kubectl run -it --image=
+abbr kr kubectl run _ -it --image=_ --command -- 
 abbr mkdir 'mkdir -p'
 abbr nsh 'nix-shell --command fish'
 #alias ssh='kitty +kitten ssh'
