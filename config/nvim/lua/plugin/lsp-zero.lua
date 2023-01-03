@@ -4,10 +4,6 @@ local find_cmd = require('util').find_cmd
 
 lsp.preset('recommended')
 
-lsp.ensure_installed({
-  	'sumneko_lua',
-})
-
 lsp.nvim_workspace({
 	library = vim.api.nvim_get_runtime_file("", true),
 })

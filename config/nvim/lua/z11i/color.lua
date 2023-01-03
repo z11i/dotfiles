@@ -1,6 +1,6 @@
-local present, tokyonight = pcall(require, 'tokyonight')
+local tnok, tokyonight = pcall(require, 'tokyonight')
 
-if present then
+if tnok then
 	tokyonight.setup({
     	on_highlights = function(hl, c)
     		-- make telescope borderless
@@ -36,8 +36,8 @@ if present then
 	})
 end
 
-local present, dark_notify = pcall(require, 'dark_notify')
-if present then
+local dnok, dark_notify = pcall(require, 'dark_notify')
+if dnok then
 	return
 	dark_notify.run({
     	schemes = {

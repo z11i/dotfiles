@@ -12,7 +12,7 @@ end
 vim.opt.runtimepath:prepend(lazypath)
 require("lazy").setup({
 	{'MunifTanjim/exrc.nvim', config = function() require('exrc').setup() end},
-    {'nvim-treesitter/nvim-treesitter', config = function() require("plugin/treesitter") end},
+    {'nvim-treesitter/nvim-treesitter', config = function() require("plugin/treesitter") end, lazy = true},
     {'ggandor/leap.nvim', config = function() require("plugin/leap") end},
     {
   	    'nvim-telescope/telescope.nvim', tag = '0.1.0',
@@ -31,6 +31,7 @@ require("lazy").setup({
     },
     {
   	    'VonHeikemen/lsp-zero.nvim', config=function() require("plugin/lsp-zero") end,
+  	    event = 'VeryLazy',
   	    dependencies = {
             -- LSP Support
     	    {'neovim/nvim-lspconfig'},
@@ -79,13 +80,11 @@ require("lazy").setup({
     -- show indent guides
     {"lukas-reineke/indent-blankline.nvim", config=function() require("plugin/indent-blankline") end},
     { 'lewis6991/gitsigns.nvim', tag = 'release', config = function() require("plugin/gitsigns") end},
-    -- switch between vim splits and kitty windows seamllessly
-    { 'knubie/vim-kitty-navigator', build = 'cp ./*.py ~/.config/kitty/', config = function() require("plugin/kitty-navigator") end },
     { 'numToStr/FTerm.nvim', config = function() require("plugin/FTerm") end, keys = {"<A-t>"}},
     'cormacrelf/dark-notify', -- macOS dark mode switch hook
     { 'kevinhwang91/nvim-bqf', ft = 'qf', dependencies = {'junegunn/fzf', build = function() vim.fn['fzf#install']() end } },
     { 'nvim-lualine/lualine.nvim', config = function() require("plugin/lualine") end },
     {'windwp/nvim-autopairs', config = function() require("plugin/autopairs") end}, -- auto close brackets
-    {'numToStr/Comment.nvim', config = function () require('plugin/comment').setup() end}, -- comments
+    {'numToStr/Comment.nvim', config = function () require('Comment').setup() end}, -- comments
 })
 
