@@ -22,37 +22,27 @@ lsp.configure('pylsp', {
 
 --[[
 lsp.configure('pyright', { -- https://github.com/neovim/nvim-lspconfig/issues/500#issuecomment-965824580
-    settings = {
-        python = {
-            analysis = {
-                autoSearchPaths = true,
-                useLibraryCodeForTypes = true,
-                exclude = {
-                    "**/__pycache__",
-                },
-            }
+settings = {
+    python = {
+        analysis = {
+            autoSearchPaths = true,
+            useLibraryCodeForTypes = true,
+            exclude = {
+                "**/__pycache__",
+            },
         }
-    },
-    before_init = function(_, config)
-        local p
-        if vim.env.VIRTUAL_ENV then
-            p = lspconfig.util.path.join(vim.env.VIRTUAL_ENV, "bin", "python3")
-        else
-            p = find_cmd("python3", ".venv/bin", config.root_dir)
-        end
-        config.settings.python.pythonPath = p
+    }
+},
+before_init = function(_, config)
+    local p
+    if vim.env.VIRTUAL_ENV then
+        p = lspconfig.util.path.join(vim.env.VIRTUAL_ENV, "bin", "python3")
+    else
+        p = find_cmd("python3", ".venv/bin", config.root_dir)
     end
+    config.settings.python.pythonPath = p
+end
 })
 --]]
-
--- trigger black on save for python files
-vim.api.nvim_create_user_command('Black', function ()
-    vim.cmd('silent !black ' .. vim.fn.expand('%'))
-    vim.cmd('redraw!')
-end, {})
-vim.api.nvim_create_autocmd(
-    { "BufWritePost" },
-    { pattern = { "*.py" }, command = ":Black" }
-)
 
 lsp.setup()

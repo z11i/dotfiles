@@ -16,7 +16,6 @@ reload-git() {
 
 switch-theme() {
     if [[ "$1" = 'dark' || "$1" = 'light' ]]; then
-        reload-kitty "$@"
         reload-fish "$@"
         reload-git "$@"
     fi

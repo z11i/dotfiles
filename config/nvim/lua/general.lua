@@ -63,11 +63,10 @@ map({"n", "v"}, ";", ":")
 map({"n", "v"}, ":", ";")
 
 -- Splits.
--- disable here in favor of kitty-navigator
---map("n", "<A-h>", "<C-w>h")
---map("n", "<A-j>", "<C-w>j")
---map("n", "<A-k>", "<C-w>k")
---map("n", "<A-l>", "<C-w>l")
+map("n", "<A-h>", "<C-w>h")
+map("n", "<A-j>", "<C-w>j")
+map("n", "<A-k>", "<C-w>k")
+map("n", "<A-l>", "<C-w>l")
 map("n", "<C-tab>", "<C-w>w")
 
 

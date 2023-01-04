@@ -2,7 +2,7 @@ local tls = require('telescope.builtin')
 local map = require('util').map
 
 map('n', '<leader>f', tls.find_files)
-map('n', '<leader>s', tls.live_grep)
+map('n', '<leader>ss', tls.live_grep)
 map('n', '<leader>b', tls.buffers)
 map('n', '<leader>h', tls.oldfiles)
 map('n', '<leader><leader>', tls.builtin)

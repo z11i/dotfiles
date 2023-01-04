@@ -1,6 +1,6 @@
 require('gitsigns').setup({
     numhl = true,
-    word_diff = true,
+    word_diff = false,
     current_line_blame = true,
     signs = {
         delete = {hl = 'GitSignsDelete', text = '-', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
@@ -12,8 +12,8 @@ require('gitsigns').setup({
     keymaps = {
         noremap = true,
 
-        ['n ]c'] = { expr = true, "&diff ? ']c' : '<cmd>lua require\"gitsigns.actions\".next_hunk()<CR>'"},
-        ['n [c'] = { expr = true, "&diff ? '[c' : '<cmd>lua require\"gitsigns.actions\".prev_hunk()<CR>'"},
+        ['n ]h'] = { expr = true, "&diff ? ']c' : '<cmd>lua require\"gitsigns.actions\".next_hunk()<CR>'"},
+        ['n [h'] = { expr = true, "&diff ? '[c' : '<cmd>lua require\"gitsigns.actions\".prev_hunk()<CR>'"},
 
         ['n <C-g>g'] = ':Gitsigns ',
         ['n <C-g><C-s>h'] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
