@@ -51,28 +51,6 @@ require("lazy").setup({
         event = 'VeryLazy'
     },
     {
-  	    'VonHeikemen/lsp-zero.nvim', config=function() require("plugin/lsp-zero") end,
-  	    event = 'VeryLazy',
-  	    dependencies = {
-            -- LSP Support
-    	    {'neovim/nvim-lspconfig'},
-    	    {'williamboman/mason.nvim'},
-    	    {'williamboman/mason-lspconfig.nvim'},
-
-    	    -- Autocompletion
-    	    {'hrsh7th/nvim-cmp'},
-    	    {'hrsh7th/cmp-buffer'},
-    	    {'hrsh7th/cmp-path'},
-    	    {'saadparwaiz1/cmp_luasnip'},
-    	    {'hrsh7th/cmp-nvim-lsp'},
-    	    {'hrsh7th/cmp-nvim-lua'},
-
-    	    -- Snippets
-    	    {'L3MON4D3/LuaSnip'},
-    	    {'rafamadriz/friendly-snippets'},
-  	    }
-    },
-    {
         "cshuaimin/ssr.nvim",
         -- init is always executed during startup, but doesn't load the plugin yet.
         -- init implies lazy loading
