@@ -28,11 +28,16 @@ wezterm.on("window-config-reloaded", function(window, pane)
   	end
 end)
 
+local keys = {
+	{key='w', mods='CMD', action=wezterm.action.CloseCurrentPane {confirm=true}},
+}
+
 return {
 	bold_brightens_ansi_colors = false,
 	enable_scroll_bar = true,
 	font = wezterm.font('Iosevka Nerd Font'),
 	font_size = 14.5,
+	keys = keys,
 	scrollback_lines = 10000,
 	window_padding = {
 		left = 0,

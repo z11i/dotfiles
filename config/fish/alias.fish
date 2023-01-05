@@ -1,5 +1,8 @@
 ## Always prefer abbr to alias:
 ## https://www.sean.sh/log/when-an-alias-should-actually-be-an-abbr/
+abbr a1 'awk \'{print $1}\''
+abbr a2 'awk \'{print $2}\''
+abbr a3 'awk \'{print $3}\''
 abbr cg 'cargo'
 abbr clean "clear && printf '\e[3J'"
 #abbr crc32 "python -c 'import sys;import zlib;print(zlib.crc32(sys.stdin.read())%(1<<32))'"
@@ -19,6 +22,7 @@ abbr ktx 'kubectx'
 abbr kns 'kubens'
 abbr ke kubectl exec -it po/'(kubectl get po | fzf | awk \'{print $1}\')' -- bash
 abbr kp kubectl get po
+abbr kp1 'kubectl get po | fzf | awk \'{print $1}\''
 abbr kr kubectl run _ -it --image=_ --command -- 
 abbr mkdir 'mkdir -p'
 abbr nsh 'nix-shell --command fish'

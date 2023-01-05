@@ -52,23 +52,19 @@ require("nvim-treesitter.configs").setup({
             set_jumps = true, -- whether to set jumps in the jumplist
             goto_next_start = {
                 ["]]"] = "@function.outer",
-                ["]f"] = "@function.outer",
-                ["]s"] = "@class.outer",
+                ["]c"] = "@class.outer",
             },
             goto_next_end = {
                 ["]["] = "@function.outer",
-                ["]F"] = "@function.outer",
-                ["]S"] = "@class.outer",
+                ["]C"] = "@class.outer",
             },
             goto_previous_start = {
                 ["[["] = "@function.outer",
-                ["[f"] = "@function.outer",
-                ["[s"] = "@class.outer",
+                ["[c"] = "@class.outer",
             },
             goto_previous_end = {
                 ["[]"] = "@function.outer",
-                ["[F"] = "@function.outer",
-                ["[S"] = "@class.outer",
+                ["[C"] = "@class.outer",
             },
         },
         -- show textobject surrounding definition as determined

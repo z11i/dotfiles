@@ -6,6 +6,15 @@ local map = function(mode, lhs, rhs, opts)
 	vim.keymap.set(mode, lhs, rhs, options)
 end
 
+local call = function(command)
+    local result = vim.fn.system(command)
+    local error = vim.v.shell_error
+    if error ~= 0 then
+        return nil, error
+    end
+    return vim.fn.split(result, '\n', 1), 0
+end
+
 local find_cmd = function(cmd, prefixes, start_from, stop_at)
     local path = require("lspconfig/util").path
 
@@ -48,5 +57,6 @@ local find_cmd = function(cmd, prefixes, start_from, stop_at)
 end
 
 M.map = map
+M.call = call
 M.find_cmd = find_cmd
 return M

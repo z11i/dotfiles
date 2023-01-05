@@ -96,6 +96,6 @@ require("lazy").setup({
     {'windwp/nvim-autopairs', config = function() require("plugin/autopairs") end, event = 'VeryLazy'}, -- auto close brackets
     {'numToStr/Comment.nvim', config = function () require('Comment').setup() end, event = 'VeryLazy'}, -- comments
     {'tpope/vim-surround', event = 'VeryLazy'}, -- surround text objects
-    {'b0o/incline.nvim', config = function() require('incline').setup() end, event = 'VeryLazy' }, -- show file names for buffers when using laststatus=3
+    {'b0o/incline.nvim', config = function() require('incline').setup({hide = {cursorline = true}}) end, event = 'VeryLazy' }, -- show file names for buffers when using laststatus=3
 })
 

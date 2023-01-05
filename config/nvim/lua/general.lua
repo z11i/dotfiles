@@ -21,7 +21,7 @@ o.formatoptions = o.formatoptions..'tcjnp'
 
 -- Line numbers.
 o.number = true
-o.relativenumber = true
+o.relativenumber = false
 o.cursorline = true
 
 -- Command line.
