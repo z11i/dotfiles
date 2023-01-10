@@ -1,6 +1,0 @@
-require('impatient')
-require('z11i/general')
-require('z11i/keymap')
-require('z11i/plugins')
-require('z11i/treesitter')
-require('z11i/lsp')
