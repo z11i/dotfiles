@@ -16,6 +16,8 @@ require("lazy").setup({
     {
   	    'nvim-telescope/telescope.nvim', tag = '0.1.0',
   	    config = function() require("plugin/telescope") end,
+  	    keys = {'<leader>f', '<leader>ss', '<leader>b', '<leader>h', '<leader><leader>', '<leader>gc', '<leader>gb', '<leader>gs'},
+  	    cmd = {'Telescope'},
   	    dependencies = {
   	        {'nvim-lua/plenary.nvim'},
   	        {'nvim-telescope/telescope-fzf-native.nvim', build = 'make' }
@@ -46,10 +48,12 @@ require("lazy").setup({
     {'nvim-treesitter/playground', cmd = 'TSPlaygroundToggle'}, -- Debug tree-sitter
     -- Show code context (show function if scrolled beyond screen)
     {'lewis6991/nvim-treesitter-context', lazy = true},
+    {'princejoogie/dir-telescope.nvim', lazy = true},
     {
         'github/copilot.vim', build = ':Copilot setup', config=function() require("plugin.copilot") end,
         event = 'VeryLazy'
     },
+    {'neovim/nvim-lspconfig', lazy = true},
     {
         "cshuaimin/ssr.nvim",
         -- init is always executed during startup, but doesn't load the plugin yet.
@@ -69,7 +73,7 @@ require("lazy").setup({
     { 'lewis6991/gitsigns.nvim', tag = 'release', config = function() require("plugin/gitsigns") end, event = 'VeryLazy'},
     { 'numToStr/FTerm.nvim', config = function() require("plugin/FTerm") end, keys = {"<A-t>"}},
     'cormacrelf/dark-notify', -- macOS dark mode switch hook
-    { 'kevinhwang91/nvim-bqf', ft = 'qf', dependencies = {'junegunn/fzf', build = function() vim.fn['fzf#install']() end } },
+    { 'kevinhwang91/nvim-bqf', ft = 'qf', dependencies = {'junegunn/fzf', build = function() vim.fn['fzf#install']() end, cmd = 'FZF' } },
     { 'nvim-lualine/lualine.nvim', config = function() require("plugin/lualine") end },
     {'windwp/nvim-autopairs', config = function() require("plugin/autopairs") end, event = 'VeryLazy'}, -- auto close brackets
     {'numToStr/Comment.nvim', config = function () require('Comment').setup() end, event = 'VeryLazy'}, -- comments
