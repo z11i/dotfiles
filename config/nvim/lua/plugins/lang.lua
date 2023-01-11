@@ -5,13 +5,14 @@ return {
     opts = {
       ---@type lspconfig.options
       servers = {
-        tsserver = {},
+        clangd = {},
+        jsonls = {},
         pylsp = {
           settings = {
             pylsp = {
               plugins = {
                 pycodestyle = {
-                  ignore = { "E111", "E121" },
+                  ignore = { "E111", "E114", "E121" },
                   maxLineLength = 120,
                 },
                 autopep8 = {
@@ -24,6 +25,9 @@ return {
             },
           },
         },
+        rust_analyzer = {},
+        ruff_lsp = {},
+        tsserver = {},
       },
       -- you can do any additional lsp server setup here
       -- return true if you don't want this server to be setup with lspconfig
@@ -45,5 +49,12 @@ return {
       vim.keymap.set("i", "<C-\\>", 'copilot#Accept("<CR>")', { expr = true, replace_keycodes = false })
     end,
     event = "BufReadPost",
+  },
+  {
+    "NMAC427/guess-indent.nvim",
+    config = function()
+      require("guess-indent").setup()
+    end,
+    event = "BufReadPre",
   },
 }
