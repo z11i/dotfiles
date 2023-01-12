@@ -15,4 +15,10 @@ return {
       require("flit").setup({}) -- f/t motions
     end,
   },
+  {
+    "s1n7ax/nvim-window-picker",
+    config = function()
+      require("window-picker").setup()
+    end,
+  },
 }
