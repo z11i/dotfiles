@@ -7,27 +7,29 @@ return {
       servers = {
         clangd = {},
         jsonls = {},
+        gopls = {},
         pylsp = {
           settings = {
             pylsp = {
               plugins = {
                 pycodestyle = {
+                  enabled = false,
                   ignore = { "E111", "E114", "E121" },
                   maxLineLength = 120,
                 },
-                autopep8 = {
-                  enabled = false,
-                },
-                yapf = {
-                  enabled = false,
-                },
+                flake8 = { enabled = false },
+                pylint = { enabled = false },
+                pyflakes = { enabled = false },
+                autopep8 = { enabled = false },
+                yapf = { enabled = false },
+                ruff = { enabled = true },
               },
             },
           },
         },
         rust_analyzer = {},
-        ruff_lsp = {},
         tsserver = {},
+        yamlls = {},
       },
       -- you can do any additional lsp server setup here
       -- return true if you don't want this server to be setup with lspconfig

@@ -1,5 +1,20 @@
 return {
   {
+    "nvim-neo-tree/neo-tree.nvim",
+    opts = {
+      filesystem = {
+        filtered_items = {
+          hide_dotfiles = false,
+          hide_ignored = false,
+          hide_hidden = false,
+        },
+        never_show = {
+          ".DS_Store",
+        },
+      },
+    },
+  },
+  {
     "ggandor/leap.nvim",
     config = function()
       require("leap").setup({
@@ -19,6 +34,16 @@ return {
     "s1n7ax/nvim-window-picker",
     config = function()
       require("window-picker").setup()
+    end,
+  },
+  {
+    "nvim-telescope/telescope.nvim",
+    dependencies = { { "nvim-telescope/telescope-fzf-native.nvim", build = "make" } },
+    -- apply the config and additionally load fzf-native
+    config = function(_, opts)
+      local telescope = require("telescope")
+      telescope.setup(opts)
+      telescope.load_extension("fzf")
     end,
   },
 }
