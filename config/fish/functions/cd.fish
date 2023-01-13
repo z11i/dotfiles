@@ -1,9 +1,9 @@
 # https://stackoverflow.com/questions/46076344/autols-for-fish-shell
 function __autols_hook --description "Auto ls" --on-event fish_prompt
   if test "$__autols_last" != (pwd)
-    set -l LS 'ls'
+    set -l LS 'ls -a'
     if type -q exa
-      set LS 'exa'
+      set LS 'exa -a'
     end
     eval $LS
     # Show git information, and if it's not a git repo, throw error
