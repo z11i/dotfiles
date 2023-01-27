@@ -12,6 +12,7 @@
   branch-merged = "!f() { main=${1:-main}; git switch -q main; git for-each-ref --format '%(refname) %(upstream:track)' refs/heads | awk '$2 == \"[gone]\" {sub(\"refs/heads/\", \"\", $1); print $1}'; }; f"
   branch-delete-remote = push origin --delete
   branch-update-with-remote = "!f() { branch=${1:-main}; remote=$(git remote | head -1); git fetch $remote $branch:$branch; }; f"
+  commits-that-change-file-on-branch = "!f() { [[ $# -ne 3 ]] && echo pass in base, feature, and path; git format-patch -k --stdout $1...$2 -- $3; }; f"
   diff-diffs = "!f() { b1=origin/$(git bc); b2=$(git bc); base=main; delta <(git diff $base...$b1) <(git diff $base...$b2); }; f" # compare the diffs between a remote branch and a local branch, against main; useful when you want to force push a rebased branch
   diff-with-difft = "!f() { GIT_EXTERNAL_DIFF=difft git diff $@; }; f"
   forget-dir = "!bash -c 'git rm -r --cached $0 && git update-index --assume-unchanged $0'"
@@ -28,6 +29,7 @@
   f = fetch --prune
   ff = merge --ff-only
   f3 = !git f && git ff
+  fff = f3
   ri = rebase --interactive
   sw = switch
   sws = switch-safe

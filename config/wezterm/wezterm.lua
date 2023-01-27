@@ -38,7 +38,7 @@ return {
 	bold_brightens_ansi_colors = false,
 	enable_scroll_bar = true,
 	font = wezterm.font("Iosevka Nerd Font"),
-	font_size = 14,
+	font_size = 15,
 	keys = keys,
 	scrollback_lines = 10000,
 	window_padding = {
