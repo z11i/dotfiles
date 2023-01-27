@@ -1,5 +1,18 @@
 return {
   {
+    "williamboman/mason.nvim",
+    opts = {
+      ensure_installed = {
+        "gopls",
+        "python-lsp-server",
+        "rust-analyzer",
+        "stylua",
+        "shellcheck",
+        "shfmt",
+      },
+    },
+  },
+  {
     "neovim/nvim-lspconfig",
     ---@class PluginLspOpts
     opts = {
