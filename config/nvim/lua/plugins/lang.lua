@@ -4,7 +4,6 @@ return {
     opts = {
       ensure_installed = {
         "gopls",
-        "python-lsp-server",
         "rust-analyzer",
         "stylua",
         "shellcheck",
@@ -21,21 +20,34 @@ return {
         clangd = {},
         jsonls = {},
         gopls = {},
-        pylsp = {
+        -- pylsp = {
+        --   settings = {
+        --     pylsp = {
+        --       plugins = {
+        --         pycodestyle = {
+        --           enabled = false,
+        --           ignore = { "E111", "E114", "E121" },
+        --           maxLineLength = 120,
+        --         },
+        --         flake8 = { enabled = false },
+        --         pylint = { enabled = false },
+        --         pyflakes = { enabled = false },
+        --         autopep8 = { enabled = false },
+        --         yapf = { enabled = false },
+        --         ruff = { enabled = true },
+        --       },
+        --     },
+        --   },
+        -- },
+        pyright = {
           settings = {
-            pylsp = {
-              plugins = {
-                pycodestyle = {
-                  enabled = false,
-                  ignore = { "E111", "E114", "E121" },
-                  maxLineLength = 120,
-                },
-                flake8 = { enabled = false },
-                pylint = { enabled = false },
-                pyflakes = { enabled = false },
-                autopep8 = { enabled = false },
-                yapf = { enabled = false },
-                ruff = { enabled = true },
+            python = {
+              analysis = {
+                autoImportCompletions = true,
+                autoSearchPaths = true,
+                diagnosticMode = "openFilesOnly",
+                typeCheckingMode = "basic",
+                useLibraryCodeForTypes = true,
               },
             },
           },
