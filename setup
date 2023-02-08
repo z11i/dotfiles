@@ -63,7 +63,7 @@ setup_mac() {
 	checkBin brew || (
 		echo === installing homebrew ===
 		/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-		eval "$(/opt/homebrew/bin/brew shellenv)"
+		eval "$(/opt/homebrew/bin/brew shellenv)" || eval "$(/usr/local/bin/brew shellenv)"
         echo === configuring homebrew access so it is not just for one user ===
         log 'creating a usergroup brew'
         sudo dseditgroup -o create brew
@@ -113,10 +113,10 @@ setup_mac_gui() {
 	brew install google-drive
 	brew install iina
 	brew install keka
-	brew install kitty
 	brew install mos
 	brew install raycast
 	brew install spotify
+	brew install wezterm
 }
 
 setup_git() {
@@ -181,13 +181,20 @@ setup_asdf() {
 }
 
 setup_golang() {
-    checkBin asdf && (
-        asdf plugin-add golang
-        asdf install golang $(asdf list-all golang | fzf)
-        asdf global golang $(asdf list golang | awk '{print $1; exit}')
-        GO111MODULE=on go install golang.org/x/tools/gopls@latest
-        GO111MODULE=on go install mvdan.cc/gofumpt@latest
-    )
+	[[ -d ~/.asdf ]] && (
+		asdf plugin-add golang || true
+		asdf install golang $(asdf list-all golang | fzf)
+		asdf global golang $(asdf list golang | awk '{print $1; exit}')
+		GO111MODULE=on go install mvdan.cc/gofumpt@latest
+	)
+}
+
+setup_node() {
+	[[ -d ~/.asdf ]] && (
+		asdf plugin-add nodejs || true
+		asdf install nodejs $(asdf list-all nodejs | fzf)
+		asdf global nodejs $(asdf list nodejs | awk '{print $1; exit}')
+	)
 }
 
 setup_tmux() {
@@ -195,6 +202,10 @@ setup_tmux() {
         symlink config/tmux/tmux.conf ~/.tmux.conf
         [[ -e ~/.tmux/plugins/tpm ]] || git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
     )
+}
+
+setup_wezterm() {
+	symlink config/wezterm ~/.config/wezterm
 }
 
 setup_nix
@@ -206,4 +217,5 @@ setup_ideavim
 setup_asdf
 setup_mac_gui
 setup_golang
-setup_tmux
+setup_node
+setup_wezterm

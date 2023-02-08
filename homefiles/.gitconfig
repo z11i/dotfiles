@@ -30,6 +30,7 @@
   ff = merge --ff-only
   f3 = !git f && git ff
   fff = f3
+  forget = rm --cached
   ri = rebase --interactive
   sw = switch
   sws = switch-safe
