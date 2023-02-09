@@ -75,7 +75,7 @@ return {
       vim.g.copilot_assume_mapped = true
       vim.keymap.set("i", "<C-\\>", 'copilot#Accept("<CR>")', { expr = true, replace_keycodes = false })
     end,
-    event = "BufReadPost",
+    event = "BufReadPre",
   },
   {
     "NMAC427/guess-indent.nvim",
