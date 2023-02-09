@@ -204,6 +204,10 @@ setup_tmux() {
     )
 }
 
+setup_rust() {
+	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+}
+
 setup_wezterm() {
 	symlink config/wezterm ~/.config/wezterm
 }
@@ -218,4 +222,5 @@ setup_asdf
 setup_mac_gui
 setup_golang
 setup_node
+setup_rust
 setup_wezterm
