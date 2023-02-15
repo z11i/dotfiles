@@ -3,7 +3,10 @@ return {
     "williamboman/mason.nvim",
     opts = {
       ensure_installed = {
+        "eslint_d",
         "gopls",
+        "luacheck",
+        "prettierd",
         "rust-analyzer",
         "stylua",
         "shellcheck",
@@ -17,7 +20,10 @@ return {
     opts = {
       ---@type lspconfig.options
       servers = {
+        bashls = {},
         clangd = {},
+        cssls = {},
+        dockerls = {},
         jsonls = {},
         gopls = {},
         -- pylsp = {
@@ -53,6 +59,8 @@ return {
           },
         },
         rust_analyzer = {},
+        sumneko_lua = {},
+        svelte = {},
         tsserver = {},
         yamlls = {},
       },
