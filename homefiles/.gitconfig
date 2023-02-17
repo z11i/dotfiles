@@ -8,7 +8,7 @@
 
 [alias] # complex operations
   branch-current = "branch --show-current"
-  branch-squash-merged = "!f() { main=${1:-main}; git switch -q main; git branch --format='%(refname:short)' | while read b; do ancestor=$(git merge-base $main $b) && [[ $(git cherry $main $(git commit-tree $(git rev-parse $b^{tree}) -p $ancestor -m _)) == '-'* ]] && echo $b; done; }; f" # list squash-merged local git branches https://blog.takanabe.tokyo/en/2020/04/remove-squash-merged-local-git-branches/
+  branch-squash-merged = "!f() { main=${1:-main}; git switch -q $main; git branch --format='%(refname:short)' | while read b; do ancestor=$(git merge-base $main $b) && [[ $(git cherry $main $(git commit-tree $(git rev-parse $b^{tree}) -p $ancestor -m _)) == '-'* ]] && echo $b; done; }; f" # list squash-merged local git branches https://blog.takanabe.tokyo/en/2020/04/remove-squash-merged-local-git-branches/
   branch-merged = "!f() { main=${1:-main}; git switch -q main; git for-each-ref --format '%(refname) %(upstream:track)' refs/heads | awk '$2 == \"[gone]\" {sub(\"refs/heads/\", \"\", $1); print $1}'; }; f"
   branch-delete-remote = push origin --delete
   branch-update-with-remote = "!f() { branch=${1:-main}; remote=$(git remote | head -1); git fetch $remote $branch:$branch; }; f"
