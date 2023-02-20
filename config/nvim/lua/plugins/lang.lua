@@ -16,6 +16,7 @@ return {
   },
   {
     "neovim/nvim-lspconfig",
+    version = false,
     ---@class PluginLspOpts
     opts = {
       ---@type lspconfig.options
@@ -24,7 +25,6 @@ return {
         clangd = {},
         cssls = {},
         dockerls = {},
-        jsonls = {},
         gopls = {},
         -- pylsp = {
         --   settings = {
@@ -45,6 +45,8 @@ return {
         --     },
         --   },
         -- },
+        jsonls = {},
+        lua_ls = {},
         pyright = {
           settings = {
             python = {
@@ -59,7 +61,6 @@ return {
           },
         },
         rust_analyzer = {},
-        sumneko_lua = {},
         svelte = {},
         tsserver = {},
         yamlls = {},
