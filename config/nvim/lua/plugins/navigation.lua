@@ -16,6 +16,7 @@ return {
   },
   {
     "ggandor/leap.nvim",
+    keys = { "\\" },
     config = function()
       require("leap").setup({
         case_sensitive = false,
