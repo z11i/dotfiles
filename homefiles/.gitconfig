@@ -14,7 +14,9 @@
   branch-update-with-remote = "!f() { branch=${1:-main}; remote=$(git remote | head -1); git fetch $remote $branch:$branch; }; f"
   cherry-pick-selective-file = "!f() { [[ $# -ne 2 ]] && echo pass in commit and path && exit 1; git show $1 -- $2 | git apply -; }; f"
   commits-that-change-file-on-branch = "!f() { [[ $# -ne 3 ]] && echo pass in base, feature, and path && exit 1; git format-patch -k --stdout $1...$2 -- $3; }; f"
-  diff-diffs = "!f() { b1=origin/$(git bc); b2=$(git bc); base=main; delta <(git diff $base...$b1) <(git diff $base...$b2); }; f" # compare the diffs between a remote branch and a local branch, against main; useful when you want to force push a rebased branch
+  diff-remote-and-local = "!f() { b1=origin/$(git bc); b2=$(git bc); base=main; delta <(git diff $base...$b1) <(git diff $base...$b2); }; f" # compare the diffs between a remote branch and a local branch, against main; useful when you want to force push a rebased branch
+  diff-with-tracking = diff-remote-and-local
+  diff-three-ways = "!f() { [[ $# -ne 3 ]] && echo pass in BASE, HEAD1, HEAD2 && exit 1; difft <(git diff $1...$2 | cat) <(git diff $1...$3 | cat); }; f"
   diff-with-difft = "!f() { GIT_EXTERNAL_DIFF=difft git diff $@; }; f"
   forget-dir = "!bash -c 'git rm -r --cached $0 && git update-index --assume-unchanged $0'"
   forget-file = "!bash -c 'git rm --cached $0 && git update-index --assume-unchanged $0'"
