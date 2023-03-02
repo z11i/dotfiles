@@ -30,8 +30,12 @@ wezterm.on("window-config-reloaded", function(window, pane)
 	end
 end)
 
+local act = wezterm.action
 local keys = {
-	{ key = "w", mods = "CMD", action = wezterm.action.CloseCurrentPane({ confirm = true }) },
+	{ key = "w", mods = "CMD", action = act.CloseCurrentPane({ confirm = true }) },
+	{ key = "s", mods = "CTRL|SHIFT", action = act.PaneSelect({ mode = "SwapWithActive" }) },
+	{ key = "{", mods = "CTRL|SHIFT", action = act.RotatePanes("CounterClockwise") },
+	{ key = "}", mods = "CTRL|SHIFT", action = act.RotatePanes("Clockwise") },
 }
 
 return {
