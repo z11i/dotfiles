@@ -28,6 +28,7 @@ wezterm.on("window-config-reloaded", function(window, pane)
 		overrides.color_scheme = scheme
 		window:set_config_overrides(overrides)
 	end
+	os.execute("/usr/local/bin/switch-theme " .. string.lower(appearance))
 end)
 
 local act = wezterm.action

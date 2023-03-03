@@ -18,6 +18,7 @@ switch-theme() {
     if [[ "$1" = 'dark' || "$1" = 'light' ]]; then
         reload-fish "$@"
         reload-git "$@"
+        # TODO: reload nvim
     fi
 }
 

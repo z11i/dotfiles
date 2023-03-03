@@ -210,17 +210,18 @@ setup_rust() {
 
 setup_wezterm() {
 	symlink config/wezterm ~/.config/wezterm
+	symlink libexec/switch-theme /usr/local/bin/switch-theme
 }
 
-setup_nix
-setup_mac
-setup_fish
-setup_git
-setup_neovim
-setup_ideavim
-setup_asdf
-setup_mac_gui
-setup_golang
-setup_node
-setup_rust
+# setup_nix
+# setup_mac
+# setup_fish
+# setup_git
+# setup_neovim
+# setup_ideavim
+# setup_asdf
+# setup_mac_gui
+# setup_golang
+# setup_node
+# setup_rust
 setup_wezterm
