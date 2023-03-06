@@ -84,6 +84,3 @@
 	required = true
 [push]
   autoSetupRemote = true
-[user]
-	name = Elliot Zhang
-	email = ezhang@abnormalsecurity.com
