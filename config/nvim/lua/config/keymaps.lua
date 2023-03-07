@@ -3,3 +3,8 @@
 -- Add any additional keymaps here
 vim.keymap.set({ "n", "v" }, ";", ":")
 vim.keymap.set({ "n", "v" }, ":", ";")
+
+-- toggle background
+vim.keymap.set({ "n" }, "<leader>ub", function()
+  vim.cmd("set background=" .. (vim.o.background == "dark" and "light" or "dark"))
+end, { desc = "Toggle background" })
