@@ -45,6 +45,10 @@ return {
       local telescope = require("telescope")
       telescope.setup(opts)
       telescope.load_extension("fzf")
+      telescope.load_extension("advanced_git_search")
     end,
+    keys = {
+      { "<leader>gv", "<cmd>Telescope advanced_git_search show_custom_functions<cr>", desc = "Git advanced search" },
+    },
   },
 }
