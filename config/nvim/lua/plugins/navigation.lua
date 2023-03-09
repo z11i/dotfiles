@@ -1,6 +1,24 @@
 return {
   {
     "nvim-neo-tree/neo-tree.nvim",
+    keys = {
+      {
+        "<leader>ue",
+        function()
+          if vim.g._neotree_side == nil then
+            vim.g._neotree_side = "right" -- default is left
+          else
+            if vim.g._neotree_side == "left" then
+              vim.g._neotree_side = "right"
+            else
+              vim.g._neotree_side = "left"
+            end
+          end
+          require("neo-tree.command").execute({ toggle = false, position = vim.g._neotree_side })
+        end,
+        desc = "Toggle Neotree side",
+      },
+    },
     opts = {
       filesystem = {
         filtered_items = {
