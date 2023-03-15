@@ -43,7 +43,7 @@ return {
 	bold_brightens_ansi_colors = false,
 	enable_scroll_bar = true,
 	font = wezterm.font("Berkeley Mono"),
-	font_size = 15,
+	font_size = 15.7,
 	keys = keys,
 	scrollback_lines = 10000,
 	window_padding = {
