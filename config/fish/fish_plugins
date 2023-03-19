@@ -6,3 +6,4 @@ lilyball/nix-env.fish
 catppuccin/fish
 ankitsumitg/docker-fish-completions
 edc/bass
+z11i/github-copilot-cli.fish
