@@ -1,25 +1,32 @@
 #!/usr/bin/env bash
 
+export PATH="$HOME/.local/bin:$PATH"
+
 # usage: switch-theme [dark|light]
 reload-kitty() {
-    cp ~/.config/kitty/"$1".conf ~/.config/kitty/current-theme.conf
-    kill -sigusr1 $(pgrep -a kitty) 2>/dev/null
+	cp ~/.config/kitty/"$1".conf ~/.config/kitty/current-theme.conf
+	kill -sigusr1 $(pgrep -a kitty) 2>/dev/null
 }
 
 reload-fish() {
-    fish -c "fish_toggle_color $1"
+	fish -c "fish_toggle_color $1"
 }
 
 reload-git() {
-    cp ~/.config/git/delta_theme_"$1" ~/.config/git/delta_theme
+	cp ~/.config/git/delta_theme_"$1" ~/.config/git/delta_theme
+}
+
+reload-neovim() {
+	find /var/folders -type s -name 'nvim*' -print0 2>/dev/null |
+		xargs -0 -I{} nvim --server {} --remote-send "<cmd>set background=$1<cr>"
 }
 
 switch-theme() {
-    if [[ "$1" = 'dark' || "$1" = 'light' ]]; then
-        reload-fish "$@"
-        reload-git "$@"
-        # TODO: reload nvim
-    fi
+	if [[ "$1" = 'dark' || "$1" = 'light' ]]; then
+		reload-fish "$@"
+		reload-git "$@"
+		reload-neovim "$@"
+	fi
 }
 
 switch-theme "$@"
