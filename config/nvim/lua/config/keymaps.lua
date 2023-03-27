@@ -8,3 +8,7 @@ vim.keymap.set({ "n", "v" }, ":", ";")
 vim.keymap.set({ "n" }, "<leader>ub", function()
   vim.cmd("set background=" .. (vim.o.background == "dark" and "light" or "dark"))
 end, { desc = "Toggle background" })
+
+-- system clipboard
+vim.keymap.set({ "n", "v" }, "<leader>yy", '"+y', { desc = "Copy to system clipboard" })
+vim.keymap.set({ "n", "v" }, "<leader>yp", '"+p', { desc = "Paste from system clipboard" })

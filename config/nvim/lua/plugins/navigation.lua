@@ -6,7 +6,7 @@ return {
         "<leader>ue",
         function()
           if vim.g._neotree_side == nil then
-            vim.g._neotree_side = "right" -- default is left
+            vim.g._neotree_side = "left" -- default is right
           else
             if vim.g._neotree_side == "left" then
               vim.g._neotree_side = "right"
@@ -29,6 +29,9 @@ return {
         never_show = {
           ".DS_Store",
         },
+      },
+      window = {
+        position = "right",
       },
     },
   },
