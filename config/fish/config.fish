@@ -7,7 +7,7 @@ if not functions -q fisher
     set -q XDG_CONFIG_HOME; or set XDG_CONFIG_HOME ~/.config
     curl https://git.io/fisher --create-dirs -sLo $XDG_CONFIG_HOME/fish/functions/fisher.fish
     fish -c fisher
-    fisher install < $__fish_config_dir/fish_plugins
+    fisher install <$__fish_config_dir/fish_plugins
 end
 
 # Source secret if it exists
@@ -46,7 +46,7 @@ end
 
 # ripgrep
 if type -q rg
-	set -gx RIPGREP_CONFIG_PATH ~/.config/ripgreprc
+    set -gx RIPGREP_CONFIG_PATH ~/.config/ripgreprc
 end
 
 # brew completion
@@ -62,11 +62,15 @@ end
 
 # gcloud
 if test -e '~/google-cloud-sdk/path.bash.inc'
-	bass source '~/google-cloud-sdk/path.bash.inc'
+    bass source '~/google-cloud-sdk/path.bash.inc'
 end
 
 # source asdf
 sourceadd ~/.asdf/asdf.fish
+
+if type -q direnv
+    direnv hook fish | source
+end
 
 # Source completions. Somehow when re-entering fish, such as in tmux, or just do `fish` again,
 # the completions under ~/.config/fish/completions are not used. Only directory completions become available.
