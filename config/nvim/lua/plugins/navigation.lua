@@ -72,4 +72,22 @@ return {
       { "<leader>gv", "<cmd>Telescope advanced_git_search show_custom_functions<cr>", desc = "Git advanced search" },
     },
   },
+  {
+    "SmiteshP/nvim-navbuddy",
+    config = function()
+      local navbuddy = require("nvim-navbuddy")
+      navbuddy.setup({
+        lsp = { auto_attach = true },
+      })
+    end,
+    dependencies = {
+      "neovim/nvim-lspconfig",
+      "SmiteshP/nvim-navic",
+      "MunifTanjim/nui.nvim",
+    },
+    keys = {
+      { "<leader>n", "<cmd>lua require('nvim-navbuddy').open()<cr>", desc = "Open navbuddy" },
+    },
+    cmd = { "Navbuddy" },
+  },
 }
