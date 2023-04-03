@@ -1,3 +1,4 @@
+local Util = require("lazyvim.util")
 return {
   {
     "nvim-neo-tree/neo-tree.nvim",
@@ -60,16 +61,25 @@ return {
   },
   {
     "nvim-telescope/telescope.nvim",
-    dependencies = { { "nvim-telescope/telescope-fzf-native.nvim", build = "make" } },
+    dependencies = {
+      { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+      { "aaronhallaert/advanced-git-search.nvim", dependencies = { "tpope/vim-fugitive" } },
+      { "princejoogie/dir-telescope.nvim" },
+    },
     -- apply the config and additionally load fzf-native
     config = function(_, opts)
       local telescope = require("telescope")
       telescope.setup(opts)
       telescope.load_extension("fzf")
       telescope.load_extension("advanced_git_search")
+      telescope.load_extension("dir")
     end,
     keys = {
       { "<leader>gv", "<cmd>Telescope advanced_git_search show_custom_functions<cr>", desc = "Git advanced search" },
+      { "<leader>?", Util.telescope("live_grep", { cwd = false }), desc = "Find in Files (Root)" },
+      { "<leader><space>", Util.telescope("files", { cwd = false }), desc = "Find Files (cwd)" },
+      { "<leader>sp", "<cmd>Telescope dir live_grep<CR>", desc = "Grep in Path" },
+      { "<leader>fp", "<cmd>Telescope dir find_files<CR>", desc = "Files in Path" },
     },
   },
   {
