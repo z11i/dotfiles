@@ -16,7 +16,7 @@ reload-git() {
 	cp ~/.config/git/delta_theme_"$1" ~/.config/git/delta_theme
 }
 
-reload-neovim() {
+reload-neovim() { # only works for neovim 0.9+
 	find /var/folders -type s -name 'nvim*' -print0 2>/dev/null |
 		xargs -0 -I{} nvim --server {} --remote-send "<cmd>set background=$1<cr>"
 }
