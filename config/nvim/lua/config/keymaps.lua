@@ -12,3 +12,17 @@ end, { desc = "Toggle background" })
 -- system clipboard
 vim.keymap.set({ "n", "v" }, "<leader>yy", '"+y', { desc = "Copy to system clipboard" })
 vim.keymap.set({ "n", "v" }, "<leader>yp", '"+p', { desc = "Paste from system clipboard" })
+
+-- copy file path to clipboard
+vim.keymap.set({ "n" }, "<leader>b/", function()
+  local file_path = vim.fn.expand("%:p")
+  vim.fn.setreg("+", file_path)
+  print("Copied file path to clipboard: " .. file_path)
+end, { desc = "Copy absolute file path" })
+
+-- copy relative file path to root to clipboard
+vim.keymap.set({ "n" }, "<leader>b.", function()
+  local relative_path = vim.fn.expand("%:~:.")
+  vim.fn.setreg("+", relative_path)
+  print("Copied relative file path to clipboard: " .. relative_path)
+end, { desc = "Copy relative file path" })
