@@ -1,6 +1,6 @@
 local wezterm = require("wezterm")
 
-function scheme_for_appearance(appearance)
+local function scheme_for_appearance(appearance)
 	if appearance:find("Dark") then
 		return "GitHub Dark",
 			{
@@ -31,13 +31,18 @@ wezterm.on("window-config-reloaded", function(window, pane)
 	os.execute("/usr/local/bin/switch-theme " .. string.lower(appearance))
 end)
 
-local act = wezterm.action
-local keys = {
-	{ key = "w", mods = "CMD", action = act.CloseCurrentPane({ confirm = true }) },
-	{ key = "s", mods = "CTRL|SHIFT", action = act.PaneSelect({ mode = "SwapWithActive" }) },
-	{ key = "{", mods = "CTRL|SHIFT", action = act.RotatePanes("CounterClockwise") },
-	{ key = "}", mods = "CTRL|SHIFT", action = act.RotatePanes("Clockwise") },
-}
+local action = wezterm.action
+local keys = {}
+local function assign_key(modss, key, act)
+	for _, v in ipairs(modss) do
+		table.insert(keys, { key = key, mods = v, action = act })
+	end
+end
+assign_key({ "CMD", "CTRL|SHIFT" }, "w", action.CloseCurrentPane({ confirm = true }))
+assign_key({ "CMD", "CTRL|SHIFT" }, "s", action.PaneSelect({ mode = "SwapWithActive" }))
+assign_key({ "CTRL|SHIFT" }, "{", action.RotatePanes("CounterClockwise"))
+assign_key({ "CTRL|SHIFT" }, "}", action.RotatePanes("Clockwise"))
+assign_key({ "CMD", "CTRL|SHIFT" }, "f", action.Search({ CaseInSensitiveString = "" }))
 
 return {
 	bold_brightens_ansi_colors = false,
