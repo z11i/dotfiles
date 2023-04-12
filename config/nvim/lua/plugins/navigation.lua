@@ -82,22 +82,4 @@ return {
       { "<leader>fp", "<cmd>Telescope dir find_files<CR>", desc = "Files in Path" },
     },
   },
-  {
-    "SmiteshP/nvim-navbuddy",
-    config = function()
-      local navbuddy = require("nvim-navbuddy")
-      navbuddy.setup({
-        lsp = { auto_attach = true },
-      })
-    end,
-    dependencies = {
-      "neovim/nvim-lspconfig",
-      "SmiteshP/nvim-navic",
-      "MunifTanjim/nui.nvim",
-    },
-    keys = {
-      { "<leader>n", "<cmd>lua require('nvim-navbuddy').open()<cr>", desc = "Open navbuddy" },
-    },
-    cmd = { "Navbuddy" },
-  },
 }

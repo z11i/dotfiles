@@ -73,6 +73,26 @@ return {
         -- ["*"] = function(server, opts) end,
       },
     },
+    dependencies = {
+      {
+        "SmiteshP/nvim-navbuddy", -- navbuddy needs to load before lsp
+        config = function()
+          local navbuddy = require("nvim-navbuddy")
+          navbuddy.setup({
+            lsp = { auto_attach = true },
+          })
+        end,
+        dependencies = {
+          "neovim/nvim-lspconfig",
+          "SmiteshP/nvim-navic",
+          "MunifTanjim/nui.nvim",
+        },
+        keys = {
+          { "<leader>n", "<cmd>lua require('nvim-navbuddy').open()<cr>", desc = "Open navbuddy" },
+        },
+        cmd = { "Navbuddy" },
+      },
+    },
   },
   { import = "lazyvim.plugins.extras.lang.typescript" },
   { import = "lazyvim.plugins.extras.lang.json" },
