@@ -21,7 +21,7 @@ abbr h helm
 abbr k kubectl
 abbr ktx kubectx
 abbr kns kubens
-abbr ke kubectl exec -it po/'(kubectl get po | fzf | awk \'{print $1}\')' -- bash
+abbr ke kubectl exec -it '(kubectl get po | fzf | awk \'{print $1}\')' -- bash
 abbr kp kubectl get po
 abbr kp1 'kubectl get po | fzf | awk \'{print $1}\''
 abbr kr kubectl run _ -it --image=_ --command --
