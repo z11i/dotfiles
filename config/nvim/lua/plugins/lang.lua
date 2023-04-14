@@ -3,16 +3,56 @@ return {
     "williamboman/mason.nvim",
     opts = {
       ensure_installed = {
-        "eslint_d",
-        "gopls",
+        -- lua
         "luacheck",
-        "prettierd",
-        "rust-analyzer",
         "stylua",
+        -- shell
         "shellcheck",
         "shfmt",
+        -- python
+        "isort",
+        "black",
+        "mypy",
+        -- go
+        "gopls",
+        "gofumpt",
+        -- rust
+        "rust-analyzer",
+        "rustfmt",
+        -- web
+        "prettierd",
+        "eslint_d",
       },
     },
+  },
+  {
+    "jose-elias-alvarez/null-ls.nvim",
+    opts = function()
+      local nls = require("null-ls")
+      return {
+        root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", "Makefile", ".git"),
+        sources = {
+          -- lua
+          nls.builtins.formatting.stylua,
+          -- shell
+          nls.builtins.formatting.fish_indent,
+          nls.builtins.diagnostics.fish,
+          nls.builtins.code_actions.shellcheck,
+          nls.builtins.formatting.shfmt,
+          -- python
+          nls.builtins.formatting.isort,
+          nls.builtins.formatting.black,
+          nls.builtins.diagnostics.mypy,
+          -- go
+          nls.builtins.formatting.gofumpt,
+          -- rust
+          nls.builtins.formatting.rustfmt,
+          -- web
+          nls.builtins.formatting.prettierd,
+          nls.builtins.code_actions.eslint_d,
+        },
+      }
+    end,
   },
   {
     "neovim/nvim-lspconfig",
@@ -74,24 +114,7 @@ return {
       },
     },
     dependencies = {
-      {
-        "SmiteshP/nvim-navbuddy", -- navbuddy needs to load before lsp
-        config = function()
-          local navbuddy = require("nvim-navbuddy")
-          navbuddy.setup({
-            lsp = { auto_attach = true },
-          })
-        end,
-        dependencies = {
-          "neovim/nvim-lspconfig",
-          "SmiteshP/nvim-navic",
-          "MunifTanjim/nui.nvim",
-        },
-        keys = {
-          { "<leader>n", "<cmd>lua require('nvim-navbuddy').open()<cr>", desc = "Open navbuddy" },
-        },
-        cmd = { "Navbuddy" },
-      },
+      { "SmiteshP/nvim-navbuddy" }, -- navbuddy needs to load before lsp
     },
   },
   { import = "lazyvim.plugins.extras.lang.typescript" },
