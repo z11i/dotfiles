@@ -80,6 +80,7 @@ return {
       { "<leader><space>", Util.telescope("files", { cwd = false }), desc = "Find Files (cwd)" },
       { "<leader>sp", "<cmd>Telescope dir live_grep<CR>", desc = "Grep in Path" },
       { "<leader>fp", "<cmd>Telescope dir find_files<CR>", desc = "Files in Path" },
+      { "<F6>", "<cmd>Telescope fd<CR>", desc = "Telescope fd" },
     },
   },
   {

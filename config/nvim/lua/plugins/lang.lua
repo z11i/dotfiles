@@ -66,25 +66,6 @@ return {
         cssls = {},
         dockerls = {},
         gopls = {},
-        -- pylsp = {
-        --   settings = {
-        --     pylsp = {
-        --       plugins = {
-        --         pycodestyle = {
-        --           enabled = false,
-        --           ignore = { "E111", "E114", "E121" },
-        --           maxLineLength = 120,
-        --         },
-        --         flake8 = { enabled = false },
-        --         pylint = { enabled = false },
-        --         pyflakes = { enabled = false },
-        --         autopep8 = { enabled = false },
-        --         yapf = { enabled = false },
-        --         ruff = { enabled = true },
-        --       },
-        --     },
-        --   },
-        -- },
         jsonls = {},
         lua_ls = {},
         pyright = {
@@ -109,12 +90,58 @@ return {
       -- return true if you don't want this server to be setup with lspconfig
       ---@type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
       setup = {
+        gopls = function(_, opts)
+          -- https://www.reddit.com/r/golang/comments/11xe63t
+          local ih = require("inlay-hints")
+          require("lazyvim.util").on_attach(function(client, bufnr)
+            if client.name == "gopls" then
+              ih.on_attach(client, bufnr)
+              -- workaround to hl semanticTokens
+              -- https://github.com/golang/go/issues/54531#issuecomment-1464982242
+              if not client.server_capabilities.semanticTokensProvider then
+                local semantic = client.config.capabilities.textDocument.semanticTokens
+                client.server_capabilities.semanticTokensProvider = {
+                  full = true,
+                  legend = {
+                    tokenTypes = semantic.tokenTypes,
+                    tokenModifiers = semantic.tokenModifiers,
+                  },
+                  range = true,
+                }
+              end
+            end
+          end)
+          opts.settings = {
+            gopls = {
+              semanticTokens = true,
+              analyses = {
+                unusedparams = true,
+              },
+              staticcheck = true,
+              hints = {
+                assignVariableTypes = true,
+                compositeLiteralFields = true,
+                compositeLiteralTypes = true,
+                constantValues = true,
+                functionTypeParameters = true,
+                parameterNames = true,
+                rangeVariableTypes = true,
+              },
+            },
+          }
+        end,
         -- Specify * to use this function as a fallback for any server
         -- ["*"] = function(server, opts) end,
       },
     },
     dependencies = {
       { "SmiteshP/nvim-navbuddy" }, -- navbuddy needs to load before lsp
+      { -- TODO this is a hacky plugin, wait for https://github.com/neovim/neovim/pull/9496
+        "simrat39/inlay-hints.nvim",
+        config = function()
+          require("inlay-hints").setup()
+        end,
+      },
     },
   },
   { import = "lazyvim.plugins.extras.lang.typescript" },
