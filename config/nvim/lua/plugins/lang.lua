@@ -130,6 +130,10 @@ return {
             },
           }
         end,
+        rust_analyzer = function(_, opts)
+          require("rust-tools").setup({ server = opts })
+          return true
+        end,
         -- Specify * to use this function as a fallback for any server
         -- ["*"] = function(server, opts) end,
       },
@@ -142,6 +146,7 @@ return {
           require("inlay-hints").setup()
         end,
       },
+      { "simrat39/rust-tools.nvim" },
     },
   },
   { import = "lazyvim.plugins.extras.lang.typescript" },
