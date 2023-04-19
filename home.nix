@@ -25,6 +25,7 @@ in buildEnv {
       pkgs.jq
       pkgs.lazygit
       pkgs.libressl
+      pkgs.luarocks
       pkgs.mosh
       pkgs.neovim
       pkgs.nix
