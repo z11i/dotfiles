@@ -61,18 +61,18 @@ setup_mac() {
 
 	### Homebrew
 	checkBin brew || (
-		echo === installing homebrew ===
+		echo '=== installing homebrew ==='
 		/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 		eval "$(/opt/homebrew/bin/brew shellenv)" || eval "$(/usr/local/bin/brew shellenv)"
-        echo === configuring homebrew access so it is not just for one user ===
-        log 'creating a usergroup brew'
-        sudo dseditgroup -o create brew
-        log 'adding the current user to group brew'
-        sudo dseditgroup -o edit -a $(whoami) -t user brew
-        log 'changing owner of brew directory to brew'
-        sudo chgrp -R brew $(brew --prefix)
-        log 'changing permissions of brew directory'
-        sudo chmod -R g+rwX $(brew --prefix)
+		echo '=== configuring homebrew access so it is not just for one user ==='
+		log 'creating a usergroup brew'
+		sudo dseditgroup -o create brew
+		log 'adding the current user to group brew'
+		sudo dseditgroup -o edit -a "$(whoami)" -t user brew
+		log 'changing owner of brew directory to brew'
+		sudo chgrp -R brew "$(brew --prefix)"
+		log 'changing permissions of brew directory'
+		sudo chmod -R g+rwX "$(brew --prefix)"
 	)
 	### Homebrew END
 
@@ -94,11 +94,11 @@ setup_mac() {
 	./mac-defaults.sh
 	### defaults END
 
-    ### setup tmux-256color {{{ https://gist.github.com/bbqtd/a4ac060d6f6b9ea6fe3aabe735aa9d95
-    curl -LO https://invisible-island.net/datafiles/current/terminfo.src.gz && gunzip terminfo.src.gz
-    sudo /usr/bin/tic -xe tmux-256color terminfo.src
-    rm terminfo.src
-    ### setup tmux-256color }}}
+	### setup tmux-256color {{{ https://gist.github.com/bbqtd/a4ac060d6f6b9ea6fe3aabe735aa9d95
+	curl -LO https://invisible-island.net/datafiles/current/terminfo.src.gz && gunzip terminfo.src.gz
+	sudo /usr/bin/tic -xe tmux-256color terminfo.src
+	rm terminfo.src
+	### setup tmux-256color }}}
 }
 
 setup_mac_gui() {
@@ -123,9 +123,9 @@ setup_git() {
 	symlink config/git ~/.config/git
 	symlink homefiles/.gitconfig ~/.gitconfig
 	if [[ ! -f ~/.gitlocal ]]; then
-		log '~/.gitlocal file missing, creating one'
-		read -p 'Email for git: ' git_email
-		read -p 'Name for git: ' git_name
+		log "$HOME/.gitlocal file missing, creating one"
+		read -rp 'Email for git: ' git_email
+		read -rp 'Name for git: ' git_name
 		cat <<EOF >~/.gitlocal
 [user]
 	email = $git_email
@@ -146,7 +146,7 @@ setup_fish() {
 				;;
 			debian*)
 				echo 'deb http://download.opensuse.org/repositories/shells:/fish:/release:/3/Debian_11/ /' | sudo tee /etc/apt/sources.list.d/shells:fish:release:3.list
-				curl -fsSL https://download.opensuse.org/repositories/shells:fish:release:3/Debian_11/Release.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/shells_fish_release_3.gpg > /dev/null
+				curl -fsSL https://download.opensuse.org/repositories/shells:fish:release:3/Debian_11/Release.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/shells_fish_release_3.gpg >/dev/null
 				sudo apt install fish
 				;;
 			esac
@@ -183,8 +183,8 @@ setup_asdf() {
 setup_golang() {
 	[[ -d ~/.asdf ]] && (
 		asdf plugin-add golang || true
-		asdf install golang $(asdf list-all golang | fzf)
-		asdf global golang $(asdf list golang | awk '{print $1; exit}')
+		asdf install golang "$(asdf list-all golang | fzf)"
+		asdf global golang "$(asdf list golang | awk '{print $1; exit}')"
 		GO111MODULE=on go install mvdan.cc/gofumpt@latest
 	)
 }
@@ -192,16 +192,16 @@ setup_golang() {
 setup_node() {
 	[[ -d ~/.asdf ]] && (
 		asdf plugin-add nodejs || true
-		asdf install nodejs $(asdf list-all nodejs | fzf)
-		asdf global nodejs $(asdf list nodejs | awk '{print $1; exit}')
+		asdf install nodejs "$(asdf list-all nodejs | fzf)"
+		asdf global nodejs "$(asdf list nodejs | awk '{print $1; exit}')"
 	)
 }
 
 setup_tmux() {
-    checkBin tmux && (
-        symlink config/tmux/tmux.conf ~/.tmux.conf
-        [[ -e ~/.tmux/plugins/tpm ]] || git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-    )
+	checkBin tmux && (
+		symlink config/tmux/tmux.conf ~/.tmux.conf
+		[[ -e ~/.tmux/plugins/tpm ]] || git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+	)
 }
 
 setup_rust() {
@@ -213,15 +213,15 @@ setup_wezterm() {
 	symlink libexec/switch-theme /usr/local/bin/switch-theme
 }
 
-# setup_nix
-# setup_mac
-# setup_fish
-# setup_git
-# setup_neovim
-# setup_ideavim
-# setup_asdf
-# setup_mac_gui
-# setup_golang
-# setup_node
-# setup_rust
+setup_nix
+setup_mac
+setup_fish
+setup_git
+setup_neovim
+setup_ideavim
+setup_asdf
+setup_mac_gui
+setup_golang
+setup_node
+setup_rust
 setup_wezterm
