@@ -28,6 +28,10 @@ if [[ "$OS_NAME" = 'linux' ]]; then
 	)
 fi
 
+setup_profile() {
+	symlink homefiles/.profile ~/.profile
+}
+
 setup_nix() {
 	checkBin nix || (
 		log 'installing Nix'
@@ -213,6 +217,7 @@ setup_wezterm() {
 	symlink libexec/switch-theme /usr/local/bin/switch-theme
 }
 
+setup_profile
 setup_nix
 setup_mac
 setup_fish
