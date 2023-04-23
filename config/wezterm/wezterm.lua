@@ -35,6 +35,9 @@ local action = wezterm.action
 local keys = {}
 local function assign_key(modss, key, act)
 	for _, v in ipairs(modss) do
+		if act == nil then
+			act = action.DisableDefaultAssignment
+		end
 		table.insert(keys, { key = key, mods = v, action = act })
 	end
 end
@@ -43,6 +46,7 @@ assign_key({ "CMD", "CTRL|SHIFT" }, "s", action.PaneSelect({ mode = "SwapWithAct
 assign_key({ "CTRL|SHIFT" }, "{", action.RotatePanes("CounterClockwise"))
 assign_key({ "CTRL|SHIFT" }, "}", action.RotatePanes("Clockwise"))
 assign_key({ "CMD", "CTRL|SHIFT" }, "f", action.Search({ CaseInSensitiveString = "" }))
+assign_key({ "OPT" }, "Enter", nil) -- Opt+Enter is used by LazyVim for GitHub Copilot
 
 return {
 	bold_brightens_ansi_colors = false,
