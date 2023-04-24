@@ -1,5 +1,5 @@
 return {
-  { "folke/tokyonight.nvim", opts = { style = "night" } },
+  { "folke/tokyonight.nvim", opts = { style = "moon" } },
   { "LazyVim/LazyVim", opts = { colorscheme = "tokyonight" } },
   { "rcarriga/nvim-notify", opts = {
     render = "compact",
@@ -20,5 +20,12 @@ return {
       start_in_insert = true,
       close_on_exit = true,
     },
+  },
+  {
+    "folke/which-key.nvim",
+    opts = function(_, opts)
+      opts.defaults["<F5>"] = { name = "+run" }
+      opts.defaults["<F5>r"] = { name = "+rust" }
+    end,
   },
 }
