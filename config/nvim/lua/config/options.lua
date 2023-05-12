@@ -6,3 +6,5 @@ if vim.fn.has("nvim-0.9.0") == 1 then
   vim.o.exrc = true
 end
 vim.opt.clipboard = ""
+-- set word soft wrap
+vim.opt.wrap = true
