@@ -23,6 +23,7 @@ return {
         "prettierd",
         "eslint_d",
       },
+      PATH = "append",
     },
   },
   {
@@ -62,7 +63,6 @@ return {
       ---@type lspconfig.options
       servers = {
         bashls = {},
-        clangd = {},
         cssls = {},
         dockerls = {},
         gopls = {},
