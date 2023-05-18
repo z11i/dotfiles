@@ -36,6 +36,7 @@
   fff = f3
   forget = rm --cached
   ri = rebase --interactive
+  st = stash
   sw = switch
   sws = switch-safe
   rbt = rebase-with-stash
