@@ -1,7 +1,7 @@
 return {
   {
     "github/copilot.vim",
-    enabled = false,
+    enabled = true,
     build = "<cmd>Copilot setup",
     config = function()
       vim.g.copilot_no_tab_map = true
@@ -12,6 +12,7 @@ return {
   },
   {
     "zbirenbaum/copilot.lua",
+    enabled = false,
     cmd = "Copilot",
     build = ":Copilot auth",
     opts = {
