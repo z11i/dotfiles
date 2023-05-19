@@ -8,3 +8,5 @@ end
 vim.opt.clipboard = ""
 -- set word soft wrap
 vim.opt.wrap = true
+-- show character before wrapped lines
+vim.opt.showbreak = [[    ⤷]]
