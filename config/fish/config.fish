@@ -52,11 +52,11 @@ end
 # brew completion
 if type -q brew
     if test -d (brew --prefix)"/share/fish/completions"
-        fish_add_path (brew --prefix)/share/fish/completions
+        path_append (brew --prefix)/share/fish/completions
     end
 
     if test -d (brew --prefix)"/share/fish/vendor_completions.d"
-        fish_add_path (brew --prefix)/share/fish/vendor_completions.d
+        path_append (brew --prefix)/share/fish/vendor_completions.d
     end
 end
 
@@ -65,8 +65,10 @@ if test -e '~/google-cloud-sdk/path.bash.inc'
     bass source '~/google-cloud-sdk/path.bash.inc'
 end
 
-# source asdf
-sourceadd ~/.asdf/asdf.fish
+# optionally source asdf because it does not check whether it has already been sourced
+if not contains ~/.asdf/shims $PATH
+    sourceadd ~/.asdf/asdf.fish
+end
 
 if type -q direnv
     direnv hook fish | source
