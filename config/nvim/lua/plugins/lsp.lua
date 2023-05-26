@@ -10,18 +10,20 @@ return {
         "shellcheck",
         "shfmt",
         -- python
-        "isort",
         "black",
+        "isort",
         "mypy",
+        "ruff",
         -- go
-        "gopls",
         "gofumpt",
+        "gopls",
         -- rust
         "rust-analyzer",
         "rustfmt",
         -- web
-        "prettierd",
         "eslint_d",
+        "prettierd",
+        "rome",
       },
       PATH = "append",
     },
@@ -34,23 +36,26 @@ return {
         root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", "Makefile", ".git"),
         sources = {
           -- lua
+          nls.builtins.diagnostics.luacheck,
           nls.builtins.formatting.stylua,
           -- shell
-          nls.builtins.formatting.fish_indent,
-          nls.builtins.diagnostics.fish,
           nls.builtins.code_actions.shellcheck,
+          nls.builtins.diagnostics.fish,
+          nls.builtins.formatting.fish_indent,
           nls.builtins.formatting.shfmt,
           -- python
-          nls.builtins.formatting.isort,
-          nls.builtins.formatting.black,
           nls.builtins.diagnostics.mypy,
+          nls.builtins.diagnostics.ruff,
+          nls.builtins.formatting.black,
+          nls.builtins.formatting.isort,
           -- go
           nls.builtins.formatting.gofumpt,
           -- rust
           nls.builtins.formatting.rustfmt,
           -- web
-          nls.builtins.formatting.prettierd,
           nls.builtins.code_actions.eslint_d,
+          nls.builtins.formatting.prettierd,
+          nls.builtins.formatting.rome,
         },
       }
     end,
