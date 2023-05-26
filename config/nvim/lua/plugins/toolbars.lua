@@ -11,4 +11,19 @@ return {
       --#endregion
     end,
   },
+  {
+    "akinsho/bufferline.nvim",
+    opts = {
+      options = {
+        separator_style = "slant", -- sublime text style
+
+        -- do not show no. of errors and warnings
+        diagnostics_indicator = function(_, _, diag)
+          local icons = require("lazyvim.config").icons.diagnostics
+          local ret = (diag.error and icons.Error or "") .. (diag.warning and icons.Warn or "")
+          return vim.trim(ret)
+        end,
+      },
+    },
+  },
 }
