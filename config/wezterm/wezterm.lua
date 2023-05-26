@@ -57,6 +57,7 @@ return {
 	keys = keys,
 	line_height = 1.1,
 	scrollback_lines = 10000,
+	window_decorations = "INTEGRATED_BUTTONS|RESIZE",
 	window_padding = {
 		left = 0,
 		right = 0,
