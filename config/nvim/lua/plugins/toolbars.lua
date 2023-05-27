@@ -13,10 +13,10 @@ return {
   },
   {
     "akinsho/bufferline.nvim",
+    dependencies = { "catppuccin" },
     opts = {
       options = {
         separator_style = "slant", -- sublime text style
-
         -- do not show no. of errors and warnings
         diagnostics_indicator = function(_, _, diag)
           local icons = require("lazyvim.config").icons.diagnostics
