@@ -6,8 +6,8 @@ return {
     opts = function(_, opts)
       opts.sections.lualine_b = {} -- disable git branch
       --#region remove nvim-navic from statusline: https://github.com/LazyVim/LazyVim/discussions/104
-      local navic = table.remove(opts.sections.lualine_c)
-      opts.winbar = { lualine_c = { navic } }
+      table.remove(opts.sections.lualine_c)
+      -- opts.winbar = { lualine_c = { navic } }
       --#endregion
     end,
   },
@@ -25,5 +25,16 @@ return {
         end,
       },
     },
+  },
+  {
+    "utilyre/barbecue.nvim",
+    name = "barbecue",
+    version = "*",
+    dependencies = { "SmiteshP/nvim-navic", "nvim-tree/nvim-web-devicons" },
+    event = { "BufReadPost", "BufNewFile" },
+    config = function()
+      require("barbecue").setup({ show_dirname = false, theme = "catppuccin" })
+      require("barbecue.ui").toggle(true)
+    end,
   },
 }
