@@ -1,24 +1,22 @@
 return {
-  -- { "folke/tokyonight.nvim", opts = { style = "night" } },
+  { "folke/tokyonight.nvim", opts = { style = "night" } },
   {
     "catppuccin/nvim",
     name = "catppuccin",
-    config = function()
+    opts = function()
       local integrations = {
         "telescope",
       }
       for _, integration in ipairs(integrations) do
         integrations[integration] = true
       end
-      local flavour = vim.opt.background == "light" and "latte" or "mocha"
-      require("catppuccin").setup({
-        flavour = flavour,
+      return {
         background = {
           light = "latte",
           dark = "mocha",
         },
         integrations = integrations,
-      })
+      }
     end,
   },
   { "LazyVim/LazyVim", opts = { colorscheme = "catppuccin" } },

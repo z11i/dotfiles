@@ -13,7 +13,6 @@ return {
   },
   {
     "akinsho/bufferline.nvim",
-    dependencies = { "catppuccin" },
     opts = {
       options = {
         separator_style = "slant", -- sublime text style
