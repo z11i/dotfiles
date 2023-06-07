@@ -30,6 +30,3 @@ end, { desc = "Copy relative file path" })
 -- Tab and S-Tab to cycle through buffers
 vim.keymap.set("n", "<Tab>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer" })
 vim.keymap.set("n", "<S-Tab>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })
-
--- Make cursor stay where it is when y
-vim.keymap.set({ "n", "v" }, "y", "ygv<esc>")
