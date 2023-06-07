@@ -4,7 +4,7 @@ return {
     opts = {
       ensure_installed = {
         -- lua
-        "luacheck",
+        -- "luacheck",
         "stylua",
         -- shell
         "shellcheck",
@@ -36,7 +36,7 @@ return {
         root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", "Makefile", ".git"),
         sources = {
           -- lua
-          nls.builtins.diagnostics.luacheck,
+          -- nls.builtins.diagnostics.luacheck, -- not needed with luals and lazyvim
           nls.builtins.formatting.stylua,
           -- shell
           nls.builtins.code_actions.shellcheck,
