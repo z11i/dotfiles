@@ -2,24 +2,24 @@ local Util = require("lazyvim.util")
 return {
   {
     "nvim-neo-tree/neo-tree.nvim",
-    keys = {
-      {
-        "<leader>ue",
-        function()
-          if vim.g._neotree_side == nil then
-            vim.g._neotree_side = "left" -- default is right
-          else
-            if vim.g._neotree_side == "left" then
-              vim.g._neotree_side = "right"
-            else
-              vim.g._neotree_side = "left"
-            end
-          end
-          require("neo-tree.command").execute({ toggle = false, position = vim.g._neotree_side })
-        end,
-        desc = "Toggle Neotree side",
-      },
-    },
+    -- keys = {
+    --   {
+    --     "<leader>ue",
+    --     function()
+    --       if vim.g._neotree_side == nil then
+    --         vim.g._neotree_side = "left" -- default is right
+    --       else
+    --         if vim.g._neotree_side == "left" then
+    --           vim.g._neotree_side = "right"
+    --         else
+    --           vim.g._neotree_side = "left"
+    --         end
+    --       end
+    --       require("neo-tree.command").execute({ toggle = false, position = vim.g._neotree_side })
+    --     end,
+    --     desc = "Toggle Neotree side",
+    --   },
+    -- },
     opts = {
       filesystem = {
         filtered_items = {
@@ -31,9 +31,9 @@ return {
           ".DS_Store",
         },
       },
-      window = {
-        position = "right",
-      },
+      -- window = {
+      --   position = "right",
+      -- },
     },
   },
   {
@@ -100,5 +100,12 @@ return {
       { "<leader>n", "<cmd>lua require('nvim-navbuddy').open()<cr>", desc = "Open navbuddy" },
     },
     cmd = { "Navbuddy" },
+  },
+  {
+    "simrat39/symbols-outline.nvim",
+    cmd = "SymbolsOutline",
+    config = function()
+      require("symbols-outline").setup()
+    end,
   },
 }
