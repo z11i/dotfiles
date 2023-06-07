@@ -45,6 +45,7 @@ return {
     opts = function(_, opts)
       opts.defaults["<F5>"] = { name = "+run" }
       opts.defaults["<F5>r"] = { name = "+rust" }
+      opts.defaults["n"] = { name = "+nav" }
     end,
   },
 }

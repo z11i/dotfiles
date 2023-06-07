@@ -93,11 +93,11 @@ return {
     end,
     dependencies = {
       "neovim/nvim-lspconfig",
-      "SmiteshP/nvim-navic",
+      -- "SmiteshP/nvim-navic",
       "MunifTanjim/nui.nvim",
     },
     keys = {
-      { "<leader>n", "<cmd>lua require('nvim-navbuddy').open()<cr>", desc = "Open navbuddy" },
+      { "<leader>nb", "<cmd>lua require('nvim-navbuddy').open()<cr>", desc = "Open navbuddy" },
     },
     cmd = { "Navbuddy" },
   },

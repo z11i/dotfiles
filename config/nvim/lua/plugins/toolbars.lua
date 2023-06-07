@@ -27,6 +27,7 @@ return {
   },
   {
     "utilyre/barbecue.nvim",
+    enabled = false,
     name = "barbecue",
     version = "*",
     dependencies = { "SmiteshP/nvim-navic", "nvim-tree/nvim-web-devicons" },
@@ -35,5 +36,18 @@ return {
       require("barbecue").setup({ show_dirname = false, theme = "catppuccin" })
       require("barbecue.ui").toggle(true)
     end,
+  },
+  {
+    "Bekaboo/dropbar.nvim",
+    event = "VeryLazy",
+    keys = {
+      {
+        "<leader>nt",
+        function()
+          require("dropbar.api").pick()
+        end,
+        desc = "Select dropbar",
+      },
+    },
   },
 }
