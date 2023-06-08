@@ -1,34 +1,33 @@
 return {
-  { "folke/tokyonight.nvim", opts = { style = "night" } },
   {
-    "catppuccin/nvim",
-    name = "catppuccin",
-    opts = function()
-      local integrations = {
-        "illuminate",
-        "leap",
-        "lsp_trouble",
-        "mini",
-        "neotree",
-        "noice",
-        "notify",
-        "symbols_outline",
-        "telescope",
-        "which_key",
-      }
-      for _, integration in ipairs(integrations) do
-        integrations[integration] = true
-      end
-      return {
-        background = {
-          light = "latte",
-          dark = "mocha",
-        },
-        integrations = integrations,
-      }
-    end,
+    "LazyVim/LazyVim",
+    opts = {
+      colorscheme = function()
+        local integrations = {
+          "illuminate",
+          "leap",
+          "lsp_trouble",
+          "mini",
+          "neotree",
+          "noice",
+          "notify",
+          "symbols_outline",
+          "telescope",
+          "which_key",
+        }
+        for _, integration in ipairs(integrations) do
+          integrations[integration] = true
+        end
+        require("catppuccin").setup({
+          term_colors = true, -- sets terminal colors (e.g. `g:terminal_color_0`)
+          integrations = integrations,
+        })
+
+        -- setup must be called before loading
+        vim.cmd.colorscheme("catppuccin")
+      end,
+    },
   },
-  { "LazyVim/LazyVim", opts = { colorscheme = "catppuccin" } },
   { "rcarriga/nvim-notify", opts = {
     render = "compact",
     top_down = false,
