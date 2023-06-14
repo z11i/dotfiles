@@ -27,6 +27,6 @@ vim.keymap.set({ "n" }, "<leader>y.", function()
   print("Copied relative file path to clipboard: " .. relative_path)
 end, { desc = "Copy relative file path" })
 
--- Tab and S-Tab to cycle through buffers
-vim.keymap.set("n", "<S-Tab>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer" })
-vim.keymap.set("n", "<Tab>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })
+-- Ctrl-, and Ctrl-. to cycle through buffers
+vim.keymap.set({ "n", "i" }, "<C-,>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer" })
+vim.keymap.set({ "n", "i" }, "<C-.>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })
