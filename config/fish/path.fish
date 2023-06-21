@@ -23,3 +23,6 @@ path_prepend ~/.local/bin
 # coreutils
 set -l coreutils /usr/local/opt/coreutils
 path_prepend $coreutils/libexec/gnubin
+
+# kafka
+path_append /opt/kafka/bin
