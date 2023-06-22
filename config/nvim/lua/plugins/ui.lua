@@ -2,30 +2,32 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = function()
-        local integrations = {
-          "illuminate",
-          "leap",
-          "lsp_trouble",
-          "mini",
-          "neotree",
-          "noice",
-          "notify",
-          "symbols_outline",
-          "telescope",
-          "which_key",
-        }
-        for _, integration in ipairs(integrations) do
-          integrations[integration] = true
-        end
-        require("catppuccin").setup({
-          term_colors = true, -- sets terminal colors (e.g. `g:terminal_color_0`)
-          integrations = integrations,
-        })
-
-        -- setup must be called before loading
-        vim.cmd.colorscheme("catppuccin")
-      end,
+      --#region for catppuccin
+      -- colorscheme = function()
+      --   local integrations = {
+      --     "illuminate",
+      --     "leap",
+      --     "lsp_trouble",
+      --     "mini",
+      --     "neotree",
+      --     "noice",
+      --     "notify",
+      --     "symbols_outline",
+      --     "telescope",
+      --     "which_key",
+      --   }
+      --   for _, integration in ipairs(integrations) do
+      --     integrations[integration] = true
+      --   end
+      --   require("catppuccin").setup({
+      --     term_colors = true, -- sets terminal colors (e.g. `g:terminal_color_0`)
+      --     integrations = integrations,
+      --   })
+      --
+      --   -- setup must be called before loading
+      --   vim.cmd.colorscheme("catppuccin")
+      -- end,
+      --#endregion
     },
   },
   { "rcarriga/nvim-notify", opts = {

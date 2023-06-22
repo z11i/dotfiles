@@ -142,6 +142,7 @@ return {
         -- Specify * to use this function as a fallback for any server
         -- ["*"] = function(server, opts) end,
       },
+      inlay_hints = { enabled = true },
     },
     dependencies = {
       { "SmiteshP/nvim-navbuddy" }, -- navbuddy needs to load before lsp
