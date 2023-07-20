@@ -37,6 +37,7 @@
   forget = rm --cached
   ri = rebase --interactive
   st = stash
+  sc = switch -c
   sw = switch
   sws = switch-safe
   rbt = rebase-with-stash

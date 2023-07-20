@@ -42,7 +42,7 @@ local function assign_key(modss, key, act)
 	end
 end
 assign_key({ "CMD", "CTRL|SHIFT" }, "w", action.CloseCurrentPane({ confirm = true }))
-assign_key({ "CMD", "CTRL|SHIFT" }, "s", action.PaneSelect({ mode = "SwapWithActive" }))
+assign_key({ "CMD", "CTRL|SHIFT" }, "s", action.PaneSelect({ alphabet = "1234567890" }))
 assign_key({ "CTRL|SHIFT" }, "{", action.RotatePanes("CounterClockwise"))
 assign_key({ "CTRL|SHIFT" }, "}", action.RotatePanes("Clockwise"))
 assign_key({ "CMD", "CTRL|SHIFT" }, "f", action.Search({ CaseInSensitiveString = "" }))
