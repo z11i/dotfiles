@@ -97,10 +97,10 @@ return {
       setup = {
         gopls = function(_, opts)
           -- https://www.reddit.com/r/golang/comments/11xe63t
-          local ih = require("inlay-hints")
+          -- local ih = require("inlay-hints")
           require("lazyvim.util").on_attach(function(client, bufnr)
             if client.name == "gopls" then
-              ih.on_attach(client, bufnr)
+              -- ih.on_attach(client, bufnr)
               -- workaround to hl semanticTokens
               -- https://github.com/golang/go/issues/54531#issuecomment-1464982242
               if not client.server_capabilities.semanticTokensProvider then
@@ -146,12 +146,12 @@ return {
     },
     dependencies = {
       { "SmiteshP/nvim-navbuddy" }, -- navbuddy needs to load before lsp
-      { -- TODO this is a hacky plugin, wait for https://github.com/neovim/neovim/pull/9496
-        "simrat39/inlay-hints.nvim",
-        config = function()
-          require("inlay-hints").setup()
-        end,
-      },
+      -- { -- TODO this is a hacky plugin, wait for https://github.com/neovim/neovim/pull/9496
+      --   "simrat39/inlay-hints.nvim",
+      --   config = function()
+      --     require("inlay-hints").setup()
+      --   end,
+      -- },
       { "simrat39/rust-tools.nvim" },
     },
   },
