@@ -56,7 +56,7 @@ return {
 	front_end = "WebGpu",
 	keys = keys,
 	line_height = 1.1,
-	scrollback_lines = 10000,
+	scrollback_lines = 1048576,
 	window_decorations = "INTEGRATED_BUTTONS|RESIZE",
 	window_padding = {
 		left = 0,
