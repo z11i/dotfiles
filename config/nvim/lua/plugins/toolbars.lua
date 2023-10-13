@@ -47,7 +47,17 @@ return {
   {
     "Bekaboo/dropbar.nvim",
     event = "VeryLazy",
+    dependencies = {
+      "nvim-telescope/telescope-fzf-native.nvim",
+    },
     keys = {
+      {
+        "<leader>nf",
+        function()
+          require("dropbar.api").fuzzy_find_toggle()
+        end,
+        desc = "Fuzzy find in dropbar",
+      },
       {
         "<leader>nt",
         function()

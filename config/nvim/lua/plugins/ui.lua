@@ -167,7 +167,7 @@ return {
       -- going on thus the note).
       table.insert(keys, {
         "<leader>ee",
-        focus_or_open("filesystem", { position = "left", dir = util.get_root() }),
+        focus_or_open("filesystem", { position = "left", dir = util.root.get() }),
         desc = "Explorer (root dir)",
       })
       table.insert(keys, {

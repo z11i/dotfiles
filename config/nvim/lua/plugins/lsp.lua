@@ -30,6 +30,7 @@ return {
   },
   {
     "nvimtools/none-ls.nvim",
+    enabled = false,
     opts = function()
       local nls = require("null-ls")
       return {
@@ -98,7 +99,7 @@ return {
         gopls = function(_, opts)
           -- https://www.reddit.com/r/golang/comments/11xe63t
           -- local ih = require("inlay-hints")
-          require("lazyvim.util").on_attach(function(client, bufnr)
+          require("lazyvim.util").lsp.on_attach(function(client, bufnr)
             if client.name == "gopls" then
               -- ih.on_attach(client, bufnr)
               -- workaround to hl semanticTokens
