@@ -19,13 +19,22 @@ return {
         "gopls",
         -- rust
         "rust-analyzer",
-        "rustfmt",
         -- web
         "eslint_d",
         "prettierd",
-        "rome",
       },
       PATH = "append",
+    },
+  },
+  {
+    "stevearc/conform.nvim",
+    opts = {
+      -- [[
+      -- -- use this in .exrc to set local formatters
+      -- local conform = require"conform"
+      -- conform.formatters_by_ft.go = vim.tbl_filter(function(f) return f ~= "gofumpt" end, conform.formatters_by_ft.go)
+      -- ]]
+      formatters_by_ft = {},
     },
   },
   {
@@ -96,46 +105,6 @@ return {
       -- return true if you don't want this server to be setup with lspconfig
       ---@type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
       setup = {
-        gopls = function(_, opts)
-          -- https://www.reddit.com/r/golang/comments/11xe63t
-          -- local ih = require("inlay-hints")
-          require("lazyvim.util").lsp.on_attach(function(client, bufnr)
-            if client.name == "gopls" then
-              -- ih.on_attach(client, bufnr)
-              -- workaround to hl semanticTokens
-              -- https://github.com/golang/go/issues/54531#issuecomment-1464982242
-              if not client.server_capabilities.semanticTokensProvider then
-                local semantic = client.config.capabilities.textDocument.semanticTokens
-                client.server_capabilities.semanticTokensProvider = {
-                  full = true,
-                  legend = {
-                    tokenTypes = semantic.tokenTypes,
-                    tokenModifiers = semantic.tokenModifiers,
-                  },
-                  range = true,
-                }
-              end
-            end
-          end)
-          opts.settings = {
-            gopls = {
-              semanticTokens = true,
-              analyses = {
-                unusedparams = true,
-              },
-              staticcheck = true,
-              hints = {
-                assignVariableTypes = true,
-                compositeLiteralFields = true,
-                compositeLiteralTypes = true,
-                constantValues = true,
-                functionTypeParameters = true,
-                parameterNames = true,
-                rangeVariableTypes = true,
-              },
-            },
-          }
-        end,
         rust_analyzer = function(_, opts)
           require("rust-tools").setup({ server = opts })
           return true
