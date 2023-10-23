@@ -12,10 +12,9 @@ return {
     event = "VeryLazy",
     opts = function(_, opts)
       opts.sections.lualine_b = {} -- disable git branch
-      --#region remove nvim-navic from statusline: https://github.com/LazyVim/LazyVim/discussions/104
-      table.remove(opts.sections.lualine_c)
-      -- opts.winbar = { lualine_c = { navic } }
-      --#endregion
+      table.remove(opts.sections.lualine_c) -- remove nvim-navic
+      table.remove(opts.sections.lualine_c) -- remove Util.lualine.pretty_path() because it's not adjustable, and defaults to hide too much
+      table.insert(opts.sections.lualine_c, { "filename", path = 2 }) -- use lualine default absolute path
     end,
   },
   {
