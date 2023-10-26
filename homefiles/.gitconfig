@@ -19,7 +19,7 @@
   diff-with-tracking = diff-remote-and-local
   diff-three-ways = "!f() { [[ $# -ne 3 ]] && echo pass in BASE, HEAD1, HEAD2 && exit 1; difft <(git diff $1...$2 | cat) <(git diff $1...$3 | cat); }; f"
   diff-with-difft = "!f() { GIT_EXTERNAL_DIFF=difft git diff $@; }; f"
-  fixup-last = commit --amend --no-edit
+  fixup-last = "!f() { git stash --keep-index && git commit --amend --no-edit; }; f"
   forget-dir = "!bash -c 'git rm -r --cached $0 && git update-index --assume-unchanged $0'"
   forget-file = "!bash -c 'git rm --cached $0 && git update-index --assume-unchanged $0'"
   merge-test = merge --no-commit --no-ff
