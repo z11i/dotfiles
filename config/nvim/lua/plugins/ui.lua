@@ -197,6 +197,7 @@ return {
   {
     "folke/edgy.nvim",
     opts = function(_, opts)
+      opts.animate = { enabled = false }
       opts.exit_when_last = true
 
       -- change the default Explorer open action to use the new keymapping
