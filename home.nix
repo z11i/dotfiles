@@ -11,8 +11,8 @@ in buildEnv {
       pkgs.coreutils
       pkgs.du-dust
       pkgs.entr
-      pkgs.exa
       pkgs.exercism
+      pkgs.eza
       pkgs.fd
       pkgs.fzf
       pkgs.gitAndTools.delta
