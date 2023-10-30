@@ -1,6 +1,5 @@
 source ~/.config/fish/alias.fish
 source ~/.config/fish/path.fish
-sourceadd ~/.config.fish
 
 # bootstrap fisher
 if not functions -q fisher
@@ -88,3 +87,5 @@ if type -q github-copilot-cli
 else
     npm install -g @githubnext/github-copilot-cli || true
 end
+
+sourceadd ~/.config.fish
