@@ -40,6 +40,7 @@
   forget = rm --cached
   ri = rebase --interactive
   st = stash
+  stp = stash -p -m
   sc = switch -c
   sw = switch
   sws = switch-safe
