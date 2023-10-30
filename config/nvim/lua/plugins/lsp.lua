@@ -125,8 +125,6 @@ return {
       { "simrat39/rust-tools.nvim" },
     },
   },
-  { import = "lazyvim.plugins.extras.lang.typescript" },
-  { import = "lazyvim.plugins.extras.lang.json" },
   {
     "NMAC427/guess-indent.nvim",
     config = function()
