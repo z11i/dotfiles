@@ -2,6 +2,7 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
+      --colorscheme = "kanagawa",
       --#region for catppuccin
       -- colorscheme = function()
       --   local integrations = {
@@ -28,6 +29,14 @@ return {
       --   vim.cmd.colorscheme("catppuccin")
       -- end,
       --#endregion
+    },
+  },
+  -- { "rebelot/kanagawa.nvim" },
+  {
+    "folke/tokyonight.nvim",
+    opts = {
+      day_brightness = 0.15,
+      lualine_bold = true,
     },
   },
   { "rcarriga/nvim-notify", opts = {
