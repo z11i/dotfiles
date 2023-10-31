@@ -52,7 +52,7 @@ return {
 	bold_brightens_ansi_colors = false,
 	enable_scroll_bar = true,
 	font = wezterm.font("Berkeley Mono Variable"),
-	font_size = 15.8,
+	font_size = 15.4,
 	front_end = "WebGpu",
 	keys = keys,
 	line_height = 1.1,
