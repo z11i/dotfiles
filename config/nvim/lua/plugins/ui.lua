@@ -38,7 +38,7 @@ return {
     lazy = false,
     priority = 1000,
     config = function()
-      require("solarized").setup({ theme = "neo" })
+      require("solarized").setup()
     end,
   },
   {

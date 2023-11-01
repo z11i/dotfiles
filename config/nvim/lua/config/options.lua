@@ -10,5 +10,9 @@ vim.opt.clipboard = ""
 vim.opt.wrap = true
 -- show character before wrapped lines
 vim.opt.showbreak = [[    ⤷]]
+-- make wrapped lines continue visually indented
+vim.opt.breakindent = true
+-- wrap line at word boundary
+vim.opt.linebreak = true
 
 vim.opt.mousemoveevent = true
