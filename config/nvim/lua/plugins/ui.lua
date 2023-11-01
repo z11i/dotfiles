@@ -2,7 +2,7 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      --colorscheme = "kanagawa",
+      colorscheme = "solarized",
       --#region for catppuccin
       -- colorscheme = function()
       --   local integrations = {
@@ -32,6 +32,15 @@ return {
     },
   },
   -- { "rebelot/kanagawa.nvim" },
+  -- { "EdenEast/nightfox.nvim" },
+  {
+    "maxmx03/solarized.nvim",
+    lazy = false,
+    priority = 1000,
+    config = function()
+      require("solarized").setup({ theme = "neo" })
+    end,
+  },
   {
     "folke/tokyonight.nvim",
     opts = {
