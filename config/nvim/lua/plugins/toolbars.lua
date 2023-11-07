@@ -15,6 +15,7 @@ return {
       table.remove(opts.sections.lualine_c) -- remove nvim-navic
       table.remove(opts.sections.lualine_c) -- remove Util.lualine.pretty_path() because it's not adjustable, and defaults to hide too much
       table.insert(opts.sections.lualine_c, { "filename", path = 2 }) -- use lualine default absolute path
+      opts.theme = "catppuccin"
     end,
   },
   {
@@ -30,6 +31,7 @@ return {
         end,
       },
     },
+    dependencies = { "catppuccin/nvim", name = "catppuccin" },
   },
   {
     "utilyre/barbecue.nvim",
