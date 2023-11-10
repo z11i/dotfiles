@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+# check if there are unstaged changes
+unstaged=$(git diff --name-only)
+if [[ -z "$unstaged" ]]; then
+	echo "No unstaged changes"
+	exit 0
+fi
+# generate an ID for the stash of staged changes
+ID=$(date +"%s")
+git stash push -Sm "$ID"
+# staged changes are stashed above, here we stash unstaged changes
+git stash
+if git stashes | awk -F: '/'"$ID"'/ {print $1}' | xargs git stash pop; then # pop the staged changes
+	git add -u
+fi
+git status

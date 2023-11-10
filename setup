@@ -126,6 +126,7 @@ setup_mac_gui() {
 setup_git() {
 	symlink config/git ~/.config/git
 	symlink homefiles/.gitconfig ~/.gitconfig
+	symlink homefiles/git-scripts ~/.local/bin/git-scripts
 	if [[ ! -f ~/.gitlocal ]]; then
 		log "$HOME/.gitlocal file missing, creating one"
 		read -rp 'Email for git: ' git_email

@@ -19,6 +19,7 @@ path_prepend ~/.cargo/bin
 
 # dotfiles
 path_prepend ~/.local/bin
+path_prepend ~/.local/bin/git-scripts
 
 # coreutils
 set -l coreutils /usr/local/opt/coreutils
