@@ -71,6 +71,7 @@ return {
       start_in_insert = true,
       close_on_exit = true,
     },
+    dependencies = { "willothy/flatten.nvim" },
   },
   {
     "folke/which-key.nvim",
