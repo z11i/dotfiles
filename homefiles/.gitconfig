@@ -49,6 +49,8 @@
 
 [core]
   pager = delta
+	fsmonitor = true
+	untrackedCache = true
 
     ## highlight whitespaces
     ## https://github.com/dandavison/delta/issues/522
@@ -92,3 +94,5 @@
   autoSetupRemote = true
 [rerere]
   enabled = true
+[feature]
+	manyFiles = true
