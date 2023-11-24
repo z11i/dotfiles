@@ -1761,7 +1761,75 @@
                         ]
                     },
                     {
-                        "description": "Maps Cmd+End to Cmd+Tab",
+                        "description": "Maps right side Cmd+Home to Cmd+`",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "home",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "right_command"
+                                        ],
+                                        "optional": [
+                                            "right_shift"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "grave_accent_and_tilde",
+                                        "modifiers": [
+                                            "right_command"
+                                        ]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "from": {
+                                    "key_code": "right_shift",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "right_command"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "right_shift",
+                                        "modifiers": [
+                                            "right_command"
+                                        ]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "from": {
+                                    "key_code": "escape",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "right_command"
+                                        ],
+                                        "optional": [
+                                            "right_shift"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "escape",
+                                        "modifiers": [
+                                            "right_command"
+                                        ]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Maps right side Cmd+End to Cmd+Tab",
                         "manipulators": [
                             {
                                 "from": {
@@ -1829,7 +1897,7 @@
                         ]
                     },
                     {
-                        "description": "Maps Ctrl+End to Ctrl+Tab",
+                        "description": "Maps right side Ctrl+End to Ctrl+Tab",
                         "manipulators": [
                             {
                                 "from": {
