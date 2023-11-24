@@ -4,7 +4,7 @@ $python$nix_shell$username$status$jobs$character"""
 right_format = """$shlvl$duration$time"""
 
 scan_timeout = 20
-command_timeout = 2000
+command_timeout = 100
 
 [aws]
 symbol = "☁️  "
@@ -40,11 +40,6 @@ format = "[$symbol$branch]($style) "
 commit_hash_length = 4
 tag_symbol = "🔖 "
 disabled = false
-
-[git_status]
-ahead = "↑"
-diverged = "⇕"
-behind = "↓"
 
 [golang]
 format = "[$symbol($version )]($style)"
@@ -97,4 +92,3 @@ disabled = false
 disabled = false
 style = "white dimmed"
 format = '[$time]($style) '
-
