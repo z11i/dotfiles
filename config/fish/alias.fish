@@ -13,9 +13,9 @@ abbr d docker
 abbr dc docker-compose
 abbr dr 'docker run -it --rm'
 abbr de 'docker exec -it'
-abbr e exa
-abbr ee 'exa -l'
-abbr eee 'exa -la'
+abbr l eza
+abbr ll 'eza -l'
+abbr lla 'eza -la'
 abbr g git
 abbr h helm
 abbr k kubectl
