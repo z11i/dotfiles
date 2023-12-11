@@ -31,3 +31,6 @@ end, { desc = "Copy relative file path" })
 -- Ctrl-, and Ctrl-. to cycle through buffers
 vim.keymap.set({ "n", "i" }, "<C-,>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer" })
 vim.keymap.set({ "n", "i" }, "<C-.>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })
+
+-- Tab to switch last used buffer
+vim.keymap.set({ "n" }, "<Tab>", "<cmd>b#<cr>", { desc = "Switch to last used buffer" })
