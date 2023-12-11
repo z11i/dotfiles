@@ -1,6 +1,17 @@
 local Util = require("lazyvim.util")
 return {
   {
+    "folke/flash.nvim",
+    ---@type Flash.Config
+    opts = {
+      modes = {
+        search = {
+          enabled = false,
+        },
+      },
+    },
+  },
+  {
     "ggandor/leap.nvim",
     keys = { "\\" },
     enabled = false,
