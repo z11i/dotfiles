@@ -84,24 +84,6 @@ return {
   },
   {
     "nvim-neo-tree/neo-tree.nvim",
-    -- keys = {
-    --   {
-    --     "<leader>ue",
-    --     function()
-    --       if vim.g._neotree_side == nil then
-    --         vim.g._neotree_side = "left" -- default is right
-    --       else
-    --         if vim.g._neotree_side == "left" then
-    --           vim.g._neotree_side = "right"
-    --         else
-    --           vim.g._neotree_side = "left"
-    --         end
-    --       end
-    --       require("neo-tree.command").execute({ toggle = false, position = vim.g._neotree_side })
-    --     end,
-    --     desc = "Toggle Neotree side",
-    --   },
-    -- },
     dependencies = {
       "s1n7ax/nvim-window-picker",
       config = function()
@@ -119,21 +101,43 @@ return {
           ".DS_Store",
         },
       },
-      source_selector = {
-        sources = {
-          { source = "filesystem" },
-          { source = "git_status" },
-          { source = "buffers" },
-          { source = "document_symbols" },
+      nesting_rules = {
+        ["go"] = {
+          pattern = "(.*)%.go$", -- <-- Lua pattern with capture
+          files = { "%1_test.go" }, -- <-- glob pattern with capture
         },
-      },
-      window = {
-        mappings = {
-          ["e"] = nil, -- disable auto expand; it doesn't work with edgy
-          ["<tab>"] = "toggle_node",
-        },
-        --   position = "right",
       },
     },
+    keys = function()
+      return {
+        {
+          "<leader>ee",
+          function()
+            require("neo-tree.command").execute({ toggle = true, position = "float", reveal = true })
+          end,
+          desc = "NeoTree Explorer",
+        },
+        { "<leader>E", "<leader>ee", desc = "NeoTree Explorer", remap = true },
+        {
+          "<leader>eb",
+          function()
+            require("neo-tree.command").execute({ toggle = true, position = "float", reveal = true, source = "buffers" })
+          end,
+          desc = "NeoTree Buffers",
+        },
+        {
+          "<leader>eg",
+          function()
+            require("neo-tree.command").execute({
+              toggle = true,
+              position = "float",
+              reveal = true,
+              source = "git_status",
+            })
+          end,
+          desc = "NeoTree Git",
+        },
+      }
+    end,
   },
 }
