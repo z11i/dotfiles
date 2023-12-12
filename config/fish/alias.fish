@@ -10,7 +10,7 @@ abbr clean "clear && printf '\e[3J'"
 abbr crc32d 'gzip -c | tail -c8 | od -t d4 -N 4 -A n'
 abbr crc32x 'gzip -c | tail -c8 | od -t x4 -N 4 -A n'
 abbr d docker
-abbr dc docker-compose
+abbr dc 'docker compose'
 abbr dr 'docker run -it --rm'
 abbr de 'docker exec -it'
 abbr l eza
