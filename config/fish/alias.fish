@@ -17,6 +17,8 @@ abbr l eza
 abbr ll 'eza -l'
 abbr lla 'eza -la'
 abbr g git
+abbr ge 'gh copilot explain'
+abbr gs 'gh copilot suggest'
 abbr h helm
 abbr k kubectl
 abbr ktx kubectx
@@ -32,8 +34,3 @@ abbr tm 'tmux new -A -s main'
 abbr uuid 'echo -n (uuidgen) | pbcopy'
 abbr v nvim
 abbr vim nvim
-
-
-aliasset , __copilot_what-the-shell
-aliasset ,g __copilot_git-assist
-aliasset ,gh __copilot_gh-assist
