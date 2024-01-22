@@ -29,7 +29,6 @@ in buildEnv {
       pkgs.mosh
       pkgs.neovim
       pkgs.nix
-      pkgs.protobuf
       pkgs.ripgrep
       pkgs.socat
       pkgs.starship
