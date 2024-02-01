@@ -38,7 +38,8 @@ return {
   {
     "nvim-telescope/telescope.nvim",
     dependencies = {
-      { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+      -- { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+      { "natecraddock/telescope-zf-native.nvim" },
       { "aaronhallaert/advanced-git-search.nvim", dependencies = { "tpope/vim-fugitive" } },
       { "princejoogie/dir-telescope.nvim" },
     },
@@ -46,7 +47,8 @@ return {
     config = function(_, opts)
       local telescope = require("telescope")
       telescope.setup(opts)
-      telescope.load_extension("fzf")
+      -- telescope.load_extension("fzf")
+      telescope.load_extension("zf-native")
       telescope.load_extension("advanced_git_search")
       telescope.load_extension("dir")
     end,
