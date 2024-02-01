@@ -16,3 +16,6 @@ vim.opt.breakindent = true
 vim.opt.linebreak = true
 
 vim.opt.mousemoveevent = true
+
+-- make '-' part of a word
+vim.opt.iskeyword:append("-")
