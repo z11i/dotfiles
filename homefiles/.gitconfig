@@ -15,6 +15,7 @@
   check-out-remote = "!f() { git checkout refs/remotes/origin/$1; }; f"
   cherry-pick-selective-file = "!f() { [[ $# -ne 2 ]] && echo pass in commit and path && exit 1; git show $1 -- $2 | git apply -; }; f"
   commits-that-change-file-on-branch = "!f() { [[ $# -ne 3 ]] && echo pass in base, feature, and path && exit 1; git format-patch -k --stdout $1...$2 -- $3; }; f"
+  commit-subject-of = rev-list --max-count=1 --no-commit-header --format=%s
   commit-message-of = rev-list --max-count=1 --no-commit-header --format=%B
   commit-message-body-of = "!f() { git commit-message-of $1 | tail -n +3; }; f"
   diff-remote-and-local = "!f() { b1=origin/$(git bc); b2=$(git bc); base=main; delta <(git diff $base...$b1) <(git diff $base...$b2); }; f" # compare the diffs between a remote branch and a local branch, against main; useful when you want to force push a rebased branch
