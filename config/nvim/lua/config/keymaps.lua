@@ -34,3 +34,4 @@ vim.keymap.set({ "n", "i" }, "<C-.>", "<cmd>BufferLineCycleNext<cr>", { desc = "
 
 -- Tab to switch last used buffer
 vim.keymap.set({ "n" }, "<Tab>", "<cmd>b#<cr>", { desc = "Switch to last used buffer" })
+vim.keymap.set("n", "<leader>bb", "<cmd>Telescope buffers<cr>", { desc = "Switch buffers" })
