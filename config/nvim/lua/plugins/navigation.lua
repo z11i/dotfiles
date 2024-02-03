@@ -46,6 +46,24 @@ return {
     -- apply the config and additionally load fzf-native
     config = function(_, opts)
       local telescope = require("telescope")
+      opts.defaults = {
+        layout_strategy = "flex",
+        width = { padding = 0.1 },
+        height = { padding = 0.1 },
+        layout_config = {
+          horizontal = {
+            prompt_position = "top",
+            preview_cutoff = 160,
+            preview_width = 0.4,
+          },
+          vertical = {
+            preview_height = 0.4,
+            mirror = true,
+            prompt_position = "top",
+          },
+          flex = { flip_columns = 160 },
+        },
+      }
       telescope.setup(opts)
       -- telescope.load_extension("fzf")
       telescope.load_extension("zf-native")
