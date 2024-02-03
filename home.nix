@@ -14,6 +14,7 @@ in buildEnv {
       pkgs.exercism
       pkgs.eza
       pkgs.fd
+      pkgs.findutils
       pkgs.fzf
       pkgs.gitAndTools.delta
       pkgs.gitAndTools.difftastic
@@ -35,6 +36,7 @@ in buildEnv {
       pkgs.tmux
       pkgs.universal-ctags
       pkgs.unixtools.watch
+      pkgs.wget
       pkgs.yq-go
       pkgs.zoxide
    ];
