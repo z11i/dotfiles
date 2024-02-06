@@ -35,16 +35,16 @@ layouts:
 
 # First mod (default option + shift).
 mod1:
-  - option
+  # - option
   # - shift
-  # - control
+  - control
   - command
 
 # Second mod (default option + shift + control).
 mod2:
-  - option
+  # - option
   - shift
-  # - control
+  - control
   - command
 
 # Commands:
@@ -63,12 +63,12 @@ mod2:
 # Move to the next layout in the list.
 cycle-layout:
   mod: mod1
-  key: space
+  key: w
 
 # Move to the previous layout in the list.
 cycle-layout-backward:
   mod: mod2
-  key: space
+  key: w
 
 # Shrink the main pane by a percentage of the screen dimension as defined by window-resize-step. Note that not all layouts respond to this command.
 shrink-main:
@@ -110,12 +110,12 @@ decrease-main:
 # Focus the next window in the list going counter-clockwise.
 focus-ccw:
   mod: mod1
-  key: h
+  key: up
 
 # Focus the next window in the list going clockwise.
 focus-cw:
   mod: mod1
-  key: l
+  key: down
 
 # Focus the main window in the list.
 focus-main:
@@ -124,33 +124,33 @@ focus-main:
 
 # Focus the next screen in the list going counter-clockwise.
 focus-screen-ccw:
-  mod: mod2
-  key: h
+  mod: mod1
+  key: right
 
 # Focus the next screen in the list going clockwise.
 focus-screen-cw:
-  mod: mod2
-  key: l
-
-# Move the currently focused window onto the next screen in the list going counter-clockwise.
-swap-screen-ccw:
   mod: mod1
   key: left
 
+# Move the currently focused window onto the next screen in the list going counter-clockwise.
+swap-screen-ccw:
+  mod: mod2
+  key: "["
+
 # Move the currently focused window onto the next screen in the list going clockwise.
 swap-screen-cw:
-  mod: mod1
-  key: right
+  mod: mod2
+  key: "]"
 
 # Swap the position of the currently focused window with the next window in the list going counter-clockwise.
 swap-ccw:
   mod: mod1
-  key: j
+  key: "["
 
 # Swap the position of the currently focused window with the next window in the list going clockwise.
 swap-cw:
   mod: mod1
-  key: k
+  key: "]"
 
 # Swap the position of the currently focused window with the main window in the list.
 swap-main:
@@ -226,7 +226,7 @@ throw-space-right:
 # Toggle the floating state of the currently focused window; i.e., if it was floating make it tiled and if it was tiled make it floating.
 toggle-float:
   mod: mod1
-  key: t
+  key: f
 
 # Display the layout HUD with the current layout on each screen.
 display-current-layout:
