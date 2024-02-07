@@ -53,7 +53,7 @@ return {
         layout_config = {
           horizontal = {
             prompt_position = "top",
-            preview_cutoff = 160,
+            preview_cutoff = 185,
             preview_width = 0.4,
           },
           vertical = {
@@ -61,7 +61,7 @@ return {
             mirror = true,
             prompt_position = "top",
           },
-          flex = { flip_columns = 160 },
+          flex = { flip_columns = 185 },
         },
       }
       telescope.setup(opts)
