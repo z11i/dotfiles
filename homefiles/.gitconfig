@@ -99,3 +99,6 @@
   enabled = true
 [feature]
 	manyFiles = true
+
+[includeIf "gitdir:~/.local/share/nvim/lazy/"]
+  path = ~/.config/git/gitconfig_lazy

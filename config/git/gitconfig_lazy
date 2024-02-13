@@ -1,0 +1,4 @@
+[rerere]
+  enabled = false
+[feature]
+  manyFiles = false
