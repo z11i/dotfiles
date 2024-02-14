@@ -49,14 +49,17 @@ assign_key({ "CMD", "CTRL|SHIFT" }, "f", action.Search({ CaseInSensitiveString =
 assign_key({ "OPT" }, "Enter", nil) -- Opt+Enter is used by LazyVim for GitHub Copilot
 
 return {
-	bold_brightens_ansi_colors = false,
+	animation_fps = 24,
+	bold_brightens_ansi_colors = true,
 	enable_scroll_bar = true,
 	font = wezterm.font("Berkeley Mono Variable"),
 	font_size = 15.4,
+	freetype_load_target = "Light",
 	front_end = "WebGpu",
 	keys = keys,
 	line_height = 1.1,
 	scrollback_lines = 1048576,
+	tab_max_width = 200,
 	window_decorations = "INTEGRATED_BUTTONS|RESIZE",
 	window_padding = {
 		left = 0,
