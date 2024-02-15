@@ -1,0 +1,48 @@
+[alias] # complex operations
+  branch-current = "branch --show-current"
+  branch-squash-merged = "!f() { main=${1:-main}; git switch -q $main; git branch --format='%(refname:short)' | while read b; do ancestor=$(git merge-base $main $b) && [[ $(git cherry $main $(git commit-tree $(git rev-parse $b^{tree}) -p $ancestor -m _)) == '-'* ]] && echo $b; done; }; f" # list squash-merged local git branches https://blog.takanabe.tokyo/en/2020/04/remove-squash-merged-local-git-branches/
+  branch-gone = "!f() { main=${1:-main}; git switch -q main; git for-each-ref --format '%(refname) %(upstream:track)' refs/heads | awk '$2 == \"[gone]\" {sub(\"refs/heads/\", \"\", $1); print $1}'; }; f"
+  branch-delete-remote = push origin --delete
+  branch-update-with-remote = "!f() { branch=${1:-main}; remote=$(git remote | head -1); git fetch $remote $branch:$branch; }; f"
+  check-out-remote = "!f() { git checkout refs/remotes/origin/$1; }; f"
+  cherry-pick-selective-file = "!f() { [[ $# -ne 2 ]] && echo pass in commit and path && exit 1; git show $1 -- $2 | git apply -; }; f"
+  commits-that-change-file-on-branch = "!f() { [[ $# -ne 3 ]] && echo pass in base, feature, and path && exit 1; git format-patch -k --stdout $1...$2 -- $3; }; f"
+  commit-subject-of = rev-list --max-count=1 --no-commit-header --format=%s
+  commit-message-of = rev-list --max-count=1 --no-commit-header --format=%B
+  commit-message-body-of = "!f() { git commit-message-of $1 | tail -n +3; }; f"
+  diff-remote-and-local = "!f() { b1=origin/$(git bc); b2=$(git bc); base=main; delta <(git diff $base...$b1) <(git diff $base...$b2); }; f" # compare the diffs between a remote branch and a local branch, against main; useful when you want to force push a rebased branch
+  diff-with-tracking = diff-remote-and-local
+  diff-three-ways = "!f() { [[ $# -ne 3 ]] && echo pass in BASE, HEAD1, HEAD2 && exit 1; difft <(git diff $1...$2 | cat) <(git diff $1...$3 | cat); }; f"
+  diff-with-difft = "!f() { GIT_EXTERNAL_DIFF=difft git diff $@; }; f"
+  fixup-last = "!f() { git stash-unstaged && git commit --amend --no-edit; }; f"
+  forget-dir = "!bash -c 'git rm -r --cached $0 && git update-index --assume-unchanged $0'"
+  forget-file = "!bash -c 'git rm --cached $0 && git update-index --assume-unchanged $0'"
+  merge-test = merge --no-commit --no-ff
+  rebase-with-stash = "!bash -c 'git stash && git rebase $0 && git stash pop'" # rebase with uncommitted changes
+  stash-path = "!f() { [[ $# -ne 2 ]] && echo pass in message and path && exit 1; git stash push -m \"$1\" -- \"$2\"; }; f" # stash a specific path
+  switch-safe = !bash -c 'git stash && git sw $0 && git stash pop' #safe switch
+
+[alias]
+  b = branch
+  bl = blame
+  bla = blame -w -C -C -C  # ignore whitespace, detect lines moved or copied in any commit
+  bc = branch-current
+  c = commit -v
+  cor = check-out-remote
+  d = diff
+  dt = diff-with-difft
+  dtc = !git dt --cached
+  f = fetch --prune
+  ff = merge --ff-only
+  f3 = !git f && git ff
+  fff = f3
+  forget = rm --cached
+  ri = rebase --interactive
+  s = status
+  st = stash
+  stp = stash -p -m
+  sc = switch -c
+  sw = switch
+  sws = switch-safe
+  rbt = rebase-with-stash
+  wt = worktree
