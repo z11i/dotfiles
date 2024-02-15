@@ -1,6 +1,3 @@
-[submodule "config/git/gitalias"]
-	path = config/git/gitalias
-	url = https://github.com/GitAlias/gitalias.git
 [submodule "config/kitty/kitty_search"]
 	path = config/kitty/kitty_search
 	url = https://github.com/trygveaa/kitty-kitten-search
