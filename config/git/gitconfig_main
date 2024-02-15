@@ -1,43 +1,62 @@
 [column]
-  ui = auto  # use column view if window wide enough
+ui = auto  # use column view if window wide enough
+
 [core]
-  excludesfile = ~/.config/git/gitignore_global
-	fsmonitor = true
-  pager = delta
-	untrackedCache = true
+excludesfile = ~/.config/git/gitignore_global
+fsmonitor = true
+pager = delta
+untrackedCache = true
+
 [color]
-  ui = true
+ui = true
+
 [credential]
-  helper = store
+helper = store
+
 [diff]
-  algorithm = histogram
-  tool = difftastic
+algorithm = histogram
+tool = difftastic
+
 [difftool]
-  prompt = false
+prompt = false
+
 [difftool "difftastic"]
-  cmd = difft "$LOCAL" "$REMOTE"
+cmd = difft "$LOCAL" "$REMOTE"
+
 [delta]
-  features = line-numbers decorations side-by-side
-  wrap-max-lines = unlimited
+features = line-numbers decorations side-by-side
+wrap-max-lines = unlimited
+
 [feature]
-  manyFiles = true
+manyFiles = true
+
+[fetch]
+writeCommitGraph = true
+
 [include]
-  path = ~/.config/git/gitconfig_alias
-  path = ~/.config/git/delta_theme
+path = ~/.config/git/gitconfig_alias
+path = ~/.config/git/delta_theme
+
 [includeIf "gitdir:~/.local/share/nvim/lazy/"]
-  path = ~/.config/git/gitconfig_lazy
+path = ~/.config/git/gitconfig_lazy
+
 [init]
-  defaultBranch = main
+defaultBranch = main
+
 [interactive]
-  diffFilter = delta --color-only --features=interactive
+diffFilter = delta --color-only --features=interactive
+
 [filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
+clean = git-lfs clean -- %f
+smudge = git-lfs smudge -- %f
+process = git-lfs filter-process
+required = true
+
 [merge] # delta to show diffs between commits on merge conflicts
-  conflictstyle = diff3
+conflictstyle = diff3
+
 [push]
-  autoSetupRemote = true
+autoSetupRemote = true
+
 [rerere]
-  enabled = true
+enabled = true
