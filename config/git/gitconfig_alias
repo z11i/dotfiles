@@ -23,6 +23,9 @@
   switch-safe = !bash -c 'git stash && git sw $0 && git stash pop' #safe switch
 
 [alias]
+  a = add
+  aa = add .
+  au = add -u
   b = branch
   bl = blame
   bla = blame -w -C -C -C  # ignore whitespace, detect lines moved or copied in any commit
@@ -30,6 +33,7 @@
   c = commit -v
   cor = check-out-remote
   d = diff
+  dc = diff --cached
   dt = diff-with-difft
   dtc = !git dt --cached
   f = fetch --prune

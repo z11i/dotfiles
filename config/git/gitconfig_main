@@ -18,12 +18,11 @@
   cmd = difft "$LOCAL" "$REMOTE"
 [delta]
   features = line-numbers decorations side-by-side
-  	wrap-max-lines = unlimited
+  wrap-max-lines = unlimited
 [feature]
-	manyFiles = true
+  manyFiles = true
 [include]
-  path = ~/.config/git/.gitconfig
-  path = ~/.gitlocal
+  path = ~/.config/git/gitconfig_alias
   path = ~/.config/git/delta_theme
 [includeIf "gitdir:~/.local/share/nvim/lazy/"]
   path = ~/.config/git/gitconfig_lazy
