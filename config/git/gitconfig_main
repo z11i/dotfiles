@@ -21,7 +21,7 @@ tool = difftastic
 prompt = false
 
 [difftool "difftastic"]
-cmd = difft "$LOCAL" "$REMOTE"
+cmd = difft --tab-width 3 "$LOCAL" "$REMOTE"
 
 [delta]
 features = line-numbers decorations side-by-side
