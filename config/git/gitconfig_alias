@@ -1,3 +1,5 @@
+#/* vim: set filetype=toml : */
+
 [alias] # complex operations
   branch-current = "branch --show-current"
   branch-squash-merged = "!f() { main=${1:-main}; git switch -q $main; git branch --format='%(refname:short)' | while read b; do ancestor=$(git merge-base $main $b) && [[ $(git cherry $main $(git commit-tree $(git rev-parse $b^{tree}) -p $ancestor -m _)) == '-'* ]] && echo $b; done; }; f" # list squash-merged local git branches https://blog.takanabe.tokyo/en/2020/04/remove-squash-merged-local-git-branches/
@@ -31,6 +33,7 @@
   bla = blame -w -C -C -C  # ignore whitespace, detect lines moved or copied in any commit
   bc = branch-current
   c = commit -v
+  co = checkout
   cor = check-out-remote
   d = diff
   dc = diff --cached
@@ -41,6 +44,7 @@
   f3 = !git f && git ff
   fff = f3
   forget = rm --cached
+  l = log
   ri = rebase --interactive
   s = status
   st = stash

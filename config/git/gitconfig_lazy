@@ -1,3 +1,5 @@
+#/* vim: set filetype=toml : */
+
 [rerere]
   enabled = false
 [feature]

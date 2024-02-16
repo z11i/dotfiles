@@ -1,3 +1,5 @@
+#/* vim: set filetype=toml : */
+
 [column]
 ui = auto  # use column view if window wide enough
 
