@@ -3,6 +3,10 @@
 abbr a1 'awk \'{print $1}\''
 abbr a2 'awk \'{print $2}\''
 abbr a3 'awk \'{print $3}\''
+abbr b bazel
+abbr bb 'bazel build'
+abbr bt 'bazel test'
+abbr br 'bazel run'
 abbr cdtemp 'cd (mktemp -d)'
 abbr cg cargo
 abbr clean "clear && printf '\e[3J'"
