@@ -68,7 +68,7 @@ return {
     },
     opts = {
       open_mapping = [[<F4>]],
-      direction = "float",
+      direction = "horizontal",
       shade_filetypes = {},
       hide_numbers = true,
       insert_mappings = true,
@@ -109,7 +109,12 @@ return {
       nesting_rules = {
         ["go"] = {
           pattern = "(.*)%.go$", -- <-- Lua pattern with capture
-          files = { "%1_test.go" }, -- <-- glob pattern with capture
+          files = { "%1_test.go", "%1_mock.go" }, -- <-- glob pattern with capture
+        },
+      },
+      window = {
+        mappings = {
+          ["<C-i>"] = { "toggle_node" },
         },
       },
     },
