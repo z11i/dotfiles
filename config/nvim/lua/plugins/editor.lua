@@ -31,4 +31,18 @@ return {
   },
   { "echasnovski/mini.pairs", enabled = false },
   { "windwp/nvim-autopairs", event = "InsertEnter", opts = {} },
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = function(_, opts)
+      opts.textobjects.swap = {
+        enable = true,
+        swap_next = {
+          ["<A-l>"] = "@parameter.inner",
+        },
+        swap_previous = {
+          ["<A-h>"] = "@parameter.inner",
+        },
+      }
+    end,
+  },
 }
