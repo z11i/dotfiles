@@ -33,6 +33,10 @@ return {
       opts["integrations"]["dropbar"] = { enabled = true, color_mode = true }
       opts["integrations"]["illuminate"] = { enabled = true, lsp = true }
       opts["integrations"]["navic"] = { enabled = true, color_mode = true }
+
+      opts["term_colors"] = true
+
+      return opts
     end,
   },
   -- { "rebelot/kanagawa.nvim" },
