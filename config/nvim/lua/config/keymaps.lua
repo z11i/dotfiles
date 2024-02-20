@@ -35,3 +35,14 @@ vim.keymap.set({ "n", "i" }, "<C-.>", "<cmd>BufferLineCycleNext<cr>", { desc = "
 -- Tab to switch last used buffer
 vim.keymap.set({ "n" }, "<Tab>", "<cmd>b#<cr>", { desc = "Switch to last used buffer" })
 vim.keymap.set("n", "<leader>bb", "<cmd>Telescope buffers<cr>", { desc = "Switch buffers" })
+
+-- Ctrl-arrows defined in LazyVim conflict with mac
+vim.keymap.del("n", "<C-Up>")
+vim.keymap.del("n", "<C-Down>")
+vim.keymap.del("n", "<C-Left>")
+vim.keymap.del("n", "<C-Right>")
+-- Resize window using <Alt> arrow keys
+vim.keymap.set("n", "<A-Up>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
+vim.keymap.set("n", "<A-Down>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
+vim.keymap.set("n", "<A-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
+vim.keymap.set("n", "<A-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
