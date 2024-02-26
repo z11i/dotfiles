@@ -85,6 +85,13 @@ return {
       local navbuddy = require("nvim-navbuddy")
       navbuddy.setup({
         lsp = { auto_attach = true },
+        window = {
+          size = "85%",
+          mid = { size = "50%" },
+        },
+        source_buffer = {
+          follow_node = false,
+        },
       })
     end,
     dependencies = {
