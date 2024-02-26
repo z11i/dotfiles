@@ -43,6 +43,12 @@ return {
           ["<A-h>"] = "@parameter.inner",
         },
       }
+
+      local move = opts.textobjects.move
+      move.goto_next_start["]S"] = { query = "@scope", query_group = "locals", desc = "Next scope" }
+      move.goto_previous_start["[S"] = { query = "@scope", query_group = "locals", desc = "Previous scope" }
+      move.goto_next_start["]z"] = { query = "@fold", query_group = "folds", desc = "Next fold" }
+      move.goto_previous_start["[z"] = { query = "@fold", query_group = "folds", desc = "Previous fold" }
     end,
   },
 }
