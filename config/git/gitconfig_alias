@@ -52,5 +52,6 @@
   sc = switch -c
   sw = switch
   sws = switch-safe
+  rb = rebase
   rbt = rebase-with-stash
   wt = worktree
