@@ -10,10 +10,11 @@ return {
         "shellcheck",
         "shfmt",
         -- python
-        "black",
+        -- "black",
         "isort",
         "mypy",
         "ruff",
+        "ruff-lsp",
         -- go
         "gofumpt",
         "gopls",
