@@ -30,7 +30,7 @@ abbr kns kubens
 abbr ke kubectl exec -it '(kubectl get po | fzf | awk \'{print $1}\')' -- bash
 abbr kp kubectl get po
 abbr kp1 'kubectl get po | fzf | awk \'{print $1}\''
-abbr kr kubectl run _ -it --image=_ --command --
+abbr kr 'kubectl run my-container-name -it --image=alpine --command -- sh'
 abbr mkdir 'mkdir -p'
 abbr nsh 'nix-shell --command fish'
 #alias ssh='kitty +kitten ssh'
