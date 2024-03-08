@@ -27,3 +27,6 @@ path_prepend $coreutils/libexec/gnubin
 
 # kafka
 path_append /opt/kafka/bin
+
+# kubectl krew
+path_append ~/.krew/bin

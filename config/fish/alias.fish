@@ -25,8 +25,8 @@ abbr ge 'gh copilot explain'
 abbr gs 'gh copilot suggest'
 abbr h helm
 abbr k kubectl
-abbr ktx kubectx
-abbr kns kubens
+abbr ktx kubectl ctx
+abbr kns kubectl ns
 abbr ke kubectl exec -it '(kubectl get po | fzf | awk \'{print $1}\')' -- bash
 abbr kp kubectl get po
 abbr kp1 'kubectl get po | fzf | awk \'{print $1}\''
