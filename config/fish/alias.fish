@@ -27,6 +27,7 @@ abbr h helm
 abbr k kubectl
 abbr ktx kubectl ctx
 abbr kns kubectl ns
+abbr kip 'kubectl get pods (kubectl get po | fzf | awk \'{print $1}\') -o=jsonpath=\'{.status.podIP}\''
 abbr ke kubectl exec -it '(kubectl get po | fzf | awk \'{print $1}\')' -- bash
 abbr kp kubectl get po
 abbr kp1 'kubectl get po | fzf | awk \'{print $1}\''
