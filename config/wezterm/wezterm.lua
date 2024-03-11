@@ -55,7 +55,7 @@ return {
 	font = wezterm.font("Berkeley Mono Variable"),
 	font_size = 15.4,
 	freetype_load_target = "Light",
-	front_end = "WebGpu",
+	front_end = "OpenGL",
 	keys = keys,
 	line_height = 1.1,
 	scrollback_lines = 1048576,
