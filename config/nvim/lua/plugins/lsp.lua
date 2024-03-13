@@ -17,6 +17,7 @@ return {
         "ruff-lsp",
         -- go
         "gofumpt",
+        "golines",
         "gopls",
         -- rust
         "rust-analyzer",
@@ -35,7 +36,10 @@ return {
       -- local conform = require"conform"
       -- conform.formatters_by_ft.go = vim.tbl_filter(function(f) return f ~= "gofumpt" end, conform.formatters_by_ft.go)
       -- ]]
-      formatters_by_ft = {},
+      ---@type table<string, conform.FormatterUnit[]>
+      formatters_by_ft = {
+        go = { "gofumpt", "golines" },
+      },
     },
   },
   {
