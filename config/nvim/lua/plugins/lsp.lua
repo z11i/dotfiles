@@ -40,6 +40,12 @@ return {
       formatters_by_ft = {
         go = { "gofumpt", "golines" },
       },
+      formatters = {
+        golines = {
+          command = "golines",
+          prepend_args = { "-m", "128" },
+        },
+      },
     },
   },
   {
