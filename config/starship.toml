@@ -8,9 +8,6 @@ command_timeout = 500
 
 [aws]
 symbol = "☁️  "
-format = "[$symbol$profile@$region ]($style)"
-
-[aws.region_aliases]
 
 [battery]
 disabled = true
