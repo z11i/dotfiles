@@ -19,6 +19,7 @@
   fixup-last = "!f() { git stash-unstaged && git commit --amend --no-edit; }; f"
   forget-dir = "!bash -c 'git rm -r --cached $0 && git update-index --assume-unchanged $0'"
   forget-file = "!bash -c 'git rm --cached $0 && git update-index --assume-unchanged $0'"
+  log-with-difft = "!f() { GIT_EXTERNAL_DIFF=difft git log -p --ext-diff $@; }; f"
   merge-test = merge --no-commit --no-ff
   rebase-with-stash = "!bash -c 'git stash && git rebase $0 && git stash pop'" # rebase with uncommitted changes
   stash-path = "!f() { [[ $# -ne 2 ]] && echo pass in message and path && exit 1; git stash push -m \"$1\" -- \"$2\"; }; f" # stash a specific path
@@ -45,6 +46,7 @@
   fff = f3
   forget = rm --cached
   l = log
+  lt = log-with-difft
   ri = rebase --interactive
   s = status
   st = stash

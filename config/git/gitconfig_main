@@ -57,6 +57,9 @@ required = true
 [merge] # delta to show diffs between commits on merge conflicts
 conflictstyle = diff3
 
+[pager]
+difftool = true
+
 [push]
 autoSetupRemote = true
 
