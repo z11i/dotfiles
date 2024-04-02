@@ -110,12 +110,12 @@ decrease-main:
 # Focus the next window in the list going counter-clockwise.
 focus-ccw:
   mod: mod1
-  key: up
+  key: "["
 
 # Focus the next window in the list going clockwise.
 focus-cw:
   mod: mod1
-  key: down
+  key: "]"
 
 # Focus the main window in the list.
 focus-main:
@@ -124,33 +124,33 @@ focus-main:
 
 # Focus the next screen in the list going counter-clockwise.
 focus-screen-ccw:
-  mod: mod1
-  key: right
-
-# Focus the next screen in the list going clockwise.
-focus-screen-cw:
-  mod: mod1
-  key: left
-
-# Move the currently focused window onto the next screen in the list going counter-clockwise.
-swap-screen-ccw:
   mod: mod2
   key: "["
 
-# Move the currently focused window onto the next screen in the list going clockwise.
-swap-screen-cw:
+# Focus the next screen in the list going clockwise.
+focus-screen-cw:
   mod: mod2
   key: "]"
+
+# Move the currently focused window onto the next screen in the list going counter-clockwise.
+swap-screen-ccw:
+  mod: mod1
+  key: right
+
+# Move the currently focused window onto the next screen in the list going clockwise.
+swap-screen-cw:
+  mod: mod1
+  key: left
 
 # Swap the position of the currently focused window with the next window in the list going counter-clockwise.
 swap-ccw:
   mod: mod1
-  key: "["
+  key: up
 
 # Swap the position of the currently focused window with the next window in the list going clockwise.
 swap-cw:
   mod: mod1
-  key: "]"
+  key: down
 
 # Swap the position of the currently focused window with the main window in the list.
 swap-main:
