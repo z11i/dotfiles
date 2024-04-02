@@ -5,7 +5,7 @@ ui = auto  # use column view if window wide enough
 
 [core]
 excludesfile = ~/.config/git/gitignore_global
-fsmonitor = true
+fsmonitor = false  # fsmonitor=true spawns a new process for each git repo; may not be intended; use local config if needed.
 pager = delta
 untrackedCache = true
 
