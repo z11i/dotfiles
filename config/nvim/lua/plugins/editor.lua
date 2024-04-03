@@ -33,6 +33,7 @@ return {
   { "windwp/nvim-autopairs", event = "InsertEnter", opts = {} },
   {
     "nvim-treesitter/nvim-treesitter",
+    dependencies = { "HiPhish/rainbow-delimiters.nvim" },
     opts = function(_, opts)
       opts.textobjects.swap = {
         enable = true,
