@@ -76,10 +76,7 @@ detect_extensions = []
 detect_files = []
 
 [shlvl]
-symbol = "Lvl"
-style = "blue"
-format = "[${symbol}](blue)[$shlvl ](bold yellow)"
-threshold = 3
+symbol = "L"
 disabled = false
 
 [status]
