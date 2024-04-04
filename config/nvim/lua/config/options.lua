@@ -16,3 +16,7 @@ vim.opt.breakindent = true
 vim.opt.linebreak = true
 
 vim.opt.mousemoveevent = true
+
+-- show matching brackets
+vim.opt.showmatch = true
+vim.opt.matchtime = 2
