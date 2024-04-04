@@ -55,6 +55,9 @@ return {
     opts = {
       day_brightness = 0.15,
       lualine_bold = true,
+      on_highlights = function(highlights, colors)
+        highlights.MatchParen = { bg = colors.fg_dark }
+      end,
     },
   },
   { "rcarriga/nvim-notify", opts = {

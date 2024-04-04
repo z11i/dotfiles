@@ -32,6 +32,14 @@ return {
   { "echasnovski/mini.pairs", enabled = false },
   { "windwp/nvim-autopairs", event = "InsertEnter", opts = {} },
   {
+    "monkoose/matchparen.nvim",
+    event = "BufReadPost",
+    lazy = true,
+    config = function()
+      require("matchparen").setup({})
+    end,
+  }, -- need to make sure matchparen is in lazy.lua's disabled_plugins
+  {
     "nvim-treesitter/nvim-treesitter",
     dependencies = { "HiPhish/rainbow-delimiters.nvim" },
     opts = function(_, opts)
