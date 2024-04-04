@@ -86,7 +86,6 @@ return {
     version = false,
     ---@class PluginLspOpts
     opts = {
-      ---@type lspconfig.options
       servers = {
         bashls = {},
         cssls = {},
@@ -107,6 +106,7 @@ return {
             },
           },
         },
+        racket_langserver = {},
         rust_analyzer = {},
         svelte = {},
         tsserver = {},
