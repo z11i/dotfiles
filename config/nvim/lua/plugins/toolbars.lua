@@ -31,7 +31,7 @@ return {
         end,
       },
     },
-    dependencies = { "catppuccin/nvim", name = "catppuccin" },
+    -- dependencies = { "catppuccin/nvim", name = "catppuccin" },
   },
   {
     "utilyre/barbecue.nvim",
@@ -41,7 +41,8 @@ return {
     dependencies = { "SmiteshP/nvim-navic", "nvim-tree/nvim-web-devicons" },
     event = { "BufReadPost", "BufNewFile" },
     config = function()
-      require("barbecue").setup({ show_dirname = false, theme = "catppuccin" })
+      -- require("barbecue").setup({ show_dirname = false, theme = "catppuccin" })
+      require("barbecue").setup({ show_dirname = false })
       require("barbecue.ui").toggle(true)
     end,
   },

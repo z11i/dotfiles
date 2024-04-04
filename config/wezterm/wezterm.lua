@@ -2,7 +2,8 @@ local wezterm = require("wezterm")
 
 local function scheme_for_appearance(appearance)
 	if appearance:find("Dark") then
-		return "Catppuccin Mocha",
+		-- return "Catppuccin Mocha",
+		return "Tokyo Night",
 			{
 				window_frame = {
 					active_titlebar_bg = "#333333",
@@ -10,7 +11,8 @@ local function scheme_for_appearance(appearance)
 				},
 			}
 	else
-		return "Catppuccin Latte",
+		-- return "Catppuccin Latte",
+		return "Tokyo Night Day",
 			{
 				window_frame = {
 					active_titlebar_bg = "#eeeeee",
