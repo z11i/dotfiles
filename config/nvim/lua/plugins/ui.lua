@@ -53,10 +53,12 @@ return {
   {
     "folke/tokyonight.nvim",
     opts = {
-      day_brightness = 0.15,
+      style = "night",
+      light_style = "day",
+      day_brightness = 0.3,
       lualine_bold = true,
       on_highlights = function(hl, c)
-        hl.MatchParen = { bg = c.fg_dark }
+        hl.MatchParen = { bg = c.fg_gutter, bold = true }
 
         -- borderless telescope
         local prompt = "#2d3149"
@@ -86,6 +88,13 @@ return {
         hl.TelescopeResultsTitle = {
           bg = c.bg_dark,
           fg = c.bg_dark,
+        }
+
+        -- flash label is hard to see in light mode
+        hl.FlashLabel = {
+          fg = c.red1,
+          bg = c.fg_gutter,
+          bold = true,
         }
       end,
     },
@@ -186,6 +195,18 @@ return {
           desc = "NeoTree Git",
         },
       }
+    end,
+  },
+  {
+    "NvChad/nvim-colorizer.lua",
+    cmd = {
+      "ColorizerAttachToBuffer",
+      "ColorizerDetachFromBuffer",
+      "ColorizerReloadAllBuffers",
+      "ColorizerToggle",
+    },
+    config = function()
+      require("colorizer").setup({})
     end,
   },
 }
