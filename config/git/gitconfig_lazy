@@ -4,3 +4,5 @@
   enabled = false
 [feature]
   manyFiles = false
+[fetch]
+  writeCommitGraph = false
