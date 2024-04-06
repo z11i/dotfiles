@@ -36,6 +36,7 @@ in buildEnv {
       pkgs.tmux
       pkgs.universal-ctags
       pkgs.unixtools.watch
+      pkgs.vivid
       pkgs.wget
       pkgs.yq-go
       pkgs.zoxide
