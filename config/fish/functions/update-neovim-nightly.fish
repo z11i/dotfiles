@@ -3,14 +3,22 @@
 function update-neovim-nightly
     switch (uname)
         case Darwin
-            true
+            switch (uname -p)
+                case i386
+                    set -f file nvim-macos-x86_64.tar.gz
+                case arm64
+                    set -f file nvim-macos-arm64.tar.gz
+                case '*'
+                    echo (uname -p) not supported
+                    exit 1
+            end
         case '*'
             echo (uname) not supported
             exit 1
     end
     cd (mktemp -d)
-    wget https://github.com/neovim/neovim/releases/download/nightly/nvim-macos.tar.gz
-    tar xzf nvim-macos.tar.gz
+    wget https://github.com/neovim/neovim/releases/download/nightly/$file -O nvim-macos.tar.gz
+    mkdir -p nvim-macos; and tar xzf nvim-macos.tar.gz -C nvim-macos --strip-components 1
     mkdir -p ~/.local/bin
     if test -e ~/.local/bin/nvim-macos
         rm -rf ~/.local/bin/nvim-macos

@@ -29,6 +29,7 @@ return {
       }
     end,
   },
+  { "echasnovski/mini.comment", enabled = not vim.fn.has("nvim-0.10") == 1 },
   { "echasnovski/mini.pairs", enabled = false },
   { "windwp/nvim-autopairs", event = "InsertEnter", opts = {} },
   {
