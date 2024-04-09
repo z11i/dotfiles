@@ -48,6 +48,10 @@ if type -q rg
     set -gx RIPGREP_CONFIG_PATH ~/.config/ripgreprc
 end
 
+if type -q fzf
+    set -U FZF_LEGACY_KEYBINDINGS 0
+end
+
 # brew completion
 if type -q brew
     if test -d (brew --prefix)"/share/fish/completions"
