@@ -6,15 +6,15 @@ function update-neovim-nightly
             switch (uname -p)
                 case i386
                     set -f file nvim-macos-x86_64.tar.gz
-                case arm64
+                case 'arm*'
                     set -f file nvim-macos-arm64.tar.gz
                 case '*'
                     echo (uname -p) not supported
-                    exit 1
+                    return 1
             end
         case '*'
             echo (uname) not supported
-            exit 1
+            return 1
     end
     cd (mktemp -d)
     wget https://github.com/neovim/neovim/releases/download/nightly/$file -O nvim-macos.tar.gz
