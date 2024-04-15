@@ -1,6 +1,16 @@
 #!/usr/bin/env fish
 
 function multimatch
+    # Function cleanup handler
+    function cleanup --on-signal SIGINT --on-signal SIGTERM
+        for pid in $pids
+            kill $pid >/dev/null 2>&1
+        end
+        for file in $temp_files
+            rm $file
+        end
+    end
+
     # Check if rg (ripgrep) is installed
     if not type -q rg
         echo "Error: rg (ripgrep) is not installed. Please install it and retry."
@@ -13,23 +23,41 @@ function multimatch
         return 1
     end
 
-    # Temporary file to hold intermediate results
-    set temp_file (mktemp)
+    # Set array to hold search results for each term
+    set search_results
+    set pids
 
-    # Initialize the temporary file with the list of all files
-    rg --files . >$temp_file
-
-    # Loop through all arguments
+    # Loop through arguments and search in parallel
     for term in $argv
-        set temp_file_next (mktemp)
-        # Use rg to search for the term and update the list of files
-        gxargs -a "$temp_file" rg -l "$term" >$temp_file_next 2>/dev/null
-        mv $temp_file_next $temp_file
+        set temp_file (mktemp)
+        rg --files-with-matches "$term" . >$temp_file &
+        set pids $pids $last_pid
+        set search_results $search_results $temp_file
     end
 
-    # Output the final list of files containing all terms
-    cat $temp_file
+    # Wait for all searches to finish
+    for pid in $pids
+        wait $pid
+    end
+
+    # Sort search results
+    for file in $search_results
+        sort -o $file $file
+    end
+
+    # Find common results
+    set final_result $search_results[1]
+    for i in (seq 2 (count $search_results))
+        if not test -s $final_result
+            cleanup
+            return 0
+        end
+        touch "$final_result"_temp
+        comm -12 $final_result $search_results[$i] >"$final_result"_temp
+        mv "$final_result"_temp $final_result
+    end
+    cat $final_result
 
     # Clean up
-    rm $temp_file
+    cleanup
 end
