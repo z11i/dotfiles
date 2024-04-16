@@ -109,7 +109,7 @@ return {
     cmd = "ToggleTerm",
     keys = {
       { "<F4>", "<cmd>ToggleTerm<cr>", desc = "ToggleTerm" },
-      { "<leader>wh", "<cmd>ToggleTerm direction=horizontal<cr>", desc = "Toggle horizontal terminal" },
+      { "<leader>wt", "<cmd>ToggleTerm direction=horizontal<cr>", desc = "Toggle horizontal terminal" },
       { "<leader>wv", "<cmd>ToggleTerm direction=vertical<cr>", desc = "Toggle vertical terminal" },
       { "<leader>wf", "<cmd>ToggleTerm direction=float<cr>", desc = "Toggle floating terminal" },
     },
