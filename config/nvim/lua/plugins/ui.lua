@@ -135,7 +135,28 @@ return {
     end,
   },
   {
+    "echasnovski/mini.files",
+    opts = { options = { use_as_default_explorer = true } },
+    keys = {
+      {
+        "<leader>ee",
+        function()
+          require("mini.files").open(vim.api.nvim_buf_get_name(0), true)
+        end,
+        desc = "Open mini.files (Directory of Current File)",
+      },
+      {
+        "<leader>eE",
+        function()
+          require("mini.files").open(vim.uv.cwd(), true)
+        end,
+        desc = "Open mini.files (cwd)",
+      },
+    },
+  },
+  {
     "nvim-neo-tree/neo-tree.nvim",
+    enabled = false,
     dependencies = {
       "s1n7ax/nvim-window-picker",
       config = function()
