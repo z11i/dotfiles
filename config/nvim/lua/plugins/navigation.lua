@@ -43,10 +43,8 @@ return {
       { "aaronhallaert/advanced-git-search.nvim", dependencies = { "tpope/vim-fugitive" } },
       { "princejoogie/dir-telescope.nvim" },
     },
-    -- apply the config and additionally load fzf-native
-    config = function(_, opts)
-      local telescope = require("telescope")
-      opts.defaults = {
+    opts = {
+      defaults = {
         layout_strategy = "flex",
         width = { padding = 0.1 },
         height = { padding = 0.1 },
@@ -63,7 +61,26 @@ return {
           },
           flex = { flip_columns = 185 },
         },
-      }
+      },
+      pickers = {
+        find_files = {
+          find_command = function() -- modified from telescope.nvim/lua/telescope/builtin/__files.lua
+            if 1 == vim.fn.executable("fd") then
+              return { "fd", "--type", "f", "--color", "never" }
+            elseif 1 == vim.fn.executable("fdfind") then
+              return { "fdfind", "--type", "f", "--color", "never" }
+            elseif 1 == vim.fn.executable("find") and vim.fn.has("win32") == 0 then
+              return { "find", ".", "-type", "f" }
+            elseif 1 == vim.fn.executable("where") then
+              return { "where", "/r", ".", "*" }
+            end
+          end,
+        },
+      },
+    },
+    -- apply the config and additionally load fzf-native
+    config = function(_, opts)
+      local telescope = require("telescope")
       telescope.setup(opts)
       -- telescope.load_extension("fzf")
       telescope.load_extension("zf-native")
@@ -72,8 +89,15 @@ return {
     end,
     keys = {
       { "<leader>gv", "<cmd>Telescope advanced_git_search show_custom_functions<cr>", desc = "Git advanced search" },
-      { "<leader>?", Util.telescope("live_grep", { cwd = false }), desc = "Find in Files (Root)" },
-      { "<leader><space>", Util.telescope("files", { cwd = false }), desc = "Find Files (cwd)" },
+      { "<leader>?", Util.telescope("live_grep", { cwd = false }), desc = "Search in Files (Root)" },
+      { "<leader><leader>", Util.telescope("files", { cwd = false }), desc = "Go To Files (cwd)" },
+      {
+        "<leader>fu",
+        function()
+          require("telescope.builtin").find_files({ no_ignore = true, hidden = true })
+        end,
+        desc = "Go To Files (-u)",
+      },
       { "<leader>sp", "<cmd>Telescope dir live_grep<CR>", desc = "Grep in Path" },
       { "<leader>fp", "<cmd>Telescope dir find_files<CR>", desc = "Files in Path" },
       { "<F6>", "<cmd>Telescope fd<CR>", desc = "Telescope fd" },
