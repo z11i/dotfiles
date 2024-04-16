@@ -76,8 +76,9 @@ detect_extensions = []
 detect_files = []
 
 [shlvl]
-symbol = "L"
 disabled = false
+symbol = "L"
+threshold = 3
 
 [status]
 disabled = false
