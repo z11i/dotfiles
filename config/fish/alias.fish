@@ -10,9 +10,8 @@ abbr br 'bazel run'
 abbr cdtemp 'cd (mktemp -d)'
 abbr cg cargo
 abbr clean "clear && printf '\e[3J'"
-#abbr crc32 "python -c 'import sys;import zlib;print(zlib.crc32(sys.stdin.read())%(1<<32))'"
-abbr crc32d 'gzip -c | tail -c8 | od -t d4 -N 4 -A n'
-abbr crc32x 'gzip -c | tail -c8 | od -t x4 -N 4 -A n'
+#abbr crc32d 'gzip -c | tail -c8 | od -t d4 -N 4 -A n'
+#abbr crc32x 'gzip -c | tail -c8 | od -t x4 -N 4 -A n'
 abbr d docker
 abbr dc 'docker compose'
 abbr dr 'docker run -it --rm'
@@ -33,8 +32,9 @@ abbr kp kubectl get po
 abbr kp1 'kubectl get po | fzf | awk \'{print $1}\''
 abbr kr 'kubectl run my-container-name -it --image=alpine --command -- sh'
 abbr mkdir 'mkdir -p'
-abbr nsh 'nix-shell --command fish'
-#alias ssh='kitty +kitten ssh'
+abbr n nix
+abbr ne nix-env
+abbr nd 'nix develop -c fish'
 abbr tm 'tmux new -A -s main'
 abbr uuid 'echo -n (uuidgen) | pbcopy'
 abbr v nvim
