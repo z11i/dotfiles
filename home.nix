@@ -30,6 +30,7 @@ in buildEnv {
       pkgs.mosh
       pkgs.neovim
       pkgs.nix
+      pkgs.pgcli
       pkgs.ripgrep
       pkgs.socat
       pkgs.starship
