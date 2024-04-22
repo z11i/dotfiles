@@ -25,11 +25,11 @@ return {
         require("wezterm-move").move("l")
       end,
     },
-    -- {
-    --   "<C-;>",
-    --   function()
-    --     require("wezterm-move").move("j")
-    --   end,
-    -- },
+    {
+      "<C-;>",
+      function()
+        require("wezterm-move").move("j")
+      end,
+    },
   },
 }

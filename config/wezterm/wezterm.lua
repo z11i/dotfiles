@@ -104,32 +104,32 @@ assign_key(table.unpack(split_nav("resize", "UpArrow")))
 assign_key(table.unpack(split_nav("resize", "DownArrow")))
 assign_key(table.unpack(split_nav("resize", "LeftArrow")))
 assign_key(table.unpack(split_nav("resize", "RightArrow")))
--- assign_key({ "CTRL" }, ";", function()
--- 	wezterm.action_callback(function(window, pane)
--- 		local tab = window:active_tab()
---
--- 		-- Open pane below if current pane is vim
--- 		if is_vim(pane) then
--- 			if (#tab:panes()) == 1 then
--- 				-- Open pane below if when there is only one pane and it is vim
--- 				pane:split({ direction = "Bottom" })
--- 			else
--- 				-- Send `CTRL-; to vim`, navigate to bottom pane from vim
--- 				window:perform_action({
--- 					SendKey = { key = ";", mods = "CTRL" },
--- 				}, pane)
--- 			end
--- 			return
--- 		end
---
--- 		-- Zoom to vim pane if it exists
--- 		local vim_pane = find_vim_pane(tab)
--- 		if vim_pane then
--- 			vim_pane:activate()
--- 			tab:set_zoomed(true)
--- 		end
--- 	end)
--- end)
+assign_key(
+	{ "CTRL" },
+	";",
+	wezterm.action_callback(function(window, pane) -- toggle zoom
+		local tab = window:active_tab()
+		-- Open pane below if current pane is vim
+		if is_vim(pane) then
+			if (#tab:panes()) == 1 then
+				-- Open pane below if when there is only one pane and it is vim
+				pane:split({ direction = "Bottom" })
+			else
+				-- Send `CTRL-; to vim`, navigate to bottom pane from vim
+				window:perform_action({
+					SendKey = { key = ";", mods = "CTRL" },
+				}, pane)
+			end
+			return
+		end
+		-- Zoom to vim pane if it exists
+		local vim_pane = find_vim_pane(tab)
+		if vim_pane then
+			vim_pane:activate()
+			tab:set_zoomed(true)
+		end
+	end)
+)
 --#endregion
 
 return {

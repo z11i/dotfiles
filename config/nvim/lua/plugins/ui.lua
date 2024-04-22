@@ -105,6 +105,7 @@ return {
   } },
   {
     "akinsho/toggleterm.nvim",
+    enabled = false,
     config = true,
     cmd = "ToggleTerm",
     keys = {
