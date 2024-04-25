@@ -39,12 +39,49 @@ return {
       ---@type table<string, conform.FormatterUnit[]>
       formatters_by_ft = {
         go = { "gofumpt", "golines" },
+        python = { "ruff" },
       },
       formatters = {
         golines = {
           command = "golines",
           prepend_args = { "-m", "128" },
         },
+      },
+    },
+    keys = {
+      {
+        "<leader>ucg",
+        function()
+          local ok, cf = pcall(require, "conform")
+          if not ok then
+            return
+          end
+          local formatters = cf.formatters_by_ft.go
+          if not formatters then
+            cf.formatters_by_ft.go = { "golines" }
+            vim.notify("golines is enabled", vim.log.levels.INFO)
+            return
+          end
+          -- iterate over formatters, if golines is present, remove it, if not add it
+          local found = false
+          local index = nil
+          assert(type(formatters) == "table")
+          for i, v in ipairs(formatters) do
+            if v == "golines" then
+              found = true
+              index = i
+              break
+            end
+          end
+          if found then
+            table.remove(cf.formatters_by_ft.go, index)
+            vim.notify("golines is disabled", vim.log.levels.INFO)
+          else
+            table.insert(cf.formatters_by_ft.go, "golines")
+            vim.notify("golines is enabled", vim.log.levels.INFO)
+          end
+        end,
+        desc = "Toggle Conform - golines",
       },
     },
   },
