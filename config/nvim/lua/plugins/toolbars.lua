@@ -31,11 +31,6 @@ return {
         end,
       },
     },
-    -- The latest version v4.5.3 doesn't have the 0.10 fix:
-    -- https://github.com/akinsho/bufferline.nvim/blob/v4.5.3/lua/bufferline/utils/init.lua#L255
-    -- We don't need branch = "main" after a new release is out that includes:
-    -- https://github.com/akinsho/bufferline.nvim/blob/main/lua/bufferline/utils/init.lua#L256-L260
-    branch = "main",
     -- dependencies = { "catppuccin/nvim", name = "catppuccin" },
   },
   {
