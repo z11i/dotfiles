@@ -142,4 +142,62 @@ return {
       require("numb").setup()
     end,
   },
+  { -- config based on LazyVim's Extra version but I need some tweaks
+    "ThePrimeagen/harpoon",
+    branch = "harpoon2",
+    opts = {
+      menu = {
+        width = vim.api.nvim_win_get_width(0) - 4,
+      },
+      global_settings = {
+        mark_branch = true,
+        save_on_toggle = true,
+      },
+    },
+    keys = function()
+      local keys = {
+        {
+          "\\a",
+          function()
+            require("harpoon"):list():add()
+          end,
+          desc = "Harpoon File",
+        },
+        {
+          "\\\\",
+          function()
+            local harpoon = require("harpoon")
+            harpoon.ui:toggle_quick_menu(harpoon:list())
+          end,
+          desc = "Harpoon Quick Menu",
+        },
+        {
+          "\\,",
+          function()
+            local harpoon = require("harpoon")
+            harpoon:list():prev()
+          end,
+          desc = "Harpoon Quick Menu",
+        },
+        {
+          "\\.",
+          function()
+            local harpoon = require("harpoon")
+            harpoon:list():next()
+          end,
+          desc = "Harpoon Quick Menu",
+        },
+      }
+      for i = 1, 10 do
+        table.insert(keys, {
+          "\\" .. i % 10,
+          function()
+            require("harpoon"):list():select(i)
+          end,
+          desc = "Harpoon to File " .. i,
+        })
+      end
+      return keys
+    end,
+  },
 }

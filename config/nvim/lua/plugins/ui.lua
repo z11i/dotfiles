@@ -133,6 +133,7 @@ return {
       opts.defaults["<F5>"] = { name = "+run" }
       opts.defaults["<F5>r"] = { name = "+rust" }
       opts.defaults["n"] = { name = "+nav" }
+      opts.defaults["\\"] = { name = "+Harpoon" }
     end,
   },
   {
