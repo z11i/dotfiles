@@ -16,6 +16,7 @@ in buildEnv {
       pkgs.fd
       pkgs.findutils
       pkgs.fzf
+      pkgs.gh
       pkgs.gitAndTools.delta
       pkgs.gitAndTools.difftastic
       pkgs.gitAndTools.gitFull
