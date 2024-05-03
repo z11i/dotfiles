@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -e
+set -x
+
+cd "$(git rev-parse --show-toplevel)"
+fd 'commit-graph.*\.lock|tmp_graph' .git | xargs -I {} rm {}
+git gc --force --aggressive --prune=now
+git commit-graph write
