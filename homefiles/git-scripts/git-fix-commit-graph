@@ -4,6 +4,6 @@ set -e
 set -x
 
 cd "$(git rev-parse --show-toplevel)"
-fd 'commit-graph.*\.lock|tmp_graph' .git | xargs -I {} rm {}
+find .git -type f -regextype egrep -regex '.*(commit-graph.*lock|tmp_graph.*)' -exec rm {} +
 git gc --force --aggressive --prune=now
 git commit-graph write
