@@ -61,4 +61,16 @@ return {
       move.goto_previous_start["[z"] = { query = "@fold", query_group = "folds", desc = "Previous fold" }
     end,
   },
+  {
+    "karb94/neoscroll.nvim",
+    keys = { "<C-u>", "<C-d>", "<C-b>", "<C-f>", "<C-y>", "<C-e>", "zt", "zz", "zb" },
+    opts = {
+      performance_mode = true,
+      respect_scrolloff = true,
+      stop_eof = true,
+    },
+    config = function()
+      require("neoscroll").setup()
+    end,
+  },
 }
