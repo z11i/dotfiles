@@ -1,3 +1,33 @@
+local toggle_conform = function(lang, formatter)
+  local ok, cf = pcall(require, "conform")
+  if not ok then
+    return
+  end
+  local formatters = cf.formatters_by_ft[lang]
+  if not formatters then
+    cf.formatters_by_ft[lang] = { formatter }
+    vim.notify(formatter .. " is enabled", vim.log.levels.INFO)
+    return
+  end
+  -- iterate over formatters, if golines is present, remove it, if not add it
+  local found = false
+  local index = nil
+  assert(type(formatters) == "table")
+  for i, v in ipairs(formatters) do
+    if v == formatter then
+      found = true
+      index = i
+      break
+    end
+  end
+  if found then
+    table.remove(cf.formatters_by_ft[lang], index)
+    vim.notify(formatter .. " is disabled", vim.log.levels.INFO)
+  else
+    table.insert(cf.formatters_by_ft[lang], "golines")
+    vim.notify(formatter .. " is enabled", vim.log.levels.INFO)
+  end
+end
 return {
   {
     "williamboman/mason.nvim",
@@ -50,38 +80,18 @@ return {
     },
     keys = {
       {
-        "<leader>ucg",
+        "<leader>ucl",
         function()
-          local ok, cf = pcall(require, "conform")
-          if not ok then
-            return
-          end
-          local formatters = cf.formatters_by_ft.go
-          if not formatters then
-            cf.formatters_by_ft.go = { "golines" }
-            vim.notify("golines is enabled", vim.log.levels.INFO)
-            return
-          end
-          -- iterate over formatters, if golines is present, remove it, if not add it
-          local found = false
-          local index = nil
-          assert(type(formatters) == "table")
-          for i, v in ipairs(formatters) do
-            if v == "golines" then
-              found = true
-              index = i
-              break
-            end
-          end
-          if found then
-            table.remove(cf.formatters_by_ft.go, index)
-            vim.notify("golines is disabled", vim.log.levels.INFO)
-          else
-            table.insert(cf.formatters_by_ft.go, "golines")
-            vim.notify("golines is enabled", vim.log.levels.INFO)
-          end
+          toggle_conform("go", "golines")
         end,
         desc = "Toggle Conform - golines",
+      },
+      {
+        "<leader>ucf",
+        function()
+          toggle_conform("go", "gofumpt")
+        end,
+        desc = "Toggle Conform - gofumpt",
       },
     },
   },
