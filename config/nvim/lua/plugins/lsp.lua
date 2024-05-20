@@ -154,7 +154,7 @@ return {
             },
           },
         },
-        rust_analyzer = {},
+        -- rust_analyzer = {},
         svelte = {},
         tsserver = {},
         yamlls = {},
@@ -163,10 +163,10 @@ return {
       -- return true if you don't want this server to be setup with lspconfig
       ---@type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
       setup = {
-        rust_analyzer = function(_, opts)
-          require("rust-tools").setup({ server = opts })
-          return true
-        end,
+        -- rust_analyzer = function(_, opts)
+        --   require("rust-tools").setup({ server = opts })
+        --   return true
+        -- end,
         -- Specify * to use this function as a fallback for any server
         -- ["*"] = function(server, opts) end,
       },
