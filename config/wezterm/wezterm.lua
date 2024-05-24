@@ -133,7 +133,7 @@ assign_key(
 --#endregion
 
 return {
-	animation_fps = 24,
+	animation_fps = 60,
 	bold_brightens_ansi_colors = true,
 	enable_scroll_bar = true,
 	font = wezterm.font("Berkeley Mono Variable"),
