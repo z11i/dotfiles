@@ -3,13 +3,18 @@ local toggle_conform = function(lang, formatter)
   if not ok then
     return
   end
+  local notify = function(enabled)
+    local content = formatter .. (enabled and " is enabled" or " is disabled")
+    content = content .. "\n" .. lang .. ": " .. vim.inspect(cf.formatters_by_ft[lang])
+    vim.notify(content, vim.log.levels.INFO)
+  end
   local formatters = cf.formatters_by_ft[lang]
   if not formatters then
     cf.formatters_by_ft[lang] = { formatter }
-    vim.notify(formatter .. " is enabled", vim.log.levels.INFO)
+    notify(true)
     return
   end
-  -- iterate over formatters, if golines is present, remove it, if not add it
+  -- iterate over formatters, if formatter is present, remove it, if not add it
   local found = false
   local index = nil
   assert(type(formatters) == "table")
@@ -22,10 +27,10 @@ local toggle_conform = function(lang, formatter)
   end
   if found then
     table.remove(cf.formatters_by_ft[lang], index)
-    vim.notify(formatter .. " is disabled", vim.log.levels.INFO)
+    notify(false)
   else
-    table.insert(cf.formatters_by_ft[lang], "golines")
-    vim.notify(formatter .. " is enabled", vim.log.levels.INFO)
+    table.insert(cf.formatters_by_ft[lang], formatter)
+    notify(true)
   end
 end
 return {
@@ -80,18 +85,25 @@ return {
     },
     keys = {
       {
-        "<leader>ucl",
+        "<leader>uc1",
         function()
           toggle_conform("go", "golines")
         end,
         desc = "Toggle Conform - golines",
       },
       {
-        "<leader>ucf",
+        "<leader>uc2",
         function()
           toggle_conform("go", "gofumpt")
         end,
         desc = "Toggle Conform - gofumpt",
+      },
+      {
+        "<leader>uc3",
+        function()
+          toggle_conform("python", "ruff_organize_imports")
+        end,
+        desc = "Toggle Conform - ruff_organize_imports",
       },
     },
   },
