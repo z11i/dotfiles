@@ -69,7 +69,7 @@ return {
       ---@type table<string, conform.FormatterUnit[]>
       formatters_by_ft = {
         go = { "gofumpt", "golines" },
-        python = { "ruff" },
+        python = { "ruff_fix", "ruff_organize_imports", "ruff_format" }, -- https://github.com/stevearc/conform.nvim/issues/174#issuecomment-1792370861
       },
       formatters = {
         golines = {
