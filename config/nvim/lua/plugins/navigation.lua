@@ -129,13 +129,6 @@ return {
     cmd = { "Navbuddy" },
   },
   {
-    "simrat39/symbols-outline.nvim",
-    cmd = "SymbolsOutline",
-    config = function()
-      require("symbols-outline").setup()
-    end,
-  },
-  {
     "nacro90/numb.nvim",
     event = { "BufReadPost", "BufNewFile" },
     config = function()
