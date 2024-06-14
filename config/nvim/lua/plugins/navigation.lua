@@ -1,4 +1,3 @@
-local Util = require("lazyvim.util")
 return {
   {
     "folke/flash.nvim",
@@ -89,8 +88,8 @@ return {
     end,
     keys = {
       { "<leader>gv", "<cmd>Telescope advanced_git_search show_custom_functions<cr>", desc = "Git advanced search" },
-      { "<leader>?", Util.telescope("live_grep", { cwd = false }), desc = "Search in Files (Root)" },
-      { "<leader><leader>", Util.telescope("files", { cwd = false }), desc = "Go To Files (cwd)" },
+      { "<leader>?", LazyVim.pick("live_grep"), desc = "Search in Files (Root)" },
+      { "<leader><leader>", LazyVim.pick("files"), desc = "Go To Files (cwd)" },
       {
         "<leader>fu",
         function()
