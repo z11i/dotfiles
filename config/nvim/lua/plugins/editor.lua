@@ -42,7 +42,6 @@ return {
   }, -- need to make sure matchparen is in lazy.lua's disabled_plugins
   {
     "nvim-treesitter/nvim-treesitter",
-    dependencies = { "HiPhish/rainbow-delimiters.nvim" },
     opts = function(_, opts)
       opts.textobjects.swap = {
         enable = true,
