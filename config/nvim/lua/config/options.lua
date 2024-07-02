@@ -20,3 +20,6 @@ vim.opt.mousemoveevent = true
 -- show matching brackets
 vim.opt.showmatch = true
 vim.opt.matchtime = 2
+
+-- LazyVim will try to use LSP to configure the root, which is not convenient.
+vim.g.root_spec = { { ".git", "lua" }, "cwd" }
