@@ -52,6 +52,7 @@ return {
   -- },
   {
     "folke/tokyonight.nvim",
+    tag = "v3.0.1", -- # v4 does not auto choose light theme. Sticking with v3 until that is fixed.
     opts = {
       style = "night",
       light_style = "day",
