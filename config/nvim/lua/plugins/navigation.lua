@@ -35,6 +35,24 @@ return {
     end,
   },
   {
+    "ibhagwan/fzf-lua",
+    opts = {
+      fzf_opts = {
+        ["--no-scrollbar"] = false,
+        ["--tiebreak"] = "begin,score,end,length,index",
+      },
+      fzf_bin = "sk",
+      winopts = {
+        preview = {
+          layout = "flex",
+          flip_columns = 185,
+          vertical = "down:55%",
+          horizontal = "right:45%",
+        },
+      },
+    },
+  },
+  {
     "nvim-telescope/telescope.nvim",
     dependencies = {
       -- { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
