@@ -33,6 +33,7 @@ in buildEnv {
       pkgs.nix
       pkgs.pgcli
       pkgs.ripgrep
+      pkgs.skim
       pkgs.socat
       pkgs.starship
       pkgs.tmux
