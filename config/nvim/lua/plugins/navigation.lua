@@ -156,10 +156,7 @@ return {
     "ThePrimeagen/harpoon",
     branch = "harpoon2",
     opts = {
-      menu = {
-        width = vim.api.nvim_win_get_width(0) - 4,
-      },
-      global_settings = {
+      settings = {
         mark_branch = true,
         save_on_toggle = true,
       },
@@ -187,7 +184,7 @@ return {
             local harpoon = require("harpoon")
             harpoon:list():prev()
           end,
-          desc = "Harpoon Quick Menu",
+          desc = "Harpoon Previous File",
         },
         {
           "\\.",
@@ -195,7 +192,7 @@ return {
             local harpoon = require("harpoon")
             harpoon:list():next()
           end,
-          desc = "Harpoon Quick Menu",
+          desc = "Harpoon Next File",
         },
       }
       for i = 1, 10 do
