@@ -129,13 +129,23 @@ return {
   },
   {
     "folke/which-key.nvim",
-    opts = function(_, opts)
-      opts.defaults["<leader>e"] = { name = "+neotree" }
-      opts.defaults["<F5>"] = { name = "+run" }
-      opts.defaults["<F5>r"] = { name = "+rust" }
-      opts.defaults["n"] = { name = "+nav" }
-      opts.defaults["\\"] = { name = "+Harpoon" }
-    end,
+    opts = {
+      preset = "helix",
+      spec = {
+        { "<F5>", group = "run" },
+        { "<F5>r", group = "rust" },
+        { "<leader>e", group = "neotree" },
+        { "\\", group = "Harpoon" },
+        { "n", group = "nav" },
+      },
+      win = {
+        padding = { 0, 0 },
+      },
+      layout = {
+        spacing = 1,
+        align = "center",
+      },
+    },
   },
   {
     "echasnovski/mini.files",
