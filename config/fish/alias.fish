@@ -19,9 +19,14 @@ abbr de 'docker exec -it'
 abbr l eza
 abbr ll 'eza -l'
 abbr lla 'eza -la'
+abbr lg 'eza -l --git'
 abbr g git
-abbr ge 'gh copilot explain'
-abbr gs 'gh copilot suggest'
+abbr ga 'git add'
+abbr gd 'git diff'
+abbr gf 'git f3'
+abbr gs 'git status'
+abbr ghe 'gh copilot explain'
+abbr ghs 'gh copilot suggest'
 abbr h helm
 abbr k kubectl
 abbr ktx kubectl ctx
