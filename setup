@@ -35,22 +35,19 @@ setup_profile() {
 setup_nix() {
 	checkBin nix || (
 		log 'installing Nix'
-		case "$OS_NAME" in
-		linux)
-			sh <(curl -L https://nixos.org/nix/install)
-			;;
-		macos)
-			sh <(curl -L https://nixos.org/nix/install) --darwin-use-unencrypted-nix-store-volume --daemon
-			;;
-		esac
+		curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
 		log 'Nix is installed'
 	)
 	if [[ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]]; then
 		. '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
 	fi
-	log 'installing packages with Nix'
 
-	nix-env -f ./home.nix -ir
+	log 'installing packages with Nix'
+	symlink home-manager/ ~/.config/home-manager
+	checkBin home-manager || (
+		nix run home-manager/master -- init --switch
+		home-manager switch
+	)
 
 	log 'configure starship'
 	symlink config/starship.toml ~/.config/starship.toml
