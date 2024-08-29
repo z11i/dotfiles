@@ -1,8 +1,11 @@
-{ config, pkgs, ... }:
+{ config, pkgs, nixpkgs, ... }:
 
 {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
+  nix.channels = {
+    inherit nixpkgs;
+  };
   home.username = "z11i";
   home.homeDirectory = "/Users/z11i";
 
