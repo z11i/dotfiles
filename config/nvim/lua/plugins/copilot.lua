@@ -15,6 +15,7 @@ return {
     config = function()
       require("supermaven-nvim").setup({})
     end,
+    event = "InsertEnter",
     cmd = {
       "SupermavenStart",
       "SupermavenStop",
