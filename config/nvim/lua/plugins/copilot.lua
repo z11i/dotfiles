@@ -10,4 +10,22 @@ return {
     end,
     event = { "BufReadPre", "BufNewFile" },
   },
+  {
+    "supermaven-inc/supermaven-nvim",
+    config = function()
+      require("supermaven-nvim").setup({})
+    end,
+    cmd = {
+      "SupermavenStart",
+      "SupermavenStop",
+      "SupermavenRestart",
+      "SupermavenToggle",
+      "SupermavenStatus",
+      "SupermavenUseFree",
+      "SupermavenUsePro",
+      "SupermavenLogout",
+      "SupermavenShowLog",
+      "SupermavenClearLog",
+    },
+  },
 }
