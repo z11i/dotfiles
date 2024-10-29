@@ -18,9 +18,15 @@ truncate_to_repo = true
 fish_style_pwd_dir_length = 1
 
 [directory.substitutions]
+"source" = "s"
 "src" = "s"
 "abnormal" = "ab"
-"apps" = "a"
+"app" = "a"
+"graymail_api_server" = "gas"
+"graymail_record_sink" = "grs"
+"graymail_detection" = "gds"
+"graymail_notifications_processor" = "gnp"
+"unwantedmail" = "ums"
 
 [docker_context]
 disabled = true
