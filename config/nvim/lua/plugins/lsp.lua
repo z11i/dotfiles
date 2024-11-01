@@ -36,6 +36,7 @@ end
 return {
   {
     "williamboman/mason.nvim",
+    cond = not vim.g.vscode,
     opts = {
       ensure_installed = {
         -- lua
@@ -142,6 +143,7 @@ return {
   },
   {
     "neovim/nvim-lspconfig",
+    cond = not vim.g.vscode,
     version = false,
     ---@class PluginLspOpts
     opts = {

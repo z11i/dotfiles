@@ -52,6 +52,7 @@ return {
   -- },
   {
     "folke/tokyonight.nvim",
+    cond = not vim.g.vscode,
     tag = "v3.0.1", -- # v4 does not auto choose light theme. Sticking with v3 until that is fixed.
     opts = {
       style = "night",
@@ -129,6 +130,7 @@ return {
   },
   {
     "folke/which-key.nvim",
+    cond = not vim.g.vscode,
     opts = {
       preset = "helix",
       spec = {
@@ -149,6 +151,7 @@ return {
   },
   {
     "echasnovski/mini.files",
+    cond = not vim.g.vscode,
     opts = { options = { use_as_default_explorer = true } },
     keys = {
       {
@@ -233,6 +236,7 @@ return {
   },
   {
     "NvChad/nvim-colorizer.lua",
+    cond = not vim.g.vscode,
     cmd = {
       "ColorizerAttachToBuffer",
       "ColorizerDetachFromBuffer",

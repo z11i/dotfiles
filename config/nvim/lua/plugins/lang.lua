@@ -1,6 +1,7 @@
 return {
   {
     "simrat39/rust-tools.nvim",
+    cond = not vim.g.vscode,
     keys = { { "<F5>rr", "<cmd>RustRunnables<cr>", desc = "RustRunnables" } },
   },
   -- {

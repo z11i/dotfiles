@@ -1,5 +1,6 @@
 return {
   "letieu/wezterm-move.nvim",
+  cond = not vim.g.vscode,
   keys = {
     {
       "<C-S-Left>",
