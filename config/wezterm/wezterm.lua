@@ -136,7 +136,7 @@ return {
 	animation_fps = 60,
 	bold_brightens_ansi_colors = true,
 	enable_scroll_bar = true,
-	font = wezterm.font("Berkeley Mono"),
+	font = wezterm.font("Berkeley Mono Variable"),
 	font_size = 15,
 	freetype_load_target = "Light",
 	front_end = "OpenGL",
