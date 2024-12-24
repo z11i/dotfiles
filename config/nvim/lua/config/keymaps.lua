@@ -45,3 +45,8 @@ vim.keymap.set("n", "<A-Up>", "<cmd>resize +2<cr>", { desc = "Increase window he
 vim.keymap.set("n", "<A-Down>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
 vim.keymap.set("n", "<A-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
 vim.keymap.set("n", "<A-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
+
+if vim.g.vscode then
+  vim.keymap.set("n", "j", "<cmd>call VSCodeCall('cursorDown')<cr>", { desc = "VSCode cursor down", remap = true })
+  vim.keymap.set("n", "k", "<cmd>call VSCodeCall('cursorUp')<cr>", { desc = "VSCode cursor up", remap = true })
+end
