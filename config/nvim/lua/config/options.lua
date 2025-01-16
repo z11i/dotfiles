@@ -23,3 +23,5 @@ vim.opt.matchtime = 2
 
 -- LazyVim will try to use LSP to configure the root, which is not convenient.
 vim.g.root_spec = { { ".git", "lua" }, "cwd" }
+
+vim.g.lazyvim_picker = "telescope"

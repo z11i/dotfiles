@@ -4,7 +4,7 @@ $python$nix_shell$username$status$jobs$character"""
 right_format = """$shlvl$duration$time"""
 
 scan_timeout = 20
-command_timeout = 500
+command_timeout = 700
 
 [aws]
 symbol = "☁️  "
