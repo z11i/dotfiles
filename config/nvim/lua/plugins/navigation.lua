@@ -107,14 +107,7 @@ return {
     keys = {
       { "<leader>gv", "<cmd>Telescope advanced_git_search show_custom_functions<cr>", desc = "Git advanced search" },
       { "<leader>?", LazyVim.pick("live_grep"), desc = "Search in Files (Root)" },
-      { "<leader><leader>", LazyVim.pick("files"), desc = "Go To Files (cwd)" },
-      {
-        "<leader>fu",
-        function()
-          require("telescope.builtin").find_files({ no_ignore = true, hidden = true })
-        end,
-        desc = "Go To Files (-u)",
-      },
+      { "<leader><leader>", LazyVim.pick("files"), desc = "Go To Files" },
       { "<leader>sp", "<cmd>Telescope dir live_grep<CR>", desc = "Grep in Path" },
       { "<leader>fp", "<cmd>Telescope dir find_files<CR>", desc = "Files in Path" },
       { "<F6>", "<cmd>Telescope fd<CR>", desc = "Telescope fd" },
