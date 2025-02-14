@@ -26,6 +26,7 @@ abbr ghe 'gh copilot explain'
 abbr ghs 'gh copilot suggest'
 abbr gs 'git status'
 abbr h helm
+abbr jql "jq -cR 'fromjson? // .'"
 abbr k kubectl
 abbr ke kubectl exec -it '(kubectl get po | fzf | awk \'{print $1}\')' -- bash
 abbr kip 'kubectl get pods (kubectl get po | fzf | awk \'{print $1}\') -o=jsonpath=\'{.status.podIP}\''
