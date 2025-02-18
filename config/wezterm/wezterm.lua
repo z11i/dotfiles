@@ -139,7 +139,7 @@ return {
 	font = wezterm.font("Berkeley Mono SemiCondensed"),
 	font_size = 15,
 	keys = keys,
-	line_height = 1.18,
+	line_height = 1.25,
 	scrollback_lines = 1048576,
 	tab_max_width = 200,
 	window_decorations = "INTEGRATED_BUTTONS|RESIZE",
