@@ -1,7 +1,7 @@
-format = """$kubernetes$aws$all$git_state$git_status$git_metrics$directory$git_branch$git_commit
-$python$nix_shell$username$status$jobs$character"""
+format = """$kubernetes$aws$all$git_state$git_status$git_metrics$git_branch$git_commit
+$directory$nix_shell$username$status$jobs$character"""
 
-right_format = """$shlvl$duration$time"""
+right_format = """$duration$time"""
 
 scan_timeout = 20
 command_timeout = 1000
@@ -18,7 +18,6 @@ truncate_to_repo = true
 fish_style_pwd_dir_length = 1
 
 [directory.substitutions]
-"source" = "s"
 "src" = "s"
 "abnormal" = "ab"
 "app" = "a"
@@ -82,7 +81,7 @@ detect_extensions = []
 detect_files = []
 
 [shlvl]
-disabled = false
+disabled = true
 symbol = "L"
 threshold = 3
 
