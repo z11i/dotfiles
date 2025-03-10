@@ -52,6 +52,7 @@
   st = stash
   stp = stash -p -m
   sc = switch -c
+  ss = status -s
   sw = switch
   sws = switch-safe
   rb = rebase
