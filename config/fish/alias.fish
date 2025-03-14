@@ -18,12 +18,20 @@ abbr d docker
 abbr dc 'docker compose'
 abbr de 'docker exec -it'
 abbr dr 'docker run -it --rm'
+abbr f1 'fzf | awk \'{print $1}\''
+abbr f2 'fzf | awk \'{print $2}\''
+abbr f3 'fzf | awk \'{print $3}\''
 abbr g git
 abbr ga 'git add'
 abbr gd 'git diff'
 abbr gf 'git f3'
 abbr ghe 'gh copilot explain'
 abbr ghs 'gh copilot suggest'
+abbr gpm 'gh pr ls -A @me'
+abbr gpv 'gh pr view'
+abbr gpv 'gh pr view'
+abbr gpco 'gh pr checkout'
+abbr gpco- 'gh pr checkout (gh pr ls -A @me | fzf | awk \'{print $1}\')'
 abbr gs 'git status'
 abbr h helm
 abbr jql "jq -cR 'fromjson? // .'"
