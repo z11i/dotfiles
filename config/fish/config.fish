@@ -1,4 +1,5 @@
 source ~/.config/fish/alias.fish
+source ~/.config/fish/keybindings.fish
 source ~/.config/fish/path.fish
 
 # bootstrap fisher
