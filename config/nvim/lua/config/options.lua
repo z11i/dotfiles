@@ -25,3 +25,6 @@ vim.opt.matchtime = 2
 vim.g.root_spec = { { ".git", "lua" }, "cwd" }
 
 vim.g.lazyvim_picker = "telescope"
+
+vim.opt.spell = false
+vim.opt.spelllang = {}
