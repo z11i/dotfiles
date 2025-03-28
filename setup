@@ -78,7 +78,7 @@ setup_mac() {
 	### Homebrew END
 
 	### Karabiner
-	brew list --cask karabiner-elements 2>/dev/null || (
+	/opt/homebrew/bin/brew list --cask karabiner-elements 2>/dev/null || (
 		log 'installing karabiner-elements'
 		brew install karabiner-elements
 		symlink config/karabiner ~/.config/karabiner
@@ -109,14 +109,11 @@ setup_mac_gui() {
 	log 'setting up macOS GUI applications'
 	brew update
 	brew install amethyst
-	brew install appcleaner
 	brew install firefox
-	brew install google-drive
 	brew install iina
 	brew install keka
 	brew install mos
 	brew install raycast
-	brew install spotify
 	brew install wezterm
 }
 
@@ -219,6 +216,10 @@ setup_amethyst() {
 	symlink ./config/amethyst/amethyst.yml ~/.amethyst.yml
 }
 
+setup_rg() {
+	symlink ./homefiles/ripgreprc ~/.config/ripgreprc
+}
+
 setup_profile
 setup_nix
 setup_mac
@@ -233,3 +234,4 @@ setup_node
 setup_rust
 setup_wezterm
 setup_amethyst
+setup_rg

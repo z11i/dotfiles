@@ -84,13 +84,4 @@ end
 ###     source $f
 ### end
 
-# github copilot cli
-if type -q github-copilot-cli
-    alias '@'='github-copilot-cli what-the-shell'
-    alias '@git'='github-copilot-cli git-assist'
-    alias '@gh'='github-copilot-cli gh-assist'
-else
-    npm install -g @githubnext/github-copilot-cli || true
-end
-
 sourceadd ~/.config.fish
