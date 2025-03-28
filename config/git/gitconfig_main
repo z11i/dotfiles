@@ -38,6 +38,7 @@ writeCommitGraph = true
 [include]
 path = ~/.config/git/gitconfig_alias
 path = ~/.config/git/delta_theme
+path = ~/.gitlocal
 
 [includeIf "gitdir:~/.local/share/nvim/lazy/"]
 path = ~/.config/git/gitconfig_lazy
