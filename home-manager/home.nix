@@ -36,7 +36,6 @@
     #   echo "Hello, ${config.home.username}!"
     # '')
     pkgs.bat
-    pkgs.bit
     pkgs.cacert
     pkgs.coreutils
     pkgs.du-dust
