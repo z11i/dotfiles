@@ -126,5 +126,9 @@
     "key": "ctrl+\\ k",
     "command": "editor.action.inlineDiffs.previousChange",
     "when": "editorTextFocus && (arbitrary function)"
+  },
+  {
+    "key": "cmd+i",
+    "command": "composerMode.agent"
   }
 ]
