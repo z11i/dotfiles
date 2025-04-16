@@ -49,5 +49,7 @@
   "indentRainbow.indicatorStyle": "light",
   "workbench.editor.pinnedTabSizing": "shrink",
   "editor.accessibilitySupport": "off",
-  "cursor.composer.collapsePaneInputBoxPills": true
+  "cursor.composer.collapsePaneInputBoxPills": true,
+  "cursor.cpp.disabledLanguages": ["plaintext"],
+  "cursor.composer.shouldAllowCustomModes": true
 }
