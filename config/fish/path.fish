@@ -1,10 +1,10 @@
-# homebrew
-path_append /usr/local/sbin
-path_append /opt/homebrew/bin
-
 ########## Below is prepend, priority goes in ascending order #########
 # nix
 path_prepend ~/.nix-profile/bin
+
+# homebrew
+path_prepend /usr/local/sbin
+path_prepend /opt/homebrew/bin
 
 # node
 path_prepend ~/.node_modules/bin
