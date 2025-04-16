@@ -4,7 +4,7 @@ $directory$nix_shell$username$status$jobs$character"""
 right_format = """$duration$time"""
 
 scan_timeout = 20
-command_timeout = 1000
+command_timeout = 3600
 
 [aws]
 symbol = "☁️  "
