@@ -350,7 +350,7 @@
                         },
                         {
                             "from": { "key_code": "pause" },
-                            "to": [{ "key_code": "left_option" }]
+                            "to": [{ "apple_vendor_top_case_key_code": "keyboard_fn" }]
                         },
                         {
                             "from": { "key_code": "right_option" },
