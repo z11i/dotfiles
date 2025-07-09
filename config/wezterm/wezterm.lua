@@ -136,7 +136,7 @@ return {
 	animation_fps = 60,
 	bold_brightens_ansi_colors = true,
 	enable_scroll_bar = true,
-	font = wezterm.font_with_fallback({ "Berkeley Mono SemiCondensed", "Berkeley Mono" }),
+	font = wezterm.font_with_fallback({ "Berkeley Mono SemiCondensed", "Berkeley Mono", "PingFang SC" }),
 	font_size = 15,
 	keys = keys,
 	line_height = 1.25,
