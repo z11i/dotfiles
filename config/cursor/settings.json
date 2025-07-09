@@ -18,12 +18,6 @@
   "go.toolsManagement.autoUpdate": true,
   "terminal.integrated.fontSize": 14,
   "terminal.integrated.lineHeight": 1.15,
-  // "vim.enableNeovim": true,
-  // "vim.neovimPath": "/Users/z11i/.local/bin/nvim",
-  // "vim.neovimUseConfigFile": true,
-  // "vim.flash.enable": true,
-  "window.autoDetectColorScheme": true,
-  "workbench.colorTheme": "Tokyo Night Light",
   "workbench.editor.pinnedTabsOnSeparateRow": true,
   "gitlens.hovers.changesDiff": "hunk",
   "git.openRepositoryInParentFolders": "always",
@@ -44,7 +38,7 @@
   "terminal.integrated.smoothScrolling": true,
   "terminal.integrated.suggest.enabled": true,
   "terminal.integrated.stickyScroll.enabled": true,
-  "workbench.preferredLightColorTheme": "Solarized Light",
+  "workbench.preferredLightColorTheme": "Catppuccin Latte",
   "indentRainbow.includedLanguages": ["py", "yaml"],
   "indentRainbow.indicatorStyle": "light",
   "workbench.editor.pinnedTabSizing": "shrink",
@@ -63,5 +57,9 @@
   "python.analysis.inlayHints.pytestParameters": true,
   "python.analysis.inlayHints.functionReturnTypes": true,
   "python.analysis.inlayHints.callArgumentNames": "partial",
-  "editor.inlayHints.maximumLength": 0
+  "editor.inlayHints.maximumLength": 0,
+  "window.autoDetectColorScheme": true,
+  "debug.gutterMiddleClickAction": "conditionalBreakpoint",
+  "workbench.iconTheme": "catppuccin-latte",
+  "cursor.composer.shouldChimeAfterChatFinishes": true
 }

@@ -138,7 +138,7 @@
     "when": "editorHasCodeActionsProvider && editorTextFocus && !editorReadonly"
   },
   {
-    "key": "alt+y",
+    "key": "ctrl+enter",
     "command": "editor.action.inlineDiffs.acceptPartialEdit",
     "when": "editorHasPromptBar && editorPromptBarFocused"
   },
@@ -148,7 +148,7 @@
     "when": "editorHasPromptBar && editorPromptBarFocused"
   },
   {
-    "key": "alt+y",
+    "key": "ctrl+enter",
     "command": "editor.action.inlineDiffs.acceptPartialEdit",
     "when": "editorTextFocus && @inlineDiffs.acceptPartialEdit.isActiveEditorWithDiffs"
   },
@@ -156,5 +156,25 @@
     "key": "cmd+y",
     "command": "-editor.action.inlineDiffs.acceptPartialEdit",
     "when": "editorTextFocus && @inlineDiffs.acceptPartialEdit.isActiveEditorWithDiffs"
+  },
+  {
+    "key": "ctrl+.",
+    "command": "editor.action.inlineDiffs.nextChange",
+    "when": "editorTextFocus && @inlineDiffs.nextChange.isActiveEditorWithDiffs"
+  },
+  {
+    "key": "alt+j",
+    "command": "-editor.action.inlineDiffs.nextChange",
+    "when": "editorTextFocus && @inlineDiffs.nextChange.isActiveEditorWithDiffs"
+  },
+  {
+    "key": "ctrl+,",
+    "command": "editor.action.inlineDiffs.previousChange",
+    "when": "editorTextFocus && @inlineDiffs.previousChange.isActiveEditorWithDiffs"
+  },
+  {
+    "key": "alt+k",
+    "command": "-editor.action.inlineDiffs.previousChange",
+    "when": "editorTextFocus && @inlineDiffs.previousChange.isActiveEditorWithDiffs"
   }
 ]
