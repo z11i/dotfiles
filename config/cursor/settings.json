@@ -61,5 +61,6 @@
   "window.autoDetectColorScheme": true,
   "debug.gutterMiddleClickAction": "conditionalBreakpoint",
   "workbench.iconTheme": "catppuccin-latte",
-  "cursor.composer.shouldChimeAfterChatFinishes": true
+  "cursor.composer.shouldChimeAfterChatFinishes": true,
+  "yaml.maxItemsComputed": 50000
 }
