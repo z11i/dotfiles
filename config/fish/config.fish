@@ -85,3 +85,10 @@ end
 ### end
 
 sourceadd ~/.config.fish
+
+## Cursor integration
+if type -q cursor
+    string match -q "$TERM_PROGRAM" vscode
+    and . (cursor --locate-shell-integration-path fish)
+    and echo "Cursor integration loaded"
+end

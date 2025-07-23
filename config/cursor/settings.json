@@ -62,5 +62,6 @@
   "debug.gutterMiddleClickAction": "conditionalBreakpoint",
   "workbench.iconTheme": "catppuccin-latte",
   "cursor.composer.shouldChimeAfterChatFinishes": true,
-  "yaml.maxItemsComputed": 50000
+  "yaml.maxItemsComputed": 50000,
+  "terminal.integrated.shellIntegration.environmentReporting": true
 }
