@@ -49,6 +49,7 @@
   lt = log-with-difft
   ri = rebase --interactive
   s = status
+  sp = stash push
   st = stash
   stp = stash -p -m
   sc = switch -c
