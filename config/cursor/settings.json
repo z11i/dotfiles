@@ -63,5 +63,8 @@
   "workbench.iconTheme": "catppuccin-latte",
   "cursor.composer.shouldChimeAfterChatFinishes": true,
   "yaml.maxItemsComputed": 50000,
-  "terminal.integrated.shellIntegration.environmentReporting": true
+  "terminal.integrated.shellIntegration.environmentReporting": true,
+  "cursorpyright.analysis.inlayHints.callArgumentNames": "partial",
+  "cursorpyright.analysis.inlayHints.functionReturnTypes": true,
+  "cursorpyright.analysis.inlayHints.variableTypes": true
 }
