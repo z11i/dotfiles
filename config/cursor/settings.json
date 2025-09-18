@@ -10,9 +10,6 @@
   "editor.language.colorizedBracketPairs": [],
   "editor.wordWrap": "on",
   "editor.wrappingIndent": "deepIndent",
-  "extensions.experimental.affinity": {
-    "asvetliakov.vscode-neovim": 1
-  },
   "gitlens.currentLine.scrollable": false,
   "go.inlayHints.constantValues": true,
   "go.toolsManagement.autoUpdate": true,
@@ -25,7 +22,7 @@
   "markdown.preview.typographer": true,
   // "ruff.nativeServer": "on",
   "terminal.integrated.fontLigatures": true,
-  "editor.fontSize": 14.4,
+  "editor.fontSize": 14,
   "terminal.integrated.fontFamily": "'Berkeley Mono SemiCondensed'",
   "editor.codeActionsOnSave": {},
   "terminal.integrated.macOptionIsMeta": true,
@@ -66,5 +63,12 @@
   "terminal.integrated.shellIntegration.environmentReporting": true,
   "cursorpyright.analysis.inlayHints.callArgumentNames": "partial",
   "cursorpyright.analysis.inlayHints.functionReturnTypes": true,
-  "cursorpyright.analysis.inlayHints.variableTypes": true
+  "cursorpyright.analysis.inlayHints.variableTypes": true,
+  "workbench.editorAssociations": {
+    "*.md": "vscode.markdown.preview.editor"
+  },
+  "problems.showCurrentInStatus": true,
+  "extensions.experimental.affinity": {
+    "asvetliakov.vscode-neovim": 1
+  }
 }

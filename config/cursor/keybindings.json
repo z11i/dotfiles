@@ -176,5 +176,17 @@
     "key": "alt+k",
     "command": "-editor.action.inlineDiffs.previousChange",
     "when": "editorTextFocus && @inlineDiffs.previousChange.isActiveEditorWithDiffs"
+  },
+  {
+    "key": "shift+enter",
+    "command": "workbench.action.terminal.sendSequence",
+    "args": {
+      "text": "\\\r\n"
+    },
+    "when": "terminalFocus"
+  },
+  {
+    "key": "cmd+e",
+    "command": "composerMode.background"
   }
 ]
