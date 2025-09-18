@@ -31,7 +31,7 @@ layouts:
   # - floating
   - widescreen-tall
   - widescreen-tall-right
-  # - bsp
+  - bsp
 
 # First mod (default option + shift).
 mod1:
@@ -275,6 +275,9 @@ select-widescreen-tall-layout:
 select-widescreen-tall-right-layout:
   mod: mod1
   key: "8"
+select-bsp-layout:
+  mod: mod1
+  key: "/"
 
 # # Select column layout
 # select-column-layout:
