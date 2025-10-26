@@ -1,11 +1,3 @@
 {
-    "mcpServers": {
-        "filesystem": {
-            "command": "/Users/z11i/go/bin/mcp-filesystem-server",
-            "args": [
-                "/Users/z11i/dev",
-                "/Users/z11i/dotfiles"
-            ]
-        }
-    }
+  "mcpServers": {}
 }
