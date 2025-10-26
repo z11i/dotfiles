@@ -52,6 +52,7 @@
     pkgs.gnugrep
     pkgs.gnupg
     pkgs.gnused
+    pkgs.helix
     pkgs.htop
     pkgs.jq
     pkgs.lazygit
@@ -69,6 +70,7 @@
     pkgs.unixtools.watch
     pkgs.vivid
     pkgs.wget
+    pkgs.xan
     pkgs.yq-go
     pkgs.zoxide
   ];
