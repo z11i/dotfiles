@@ -17,7 +17,9 @@ sourceadd ~/.config/fish/secret.fish
 sourceadd ~/.config/fish/colors.fish
 
 # set editor
-if type -q nvim
+if type -q hx
+    set -gx EDITOR hx
+else if type -q nvim
     set -gx EDITOR "nvim --clean"
 else if type -q vim
     set -gx EDITOR vim
