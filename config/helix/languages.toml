@@ -9,5 +9,4 @@ language-servers = ["gopls"]
 [language-server.gopls]
 command = "gopls"
 args = []
-config = { "gopls" = { "staticcheck" = true, "usePlaceholders" = true, "analyses" = { "unusedparams" = true } } }
-environment = { "GOWORK" = "/Users/z11i/source/go.work" }
+config = { "staticcheck" = true, "usePlaceholders" = true, "analyses" = { "unusedparams" = true } }
