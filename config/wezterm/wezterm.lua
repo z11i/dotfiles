@@ -130,6 +130,42 @@ assign_key(
 		end
 	end)
 )
+
+-- Floating pane keybindings (yazi, lazygit, scrollback capture)
+assign_key({ "CMD" }, "y", wezterm.action_callback(function(window, pane)
+	local cwd = pane:get_current_working_dir()
+	pane:split({
+		direction = "Right",
+		size = 0.95,
+		args = { os.getenv("SHELL"), "-l", "-c", "yazi" },
+		cwd = cwd,
+	})
+end))
+
+assign_key({ "CMD" }, "g", wezterm.action_callback(function(window, pane)
+	local cwd = pane:get_current_working_dir()
+	pane:split({
+		direction = "Right",
+		size = 0.95,
+		args = { os.getenv("SHELL"), "-l", "-c", "lazygit" },
+		cwd = cwd,
+	})
+end))
+
+assign_key({ "CMD" }, "e", wezterm.action_callback(function(window, pane)
+	local text = pane:get_lines_as_text(pane:get_dimensions().scrollback_rows)
+	local temp_file = os.tmpname()
+	local file = io.open(temp_file, "w")
+	if file then
+		file:write(text)
+		file:close()
+		pane:split({
+			direction = "Right",
+			size = 0.95,
+			args = { os.getenv("SHELL"), "-l", "-c", "hx " .. temp_file },
+		})
+	end
+end))
 --#endregion
 
 return {

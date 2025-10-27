@@ -71,6 +71,7 @@
     pkgs.vivid
     pkgs.wget
     pkgs.xan
+    pkgs.yazi
     pkgs.yq-go
     pkgs.zoxide
   ];

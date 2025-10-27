@@ -6,8 +6,31 @@ middle-click-paste = false
 bufferline = "always"
 
 [editor.statusline]
-left = ["mode", "spinner", "file-absolute-path", "read-only-indicator", "file-modification-indicator"]
-right = ["version-control"]
+left = [
+  "mode",
+  "spinner",
+  "version-control",
+  "spacer",
+  "separator",
+  "file-name",
+  "read-only-indicator",
+  "file-modification-indicator",
+
+]
+center = []
+right = [
+  "diagnostics",
+  "workspace-diagnostics",
+  "position",
+  "total-line-numbers",
+  "position-percentage",
+  "file-encoding",
+  "file-line-ending",
+  "file-type",
+  "register",
+]
+separator = "│"
+
 
 [editor.cursor-shape]
 insert = "bar"
