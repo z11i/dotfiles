@@ -10,4 +10,4 @@ left = ["mode", "spinner", "file-absolute-path", "read-only-indicator", "file-mo
 right = ["version-control"]
 
 [editor.cursor-shape]
-insert = "underline"
+insert = "bar"
