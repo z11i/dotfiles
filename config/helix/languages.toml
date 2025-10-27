@@ -1,0 +1,13 @@
+[[language]]
+name = "go"
+scope = "source.go"
+file-types = ["go"]
+roots = ["go.work", "go.mod"]
+auto-format = true
+language-servers = ["gopls"]
+
+[language-server.gopls]
+command = "gopls"
+args = []
+config = { "gopls" = { "staticcheck" = true, "usePlaceholders" = true, "analyses" = { "unusedparams" = true } } }
+environment = { "GOWORK" = "/Users/z11i/source/go.work" }

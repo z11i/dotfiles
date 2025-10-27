@@ -1,0 +1,13 @@
+theme = "catppuccin_latte"
+
+[editor]
+color-modes = true
+middle-click-paste = false
+bufferline = "always"
+
+[editor.statusline]
+left = ["mode", "spinner", "file-absolute-path", "read-only-indicator", "file-modification-indicator"]
+right = ["version-control"]
+
+[editor.cursor-shape]
+insert = "underline"
