@@ -123,11 +123,6 @@
     "command": "composerMode.agent"
   },
   {
-    "key": "shift+cmd+y",
-    "command": "-editor.action.inlineDiffs.acceptPartialEdit",
-    "when": "editorHasPromptBar && editorPromptBarFocused"
-  },
-  {
     "key": "alt+q",
     "command": "editor.action.quickFix",
     "when": "editorHasCodeActionsProvider && editorTextFocus && !editorReadonly"
@@ -138,51 +133,26 @@
     "when": "editorHasCodeActionsProvider && editorTextFocus && !editorReadonly"
   },
   {
-    "key": "ctrl+enter",
-    "command": "editor.action.inlineDiffs.acceptPartialEdit",
-    "when": "editorHasPromptBar && editorPromptBarFocused"
-  },
-  {
-    "key": "cmd+y",
-    "command": "-editor.action.inlineDiffs.acceptPartialEdit",
-    "when": "editorHasPromptBar && editorPromptBarFocused"
-  },
-  {
-    "key": "ctrl+enter",
-    "command": "editor.action.inlineDiffs.acceptPartialEdit",
-    "when": "editorTextFocus && @inlineDiffs.acceptPartialEdit.isActiveEditorWithDiffs"
-  },
-  {
-    "key": "cmd+y",
-    "command": "-editor.action.inlineDiffs.acceptPartialEdit",
-    "when": "editorTextFocus && @inlineDiffs.acceptPartialEdit.isActiveEditorWithDiffs"
-  },
-  {
-    "key": "ctrl+.",
-    "command": "editor.action.inlineDiffs.nextChange",
-    "when": "editorTextFocus && @inlineDiffs.nextChange.isActiveEditorWithDiffs"
-  },
-  {
-    "key": "alt+j",
-    "command": "-editor.action.inlineDiffs.nextChange",
-    "when": "editorTextFocus && @inlineDiffs.nextChange.isActiveEditorWithDiffs"
-  },
-  {
-    "key": "ctrl+,",
-    "command": "editor.action.inlineDiffs.previousChange",
-    "when": "editorTextFocus && @inlineDiffs.previousChange.isActiveEditorWithDiffs"
-  },
-  {
-    "key": "alt+k",
-    "command": "-editor.action.inlineDiffs.previousChange",
-    "when": "editorTextFocus && @inlineDiffs.previousChange.isActiveEditorWithDiffs"
-  },
-  {
     "key": "shift+enter",
     "command": "workbench.action.terminal.sendSequence",
     "args": {
       "text": "\\\r\n"
     },
     "when": "terminalFocus"
+  },
+  {
+    "key": "ctrl+enter",
+    "command": "editor.action.inlineDiffs.acceptPartialEdit",
+    "when": "editorTextFocus && inlineDiffs.activeEditorWithDiffs"
+  },
+  {
+    "key": "ctrl+.",
+    "command": "editor.action.inlineDiffs.nextChange",
+    "when": "editorTextFocus && inlineDiffs.activeEditorWithDiffs"
+  },
+  {
+    "key": "ctrl+,",
+    "command": "editor.action.inlineDiffs.previousChange",
+    "when": "editorTextFocus && inlineDiffs.activeEditorWithDiffs"
   }
 ]

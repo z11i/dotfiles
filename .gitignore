@@ -2,3 +2,4 @@ config/nvim/.netrwhist
 .vscode/*
 config/fish/conf.d/
 config/nvim/plugin/packer_compiled.lua
+.claude/settings.local.json
