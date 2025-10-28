@@ -32,7 +32,8 @@ wezterm.on("window-config-reloaded", function(window, pane)
 		window:set_config_overrides(overrides)
 	end
 
-	os.execute("/usr/local/bin/switch-theme " .. string.lower(appearance))
+	-- Run theme switch in background to avoid blocking WezTerm UI
+	wezterm.background_child_process({ "/usr/local/bin/switch-theme", string.lower(appearance) })
 
 	-- Adjust font size based on screen resolution
 	local screens = wezterm.gui and wezterm.gui.screens() or { active = {} }

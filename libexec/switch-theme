@@ -25,16 +25,18 @@ reload-helix() {
 	# Generate config.toml by combining theme + base config
 	cat ~/.config/helix/theme_"$1".toml ~/.config/helix/config-base.toml > ~/.config/helix/config.toml
 
-	# Try to reload running Helix instances
-	# Helix will auto-reload config when it detects changes
+	# Reload running Helix instances by sending USR1 signal
+	pkill -USR1 hx 2>/dev/null
 }
 
 switch-theme() {
 	if [[ "$1" = 'dark' || "$1" = 'light' ]]; then
-		reload-fish "$@"
-		reload-git "$@"
-		reload-neovim "$@"
-		reload-helix "$@"
+		# Run all reloads in parallel for faster theme switching
+		reload-fish "$@" &
+		reload-git "$@" &
+		reload-neovim "$@" &
+		reload-helix "$@" &
+		wait
 	fi
 }
 
