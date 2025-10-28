@@ -31,7 +31,27 @@ wezterm.on("window-config-reloaded", function(window, pane)
 		overrides.color_scheme = scheme
 		window:set_config_overrides(overrides)
 	end
+
 	os.execute("/usr/local/bin/switch-theme " .. string.lower(appearance))
+
+	-- Adjust font size based on screen resolution
+	local screens = wezterm.gui and wezterm.gui.screens() or { active = {} }
+	local screen = screens.active or {}
+	local screen_width = screen.width or 0
+	local screen_height = screen.height or 0
+	local screen_scale = screen.scale or 1.0
+
+	local font_size = 16 -- default
+	if screen_scale <= 1.0 and (screen_width >= 3840 or screen_height >= 2160) then
+		font_size = 18 -- 4K external display
+	elseif screen_scale >= 2.0 then
+		font_size = 15 -- MacBook retina display (HiDPI)
+	end
+
+	if overrides.font_size ~= font_size then
+		overrides.font_size = font_size
+		window:set_config_overrides(overrides)
+	end
 end)
 --#endregion
 
@@ -173,9 +193,8 @@ return {
 	bold_brightens_ansi_colors = true,
 	enable_scroll_bar = true,
 	font = wezterm.font_with_fallback({ "Berkeley Mono SemiCondensed", "Berkeley Mono", "PingFang SC" }),
-	font_size = 15,
 	keys = keys,
-	line_height = 1.25,
+	line_height = 1.2,
 	scrollback_lines = 1048576,
 	tab_max_width = 200,
 	window_decorations = "INTEGRATED_BUTTONS|RESIZE",
