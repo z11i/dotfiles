@@ -13,3 +13,6 @@ __pycache__/
 **/*~
 **/*.bak
 **/*.sw[abcdefghijklmnop]
+
+# === LLM === #
+**/.claude/settings.local.json
