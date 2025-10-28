@@ -1,5 +1,3 @@
-theme = "ayu_dark"
-
 [editor]
 color-modes = true
 middle-click-paste = false
