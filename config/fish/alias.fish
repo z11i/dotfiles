@@ -11,9 +11,11 @@ abbr b bazel
 abbr bb 'bazel build'
 abbr br 'bazel run'
 abbr bt 'bazel test'
+abbr c claude
 abbr cdtemp 'cd (mktemp -d)'
 abbr cg cargo
 abbr clean "clear && printf '\e[3J'"
+abbr cp 'claude -p'
 abbr d docker
 abbr dc 'docker compose'
 abbr de 'docker exec -it'
@@ -27,11 +29,11 @@ abbr gd 'git diff'
 abbr gf 'git f3'
 abbr ghe 'gh copilot explain'
 abbr ghs 'gh copilot suggest'
+abbr gpco 'gh pr checkout'
+abbr gpco- 'gh pr checkout (gh pr ls -A @me | fzf | awk \'{print $1}\')'
 abbr gpm 'gh pr ls -A @me'
 abbr gpv 'gh pr view'
 abbr gpv 'gh pr view'
-abbr gpco 'gh pr checkout'
-abbr gpco- 'gh pr checkout (gh pr ls -A @me | fzf | awk \'{print $1}\')'
 abbr gs 'git status'
 abbr h helm
 abbr jql "jq -cR 'fromjson? // .'"
@@ -56,3 +58,5 @@ abbr tm 'tmux new -A -s main'
 abbr uuid 'echo -n (uuidgen) | pbcopy'
 abbr v nvim
 abbr vim nvim
+
+alias ls eza
