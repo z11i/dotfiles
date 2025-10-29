@@ -10,3 +10,7 @@ language-servers = ["gopls"]
 command = "gopls"
 args = []
 config = { "staticcheck" = true, "usePlaceholders" = true, "analyses" = { "unusedparams" = true } }
+
+[language-server.ruff]
+command = "ruff"
+args = ["server", "--preview"]
