@@ -1,11 +1,15 @@
-# { config, pkgs, ... }:
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "z11i";
   home.homeDirectory = "/Users/z11i";
+
+  # Allow unfree packages selectively
+  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+    "claude-code"
+  ];
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -19,61 +23,60 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
-    # # Adds the 'hello' command to your environment. It prints a friendly
-    # # "Hello, world!" when run.
-    # pkgs.hello
+    # Core utilities
+    pkgs.bat               # Colorful cat alternative with syntax highlighting
+    pkgs.cacert            # CA certificates bundle
+    pkgs.coreutils         # GNU core utilities
+    pkgs.du-dust           # Visual disk usage analyzer (intuitive du alternative)
+    pkgs.eza               # Modern ls replacement with colors and icons
+    pkgs.fd                # Fast find alternative
+    pkgs.findutils         # GNU find, xargs, locate
+    pkgs.ripgrep           # Fast recursive grep (rg)
+    pkgs.wget              # File downloader
+    pkgs.zoxide            # Smarter cd command that learns your habits
 
-    # # It is sometimes useful to fine-tune packages, for example, by applying
-    # # overrides. You can do that directly here, just don't forget the
-    # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
-    # # fonts?
-    # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
+    # File management
+    pkgs.yazi              # Modern TUI file manager with image previews
 
-    # # You can also create simple shell scripts directly inside your
-    # # configuration. For example, this adds a command 'my-hello' to your
-    # # environment:
-    # (pkgs.writeShellScriptBin "my-hello" ''
-    #   echo "Hello, ${config.home.username}!"
-    # '')
-    pkgs.bat
-    pkgs.cacert
-    pkgs.coreutils
-    pkgs.du-dust
-    pkgs.entr
-    pkgs.exercism
-    pkgs.eza
-    pkgs.fd
-    pkgs.findutils
-    pkgs.fzf
-    pkgs.gh
-    pkgs.gitAndTools.delta
-    pkgs.gitAndTools.difftastic
-    pkgs.gitAndTools.gitFull
-    pkgs.gnugrep
-    pkgs.gnupg
-    pkgs.gnused
-    pkgs.helix
-    pkgs.htop
-    pkgs.jq
-    pkgs.lazygit
-    pkgs.libressl
-    pkgs.neovim
-    pkgs.nix
-    pkgs.pgcli
-    pkgs.ripgrep
-    pkgs.skim
-    pkgs.socat
-    pkgs.starship
-    pkgs.tmux
-    pkgs.tree
-    pkgs.universal-ctags
-    pkgs.unixtools.watch
-    pkgs.vivid
-    pkgs.wget
-    pkgs.xan
-    pkgs.yazi
-    pkgs.yq-go
-    pkgs.zoxide
+    # Development tools
+    pkgs.claude-code       # Claude AI coding assistant (unfree)
+    pkgs.gh                # GitHub CLI
+    pkgs.lazygit           # Terminal UI for git
+    pkgs.universal-ctags   # Code indexing for editors
+
+    # Editors
+    pkgs.helix             # Modern modal editor with built-in LSP
+    pkgs.neovim            # Primary terminal editor
+
+    # Git tools
+    pkgs.gitAndTools.delta       # Syntax-highlighting git diff pager
+    pkgs.gitAndTools.difftastic  # Structural diff tool
+    pkgs.gitAndTools.gitFull     # Git with all optional features
+
+    # Shell & terminal
+    pkgs.entr              # Run commands when files change (live reload)
+    pkgs.fzf               # Fuzzy finder for command-line
+    pkgs.starship          # Customizable shell prompt
+    pkgs.unixtools.watch   # Execute program periodically
+
+    # Data processing
+    pkgs.jq                # JSON processor
+    pkgs.xan               # CSV processing toolkit
+    pkgs.yq-go             # YAML/XML/TOML processor (Go version)
+
+    # Security & networking
+    pkgs.gnupg             # GPG encryption
+    pkgs.libressl          # TLS/SSL toolkit
+    pkgs.socat             # Multipurpose relay for network connections
+
+    # System tools
+    pkgs.gnugrep           # GNU grep
+    pkgs.gnused            # GNU sed
+    pkgs.htop              # Interactive process viewer
+    pkgs.nix               # Nix package manager
+
+    # Language-specific
+    pkgs.pgcli             # Postgres CLI with autocomplete
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
