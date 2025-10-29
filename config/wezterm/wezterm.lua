@@ -152,26 +152,98 @@ assign_key(
 	end)
 )
 
--- Floating pane keybindings (yazi, lazygit, scrollback capture)
-assign_key({ "CMD" }, "y", wezterm.action_callback(function(window, pane)
-	local cwd = pane:get_current_working_dir()
-	pane:split({
-		direction = "Right",
-		size = 0.95,
-		args = { os.getenv("SHELL"), "-l", "-c", "yazi" },
-		cwd = cwd,
-	})
-end))
+-- Toggle floating pane functionality
+-- Simple base64 encoder
+local function base64_encode(data)
+	local b = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
+	return ((data:gsub(".", function(x)
+		local r, b = "", x:byte()
+		for i = 8, 1, -1 do
+			r = r .. (b % 2 ^ i - b % 2 ^ (i - 1) > 0 and "1" or "0")
+		end
+		return r
+	end) .. "0000"):gsub("%d%d%d?%d?%d?%d?", function(x)
+		if #x < 6 then
+			return ""
+		end
+		local c = 0
+		for i = 1, 6 do
+			c = c + (x:sub(i, i) == "1" and 2 ^ (6 - i) or 0)
+		end
+		return b:sub(c + 1, c + 1)
+	end) .. ({ "", "==", "=" })[#data % 3 + 1])
+end
 
-assign_key({ "CMD" }, "g", wezterm.action_callback(function(window, pane)
-	local cwd = pane:get_current_working_dir()
-	pane:split({
-		direction = "Right",
-		size = 0.95,
-		args = { os.getenv("SHELL"), "-l", "-c", "lazygit" },
-		cwd = cwd,
-	})
-end))
+local function find_pane_by_program(tab, program_name)
+	wezterm.log_info("Looking for program: " .. program_name)
+	for _, p in ipairs(tab:panes()) do
+		local user_vars = p:get_user_vars()
+		wezterm.log_info("Pane " .. p:pane_id() .. " user_vars: " .. wezterm.json_encode(user_vars))
+		if user_vars.wezterm_prog == program_name then
+			wezterm.log_info("Match found via user var!")
+			return p
+		end
+		-- Fallback: check foreground process
+		local process_info = p:get_foreground_process_info()
+		if process_info then
+			wezterm.log_info("Pane " .. p:pane_id() .. " process: " .. tostring(process_info.name))
+			if process_info.name == program_name then
+				wezterm.log_info("Match found via process name!")
+				return p
+			end
+		end
+	end
+	wezterm.log_info("No match found")
+	return nil
+end
+
+local function toggle_program(program_name, program_cmd)
+	return wezterm.action_callback(function(window, pane)
+		local tab = window:active_tab()
+		local existing_pane = find_pane_by_program(tab, program_name)
+
+		-- If we're currently in the program pane, close it
+		if existing_pane and pane:pane_id() == existing_pane:pane_id() then
+			wezterm.log_info("In program pane, closing it")
+			window:perform_action(action.CloseCurrentPane({ confirm = false }), existing_pane)
+			return
+		end
+
+		-- If program pane exists but we're not in it, activate and zoom it
+		if existing_pane then
+			wezterm.log_info("Switching to existing program pane and zooming")
+			existing_pane:activate()
+			tab:set_zoomed(true)
+			return
+		end
+
+		-- Program pane doesn't exist, create it
+		wezterm.log_info("Creating new pane for: " .. program_name)
+		local cwd = pane:get_current_working_dir()
+		local encoded_name = base64_encode(program_name)
+		wezterm.log_info("Base64 encoded name: " .. encoded_name)
+		local wrapped_cmd = string.format(
+			'printf "\\033]1337;SetUserVar=wezterm_prog=%s\\007"; %s',
+			encoded_name,
+			program_cmd
+		)
+		wezterm.log_info("Running command: " .. wrapped_cmd)
+		pane:split({
+			direction = "Right",
+			size = 0.4,
+			args = { os.getenv("SHELL"), "-l", "-c", wrapped_cmd },
+			cwd = cwd,
+		})
+		-- Note: newly created pane is automatically activated, zoom it
+		tab:set_zoomed(true)
+		wezterm.log_info("Created and zoomed new pane")
+	end)
+end
+
+-- Floating pane keybindings (yazi, lazygit, claude code, scrollback capture)
+assign_key({ "CMD" }, "y", toggle_program("yazi", "yazi"))
+assign_key({ "CMD" }, "g", toggle_program("lazygit", "lazygit"))
+assign_key({ "CMD" }, "0", toggle_program("claude", "claude"))
 
 assign_key({ "CMD" }, "e", wezterm.action_callback(function(window, pane)
 	local text = pane:get_lines_as_text(pane:get_dimensions().scrollback_rows)
