@@ -4,7 +4,7 @@ local wezterm = require("wezterm")
 local function scheme_for_appearance(appearance)
 	if appearance:find("Dark") then
 		-- return "Catppuccin Mocha",
-		return "tokyonight",
+		return "Ayu Dark (Gogh)",
 			{
 				window_frame = {
 					active_titlebar_bg = "#333333",
@@ -12,8 +12,8 @@ local function scheme_for_appearance(appearance)
 				},
 			}
 	else
-		-- return "Catppuccin Latte",
-		return "tokyonight-day",
+		return "Catppuccin Latte",
+		-- return "Everforest Light Hard (Gogh)",
 			{
 				window_frame = {
 					active_titlebar_bg = "#eeeeee",
@@ -46,7 +46,7 @@ wezterm.on("window-config-reloaded", function(window, pane)
 	if screen_scale <= 1.0 and (screen_width >= 3840 or screen_height >= 2160) then
 		font_size = 18 -- 4K external display
 	elseif screen_scale >= 2.0 then
-		font_size = 15 -- MacBook retina display (HiDPI)
+		font_size = 17 -- MacBook retina display (HiDPI)
 	end
 
 	if overrides.font_size ~= font_size then
@@ -243,7 +243,7 @@ end
 -- Floating pane keybindings (yazi, lazygit, claude code, scrollback capture)
 assign_key({ "CMD" }, "y", toggle_program("yazi", "yazi"))
 assign_key({ "CMD" }, "g", toggle_program("lazygit", "lazygit"))
-assign_key({ "CMD" }, "0", toggle_program("claude", "claude"))
+assign_key({ "CMD" }, "d", toggle_program("claude", "claude"))
 
 assign_key({ "CMD" }, "e", wezterm.action_callback(function(window, pane)
 	local text = pane:get_lines_as_text(pane:get_dimensions().scrollback_rows)
@@ -267,7 +267,7 @@ return {
 	enable_scroll_bar = true,
 	font = wezterm.font_with_fallback({ "Berkeley Mono SemiCondensed", "Berkeley Mono", "PingFang SC" }),
 	keys = keys,
-	line_height = 1.2,
+	line_height = 1.3,
 	scrollback_lines = 1048576,
 	tab_max_width = 200,
 	window_decorations = "INTEGRATED_BUTTONS|RESIZE",
