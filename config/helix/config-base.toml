@@ -1,7 +1,19 @@
+# !!! -------------------------------------------- !!!
+# !!! Do not change config.toml as it is generated !!!
+# !!! Any edits should go into config-base.toml    !!!
+# !!! -------------------------------------------- !!!
 [editor]
 color-modes = true
 middle-click-paste = false
 bufferline = "always"
+
+[editor.indent-guides]
+render = true
+character = "⏐"
+skip-levels = 1
+
+[editor.soft-wrap]
+enable = true
 
 [editor.statusline]
 left = [
@@ -32,3 +44,11 @@ separator = "│"
 
 [editor.cursor-shape]
 insert = "bar"
+
+[keys.normal.space.b]
+b = "buffer_picker"
+c = ":buffer-close"
+r = ":reload"
+R = ":reload-all"
+w = ":write"
+x = ":write-buffer-close"
