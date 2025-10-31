@@ -5,7 +5,7 @@
   "cursor.terminal.usePreviewBox": true,
   "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
   "editor.cursorSmoothCaretAnimation": "on",
-  "editor.fontFamily": "'Berkeley Mono SemiCondensed'",
+  "editor.fontFamily": "'Berkeley Mono Condensed'",
   "editor.inlayHints.padding": true,
   "editor.language.colorizedBracketPairs": [],
   "editor.wordWrap": "on",
