@@ -7,9 +7,12 @@ color-modes = true
 middle-click-paste = false
 bufferline = "always"
 
+[editor.cursor-shape]
+insert = "bar"
+
 [editor.indent-guides]
 render = true
-character = "⏐"
+character = "|"
 skip-levels = 1
 
 [editor.soft-wrap]
@@ -41,9 +44,9 @@ right = [
 ]
 separator = "│"
 
-
-[editor.cursor-shape]
-insert = "bar"
+[editor.whitespace]
+render.newline = "all"
+# characters.newline = "¬"
 
 [keys.normal.space.b]
 b = "buffer_picker"
@@ -52,3 +55,17 @@ r = ":reload"
 R = ":reload-all"
 w = ":write"
 x = ":write-buffer-close"
+
+# # Change the confusing behavior of x and X.
+# [keys.normal]
+# "x" = "extend_to_line_bounds"
+# "X" = ["extend_line_up", "extend_to_line_bounds"]
+# "D" = ["extend_to_line_bounds", "delete_selection"]
+# "C" = ["extend_to_line_bounds", "change_selection"]
+# "Y" = ["extend_to_line_bounds", "yank"]
+# [keys.select]
+# "x" = "extend_to_line_bounds"
+# "X" = ["extend_line_up", "extend_to_line_bounds"]
+# "D" = ["extend_to_line_bounds", "delete_selection"]
+# "C" = ["extend_to_line_bounds", "change_selection"]
+# "Y" = ["extend_to_line_bounds", "yank"]
