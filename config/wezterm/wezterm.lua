@@ -42,9 +42,9 @@ wezterm.on("window-config-reloaded", function(window, pane)
 	local screen_height = screen.height or 0
 	local screen_scale = screen.scale or 1.0
 
-	local font_size = 17 -- default
+	local font_size = 16 -- default
 	if screen_scale <= 1.0 and (screen_width >= 3840 or screen_height >= 2160) then
-		font_size = 19 -- 4K external display
+		font_size = 18 -- 4K external display
 	end
 
 	if overrides.font_size ~= font_size then
